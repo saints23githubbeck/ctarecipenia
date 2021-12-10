@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../../../assets/css/Header.module.css';
-import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Button, Container, Form, FormControl, Modal, Nav, Navbar, } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 // const homeProduct = [
 //     {
@@ -9,6 +9,10 @@ import { NavLink } from 'react-router-dom';
 //     }
 // ]
 const Header = () => {
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     return (
         <>
             <Navbar collapseOnSelect expand="lg" className={styles.menu}>
@@ -28,22 +32,38 @@ const Header = () => {
                             <Nav.Link as={NavLink} to="/community" className={styles.itemNav}>Community</Nav.Link>
                             <Nav.Link as={NavLink} to="/contact" className={styles.itemNav}>Contact Us</Nav.Link>
                         </Nav>
-                        <Nav className="ms-auto">
-                            <NavDropdown title="Link" id="navbarScrollingDropdown">
-                                <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                                <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="#action5">
-                                    Something else here
-                                </NavDropdown.Item>
-                            </NavDropdown>
-                            <Nav.Link eventKey={2} href="#memes">
-                                Dank memes
+                        <Nav className="ms-auto align-items-center">
+                            <Nav.Link onClick={handleShow} className={styles.itemNav}>
+                                <i class="fas fa-search"></i>
+                            </Nav.Link>
+                            <Nav.Link as={NavLink} to="/login" className={styles.itemNav}>
+                                <i className="fas fa-user"></i> Login
+                            </Nav.Link>
+                            <Nav.Link as={NavLink} to="/addrecipe" className={styles.itemNav}>
+                                <Button className={styles.recipebtn}>
+                                    <i className="fas fa-plus-circle"></i> Add Recipe
+                                </Button>
                             </Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Search Recipe Name</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form className="d-flex">
+                        <FormControl
+                            type="search"
+                            placeholder="Search"
+                            className="me-2"
+                            aria-label="Search"
+                        />
+                        <Button variant="outline-success">Search</Button>
+                    </Form>
+                </Modal.Body>
+            </Modal>
         </>
     );
 };
