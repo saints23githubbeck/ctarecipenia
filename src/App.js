@@ -1,11 +1,12 @@
 import './App.css';
+import Communities from './components/CommunityContainer/Communities/Communities';
 import LoginRegister from './components/LoginRegister/LoginRegister';
 
 function App() {
   return (
-    <div>
-      <LoginRegister></LoginRegister>
-    </div>
+    <>
+      <Communities></Communities>
+    </>
   );
 }
 

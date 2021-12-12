@@ -75,7 +75,7 @@ const LoginRegister = () => {
                             labelPlacement="end"
                             onChange={handleToggle}
                             style={{ margin: ' 0 0 0 0', color: "black" }}
-                            label="Create Acount?"             
+                            label="Create An Account"           
                         />
                         {/* <div>
                             <div class="row">
