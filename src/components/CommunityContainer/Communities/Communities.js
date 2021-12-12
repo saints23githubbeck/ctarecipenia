@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import useCommunity from '../../../hooks/useCommunity';
 import Community from '../Community/Community';
@@ -12,12 +12,16 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import PinterestIcon from '@mui/icons-material/Pinterest';
-import { margin } from '@mui/system';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 const Communities = () => {
     const {communities}= useCommunity();
+    useEffect(() =>{
+        AOS.init();
+        },[]);
     return (
         <div className='communities'>
-            <Container>
+            <Container data-aos="fade-up" data-aos-delay="500">
                 <div className='text-center w-50 mx-auto'>
                     <h1><b>Meet Our Communities</b></h1>
                     <p className='text-secondary'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum architecto iusto, ullam velit accusantium sunt facilis accusamus! </p>
@@ -33,7 +37,7 @@ const Communities = () => {
                 </div>
             </Container>
             {/* Images  */}
-            <div class="row community-food">
+            <div class="row community-food" data-aos="fade-up" data-aos-delay="500">
                 <div class="col-md-3 p-0">
                     <img className="img-fluid p-0 m-0 w-100" src={food1} alt="" />
                 </div>
@@ -48,7 +52,7 @@ const Communities = () => {
                 </div>
             </div>
             {/* Recipe important Links  */}
-            <div className='text-center mt-3'>
+            <div className='text-center mt-3' data-aos="fade-left" data-aos-delay="500">
                 <img src={communitylogo} alt="" />
                 <div className='nav-menu'>
                     <h3>Home</h3>

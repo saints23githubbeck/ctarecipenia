@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import loginImageBoy from '../../images/login-image.png';
 import loginImageGirl from '../../images/login-image-girl.png';
 import loginLogo from '../../images/login-logo.png';
 import './LoginRegister.css'
 import TextField from '@mui/material/TextField';
 import { Checkbox, FormControlLabel } from '@mui/material';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 const LoginRegister = () => {
     // const [isRegister,setIsregister] = useState(false);
     const [isToggle,setIsToggle] = useState(false);
@@ -16,17 +18,20 @@ const LoginRegister = () => {
     const handleLoginRegister =(e)=>{
         e.preventDefault()
     }
+    useEffect(() =>{
+        AOS.init();
+        },[]);
     return (
         <div id="loginRegister-container">
             <div class="row login-register">
-                <div class="col-md-6 loginimage">
+                <div class="col-md-6 loginimage" data-aos="fade-down" data-aos-delay="500">
                     {isToggle ?
                         <img className='w-100' src={loginImageGirl} alt="" />
                         :
                         <img className='w-100' src={loginImageBoy} alt="" />
                     }
                 </div>
-                <div class="col-md-6 loginimage">
+                <div class="col-md-6 loginimage" data-aos="fade-down" data-aos-delay="500">
                     <div className='login-register-form'>
                         <div class="text-center">
                             <img src={loginLogo} alt="" />

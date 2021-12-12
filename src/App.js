@@ -5,7 +5,7 @@ import LoginRegister from './components/LoginRegister/LoginRegister';
 function App() {
   return (
     <>
-      <Communities></Communities>
+      <LoginRegister></LoginRegister>
     </>
   );
 }

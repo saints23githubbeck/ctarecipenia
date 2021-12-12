@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Community.css';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import PinterestIcon from '@mui/icons-material/Pinterest';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 const Community = ({community}) => {
     const {name,photo,description,facebook,twitter,instagram,pinterest} = community;
+    useEffect(() =>{
+        AOS.init();
+        },[]);
     return (
-        <div className='col-md-4 p-4 mt-4'>
+        <div className='col-md-4 p-4 mt-4' data-aos="fade-up" data-aos-delay="500">
             <div className=' text-center community'>
                 <img className="img-fluid" src={photo} alt="" />
                 <h5>{name}</h5>
