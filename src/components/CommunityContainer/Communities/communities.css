@@ -1,0 +1,11 @@
+.communities{
+    overflow-x: hidden;
+}
+.nav-menu{
+    display: flex;
+    justify-content: center;
+}
+.nav-menu h3{
+    font-family: 'Times New Roman', Times, serif;
+    margin: 10px;
+}

@@ -1,0 +1,102 @@
+#loginRegister-container{
+    overflow-x: hidden;
+}
+.login-register{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-register-form{
+    padding: 50px;
+    display: block;
+    margin: auto;
+    width: 70%;
+}
+.login-register-form .my-input{
+    margin-bottom: 10px;
+}
+.my-input{
+    width: 100%;
+    margin: 20px 0;
+}
+.checked-and-forget-password,.buttons{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.my-bg-button {
+    z-index: 1;
+    position: relative;
+    font-size: inherit;
+    font-family: inherit;
+    outline: none;
+    border: none;
+    background-color: #ff4a4a;
+    padding: 10px 32px;
+    color: #fff;
+  }
+  
+  .my-bg-button::before {
+    content: '';
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #00295f;
+    transform-origin: center right;
+    transform: scaleX(0);
+    transition: transform 0.25s ease-in-out;
+  }
+  
+  .my-bg-button:hover {
+    cursor: pointer;
+  }
+  
+  .my-bg-button:hover::before {
+    transform-origin: center left;
+    transform: scaleX(1);
+  }
+
+
+  .my-register-button {
+    z-index: 1;
+    position: relative;
+    font-size: inherit;
+    font-family: inherit;
+    outline: none;
+    border: none;
+    padding: 10px 32px;
+    border: 1px solid #ff4a4a;
+  }
+  
+  .my-register-button::before {
+    content: '';
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #00295f;
+    transform-origin: center right;
+    transform: scaleX(0);
+    transition: transform 0.25s ease-in-out;
+  }
+  
+  .my-register-button:hover {
+    cursor: pointer;
+    color: #ffffff;
+  }
+  
+  .my-register-button:hover::before {
+    transform-origin: center left;
+    transform: scaleX(1);
+  }
+
+  @media only screen and (max-width:668px) {
+    .login-register-form{
+      width: 90%;
+    }
+  }
