@@ -6,8 +6,8 @@ import Home from './Components/Home/Home';
 import Footer from './Components/Shared/Footer/Footer';
 import Header from './Components/Shared/Header/Header';
 import './App.css';
-import Communities from './components/CommunityContainer/Communities/Communities';
-import LoginRegister from './components/LoginRegister/LoginRegister';
+import Communities from './Components/CommunityContainer/Communities/Communities';
+import LoginRegister from './Components/LoginRegister/LoginRegister';
 function App() {
   return (
     <div className="App">
@@ -20,8 +20,11 @@ function App() {
           <Route exact path="/home">
             <Home />
           </Route>
-         <Route exact path="/register">
-             <LoginRegister />
+          <Route exact path="/community">
+            <Communities />
+          </Route>
+          <Route exact path="/login">
+            <LoginRegister />
           </Route>
         </Switch>
         <Footer />

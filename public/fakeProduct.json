@@ -9,7 +9,7 @@
     },
     {
         "id": 2,
-        "category": "Breakfast",
+        "category": "meal-type",
         "name": "Breakfast sandwich",
         "discription": "How we dream about our future",
         "price": 9.99,
@@ -25,7 +25,7 @@
     },
     {
         "id": 4,
-        "category": "Breakfast",
+        "category": "Diet-and-Health",
         "name": "Toast Croissant Fried egg",
         "discription": "How we dream about our future",
         "price": 19.99,
@@ -72,6 +72,7 @@
         "img": "https://i.ibb.co/q5R0qbZ/lunch3.png"
     },
     {
+
         "id": 10,
         "category": "Lunch",
         "name": "Indian Lunch",
