@@ -94,3 +94,9 @@
     transform-origin: center left;
     transform: scaleX(1);
   }
+
+  @media only screen and (max-width:668px) {
+    .login-register-form{
+      width: 90%;
+    }
+  }
