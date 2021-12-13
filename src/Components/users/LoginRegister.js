@@ -8,19 +8,18 @@ import { Checkbox, FormControlLabel } from '@mui/icons-material';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 const LoginRegister = () => {
-    // const [isRegister,setIsregister] = useState(false);
-    const [isToggle,setIsToggle] = useState(false);
-    
-    const handleToggle = (e)=>{
+    const [isToggle, setIsToggle] = useState(false);
+
+    const handleToggle = (e) => {
         setIsToggle(e.target.checked);
     }
-    
-    const handleLoginRegister =(e)=>{
+
+    const handleLoginRegister = (e) => {
         e.preventDefault()
     }
-    useEffect(() =>{
+    useEffect(() => {
         AOS.init();
-        },[]);
+    }, []);
     return (
         <div id="loginRegister-container">
             <div class="row login-register">
@@ -57,45 +56,31 @@ const LoginRegister = () => {
                                     :
                                     <div>
                                         <TextField className="my-input" id="standard-basic" label="User Name" variant="standard" />
-                                    <TextField className="my-input" id="standard-basic" label="Password" type="password" variant="standard" />
+                                        <TextField className="my-input" id="standard-basic" label="Password" type="password" variant="standard" />
                                     </div>
                                 }
                             </div>
-                        <div className='checked-and-forget-password'>
-                            <FormControlLabel
-                                control={<Checkbox />}
+                            <div className='checked-and-forget-password'>
+                                <FormControlLabel
+                                    control={<Checkbox />}
                                     labelPlacement="end"
                                     style={{ margin: ' 0 0 0 0', color: "black" }}
-                                    label="Remember Me"             
-                            />
-                            <span className='text-primary'>
-                                Forgot Password
-                            </span>
-                        </div>
-                        <div className='d-grid mt-2'>
-                            <button className='my-bg-button'>{isToggle? "Register" : "Login"}</button>
-                        </div>
-                        <FormControlLabel
-                            control={<Checkbox />}
-                            labelPlacement="end"
-                            onChange={handleToggle}
-                            style={{ margin: ' 0 0 0 0', color: "black" }}
-                            label="Create An Account"           
-                        />
-                        {/* <div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div className='d-grid mt-2'>
-                                        <button className='my-bg-button'>Login</button>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div className='d-grid mt-2'>
-                                        <button onChange={handleRegister} className='my-register-button'>Register</button>
-                                    </div>
-                                </div>
+                                    label="Remember Me"
+                                />
+                                <span className='text-primary'>
+                                    Forgot Password
+                                </span>
                             </div>
-                        </div> */}
+                            <div className='d-grid mt-2'>
+                                <button className='my-bg-button'>{isToggle ? "Register" : "Login"}</button>
+                            </div>
+                            <FormControlLabel
+                                control={<Checkbox />}
+                                labelPlacement="end"
+                                onChange={handleToggle}
+                                style={{ margin: ' 0 0 0 0', color: "black" }}
+                                label="Create An Account"
+                            />
                         </form>
                     </div>
                 </div>
