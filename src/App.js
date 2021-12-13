@@ -7,7 +7,7 @@ import Footer from './Components/Shared/Footer/Footer';
 import Header from './Components/Shared/Header/Header';
 import './App.css';
 import Communities from './components/CommunityContainer/Communities/Communities';
-import LoginRegister from './components/LoginRegister/LoginRegister';
+import LoginRegister from './Components/users/LoginRegister';
 function App() {
   return (
     <div className="App">
