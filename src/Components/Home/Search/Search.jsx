@@ -4,7 +4,7 @@ import styles from '../../../assets/css/Search.module.css';
 
 const Search = () => {
     return (
-        <Container className='mb-5'>
+        <Container className='mt-5'>
             <div className='d-flex align-items-center'>
                 <DropdownButton
                     id="dropdown-button-dark-example2"
