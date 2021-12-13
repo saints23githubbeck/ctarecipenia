@@ -2,15 +2,8 @@ import React, { useState } from 'react';
 import styles from '../../../assets/css/Header.module.css';
 import { Button, Container, Form, FormControl, Modal, Nav, Navbar, } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
-// const homeProduct = [
-//     {
-//         id: 1,
-//         title: "test"
-//     }
-// ]
 const Header = () => {
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     return (
@@ -34,7 +27,7 @@ const Header = () => {
                         </Nav>
                         <Nav className="ms-auto align-items-center">
                             <Nav.Link onClick={handleShow} className={styles.itemNav}>
-                                <i class="fas fa-search"></i>
+                                <i className="fas fa-search"></i>
                             </Nav.Link>
                             <Nav.Link as={NavLink} to="/login" className={styles.itemNav}>
                                 <i className="fas fa-user"></i> Login
@@ -56,7 +49,7 @@ const Header = () => {
                     <Form className="d-flex">
                         <FormControl
                             type="search"
-                            placeholder="Search"
+                            placeholder="Recipe Keyword"
                             className="me-2"
                             aria-label="Search"
                         />
