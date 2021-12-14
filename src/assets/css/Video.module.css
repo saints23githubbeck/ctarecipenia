@@ -1,0 +1,10 @@
+.sectionTitle {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+}
+.video {
+    color: #FF4A4A;
+    font-size: 30px;
+    font-weight: bold;
+}

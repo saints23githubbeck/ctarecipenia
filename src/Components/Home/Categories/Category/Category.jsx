@@ -4,12 +4,12 @@ import { Card, Col, Button } from 'react-bootstrap';
 const Category = ({ product }) => {
     const { name, img, price, discription } = product;
     return (
-        <Col xs={12} sm={12} md={6} lg={4}>
+        <Col xs={12} sm={12} md={3} lg={4}>
             <Card className="porduct_card h-100">
                 <Card.Img width="100%" className="product_img img-fluid mx-auto p-3" src={img} />
                 <Card.Body>
                     <div className="text-center mb-5">
-                        <Card.Title>
+                        <Card.Title style={{ color: '#fd3d0d', fontSize: '18px', fontWeight: '800' }}>
                             {name}
                         </Card.Title>
                         <Card.Text>

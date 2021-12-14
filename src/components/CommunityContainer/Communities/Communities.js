@@ -15,12 +15,12 @@ import PinterestIcon from '@mui/icons-material/Pinterest';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 const Communities = () => {
-    const {communities}= useCommunity();
-    useEffect(() =>{
+    const { communities } = useCommunity();
+    useEffect(() => {
         AOS.init();
-        },[]);
+    }, []);
     return (
-        <div className='communities'>
+        <div className='communities mt-5'>
             <Container data-aos="fade-up" data-aos-delay="500">
                 <div className='text-center w-50 mx-auto'>
                     <h1><b>Meet Our Communities</b></h1>
@@ -29,8 +29,8 @@ const Communities = () => {
                 <div>
                     <div class="row mt-5">
                         {
-                            communities.map(community=> <Community
-                                community = {community}
+                            communities.map(community => <Community
+                                community={community}
                             ></Community>)
                         }
                     </div>
@@ -61,13 +61,13 @@ const Communities = () => {
                     <h3>Contact Us</h3>
                 </div>
                 <div>
-                    <PinterestIcon style={{fontSize:"35px", color:"gray", margin:"0 7px"}} />
-                    <FacebookIcon style={{fontSize:"35px", color:"gray", margin:"0 7px"}} />
-                    <InstagramIcon style={{fontSize:"35px", color:"gray", margin:"0 7px"}} />
-                    <TwitterIcon style={{fontSize:"35px", color:"gray", margin:"0 7px"}} />
+                    <PinterestIcon style={{ fontSize: "35px", color: "gray", margin: "0 7px" }} />
+                    <FacebookIcon style={{ fontSize: "35px", color: "gray", margin: "0 7px" }} />
+                    <InstagramIcon style={{ fontSize: "35px", color: "gray", margin: "0 7px" }} />
+                    <TwitterIcon style={{ fontSize: "35px", color: "gray", margin: "0 7px" }} />
                 </div>
             </div>
-            <hr className='mx-auto' style={{width:"80%"}} />
+            <hr className='mx-auto' style={{ width: "80%" }} />
             <p className='text-center'>All Right Reserved @copy 2021</p>
         </div>
     );
