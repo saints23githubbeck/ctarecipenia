@@ -17,6 +17,8 @@ const Categories = () => {
     const world = CatProduct.filter((product) => product.category === "World-Cuisine");
     return (
         <Container className={styles.cattab}>
+            <h1 className='text-center'>Recipe Categories</h1>
+            <p className='text-center fs-5'>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy <br /> eirmod tempor invidunt ut labore et dolore magna aliquyam</p>
             <Row>
                 <Col className="col-12">
                     <Tabs

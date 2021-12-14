@@ -5,7 +5,6 @@ import './assets/css/global.css';
 import Home from './Components/Home/Home';
 import Footer from './Components/Shared/Footer/Footer';
 import Header from './Components/Shared/Header/Header';
-import './App.css';
 import Communities from './Components/CommunityContainer/Communities/Communities';
 import LoginRegister from './Components/LoginRegister/LoginRegister';
 function App() {
