@@ -9,7 +9,7 @@ import styles from '../../../assets/css/Footer.module.css';
 const Footer = () => {
     return (
         <div className={styles.communities}>
-            <div className='text-center mt-3' data-aos="fade-left" data-aos-delay="500">
+            <div className='text-center mt-3'>
                 <img src={communitylogo} alt="" />
                 <div className={styles.navmenu}>
                     <h3>Home</h3>

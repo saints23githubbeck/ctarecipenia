@@ -8,7 +8,7 @@ import food4 from '../../../images/food4.png';
 const Show = () => {
     return (
         <div className={styles.communities}>
-            <div class="row community-food" data-aos="fade-up" data-aos-delay="500">
+            <div class="row community-food">
                 <div class="col-md-3 p-0">
                     <img className="img-fluid p-0 m-0 w-100" src={food1} alt="" />
                 </div>
