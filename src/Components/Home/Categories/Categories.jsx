@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Col, Container, Row, Spinner, Tab, Tabs } from 'react-bootstrap';
 import useProduct from '../../../hooks/useProduct';
@@ -72,6 +73,9 @@ const Categories = () => {
                 </Col>
             </Row>
         </Container >
+
+
+
     );
 };
 
