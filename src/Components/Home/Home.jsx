@@ -1,6 +1,8 @@
 import React from 'react';
 import Slider from '../Home/Slider/Slider'
+import Show from '../Shared/Show/Show';
 import Categories from './Categories/Categories';
+import Newsletter from './Newsletter/Newsletter';
 import Popular from './Popular/Popular';
 import Search from './Search/Search';
 import Trending from './Trending/Trending';
@@ -15,6 +17,8 @@ const Home = () => {
             <Popular />
             <Trending />
             <Video />
+            <Newsletter />
+            <Show />
         </>
     );
 };

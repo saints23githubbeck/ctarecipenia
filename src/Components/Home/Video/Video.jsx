@@ -23,7 +23,7 @@ const Video = () => {
                         </div>
                     </div>
                 </Row>
-                <div className='py-1'>
+                <div className='py-5'>
                     <Row xs={1} md={2} className='g-4'>
                         {bigVideo.map(video => (
                             <Col key={video.id} className={styles.cardContainer}>

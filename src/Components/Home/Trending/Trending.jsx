@@ -21,7 +21,7 @@ const Trending = () => {
                         </div>
                     </div>
                 </Row>
-                <div className='py-1'>
+                <div className='py-5'>
                     <Row className='g-4'>
                         {
                             trending.map(trending => <SingleTrending
