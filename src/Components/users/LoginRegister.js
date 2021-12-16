@@ -4,9 +4,10 @@ import loginImageGirl from '../../images/login-image-girl.png';
 import loginLogo from '../../images/login-logo.png';
 import './LoginRegister.css'
 import TextField from '@mui/material/TextField';
-import { Checkbox, FormControlLabel } from '@mui/icons-material';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { Checkbox } from '@mui/material';
 const LoginRegister = () => {
     const [isToggle, setIsToggle] = useState(false);
 
