@@ -7,6 +7,7 @@ import Footer from './Components/Shared/Footer/Footer';
 import Header from './Components/Shared/Header/Header';
 import Communities from './Components/CommunityContainer/Communities/Communities';
 import LoginRegister from './Components/LoginRegister/LoginRegister';
+import Catgories from './Components/Categories/Catgories';
 function App() {
   return (
     <div className="App">
@@ -18,6 +19,9 @@ function App() {
           </Route>
           <Route exact path="/home">
             <Home />
+          </Route>
+          <Route exact path="/categories">
+            <Catgories />
           </Route>
           <Route exact path="/community">
             <Communities />
