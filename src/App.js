@@ -6,8 +6,11 @@ import Home from './Components/Home/Home';
 import Footer from './Components/Shared/Footer/Footer';
 import Header from './Components/Shared/Header/Header';
 import Communities from './Components/CommunityContainer/Communities/Communities';
-import LoginRegister from './Components/LoginRegister/LoginRegister';
+import LoginRegister from './Components/users/LoginRegister';
+import AboutUs from './Components/AboutUs/AboutUs';
+import ContactUs from './Components/ContactUs/ContactUs';
 import Catgories from './Components/Categories/Catgories';
+
 function App() {
   return (
     <div className="App">
@@ -27,14 +30,18 @@ function App() {
             <Communities />
           </Route>
           <Route exact path="/login">
-            <LoginRegister />
+            <LoginRegister></LoginRegister>
+          </Route>
+          <Route exact path="/about-us">
+            <AboutUs></AboutUs>
+          </Route>
+          <Route exact path="/contact">
+            <ContactUs></ContactUs>
           </Route>
         </Switch>
         <Footer />
       </Router>
     </div>
-
   );
 }
-
 export default App;
