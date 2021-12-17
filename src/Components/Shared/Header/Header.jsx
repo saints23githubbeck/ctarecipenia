@@ -24,6 +24,7 @@ const Header = () => {
                             <Nav.Link as={NavLink} to="/about-us" className={styles.itemNav}>About Us</Nav.Link>
                             <Nav.Link as={NavLink} to="/community" className={styles.itemNav}>Community</Nav.Link>
                             <Nav.Link as={NavLink} to="/contact" className={styles.itemNav}>Contact Us</Nav.Link>
+                            <Nav.Link as={NavLink} to="/dashboard" className={styles.itemNav}>Dashboard</Nav.Link>
                         </Nav>
                         <Nav className="ms-auto align-items-center">
                             <Nav.Link onClick={handleShow} className={styles.itemNav}>
