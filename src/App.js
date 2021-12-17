@@ -6,15 +6,11 @@ import Home from './Components/Home/Home';
 import Footer from './Components/Shared/Footer/Footer';
 import Header from './Components/Shared/Header/Header';
 import Communities from './Components/CommunityContainer/Communities/Communities';
-import LoginRegister from './Components/users/LoginRegister';
+/* import LoginRegister from './Components/users/LoginRegister'; */
 import AboutUs from './Components/AboutUs/AboutUs';
 import ContactUs from './Components/ContactUs/ContactUs';
 import Catgories from './Components/Categories/Catgories';
-<<<<<<< HEAD
 import ResetLink from './Components/ResetLink/ResetLink.js';
-=======
-
->>>>>>> f8aebea4dba98df8d293b96fbff52272aa646e32
 function App() {
   return (
     <div className="App">
@@ -38,9 +34,7 @@ function App() {
           </Route>
           <Route exact path="/login">
 
-           {/*  <LoginRegister /> */}
-
-            <LoginRegister></LoginRegister>
+            {/* <LoginRegister></LoginRegister> */}
           </Route>
           <Route exact path="/about-us">
             <AboutUs></AboutUs>
