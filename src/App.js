@@ -9,6 +9,8 @@ import Communities from './Components/CommunityContainer/Communities/Communities
 import LoginRegister from './Components/users/LoginRegister';
 import AboutUs from './Components/AboutUs/AboutUs';
 import ContactUs from './Components/ContactUs/ContactUs';
+import Catgories from './Components/Categories/Catgories';
+
 function App() {
   return (
     <div className="App">
@@ -20,6 +22,9 @@ function App() {
           </Route>
           <Route exact path="/home">
             <Home />
+          </Route>
+          <Route exact path="/categories">
+            <Catgories />
           </Route>
           <Route exact path="/community">
             <Communities />
