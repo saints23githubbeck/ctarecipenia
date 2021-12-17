@@ -5,8 +5,8 @@ import './assets/css/global.css';
 import Home from './Components/Home/Home';
 import Footer from './Components/Shared/Footer/Footer';
 import Header from './Components/Shared/Header/Header';
-import Communities from './Components/CommunityContainer/Communities/Communities';
-import LoginRegister from './Components/LoginRegister/LoginRegister';
+import Communities from './Components/CommunityContainer/Communities/Communities';/* 
+import LoginRegister from './Components/LoginRegister/LoginRegister'; */
 import Catgories from './Components/Categories/Catgories';
 function App() {
   return (
@@ -27,7 +27,7 @@ function App() {
             <Communities />
           </Route>
           <Route exact path="/login">
-            <LoginRegister />
+           {/*  <LoginRegister /> */}
           </Route>
         </Switch>
         <Footer />
