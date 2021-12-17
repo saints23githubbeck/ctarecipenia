@@ -1,0 +1,22 @@
+.about-container p{
+    text-align: justify;
+}
+.about-title{
+    font-family: 'Times New Roman', Times, serif;
+}
+.about-container blockquote{
+    font-family: 'Times New Roman', Times, serif;
+    text-align: justify;
+}
+.about-thumbnail{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.title-and-thumbnail{
+    display: flex;
+    justify-content: space-between;
+}
+.about-hr{
+    border: 2px solid rgb(8, 1, 1);
+}
