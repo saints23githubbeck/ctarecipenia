@@ -8,6 +8,7 @@ import Header from './Components/Shared/Header/Header';
 import Communities from './Components/CommunityContainer/Communities/Communities';/* 
 import LoginRegister from './Components/LoginRegister/LoginRegister'; */
 import Catgories from './Components/Categories/Catgories';
+import ResetLink from './Components/RestLink/ResetLink.js';
 function App() {
   return (
     <div className="App">
@@ -25,6 +26,9 @@ function App() {
           </Route>
           <Route exact path="/community">
             <Communities />
+          </Route>
+          <Route exact path="/resetlink">
+            <ResetLink />
           </Route>
           <Route exact path="/login">
            {/*  <LoginRegister /> */}
