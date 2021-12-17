@@ -1,12 +1,14 @@
 import React from 'react';
+import MyRecipes from '../MyRecipes/MyRecipes';
 
-import Profile from '../Profile/Profile';
+// import Profile from '../Profile/Profile';
 
 
 const Dashboard = () => {
     return (
         <div>
-            <Profile></Profile>
+            {/* <Profile></Profile> */}
+            {/* <MyRecipes></MyRecipes> */}
          
 
 
