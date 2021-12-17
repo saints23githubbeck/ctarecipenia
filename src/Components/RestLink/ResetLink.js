@@ -2,9 +2,7 @@ import React from 'react';
 import restlilk from '../../images/restlink.png'
 import logo from '../../images/login-logo.png'
 import TextField from '@mui/material/TextField';
-
 import './Restlink.css'
-import { Button } from '@mui/material';
 
 const ResetLink = () => {
     return (
