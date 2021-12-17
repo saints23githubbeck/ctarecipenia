@@ -8,7 +8,7 @@ import Header from './Components/Shared/Header/Header';
 import Communities from './Components/CommunityContainer/Communities/Communities';/* 
 import LoginRegister from './Components/LoginRegister/LoginRegister'; */
 import Catgories from './Components/Categories/Catgories';
-import ResetLink from './Components/RestLink/ResetLink.js';
+import ResetLink from './Components/ResetLink/ResetLink.js';
 function App() {
   return (
     <div className="App">

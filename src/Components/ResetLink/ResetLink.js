@@ -12,7 +12,7 @@ const ResetLink = () => {
             </div>
             <div className='col-md-6 col-12 p-5 text-center'>
                 <img className='pt-5 ' src={logo} alt="" />
-                <p className='py-3 resetText'>Enter your email and we send you a password reset link</p>
+                <p className='py-3 resetText'>Enter your email, we send you a password reset link</p>
                 <TextField className='textfield'
                   label="Email"
                   type="email"
