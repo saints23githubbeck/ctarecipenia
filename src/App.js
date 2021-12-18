@@ -38,9 +38,9 @@ function App() {
           <Route exact path="/contact">
             <ContactUs></ContactUs>
           </Route>
-          <Route exact path="/dashboard">
+          {/* <Route exact path="/dashboard">
             <Dashboard></Dashboard>
-          </Route>
+          </Route> */}
         </Switch>
         <Footer />
       </Router>
