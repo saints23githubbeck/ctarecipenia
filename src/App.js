@@ -10,7 +10,7 @@ import LoginRegister from './Components/users/LoginRegister';
 import AboutUs from './Components/AboutUs/AboutUs';
 import ContactUs from './Components/ContactUs/ContactUs';
 import Catgories from './Components/Categories/Catgories';
-// import Dashboard from './Components/Dashboard/Dashboard';
+import Dashboard from './Components/Dashboard/Dashboard';
 
 function App() {
   return (
@@ -39,9 +39,9 @@ function App() {
           <Route exact path="/contact">
             <ContactUs></ContactUs>
           </Route>
-          {/* <Route exact path="/dashboard">
+          <Route exact path="/dashboard">
             <Dashboard></Dashboard>
-          </Route> */}
+          </Route>
         </Switch>
         <Footer />
       </Router>
