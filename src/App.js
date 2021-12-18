@@ -30,6 +30,9 @@ function App() {
             <Communities />
           </Route>
           <Route exact path="/login">
+
+           {/*  <LoginRegister /> */}
+
             <LoginRegister></LoginRegister>
           </Route>
           <Route exact path="/about-us">
@@ -37,6 +40,7 @@ function App() {
           </Route>
           <Route exact path="/contact">
             <ContactUs></ContactUs>
+
           </Route>
           {/* <Route exact path="/dashboard">
             <Dashboard></Dashboard>
