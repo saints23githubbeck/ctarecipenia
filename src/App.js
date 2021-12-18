@@ -11,6 +11,7 @@ import ContactUs from './Components/ContactUs/ContactUs';
 import Catgories from './Components/Categories/Catgories';
 import ResetLink from './Components/ResetLink/ResetLink.js';
 import Profile from './Components/Recipes/Profile.js';
+import LoginRegister from './Components/users/LoginRegister';
 function App() {
   return (
     <div className="App">
@@ -29,11 +30,18 @@ function App() {
           <Route exact path="/community">
             <Communities />
           </Route>
+
           <Route exact path="/resetlink">
             <ResetLink />
           </Route>
           <Route exact path="/profile">
             <Profile />
+          </Route>
+
+          <Route exact path="/login">
+
+            <LoginRegister></LoginRegister>
+
           </Route>
           <Route exact path="/about-us">
             <AboutUs></AboutUs>
