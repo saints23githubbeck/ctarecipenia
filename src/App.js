@@ -6,11 +6,11 @@ import Home from './Components/Home/Home';
 import Footer from './Components/Shared/Footer/Footer';
 import Header from './Components/Shared/Header/Header';
 import Communities from './Components/CommunityContainer/Communities/Communities';
-/* import LoginRegister from './Components/users/LoginRegister'; */
 import AboutUs from './Components/AboutUs/AboutUs';
 import ContactUs from './Components/ContactUs/ContactUs';
 import Catgories from './Components/Categories/Catgories';
 import ResetLink from './Components/ResetLink/ResetLink.js';
+import Profile from './Components/Recipes/Profile.js';
 function App() {
   return (
     <div className="App">
@@ -32,9 +32,8 @@ function App() {
           <Route exact path="/resetlink">
             <ResetLink />
           </Route>
-          <Route exact path="/login">
-
-            {/* <LoginRegister></LoginRegister> */}
+          <Route exact path="/profile">
+            <Profile />
           </Route>
           <Route exact path="/about-us">
             <AboutUs></AboutUs>

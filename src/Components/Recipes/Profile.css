@@ -1,0 +1,19 @@
+.profile{
+    background-color: #FFCFCF;
+    border-radius: 5px;
+}
+.profileImg{
+    border-radius: 5px;
+
+}
+.profile-details{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+    padding: 20px 0px;
+
+}
+.icons{
+    font-size: 30px;
+    align-items: center;
+}
