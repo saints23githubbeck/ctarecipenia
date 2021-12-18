@@ -60,11 +60,11 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         align-items: center;
-        padding: 10px 0px;
+        padding: 10px 10px;
     
     }
     .icons{
-        font-size: 30px;
+        font-size: 20px;
         align-items: center;
     }
     .des-section{
@@ -72,9 +72,12 @@
         border-radius: 5px !important;
         background-color: #FFCFCF;
     }
+    .quote-left{
+        padding-right: 5px;
+    }
     .quote-right{
         position: relative;
-        bottom: -100px;
-        right: -15px;
+        bottom: -240px;
+        right: 12px;
     }
   }

@@ -4,8 +4,14 @@ import './Profile.css'
 import profile from '../../images/profile.png'
 import { Card, Col, Row } from 'react-bootstrap';
 import recipeImg from '../../assets/image/02.jpg'
+import styles from '../../assets/css/Video.module.css';
+import { Button } from '@mui/material';
+import useMyvideo from '../../hooks/useMyVideo.js';
 
-const Profile = () => (
+
+const Profile = () => {
+    const [myVideo] = useMyvideo();
+    return(
     <>
         <div className=' m-4 d-md-flex'>
             <main className='col-md-9'>
@@ -27,8 +33,8 @@ const Profile = () => (
                 {/* ==============new section start============= */}
                 <div className='col-md-12 mt-4 des-section'>
                     <div>
-                        <div className="row des p-2">
-                            <div className="col-1 ">
+                        <div className="row p-2">
+                            <div className="col-1 quote-left">
                                 <h1><i className="fas fa-quote-left"></i></h1>
                             </div>
 
@@ -96,19 +102,24 @@ const Profile = () => (
                 <div className=' mx-5'>
                     <h1 >Excepture</h1>
                     <hr className='customHR' />
-                    {Array.from({ length: 2 }).map((_, idx) => {
-                        return (
-                            <div>
-                                <video src="">
-                                    
-                                </video>
-                            </div>
-
-                        );
-                    })}
-                </div>
+                    <div className='py-4'>
+                        <Row xs={1} md={1} className='g-4'>
+                            {myVideo.map(video => (
+                                <Col key={video.id} className={styles.cardContainer}>
+                                    <Card className='h-100'>
+                                        <Card.Img className={styles.cardImg} variant="top" src={video?.img} />
+                                        <div className={styles.middle}>
+                                            <div className="card-btn">
+                                                <Button className="bg-transparent"><i className="far fa-play-circle fs-1 fw-bolder"></i></Button>
+                                            </div>
+                                        </div>
+                                    </Card>
+                                </Col>
+                            ))}
+                        </Row>
+                    </div>
+                </div>   
             </aside>
-
 
 
         </div>
@@ -118,5 +129,5 @@ const Profile = () => (
         <Show></Show>
     </>
 );
-
+}
 export default Profile;
