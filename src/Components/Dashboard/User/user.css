@@ -1,0 +1,21 @@
+.form-border {
+  border-top: 1px solid rgb(214, 214, 214);
+
+}
+
+.btn-green{
+        background-color: #2dbb90;
+        color: white;
+        border: none;
+        padding: 8px 28px;
+        border-radius: 2px;
+        font-size: 18px;
+}
+.btn-red{
+        background-color: rgb(238, 5, 5);
+        color: white;
+        border: none;
+        padding: 8px 28px;
+        border-radius: 2px;
+        font-size: 18px;
+}
