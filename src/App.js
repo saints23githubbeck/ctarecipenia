@@ -1,3 +1,4 @@
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./assets/css/global.css";
@@ -11,6 +12,7 @@ import ContactUs from "./Components/ContactUs/ContactUs";
 import Catgories from "./Components/Categories/Catgories";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import ResetLink from './Components/ResetLink/ResetLink.js';
+import Profile from './Components/Recipes/Profile.js';
 
 function App() {
   return (
@@ -30,12 +32,21 @@ function App() {
           <Route exact path="/community">
             <Communities />
           </Route>
+
           <Route exact path="/resetlink">
             <ResetLink />
           </Route>
           <Route exact path="/login">
 
-           {/*  <LoginRegister /> */}
+
+          <Route exact path="/resetlink">
+            <ResetLink />
+          </Route>
+          <Route exact path="/profile">
+            <Profile />
+          </Route>
+
+          <Route exact path="/login">
 
             <LoginRegister></LoginRegister>
 
@@ -45,6 +56,7 @@ function App() {
           </Route>
           <Route exact path="/contact">
             <ContactUs></ContactUs>
+
 
 
           </Route>
