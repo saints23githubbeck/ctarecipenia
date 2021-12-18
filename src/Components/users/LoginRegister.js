@@ -5,6 +5,8 @@ import loginLogo from '../../images/login-logo.png';
 import './LoginRegister.css';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import { Checkbox, FormControlLabel } from '@mui/material';
+import { Checkbox } from '@mui/material';
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
