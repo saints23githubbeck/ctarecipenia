@@ -4,7 +4,7 @@ const ContactInformation = () => {
   return (
     <>
       <form className="text-end">
-        <h1 className="text-center my-5">Settings</h1>
+       
         <div className="row py-2 ">
           <label
             for="inputEmail3"
