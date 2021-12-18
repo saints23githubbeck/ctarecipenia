@@ -10,6 +10,7 @@ import AboutUs from "./Components/AboutUs/AboutUs";
 import ContactUs from "./Components/ContactUs/ContactUs";
 import Catgories from "./Components/Categories/Catgories";
 import Dashboard from "./Components/Dashboard/Dashboard";
+import ResetLink from './Components/ResetLink/ResetLink.js';
 
 function App() {
   return (
@@ -29,11 +30,23 @@ function App() {
           <Route exact path="/community">
             <Communities />
           </Route>
+          <Route exact path="/resetlink">
+            <ResetLink />
+          </Route>
           <Route exact path="/login">
 
            {/*  <LoginRegister /> */}
 
             <LoginRegister></LoginRegister>
+
+          </Route>
+          <Route exact path="/about-us">
+            <AboutUs></AboutUs>
+          </Route>
+          <Route exact path="/contact">
+            <ContactUs></ContactUs>
+
+
           </Route>
           <Route exact path="/about-us">
             <AboutUs></AboutUs>
