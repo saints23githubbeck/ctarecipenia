@@ -37,6 +37,7 @@ function App() {
             <ResetLink />
           </Route>
           <Route exact path="/login">
+          </Route>
 
 
           <Route exact path="/resetlink">
@@ -47,10 +48,9 @@ function App() {
           </Route>
 
           <Route exact path="/login">
-
             <LoginRegister></LoginRegister>
-
           </Route>
+
           <Route exact path="/about-us">
             <AboutUs></AboutUs>
           </Route>

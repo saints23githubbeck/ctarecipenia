@@ -17,3 +17,67 @@
     font-size: 30px;
     align-items: center;
 }
+.des-section{
+    padding: 10px;
+    border-radius: 5px !important;
+    background-color: #FFCFCF;
+}
+.quote-right{
+    position: relative;
+    bottom: -100px;
+    right: -15px;
+}
+.recipe-img{
+    height: 340px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.customHR{
+    width: 180px;
+    background: linear-gradient(to right, #ff0000, #777074a6);
+   height: 4px !important;
+}
+.aside-recipes{
+    background-image: url(../../images/login-image-girl.png);
+    background-repeat: no-repeat;
+    object-fit: cover;
+    color: white;
+    padding: 10px 10px;
+    margin: 25px 0;
+}
+
+.exdetail{
+   padding-bottom: 130px;
+}
+
+  /* mobile device */
+  @media only screen and (max-width:688px) {
+    .profileImg{
+        border-radius: 5px;
+    
+    }
+    .profile-details{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        align-items: center;
+        padding: 10px 10px;
+    
+    }
+    .icons{
+        font-size: 20px;
+        align-items: center;
+    }
+    .des-section{
+        padding: 10px;
+        border-radius: 5px !important;
+        background-color: #FFCFCF;
+    }
+    .quote-left{
+        padding-right: 5px;
+    }
+    .quote-right{
+        position: relative;
+        bottom: -240px;
+        right: 12px;
+    }
+  }
