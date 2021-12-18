@@ -8,7 +8,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import { Checkbox } from '@mui/material';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-
 const LoginRegister = () => {
     // const [isRegister,setIsregister] = useState(false);
     const [isToggle,setIsToggle] = useState(false);
