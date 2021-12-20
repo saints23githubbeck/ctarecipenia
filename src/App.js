@@ -13,6 +13,7 @@ import Catgories from "./Components/Categories/Catgories";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import ResetLink from './Components/ResetLink/ResetLink.js';
 import Profile from './Components/Recipes/Profile.js';
+import Comments from "./Components/Comments/Comments.js";
 
 function App() {
   return (
@@ -45,6 +46,9 @@ function App() {
           </Route>
           <Route exact path="/profile">
             <Profile />
+          </Route>
+          <Route exact path="/comments">
+            <Comments />
           </Route>
 
           <Route exact path="/login">

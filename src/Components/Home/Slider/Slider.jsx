@@ -36,9 +36,6 @@ const Slider = () => {
                             <span><i className="fas fa-utensil-spoon px-2"></i><span className="text-white fw-bold fs-5">
                                 4 Portions</span></span>
                         </div>
-                        <div className={styles.slidebtn}>
-                            <Button className={styles.btnslide}>View Recipe</Button>
-                        </div>
                     </div>
                 </Carousel.Caption>
             </Carousel.Item>
