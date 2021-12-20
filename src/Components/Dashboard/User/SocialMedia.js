@@ -4,7 +4,7 @@ const SocialMedia = () => {
   return (
     <>
       <form className="text-end">
-        <h1 className="text-center my-5">Social Media</h1>
+       
         <div className="row py-2 ">
           <label
             for="inputEmail3"
@@ -67,7 +67,7 @@ const SocialMedia = () => {
             for="inputEmail3"
             className="col-sm-2 col-form-label  fw-bold "
           >
-           <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/000000/external-tumblr-a-microblogging-and-social-networking-website-logo-shadow-tal-revivo.png"/>
+         <img src="https://img.icons8.com/ios-glyphs/30/000000/tumblr.png"/>
           </label>
           <div className="col-sm-10">
             <input type="text" className="w-100 px-2 my-2" id="inputEmail3" />
