@@ -1,3 +1,4 @@
+
 import React from 'react';
 import DashboardRoot from '../DashboardRoot/DashboardRoot';
 import MyRecipes from '../MyRecipes/MyRecipes';
@@ -17,6 +18,20 @@ const Dashboard = () => {
 
         </div>
     );
+
+import React from "react";
+import User from "./User/User";
+
+
+
+const Dashboard = () => {
+  return (
+    <div className="container my-5">
+     <User></User>
+    </div>
+  );
+
 };
 
 export default Dashboard;
+
