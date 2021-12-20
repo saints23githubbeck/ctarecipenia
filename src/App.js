@@ -1,4 +1,5 @@
 
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./assets/css/global.css";
@@ -14,6 +15,7 @@ import Dashboard from "./Components/Dashboard/Dashboard";
 import ResetLink from './Components/ResetLink/ResetLink.js';
 import Profile from './Components/Recipes/Profile.js';
 import Comments from "./Components/Comments/Comments.js";
+
 
 function App() {
   return (
@@ -71,9 +73,9 @@ function App() {
             <ContactUs></ContactUs>
 
           </Route>
-          {/* <Route exact path="/dashboard">
+          <Route exact path="/dashboard">
             <Dashboard></Dashboard>
-          </Route> */}
+          </Route>
         </Switch>
         <Footer />
       </Router>
