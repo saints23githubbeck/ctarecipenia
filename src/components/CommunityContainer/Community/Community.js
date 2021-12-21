@@ -4,12 +4,13 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import PinterestIcon from '@mui/icons-material/Pinterest';
+import {Link } from 'react-router-dom';
 const Community = ({ community }) => {
     const { name, photo, description, facebook, twitter, instagram, pinterest } = community;
     return (
         <div className='col-md-4 p-4 mt-4'>
             <div className=' text-center community'>
-                <img className="img-fluid" src={photo} alt="" />
+               <Link as={Link} to="/profile"><img className="img-fluid" src={photo} alt="" /></Link> 
                 <h5>{name}</h5>
                 <p>{description}</p>
                 <hr />

@@ -35,14 +35,6 @@ function App() {
           <Route exact path="/community">
             <Communities />
           </Route>
-
-          <Route exact path="/resetlink">
-            <ResetLink />
-          </Route>
-          <Route exact path="/login">
-          </Route>
-
-
           <Route exact path="/resetlink">
             <ResetLink />
           </Route>
@@ -52,19 +44,14 @@ function App() {
           <Route exact path="/comments">
             <Comments />
           </Route>
-
           <Route exact path="/login">
             <LoginRegister></LoginRegister>
           </Route>
-
           <Route exact path="/about-us">
             <AboutUs></AboutUs>
           </Route>
           <Route exact path="/contact">
             <ContactUs></ContactUs>
-
-
-
           </Route>
           <Route exact path="/about-us">
             <AboutUs></AboutUs>
