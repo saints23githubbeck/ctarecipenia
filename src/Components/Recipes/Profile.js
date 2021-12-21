@@ -86,7 +86,6 @@ const Profile = () => {
                                 <h4>Exepture</h4>
                                 <h5>Exepture font</h5>
                                 <h6 className='exdetail'>Exepture details</h6>
-
                                <div className='d-flex justify-content-between'>
                                <h5><i class="fas fa-heart"></i> 600</h5>
                                <h5><i class="fas fa-plus-square"></i> 120</h5>
