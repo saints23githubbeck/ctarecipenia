@@ -11,7 +11,7 @@ const Community = ({ community }) => {
         <div className='col-md-4 p-4 mt-4'>
             <NavLink style={{textDecoration:'none', color:'black'}} to="/profile">
             <div className=' text-center community'>
-                <img className="img-fluid" src={photo} alt="" />
+               <Link as={Link} to="/profile"><img className="img-fluid" src={photo} alt="" /></Link> 
                 <h5>{name}</h5>
                 <p>{description}</p>
                 <hr />

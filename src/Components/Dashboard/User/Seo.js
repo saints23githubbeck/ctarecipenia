@@ -6,7 +6,7 @@ const Seo = () => {
       <form className="text-end">
         {/* this text will be deleted after completed dashboard  */}
 
-        <h1 className="text-center my-5">Seo</h1>
+      
 
         <div className="row py-2">
           <label

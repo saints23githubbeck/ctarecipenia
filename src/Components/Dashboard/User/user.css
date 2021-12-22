@@ -1,21 +1,61 @@
 .form-border {
   border-top: 1px solid rgb(214, 214, 214);
-
 }
 
-.btn-green{
-        background-color: #2dbb90;
-        color: white;
-        border: none;
-        padding: 8px 28px;
-        border-radius: 2px;
-        font-size: 18px;
+.btn-green {
+  background-color: #2dbb90;
+  color: white;
+  border: none;
+  padding: 8px 28px;
+  border-radius: 2px;
+  font-size: 18px;
 }
-.btn-red{
-        background-color: rgb(238, 5, 5);
-        color: white;
-        border: none;
-        padding: 8px 28px;
-        border-radius: 2px;
-        font-size: 18px;
+.btn-red {
+  background-color: rgb(238, 5, 5);
+  color: white;
+  border: none;
+  padding: 8px 28px;
+  border-radius: 2px;
+  font-size: 18px;
+}
+
+.user-ul {
+  list-style: none;
+  display: flex;
+}
+.user-navlink {
+  
+  color: rgb(75, 75, 75);
+  /* padding: 10px 20px; */
+  width: 200px;
+  height: 45px;
+  padding: 1px 2px;
+  text-align: center;
+  margin-right: 10px;
+  padding: 12px 0px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+.user-navlink-contact {
+        /* background-color: rgb(253, 253, 253); */
+        color: rgb(75, 75, 75);
+        /* padding: 10px 20px; */
+        width: 200px;
+        cursor: pointer;
+        height: 45px;
+        padding: 2px 2px;
+        text-align: center;
+        margin-right: 10px;
+        font-size: 13px;
+        font-weight: bold;
+      
+}
+
+.user-components{
+        width: 940px;
+        background-color: rgba(235, 235, 235, 0.219);
+        
 }
