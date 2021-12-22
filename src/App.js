@@ -15,6 +15,7 @@ import Dashboard from "./Components/Dashboard/Dashboard";
 import ResetLink from './Components/ResetLink/ResetLink.js';
 import Profile from './Components/Recipes/Profile.js';
 import Comments from "./Components/Comments/Comments.js";
+import AddAdvertisement from "./Components/Dashboard/AddAdvertisement/AddAdvertisement.jsx"
 import SubscribersEmail from "./Components/Dashboard/EmailSubscribers/SubscribersEmail.jsx";
 
 
@@ -46,11 +47,16 @@ function App() {
 
           <Route exact path="/subscribersemail">
             <SubscribersEmail />
+          </Route>
 
           <Route exact path="/comments">
             <Comments />
 
           </Route>
+          <Route exact path="/addAdvertisement">
+            <AddAdvertisement />
+          </Route>
+          
           <Route exact path="/login">
             <LoginRegister></LoginRegister>
           </Route>
