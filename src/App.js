@@ -15,6 +15,7 @@ import Dashboard from "./Components/Dashboard/Dashboard";
 import ResetLink from './Components/ResetLink/ResetLink.js';
 import Profile from './Components/Recipes/Profile.js';
 import Comments from "./Components/Comments/Comments.js";
+import SubscribersEmail from "./Components/Dashboard/EmailSubscribers/SubscribersEmail.jsx";
 
 
 function App() {
@@ -41,8 +42,14 @@ function App() {
           <Route exact path="/profile">
             <Profile />
           </Route>
+
+
+          <Route exact path="/subscribersemail">
+            <SubscribersEmail />
+
           <Route exact path="/comments">
             <Comments />
+
           </Route>
           <Route exact path="/login">
             <LoginRegister></LoginRegister>
