@@ -1,4 +1,5 @@
 
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./assets/css/global.css";
@@ -15,6 +16,7 @@ import ResetLink from './Components/ResetLink/ResetLink.js';
 import Profile from './Components/Recipes/Profile.js';
 import Comments from "./Components/Comments/Comments.js";
 import SubscribersEmail from "./Components/Dashboard/EmailSubscribers/SubscribersEmail.jsx";
+
 
 function App() {
   return (
@@ -34,14 +36,6 @@ function App() {
           <Route exact path="/community">
             <Communities />
           </Route>
-
-          <Route exact path="/resetlink">
-            <ResetLink />
-          </Route>
-          <Route exact path="/login">
-          </Route>
-
-
           <Route exact path="/resetlink">
             <ResetLink />
           </Route>
@@ -49,32 +43,33 @@ function App() {
             <Profile />
           </Route>
 
+
           <Route exact path="/subscribersemail">
             <SubscribersEmail />
+
+          <Route exact path="/comments">
+            <Comments />
+
           </Route>
           <Route exact path="/login">
             <LoginRegister></LoginRegister>
           </Route>
-
+          <Route exact path="/about-us">
+            <AboutUs></AboutUs>
+          </Route>
+          <Route exact path="/contact">
+            <ContactUs></ContactUs>
+          </Route>
           <Route exact path="/about-us">
             <AboutUs></AboutUs>
           </Route>
           <Route exact path="/contact">
             <ContactUs></ContactUs>
 
-
-
           </Route>
-          <Route exact path="/about-us">
-            <AboutUs></AboutUs>
-          </Route>
-          <Route exact path="/contact">
-            <ContactUs></ContactUs>
-
-          </Route>
-          {/* <Route exact path="/dashboard">
+          <Route exact path="/dashboard">
             <Dashboard></Dashboard>
-          </Route> */}
+          </Route>
         </Switch>
         <Footer />
       </Router>
