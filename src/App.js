@@ -10,7 +10,9 @@ import LoginRegister from './Components/users/LoginRegister';
 import AboutUs from './Components/AboutUs/AboutUs';
 import ContactUs from './Components/ContactUs/ContactUs';
 import Catgories from './Components/Categories/Catgories';
+import DashboardRoot from './Components/DashboardRoot/DashboardRoot';
 import Dashboard from './Components/Dashboard/Dashboard';
+
 
 function App() {
   return (
@@ -41,7 +43,9 @@ function App() {
           </Route>
           <Route exact path="/dashboard">
             <Dashboard></Dashboard>
+        
           </Route>
+         
         </Switch>
         <Footer />
       </Router>
