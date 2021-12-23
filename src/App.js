@@ -46,7 +46,7 @@ function App() {
 
           <Route exact path="/subscribersemail">
             <SubscribersEmail />
-
+            </Route>
           <Route exact path="/comments">
             <Comments />
 
