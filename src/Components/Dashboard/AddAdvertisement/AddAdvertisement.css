@@ -1,0 +1,21 @@
+.addAdvertiesment{
+    background-color: #FBFBFB;
+    margin: auto;
+    margin: 40px;
+    padding: 40px;
+
+}
+.button1{
+    color: white;
+    background-color: #198754;
+    padding: 10px 30px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+.button2{
+    color: white;
+    background-color: #FE0202;
+    padding: 10px 30px;
+    border-radius: 3px;
+    font-weight: bold;
+}
