@@ -17,7 +17,7 @@ const AddAdvertisement = () => {
                                 <label for="" className="col-form-label fw-bold">Locations</label>
                             </div>
                             <div className='col-md-10 col-lg-11'>
-                                <select style={{ border: '2px solid gray' }} class="form-select">
+                                <select style={{ border: '2px solid gray' }} className="form-select">
                                     <option selected></option>
                                     <option value="1">ali</option>
                                     <option value="2">Shorif</option>
@@ -34,7 +34,7 @@ const AddAdvertisement = () => {
                                 <label for="" className="col-form-label fw-bold ">Title</label>
                             </div>
                             <div className='col-md-10 col-lg-11'>
-                                <input style={{ border: '2px solid gray' }} class="form-control" type="text" />
+                                <input style={{ border: '2px solid gray' }} className="form-control" type="text" />
                             </div>
                             <span className='mb-3'>
                                 <hr />
@@ -46,9 +46,9 @@ const AddAdvertisement = () => {
                                     <label className="col-form-label fw-bold ">Type</label>
                                 </div>
                                 <div className='col-md-10 col-lg-11'>
-                                    <div class="form-check">
-                                        <input class="mx-3 fs-2 form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="" />
-                                        <label class="form-check-label mx-3 fs-4 mt-1" for="exampleRadios1">
+                                    <div className="form-check">
+                                        <input className="mx-3 fs-2 form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="" />
+                                        <label className="form-check-label mx-3 fs-4 mt-1" for="exampleRadios1">
                                             Image
                                         </label>
                                     </div>
@@ -60,7 +60,7 @@ const AddAdvertisement = () => {
                                     <label for="" className="col-form-label fw-bold ">Image URL</label>
                                 </div>
                                 <div className='col-md-9'>
-                                    <input style={{ border: '2px solid gray' }} class="form-control" type="text" />
+                                    <input style={{ border: '2px solid gray' }} className="form-control" type="text" />
                                 </div>
                             </div>
 
@@ -69,14 +69,14 @@ const AddAdvertisement = () => {
                                     <label for="" className="col-form-label fw-bold ">Upload Image</label>
                                 </div>
                                 <div className='col-md-9'>
-                                    <input style={{ border: '2px solid gray' }} class="form-control" type="text" />
+                                    <input style={{ border: '2px solid gray' }} className="form-control" type="text" />
                                 </div>
                             </div>
 
                             <div className='col-11 col-md-7 mt-3 m-auto'>
-                                <div class="form-check">
-                                    <input class="mx-3 fs-2 form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="" />
-                                    <label class="form-check-label mx-3 fw-bold mt-2" for="exampleRadios1">
+                                <div className="form-check">
+                                    <input className="mx-3 fs-2 form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="" />
+                                    <label className="form-check-label mx-3 fw-bold mt-2" for="exampleRadios1">
                                         Code
                                     </label>
                                 </div>

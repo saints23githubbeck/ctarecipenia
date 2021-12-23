@@ -17,6 +17,7 @@ import Profile from './Components/Recipes/Profile.js';
 import Comments from "./Components/Comments/Comments.js";
 import AddAdvertisement from "./Components/Dashboard/AddAdvertisement/AddAdvertisement.jsx"
 import SubscribersEmail from "./Components/Dashboard/EmailSubscribers/SubscribersEmail.jsx";
+import AboutForm from "./Components/Dashboard/AboutForm/AboutForm.jsx";
 
 
 function App() {
@@ -47,6 +48,9 @@ function App() {
 
           <Route exact path="/subscribersemail">
             <SubscribersEmail />
+          </Route>
+          <Route exact path="/about-form">
+            <AboutForm />
           </Route>
 
           <Route exact path="/comments">
