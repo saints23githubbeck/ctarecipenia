@@ -1,4 +1,5 @@
 
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './assets/css/global.css';
@@ -12,6 +13,13 @@ import ContactUs from './Components/ContactUs/ContactUs';
 import Catgories from './Components/Categories/Catgories';
 import DashboardRoot from './Components/DashboardRoot/DashboardRoot';
 import Dashboard from './Components/Dashboard/Dashboard';
+import ResetLink from './Components/ResetLink/ResetLink.js';
+import Profile from './Components/Recipes/Profile.js';
+import Comments from "./Components/Comments/Comments.js";
+import AddAdvertisement from "./Components/Dashboard/AddAdvertisement/AddAdvertisement.jsx"
+import SubscribersEmail from "./Components/Dashboard/EmailSubscribers/SubscribersEmail.jsx";
+
+
 
 
 function App() {
@@ -32,6 +40,26 @@ function App() {
           <Route exact path="/community">
             <Communities />
           </Route>
+          <Route exact path="/resetlink">
+            <ResetLink />
+          </Route>
+          <Route exact path="/profile">
+            <Profile />
+          </Route>
+
+
+          <Route exact path="/subscribersemail">
+            <SubscribersEmail />
+          </Route>
+
+          <Route exact path="/comments">
+            <Comments />
+
+          </Route>
+          <Route exact path="/addAdvertisement">
+            <AddAdvertisement />
+          </Route>
+          
           <Route exact path="/login">
             <LoginRegister></LoginRegister>
           </Route>
@@ -40,6 +68,13 @@ function App() {
           </Route>
           <Route exact path="/contact">
             <ContactUs></ContactUs>
+          </Route>
+          <Route exact path="/about-us">
+            <AboutUs></AboutUs>
+          </Route>
+          <Route exact path="/contact">
+            <ContactUs></ContactUs>
+
           </Route>
           <Route exact path="/dashboard">
             <Dashboard></Dashboard>
