@@ -19,10 +19,10 @@ import Comments from "./Components/Comments/Comments.js";
 import AddAdvertisement from "./Components/Dashboard/AddAdvertisement/AddAdvertisement.jsx"
 import SubscribersEmail from "./Components/Dashboard/EmailSubscribers/SubscribersEmail.jsx";
 import AboutForm from "./Components/Dashboard/AboutForm/AboutForm.jsx";
-
-
-
-
+import CategoryList from './Components/Dashboard/CategoryList/CategoryList'
+import AddBlog from './Components/Dashboard/AddBlog/AddBlog';
+import BlogList from './Components/Dashboard/BlogList/BlogList';
+import CommentList from './Components/Dashboard/CommentList/CommentList';
 function App() {
   return (
     <div className="App">
@@ -58,7 +58,6 @@ function App() {
 
           <Route exact path="/comments">
             <Comments />
-
           </Route>
           <Route exact path="/addAdvertisement">
             <AddAdvertisement />
@@ -76,13 +75,14 @@ function App() {
           <Route exact path="/about-us">
             <AboutUs></AboutUs>
           </Route>
+          {/* <Route exact path="/check-palash">
+            <CommentList></CommentList>
+          </Route> */}
           <Route exact path="/contact">
             <ContactUs></ContactUs>
-
           </Route>
           <Route exact path="/dashboard">
             <Dashboard></Dashboard>
-        
           </Route>
          
         </Switch>
