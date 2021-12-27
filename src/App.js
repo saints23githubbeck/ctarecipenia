@@ -11,17 +11,13 @@ import LoginRegister from './Components/users/LoginRegister';
 import AboutUs from './Components/AboutUs/AboutUs';
 import ContactUs from './Components/ContactUs/ContactUs';
 import Catgories from './Components/Categories/Catgories';
-import DashboardRoot from './Components/DashboardRoot/DashboardRoot';
 import Dashboard from './Components/Dashboard/Dashboard';
-import ResetLink from './Components/ResetLink/ResetLink.js';
-import Profile from './Components/Recipes/Profile.js';
-import Comments from "./Components/Comments/Comments.js";
-import AddAdvertisement from "./Components/Dashboard/AddAdvertisement/AddAdvertisement.jsx"
-import SubscribersEmail from "./Components/Dashboard/EmailSubscribers/SubscribersEmail.jsx";
-import AboutForm from "./Components/Dashboard/AboutForm/AboutForm.jsx";
-
-
-
+import ResetLink from './Components/ResetLink/ResetLink';
+import Profile from './Components/Recipes/Profile';
+import Comments from "./Components/Comments/Comments";
+import AddAdvertisement from "./Components/Dashboard/AddAdvertisement/AddAdvertisement"
+import SubscribersEmail from "./Components/Dashboard/EmailSubscribers/SubscribersEmail";
+import AboutForm from "./Components/Dashboard/AboutForm/AboutForm";
 
 function App() {
   return (
@@ -47,19 +43,17 @@ function App() {
           <Route exact path="/profile">
             <Profile />
           </Route>
-
-
           <Route exact path="/subscribersemail">
             <SubscribersEmail />
           </Route>
           <Route exact path="/about-form">
             <AboutForm />
           </Route>
-
           <Route exact path="/comments">
             <Comments />
 
           </Route>
+         
           <Route exact path="/addAdvertisement">
             <AddAdvertisement />
           </Route>
@@ -78,7 +72,6 @@ function App() {
           </Route>
           <Route exact path="/contact">
             <ContactUs></ContactUs>
-
           </Route>
           <Route exact path="/dashboard">
             <Dashboard></Dashboard>
