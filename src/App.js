@@ -18,6 +18,12 @@ import Comments from "./Components/Comments/Comments";
 import AddAdvertisement from "./Components/Dashboard/AddAdvertisement/AddAdvertisement"
 import SubscribersEmail from "./Components/Dashboard/EmailSubscribers/SubscribersEmail";
 import AboutForm from "./Components/Dashboard/AboutForm/AboutForm";
+import ResetLink from './Components/ResetLink/ResetLink.js';
+import Profile from './Components/Recipes/Profile.js';
+import CategoryList from './Components/Dashboard/CategoryList/CategoryList'
+import AddBlog from './Components/Dashboard/AddBlog/AddBlog';
+import BlogList from './Components/Dashboard/BlogList/BlogList';
+import CommentList from './Components/Dashboard/CommentList/CommentList';
 
 function App() {
   return (
@@ -30,6 +36,18 @@ function App() {
           </Route>
           <Route exact path="/home">
             <Home />
+          </Route>
+          <Route exact path="/Categorylist">
+            <CategoryList />
+          </Route>
+          <Route exact path="/Addblog">
+            <AddBlog />
+          </Route>
+          <Route exact path="/Bloglist">
+            <BlogList />
+          </Route>
+          <Route exact path="/Commentlist">
+            <CommentList />
           </Route>
           <Route exact path="/categories">
             <Catgories />
@@ -51,7 +69,6 @@ function App() {
           </Route>
           <Route exact path="/comments">
             <Comments />
-
           </Route>
          
           <Route exact path="/addAdvertisement">
@@ -70,12 +87,14 @@ function App() {
           <Route exact path="/about-us">
             <AboutUs></AboutUs>
           </Route>
+          {/* <Route exact path="/check-palash">
+            <CommentList></CommentList>
+          </Route> */}
           <Route exact path="/contact">
             <ContactUs></ContactUs>
           </Route>
           <Route exact path="/dashboard">
             <Dashboard></Dashboard>
-        
           </Route>
          
         </Switch>
