@@ -1,7 +1,7 @@
 import { Button, Container, Input, TextField } from '@mui/material';
 import React, {useState} from 'react';
 import './AddRecipe.css'
-import altImage from '../../images/image-alt.png'
+// import altImage from '../../images/image-alt.png'
 import Show from '../Shared/Show/Show';
 
 
@@ -33,7 +33,7 @@ const AddRecipe = () => {
                                     rows={3}
                                     placeholder='lorem ipsum lorem ipsum lorem ipsum lorem ipsum'
                                 />
-                                <img className='img-fluid mt-3' src={altImage} alt="" />
+                                <img className='img-fluid mt-3'  alt="" />
                                 <label htmlFor="contained-button-file" className='my-2'>
                                     <Input style={{display:"none"}} accept="image/*" id="contained-button-file" multiple type="file" />
                                     <Button className='add-recipe-button' component="span">

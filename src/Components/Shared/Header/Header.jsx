@@ -19,7 +19,6 @@ const Header = () => {
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="ms-auto align-items-center">
                             <Nav.Link as={NavLink} to="/home" className={styles.itemNav} >Home</Nav.Link>
-                            <Nav.Link as={NavLink} to="/recipes" className={styles.itemNav}>Recipes</Nav.Link>
                             <Nav.Link as={NavLink} to="/categories" className={styles.itemNav}>Categories</Nav.Link>
                             <Nav.Link as={NavLink} to="/about-us" className={styles.itemNav}>About Us</Nav.Link>
                             <Nav.Link as={NavLink} to="/community" className={styles.itemNav}>Community</Nav.Link>
