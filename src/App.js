@@ -96,7 +96,7 @@ function App() {
           <Route exact path="/dashboard">
             <Dashboard></Dashboard>
           </Route>
-         
+        
         </Switch>
         <Footer />
       </Router>
