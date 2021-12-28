@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
-import loginImageBoy from "../../images/login-image.png";
-import loginImageGirl from "../../images/login-image-girl.png";
-import loginLogo from "../../images/login-logo.png";
-import "./LoginRegister.css";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import { Checkbox } from "@mui/material";
 
-import AOS from "aos";
-import "aos/dist/aos.css";
+import React, { useEffect, useState } from 'react';
+import loginImageBoy from '../../images/login-image.png';
+import loginImageGirl from '../../images/login-image-girl.png';
+import loginLogo from '../../images/login-logo.png';
+import './LoginRegister.css';
+import TextField from '@mui/material/TextField';
+import { Checkbox, FormControlLabel } from '@mui/material';
+import FormControlLabel from "@mui/material/FormControlLabel";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import useFirebase from "../../hooks/useFirebase";
 import axios from "axios";
+
 const LoginRegister = () => {
   const {
     user,
