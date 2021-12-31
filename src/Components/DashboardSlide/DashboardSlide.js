@@ -1,6 +1,6 @@
 import React from 'react';
 import DashboardRoot from '../DashboardRoot/DashboardRoot';
-
+import { NavLink } from 'react-router-dom';
 const DashboardSlide = () => {
 
 //     let btn = document.getElementById("button")
@@ -39,10 +39,10 @@ const DashboardSlide = () => {
 
              {/* side bar  */}
             <nav className='text' style={{color:'white'}} >
-                <a href="" style={{color:'white'}} className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"> <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <NavLink as={NavLink} to="/home" href="" style={{color:'white'}} className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"> <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
-</svg>Home</a>
-                <a href="" style={{color:'white'}} className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"> <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+</svg>Home</NavLink>
+                <a href="/home" style={{color:'white'}} className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"> <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
 </svg>Add Recipe</a>
                 <a href="" style={{color:'white'}} className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"> <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">

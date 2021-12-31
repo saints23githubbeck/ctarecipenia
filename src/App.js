@@ -16,11 +16,11 @@ import Comments from "./Components/Comments/Comments";
 import AddAdvertisement from "./Components/Dashboard/AddAdvertisement/AddAdvertisement";
 import SubscribersEmail from "./Components/Dashboard/EmailSubscribers/SubscribersEmail";
 import AboutForm from "./Components/Dashboard/AboutForm/AboutForm";
-
-import CategoryList from "./Components/Dashboard/CategoryList/CategoryList";
-import AddBlog from "./Components/Dashboard/AddBlog/AddBlog";
-import BlogList from "./Components/Dashboard/BlogList/BlogList";
-import CommentList from "./Components/Dashboard/CommentList/CommentList";
+import CategoryList from './Components/Dashboard/CategoryList/CategoryList'
+import AddBlog from './Components/Dashboard/AddBlog/AddBlog';
+import BlogList from './Components/Dashboard/BlogList/BlogList';
+import CommentList from './Components/Dashboard/CommentList/CommentList';
+import addRecipi from "./Components/AddRecipe/AddRecipe"
 
 function App() {
   return (
@@ -84,9 +84,9 @@ function App() {
           <Route exact path="/about-us">
             <AboutUs></AboutUs>
           </Route>
-          {/* <Route exact path="/check-palash">
-            <CommentList></CommentList>
-          </Route> */}
+          <Route exact path="/add-recipi">
+            <addRecipi/ >
+          </Route>
           <Route exact path="/contact">
             <ContactUs></ContactUs>
           </Route>
