@@ -240,7 +240,6 @@ const LoginRegister = () => {
                 </div>
               )}
 
-              <button onClick={handlelogout}>Logout</button>
               {/* <div>
                             <div className="row">
                                 <div className="col-md-6">

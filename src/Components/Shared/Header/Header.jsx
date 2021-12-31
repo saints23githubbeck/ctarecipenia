@@ -12,7 +12,7 @@ import {
 import { NavLink } from "react-router-dom";
 import useFirebase from "../../../hooks/useFirebase";
 const Header = () => {
-  const { user } = useFirebase();
+  const { user, logOut } = useFirebase();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -56,18 +56,19 @@ const Header = () => {
                 <i className="fas fa-search"></i>
               </Nav.Link>
               {user?.email ? (
-                <div className={styles.itemNav}><i className="fas fa-user"></i> {user.displayName}</div>
+                <div className={styles.itemNav}>
+                  <i className="fas fa-user"></i> {user.displayName}
+                </div>
               ) : (
                 <Nav.Link as={NavLink} to="/login" className={styles.itemNav}>
                   <i className="fas fa-user"></i> Login
                 </Nav.Link>
               )}
-
-              <Nav.Link as={NavLink} to="/addrecipe" className={styles.itemNav}>
-                <Button className={styles.recipebtn}>
-                  <i className="fas fa-plus-circle"></i> Add Recipe
-                </Button>
-              </Nav.Link>
+              {user.email && (
+                <div onClick={() => logOut()} className={styles.itemNav}>
+                  <Button className={styles.recipebtn}>Log Out</Button>
+                </div>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>
