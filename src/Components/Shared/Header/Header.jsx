@@ -12,7 +12,9 @@ import {
 import { NavLink } from "react-router-dom";
 import useFirebase from "../../../hooks/useFirebase";
 const Header = () => {
+
   const { user, logOut } = useFirebase();
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -91,6 +93,8 @@ const Header = () => {
       </Modal>
     </>
   );
+
+
 };
 
 export default Header;

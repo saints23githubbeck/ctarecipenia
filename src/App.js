@@ -10,6 +10,17 @@ import AboutUs from "./Components/AboutUs/AboutUs";
 import ContactUs from "./Components/ContactUs/ContactUs";
 import Catgories from "./Components/Categories/Catgories";
 import Dashboard from "./Components/Dashboard/Dashboard";
+import ResetLink from "./Components/ResetLink/ResetLink";
+import Profile from "./Components/Recipes/Profile";
+import Comments from "./Components/Comments/Comments";
+import AddAdvertisement from "./Components/Dashboard/AddAdvertisement/AddAdvertisement";
+import SubscribersEmail from "./Components/Dashboard/EmailSubscribers/SubscribersEmail";
+import AboutForm from "./Components/Dashboard/AboutForm/AboutForm";
+
+import CategoryList from "./Components/Dashboard/CategoryList/CategoryList";
+import AddBlog from "./Components/Dashboard/AddBlog/AddBlog";
+import BlogList from "./Components/Dashboard/BlogList/BlogList";
+import CommentList from "./Components/Dashboard/CommentList/CommentList";
 
 function App() {
   return (
@@ -23,16 +34,45 @@ function App() {
           <Route exact path="/home">
             <Home />
           </Route>
+          <Route exact path="/Categorylist">
+            <CategoryList />
+          </Route>
+          <Route exact path="/Addblog">
+            <AddBlog />
+          </Route>
+          <Route exact path="/Bloglist">
+            <BlogList />
+          </Route>
+          <Route exact path="/Commentlist">
+            <CommentList />
+          </Route>
           <Route exact path="/categories">
             <Catgories />
           </Route>
           <Route exact path="/community">
             <Communities />
           </Route>
+          <Route exact path="/resetlink">
+            <ResetLink />
+          </Route>
+          <Route exact path="/profile">
+            <Profile />
+          </Route>
+          <Route exact path="/subscribersemail">
+            <SubscribersEmail />
+          </Route>
+          <Route exact path="/about-form">
+            <AboutForm />
+          </Route>
+          <Route exact path="/comments">
+            <Comments />
+          </Route>
+
+          <Route exact path="/addAdvertisement">
+            <AddAdvertisement />
+          </Route>
+
           <Route exact path="/login">
-
-           {/*  <LoginRegister /> */}
-
             <LoginRegister></LoginRegister>
           </Route>
           <Route exact path="/about-us">
@@ -40,7 +80,15 @@ function App() {
           </Route>
           <Route exact path="/contact">
             <ContactUs></ContactUs>
-
+          </Route>
+          <Route exact path="/about-us">
+            <AboutUs></AboutUs>
+          </Route>
+          {/* <Route exact path="/check-palash">
+            <CommentList></CommentList>
+          </Route> */}
+          <Route exact path="/contact">
+            <ContactUs></ContactUs>
           </Route>
           <Route exact path="/dashboard">
             <Dashboard></Dashboard>
