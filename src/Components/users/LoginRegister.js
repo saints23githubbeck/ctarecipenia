@@ -5,8 +5,8 @@ import loginImageGirl from '../../images/login-image-girl.png';
 import loginLogo from '../../images/login-logo.png';
 import './LoginRegister.css';
 import TextField from '@mui/material/TextField';
-import { Checkbox} from '@mui/material';
-import FormControlLabel from "@mui/material/FormControlLabel";
+import { Checkbox, FormControlLabel } from '@mui/material';
+
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import useFirebase from "../../hooks/useFirebase";
@@ -241,7 +241,6 @@ const LoginRegister = () => {
                 </div>
               )}
 
-              <button onClick={handlelogout}>Logout</button>
               {/* <div>
                             <div className="row">
                                 <div className="col-md-6">
