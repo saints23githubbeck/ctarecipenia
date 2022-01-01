@@ -87,7 +87,7 @@ function App() {
             <AboutUs></AboutUs>
           </Route>
           <Route exact path="/add-recipi">
-            <addRecipi/ >
+            <addRecipi />
           </Route>
           <Route exact path="/contact">
             <ContactUs></ContactUs>
