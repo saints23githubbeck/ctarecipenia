@@ -10,8 +10,9 @@ import LoginRegister from './Components/users/LoginRegister';
 import AboutUs from './Components/AboutUs/AboutUs';
 import ContactUs from './Components/ContactUs/ContactUs';
 import Catgories from './Components/Categories/Catgories';
-import DashboardRoot from './Components/DashboardRoot/DashboardRoot';
-import Dashboard from './Components/Dashboard/Dashboard';
+
+
+import DashboardSlide from './Components/DashboardSlide/DashboardSlide';
 
 
 function App() {
@@ -41,11 +42,11 @@ function App() {
           <Route exact path="/contact">
             <ContactUs></ContactUs>
           </Route>
-          <Route exact path="/dashboard">
-            <Dashboard></Dashboard>
+          <Route  path="/dashboard">
+            <DashboardSlide></DashboardSlide>
         
           </Route>
-         
+          
         </Switch>
         <Footer />
       </Router>
