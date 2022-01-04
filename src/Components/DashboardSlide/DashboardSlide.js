@@ -2,12 +2,15 @@ import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 import { useRouteMatch } from 'react-router-dom/cjs/react-router-dom.min';
 import DashboardRoot from '../DashboardRoot/DashboardRoot';
+
 import Profile from '../../Components/Profile/Profile'
 import Newsletter from '../Home/Newsletter/Newsletter';
 import ManageAds from '../ManageAds/ManageAds';
 import AboutUs from '../AboutUs/AboutUs';
 import ContactUs from '../ContactUs/ContactUs';
 import Home from '../Home/Home';
+
+import { NavLink } from 'react-router-dom';
 
 const DashboardSlide = () => {
 
@@ -128,6 +131,7 @@ const DashboardSlide = () => {
         </Route>
 
       </Switch>
+           
            
 
            </div>
