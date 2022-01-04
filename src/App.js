@@ -22,6 +22,8 @@ import BlogList from './Components/Dashboard/BlogList/BlogList';
 import CommentList from './Components/Dashboard/CommentList/CommentList';
 import addRecipi from "./Components/AddRecipe/AddRecipe"
 
+import DashboardSlide from './Components/DashboardSlide/DashboardSlide';
+
 function App() {
   return (
     <div className="App">
@@ -81,6 +83,12 @@ function App() {
           <Route exact path="/contact">
             <ContactUs></ContactUs>
           </Route>
+
+          <Route  path="/dashboard">
+            <DashboardSlide></DashboardSlide>
+        
+          </Route>
+
           <Route exact path="/about-us">
             <AboutUs></AboutUs>
           </Route>
@@ -93,6 +101,7 @@ function App() {
           <Route exact path="/dashboard">
             <Dashboard></Dashboard>
           </Route>
+
         </Switch>
         <Footer />
       </Router>

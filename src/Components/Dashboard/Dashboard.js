@@ -14,7 +14,9 @@ const Dashboard = () => {
     return (
         <div>
         
-            <DashboardSlide></DashboardSlide>
+            <DashboardSlide>
+                
+            </DashboardSlide>
             <NewsLetters></NewsLetters>
             <ManageAds></ManageAds>
             <DashboardRoot></DashboardRoot>
