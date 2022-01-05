@@ -94,7 +94,7 @@ const DashboardSlide = () => {
             </nav>
 
         </div>
-        <div class="flex-grow   ">
+        <div class="flex-grow ">
         <Switch>
         <Route exact path={`${path}`}>
           <h1>wellcome to dashboard </h1>
