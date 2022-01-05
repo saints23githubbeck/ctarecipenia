@@ -21,6 +21,7 @@ import CategoryList from "./Components/Dashboard/CategoryList/CategoryList";
 import AddBlog from "./Components/Dashboard/AddBlog/AddBlog";
 import BlogList from "./Components/Dashboard/BlogList/BlogList";
 import CommentList from "./Components/Dashboard/CommentList/CommentList";
+import RecipeDetails from "./Components/RecipeDetails/RecipeDetails";
 
 function App() {
   return (
@@ -48,6 +49,9 @@ function App() {
           </Route>
           <Route exact path="/categories">
             <Catgories />
+          </Route>
+          <Route exact path="/recipe/:id">
+            <RecipeDetails />
           </Route>
           <Route exact path="/community">
             <Communities />
