@@ -4,9 +4,9 @@ import { Table } from 'react-bootstrap';
 const ManageAds = () => {
     return (
         <>
-        <div className='flex justify-end'>
-            <button className='bg-green-500 text-white px-4 py-1 my-1'>Add New Advertisement</button>
-        </div>
+        <div className='text-end'>
+                    <button className='btn btn-secondary mb-3'>New Adds</button>
+                </div>
         <div className='bg-red-100'>
             <h1 className='font-bold text-2xl '>Manage Ads</h1>
        

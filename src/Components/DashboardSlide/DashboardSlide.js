@@ -13,6 +13,11 @@ import Home from '../Home/Home';
 import { NavLink } from 'react-router-dom';
 import useFirebase from '../../hooks/useFirebase';
 import AddRecipe from '../AddRecipe/AddRecipe';
+import RecipeTable from '../MyRecipes/MyRecipes';
+import ManageAddTable from '../ManageAds/ManageAds';
+import NewsLaterTable from '../Newsletters/NewsLetters';
+import AblogTable from '../Dashboard/BlogList/BlogList';
+import AboutUsTable from '../Dashboard/BlogList/BlogList';
 
 const DashboardSlide = () => {
 
@@ -62,7 +67,7 @@ const DashboardSlide = () => {
                 <Link to='/home' href="" style={{color:'white'}} className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"> <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
                 </svg>Home</Link>
-                <Link to={`${url}/addRecipe`} href="" style={{color:'white'}} className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"> <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <Link to={`${url}/RecipeTable`} href="" style={{color:'white'}} className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"> <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>Add Recipe</Link>
                                 <Link to={`${url}/addBlog`} href="" style={{color:'white'}} className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"> <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -71,7 +76,7 @@ const DashboardSlide = () => {
                                 <Link to={`${url}/editPage`} href="" style={{color:'white'}} className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"> <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                 </svg>Edit page</Link>
-                                <Link to={`${url}/manageAds`} href="" style={{color:'white'}} className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <Link to={`${url}/ManageAddTable`} href="" style={{color:'white'}} className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                 </svg>Manage Ads</Link>
 
@@ -111,7 +116,7 @@ const DashboardSlide = () => {
         </Route>
        
         <Route exact path={`${path}/newsLetter`}>
-          <Newsletter></Newsletter>
+          <NewsLaterTable></NewsLaterTable>
          
         </Route>
         <Route exact path={`${path}/profile`}>
@@ -122,8 +127,16 @@ const DashboardSlide = () => {
          <AddRecipe></AddRecipe>
          
         </Route>
+        <Route exact path={`${path}/ManageAddTable`}>
+         <ManageAddTable></ManageAddTable>
+         
+        </Route>
+        <Route exact path={`${path}/RecipeTable`}>
+         <RecipeTable></RecipeTable>
+         
+        </Route>
         <Route exact path={`${path}/addBlog`}>
-          <h1>this is add blogs </h1>
+          <AblogTable> </AblogTable>
          
         </Route>
         <Route exact path={`${path}/manageAds`}>
@@ -131,11 +144,11 @@ const DashboardSlide = () => {
          
         </Route>
         <Route exact path={`${path}/manageAboutUs`}>
-           <h1> this is manage about us</h1>
+        <h1>build the same table formate as manage adds with button on top to bring out form</h1>
          
         </Route>
         <Route exact path={`${path}/manageContactUs`}>
-           <ContactUs></ContactUs>
+           <h1>build the same table formate as manage adds with button on top to bring out form</h1>
          
         </Route>
 

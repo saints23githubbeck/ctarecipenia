@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
-
+import { Link } from 'react-router-dom';
+import AddRecipe from '../AddRecipe/AddRecipe';
 const MyRecipes = () => {
     const [recipe , setRecipe ] = useState([]);
 
@@ -11,10 +12,12 @@ const MyRecipes = () => {
     }, [])
     return (
         <div className='px-2'>
-            <div >
-                <h1 className='text-2xl font-bold bg-red-100 px-2 py-2'>My Recipes</h1>
+             <div >
+                <h1 className='text-2xl font-bold bg-red-100 px-2 py-2 text-center'>My Recipes</h1>
             </div>
-
+            <div className='text-end'>
+                    <button className='btn btn-secondary mb-3'>Add Recipe</button>
+                </div>
             <div>
                 <div>
                 <Table striped bordered hover  responsive>
