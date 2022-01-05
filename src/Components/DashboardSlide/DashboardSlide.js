@@ -11,8 +11,13 @@ import ContactUs from '../ContactUs/ContactUs';
 import Home from '../Home/Home';
 
 import { NavLink } from 'react-router-dom';
+import useFirebase from '../../hooks/useFirebase';
+import AddRecipe from '../AddRecipe/AddRecipe';
 
 const DashboardSlide = () => {
+
+  const {logOut, user} =useFirebase()
+  console.log(user)
 
 
   let { path, url } = useRouteMatch();
@@ -87,9 +92,9 @@ const DashboardSlide = () => {
                   </svg>Profile</Link>
 
 
-                <Link to='/' href="" style={{color:'white'}} className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <button onClick={logOut} style={{color:'white'}} className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                  </svg>LogOut</Link>
+                  </svg>  LogOut  </button>
 
             </nav>
 
@@ -98,6 +103,10 @@ const DashboardSlide = () => {
         <Switch>
         <Route exact path={`${path}`}>
           <h1>wellcome to dashboard </h1>
+         
+        </Route>
+        <Route exact path={`${path}/editPage`}>
+          <h1>wellcome to edit page</h1>
          
         </Route>
        
@@ -110,7 +119,7 @@ const DashboardSlide = () => {
          
         </Route>
         <Route exact path={`${path}/addRecipe`}>
-          <h1>this is add recipe</h1>
+         <AddRecipe></AddRecipe>
          
         </Route>
         <Route exact path={`${path}/addBlog`}>

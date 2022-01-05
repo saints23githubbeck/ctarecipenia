@@ -70,7 +70,7 @@ const useFirebase = () => {
       });
   };
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
         console.log("user Is here");
@@ -79,6 +79,7 @@ const useFirebase = () => {
         console.log("user Is not here");
       }
     });
+    return ()=> unsubscribe ;
   }, []);
   const logOut = () => {
     signOut(auth)
