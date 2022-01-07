@@ -22,6 +22,8 @@ import AddBlog from "./Components/Dashboard/AddBlog/AddBlog";
 import BlogList from "./Components/Dashboard/BlogList/BlogList";
 import CommentList from "./Components/Dashboard/CommentList/CommentList";
 
+import DashboardSlide from './Components/DashboardSlide/DashboardSlide';
+
 function App() {
   return (
     <div className="App">
@@ -84,18 +86,31 @@ function App() {
           <Route exact path="/contact">
             <ContactUs></ContactUs>
           </Route>
+
+          <Route  path="/dashboard">
+            <DashboardSlide></DashboardSlide>
+        
+          </Route>
+
           <Route exact path="/about-us">
             <AboutUs></AboutUs>
           </Route>
+<<<<<<< HEAD
           <Route exact path="/add-recipi">
             <addRecipi />
           </Route>
+=======
+          {/* <Route exact path="/add-recipi">
+            <addRecipi />
+          </Route> */}
+>>>>>>> main
           <Route exact path="/contact">
             <ContactUs></ContactUs>
           </Route>
           <Route exact path="/dashboard">
             <Dashboard></Dashboard>
           </Route>
+
         </Switch>
         <Footer />
       </Router>

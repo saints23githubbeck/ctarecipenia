@@ -3,14 +3,15 @@ import { Table } from 'react-bootstrap';
 
 const NewsLetters = () => {
     return (
-        <>
-        <div className='flex justify-end my-1'>
-            <button className='bg-green-500 text-white px-4 py-1 my-1'>Export Newsletters email</button>
-        </div>
+        <> 
+        <div className='text-end mt-1'>
+                    <button className='btn btn-secondary mb-3'>Add News</button>
+                </div>
         <div className='bg-red-100'>
             <h1 className='font-bold text-2xl '>Newsletters</h1>
        
         <div>
+       
             <Table striped bordered hover responsive>
   <thead>
     <tr>
