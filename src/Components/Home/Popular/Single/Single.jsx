@@ -1,11 +1,13 @@
 import React from "react";
 import { Card, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import styles from "../../../../assets/css/Single.module.css";
 
 const Single = ({ popular }) => {
-  const { strMeal, strCategory, strArea,strMealThumb } = popular;
+  const { strMeal, strCategory, strArea,strMealThumb,idMeal } = popular;
   return (
     <Col xs={12} sm={12} md={3} lg={4}>
+       <Link style={{textDecoration:"none",color:"black"}} to={`/recipe/${idMeal}`}>
       <Card className={styles.productCard}>
         <Card.Img width="100%" className="img-fluid mx-auto" src={strMealThumb} />
         <Card.Body>
@@ -28,6 +30,7 @@ const Single = ({ popular }) => {
           </div>
         </Card.Body>
       </Card>
+      </Link>
     </Col>
   );
 };
