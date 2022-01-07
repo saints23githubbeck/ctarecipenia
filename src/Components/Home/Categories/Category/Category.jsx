@@ -6,7 +6,7 @@ const Category = ({ product }) => {
   const { strMeal, strCategory, strMealThumb, strArea,idMeal } = product;
   return (
     <Col xs={12} sm={12} md={3} lg={4}>
-      <Link to={`/recipe/${idMeal}`}>
+      <Link style={{textDecoration:"none",color:"black"}} to={`/recipe/${idMeal}`}>
         <Card className="porduct_card h-100">
           <Card.Img
             width="100%"

@@ -1,19 +1,9 @@
 import React from "react";
 import useFirebase from "../../hooks/useFirebase";
 import DashboardRoot from "../DashboardRoot/DashboardRoot";
-
+import { NavLink } from "react-router-dom";
 const DashboardSlide = () => {
-  const {logOut}=useFirebase()
-  //     let btn = document.getElementById("button")
-  // let slide = document.getElementById("slide")
-
-  // // action is here
-
-  // btn.addEventListener("click" , ()=>{
-  //     slide.classList.toggle("-translate-x-full")
-  //     console.log(1)
-
-  // })
+  const { logOut } = useFirebase();
   return (
     <div className="relative md:flex min-h-screen">
       {/* nav bar for mobile menu */}
@@ -57,12 +47,13 @@ const DashboardSlide = () => {
 
         {/* side bar  */}
         <nav className="text" style={{ color: "white" }}>
-          <a
+          <NavLink
+            as={NavLink}
+            to="/home"
             href=""
             style={{ color: "white" }}
             className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"
           >
-            {" "}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6 inline"
@@ -78,9 +69,9 @@ const DashboardSlide = () => {
               />
             </svg>
             Home
-          </a>
+          </NavLink>
           <a
-            href=""
+            href="/home"
             style={{ color: "white" }}
             className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"
           >
@@ -233,8 +224,8 @@ const DashboardSlide = () => {
             Manage contact us
           </a>
 
-          <div
-          onClick={()=>logOut()}
+          <a
+            href=""
             style={{ color: "white" }}
             className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"
           >
@@ -253,7 +244,7 @@ const DashboardSlide = () => {
               />
             </svg>
             Profile
-          </div>
+          </a>
 
           <a
             href=""
@@ -277,12 +268,235 @@ const DashboardSlide = () => {
             LogOut
           </a>
         </nav>
-      </div>
-      <div class="flex-grow  text-5xl font-bold">
-        <DashboardRoot></DashboardRoot>
+        <div>
+          {/* side bar  */}
+          <nav className="text" style={{ color: "white" }}>
+            <a
+              href=""
+              style={{ color: "white" }}
+              className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"
+            >
+              {" "}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 inline"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"
+                />
+              </svg>
+              Home
+            </a>
+            <a
+              href=""
+              style={{ color: "white" }}
+              className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"
+            >
+              {" "}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 inline"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              Add Recipe
+            </a>
+            <a
+              href=""
+              style={{ color: "white" }}
+              className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"
+            >
+              {" "}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 inline"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"
+                />
+              </svg>
+              Add Blogs
+            </a>
+            <a
+              href=""
+              style={{ color: "white" }}
+              className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"
+            >
+              {" "}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 inline"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                />
+              </svg>
+              Edit page
+            </a>
+            <a
+              href=""
+              style={{ color: "white" }}
+              className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 inline"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+                />
+              </svg>
+              Manage Ads
+            </a>
+
+            <a
+              href=""
+              style={{ color: "white" }}
+              className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 inline"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M3 19v-8.93a2 2 0 01.89-1.664l7-4.666a2 2 0 012.22 0l7 4.666A2 2 0 0121 10.07V19M3 19a2 2 0 002 2h14a2 2 0 002-2M3 19l6.75-4.5M21 19l-6.75-4.5M3 10l6.75 4.5M21 10l-6.75 4.5m0 0l-1.14.76a2 2 0 01-2.22 0l-1.14-.76"
+                />
+              </svg>
+              NewsLetters
+            </a>
+
+            <a
+              href=""
+              style={{ color: "white" }}
+              className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 inline"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              Manage About us
+            </a>
+
+            <a
+              href=""
+              style={{ color: "white" }}
+              className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 inline"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"
+                />
+              </svg>
+              Manage contact us
+            </a>
+
+            <div
+              onClick={() => logOut()}
+              style={{ color: "white" }}
+              className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 inline"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"
+                />
+              </svg>
+              Profile
+            </div>
+
+            <a
+              href=""
+              style={{ color: "white" }}
+              className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 inline"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                />
+              </svg>
+              LogOut
+            </a>
+          </nav>
+        </div>
+        <div class="flex-grow  text-5xl font-bold">
+          <DashboardRoot></DashboardRoot>
+        </div>
       </div>
     </div>
   );
 };
-
 export default DashboardSlide;
