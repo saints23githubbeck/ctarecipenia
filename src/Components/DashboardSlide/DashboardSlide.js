@@ -18,6 +18,8 @@ import ManageAddTable from '../ManageAds/ManageAds';
 import NewsLaterTable from '../Newsletters/NewsLetters';
 import AblogTable from '../Dashboard/BlogList/BlogList';
 import AboutUsTable from '../Dashboard/BlogList/BlogList';
+import ManageAboutUs from '../ManageAboutUs/ManageAboutUs';
+import ManageContactUs from '../ManageContactUs/ManageContactUs';
 
 const DashboardSlide = () => {
 
@@ -144,11 +146,11 @@ const DashboardSlide = () => {
          
         </Route>
         <Route exact path={`${path}/manageAboutUs`}>
-        <h1>build the same table formate as manage adds with button on top to bring out form</h1>
+         <ManageAboutUs></ManageAboutUs>
          
         </Route>
         <Route exact path={`${path}/manageContactUs`}>
-           <h1>build the same table formate as manage adds with button on top to bring out form</h1>
+         <ManageContactUs></ManageContactUs>
          
         </Route>
 
