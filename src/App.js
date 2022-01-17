@@ -95,15 +95,9 @@ function App() {
           <Route exact path="/about-us">
             <AboutUs></AboutUs>
           </Route>
-<<<<<<< HEAD
-          <Route exact path="/add-recipi">
-            <addRecipi />
-          </Route>
-=======
           {/* <Route exact path="/add-recipi">
             <addRecipi />
           </Route> */}
->>>>>>> main
           <Route exact path="/contact">
             <ContactUs></ContactUs>
           </Route>
