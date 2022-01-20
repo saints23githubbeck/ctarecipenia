@@ -86,7 +86,7 @@ function App() {
 
           <Route  path="/dashboard">
             <DashboardSlide></DashboardSlide>
-        
+
           </Route>
 
           <Route exact path="/about-us">

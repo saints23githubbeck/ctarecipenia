@@ -17,6 +17,7 @@ const Footer = () => {
                     <h3>About Us</h3>
                     <h3>Contact Us</h3>
                 </div>
+                
                 <div>
                     <PinterestIcon style={{ fontSize: "35px", color: "gray", margin: "0 7px" }} />
                     <FacebookIcon style={{ fontSize: "35px", color: "gray", margin: "0 7px" }} />

@@ -13,14 +13,14 @@ import User from "./User/User";
 const Dashboard = () => {
     return (
         <div>
-        
+
             <DashboardSlide>
-                
+
             </DashboardSlide>
             <NewsLetters></NewsLetters>
             <ManageAds></ManageAds>
             <DashboardRoot></DashboardRoot>
-            <Profile></Profile> 
+            <Profile></Profile>
             <MyRecipes></MyRecipes>
             <User></User>
             <BlogList></BlogList>
