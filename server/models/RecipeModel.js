@@ -4,7 +4,6 @@ const Schema = mongoose.Schema
 
 const recipeSchema = new Schema(
   {
-    // Name	Catagory	Status
     name: {
       type: String,
       required: [true, "Please enter recipe name"],
@@ -24,9 +23,17 @@ const recipeSchema = new Schema(
     image: {
       type: String,
     },
-    stats: {
+    status: {
       type: String,
     },
+    tags: [],
+    facts: {
+      type: String,
+    },
+    additionalInfo: {
+      type: String,
+    },
+    ingredients: [],
   },
   { timestamps: new Date().getTime }
 )

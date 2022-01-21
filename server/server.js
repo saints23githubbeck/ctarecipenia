@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 // app.get("/", (req, res) => res.send("Hello World!"))
-// app.use("/", require("./routes/recipeRoutes")) 
+// app.use("/", require("./routes/recipeRoutes"))
 fs.readdirSync("./routes").map((route) =>
   app.use("/", require("./routes/" + route))
 )
