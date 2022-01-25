@@ -18,11 +18,14 @@ import ManageAddTable from '../ManageAds/ManageAds';
 import NewsLaterTable from '../Newsletters/NewsLetters';
 import AblogTable from '../Dashboard/BlogList/BlogList';
 import AboutUsTable from '../Dashboard/BlogList/BlogList';
+import ManageAboutUs from '../ManageAboutUs/ManageAboutUs';
+import ManageContactUs from '../ManageContactUs/ManageContactUs';
+import DashboardHome from '../DashboardHome/DashboardHome';
 
 const DashboardSlide = () => {
 
-  const {logOut, user} =useFirebase()
-  console.log(user)
+  const { logOut, user } = useFirebase()
+  console.log( user )
 
 
   let { path, url } = useRouteMatch();
@@ -40,26 +43,20 @@ const DashboardSlide = () => {
 // })
     return (
         <div className='relative md:flex min-h-screen'>
-            {/* nav bar for mobile menu */}
-            <div className=" md:hidden flex  bg-red-500  text-red-100 justify-between px-5 py-7">
-            <a className="text-2xl font-bold no-underline text-red-100" href="#">RecipeMania</a>
-            <button className="button focus:outline-none  " id="button">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-            </button>
-            </div>
+           
 
              {/* side bar is here  */}
             <div className="w-64 bg-red-500 text-neutral-100	 space-y-5 absolute inset-y-0 left-0 transform -translate-x-full transition duration-200 md:relative md:-translate-x-0  "
                idName="slide">
              {/* logo  */}
             <div>
-                <a href="#" className="text-2xl font-bold mt-5 flex items-center justify-center no-underline" style={{color:'white'}}>
+            <Link to='/dashboard' href="" style={{color:'white'}} className="block py-3 px-5 hover:bg-red-700 transition no-underline duration-200"> 
+              <a href="/dasboard" className="text-2xl font-bold mt-5 flex items-center justify-center no-underline" style={{color:'white'}}>
                     
                     <span>RecipeMania</span>
                 </a>
+                </Link>
+              
             </div>
 
              {/* side bar  */}
@@ -103,63 +100,63 @@ const DashboardSlide = () => {
 
             </nav>
 
-        </div>
-        <div class="flex-grow ">
+    
+      </div>
+      <div className="flex-grow ">
         <Switch>
-        <Route exact path={`${path}`}>
-          <h1>wellcome to dashboard </h1>
-         
-        </Route>
-        <Route exact path={`${path}/editPage`}>
-          <h1>wellcome to edit page</h1>
-         
-        </Route>
-       
-        <Route exact path={`${path}/newsLetter`}>
-          <NewsLaterTable></NewsLaterTable>
-         
-        </Route>
-        <Route exact path={`${path}/profile`}>
-          <Profile></Profile>
-         
-        </Route>
-        <Route exact path={`${path}/addRecipe`}>
-         <AddRecipe></AddRecipe>
-         
-        </Route>
-        <Route exact path={`${path}/ManageAddTable`}>
-         <ManageAddTable></ManageAddTable>
-         
-        </Route>
-        <Route exact path={`${path}/RecipeTable`}>
-         <RecipeTable></RecipeTable>
-         
-        </Route>
-        <Route exact path={`${path}/addBlog`}>
-          <AblogTable> </AblogTable>
-         
-        </Route>
-        <Route exact path={`${path}/manageAds`}>
-          <ManageAds></ManageAds>
-         
-        </Route>
-        <Route exact path={`${path}/manageAboutUs`}>
-        <h1>build the same table formate as manage adds with button on top to bring out form</h1>
-         
-        </Route>
-        <Route exact path={`${path}/manageContactUs`}>
-           <h1>build the same table formate as manage adds with button on top to bring out form</h1>
-         
-        </Route>
+          <Route exact path={`${path}`}>
+            <DashboardHome />
+          </Route>
+          <Route exact path={`${path}/editPage`}>
+            <h1>wellcome to edit page</h1>
 
-      </Switch>
-           
-           
+          </Route>
 
-           </div>
+          <Route exact path={`${path}/newsLetter`}>
+            <NewsLaterTable></NewsLaterTable>
 
-        </div>
-    );
+          </Route>
+          <Route exact path={`${path}/profile`}>
+            <Profile></Profile>
+
+          </Route>
+          <Route exact path={`${path}/addRecipe`}>
+            <AddRecipe></AddRecipe>
+
+          </Route>
+          <Route exact path={`${path}/ManageAddTable`}>
+            <ManageAddTable></ManageAddTable>
+
+          </Route>
+          <Route exact path={`${path}/RecipeTable`}>
+            <RecipeTable></RecipeTable>
+
+          </Route>
+          <Route exact path={`${path}/addBlog`}>
+            <AblogTable> </AblogTable>
+
+          </Route>
+          <Route exact path={`${path}/manageAds`}>
+            <ManageAds></ManageAds>
+
+          </Route>
+          <Route exact path={`${path}/manageAboutUs`}>
+            <ManageAboutUs></ManageAboutUs>
+
+          </Route>
+          <Route exact path={`${path}/manageContactUs`}>
+            <ManageContactUs></ManageContactUs>
+
+          </Route>
+
+        </Switch>
+
+
+
+      </div>
+</div>
+
+  );
 };
 
 export default DashboardSlide;
