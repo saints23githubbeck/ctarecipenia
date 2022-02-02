@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./assets/css/global.css";
@@ -22,31 +22,12 @@ import CategoryList from "./Components/Dashboard/CategoryList/CategoryList";
 import AddBlog from "./Components/Dashboard/AddBlog/AddBlog";
 import BlogList from "./Components/Dashboard/BlogList/BlogList";
 import CommentList from "./Components/Dashboard/CommentList/CommentList";
-=======
+
 import "bootstrap/dist/css/bootstrap.min.css"
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+
 import "./assets/css/global.css"
-import Home from "./Components/Home/Home"
-import Footer from "./Components/Shared/Footer/Footer"
-import Header from "./Components/Shared/Header/Header"
-import Communities from "./Components/CommunityContainer/Communities/Communities"
-import LoginRegister from "./Components/users/LoginRegister"
-import AboutUs from "./Components/AboutUs/AboutUs"
-import ContactUs from "./Components/ContactUs/ContactUs"
-import Catgories from "./Components/Categories/Catgories"
-import Dashboard from "./Components/Dashboard/Dashboard"
-import ResetLink from "./Components/ResetLink/ResetLink"
-import Profile from "./Components/Recipes/Profile"
-import Comments from "./Components/Comments/Comments"
-import AddAdvertisement from "./Components/Dashboard/AddAdvertisement/AddAdvertisement"
-import SubscribersEmail from "./Components/Dashboard/EmailSubscribers/SubscribersEmail"
-import AboutForm from "./Components/Dashboard/AboutForm/AboutForm"
-import CategoryList from "./Components/Dashboard/CategoryList/CategoryList"
-import AddBlog from "./Components/Dashboard/AddBlog/AddBlog"
-import BlogList from "./Components/Dashboard/BlogList/BlogList"
-import CommentList from "./Components/Dashboard/CommentList/CommentList"
+
 import addRecipi from "./Components/AddRecipe/AddRecipe"
->>>>>>> e7d835176277274ec37134888ef35ce6a81f5fde
 
 import DashboardSlide from "./Components/DashboardSlide/DashboardSlide"
 
