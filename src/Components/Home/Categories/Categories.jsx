@@ -6,15 +6,17 @@ import styles from '../../../assets/css/Categories.module.css';
 import Category from './Category/Category';
 
 const Categories = () => {
-    const [CatProduct] = useProduct();
-    const [key, setKey] = useState("Meal Type");
-    const mealType = CatProduct.filter(
-        (product) => product.category === "meal-type",
-    );
-    const diet = CatProduct.filter((product) => product.category === "Diet-and-Health");
-    const Dish = CatProduct.filter((product) => product.category === "Dish-Type");
-    const ingredient = CatProduct.filter((product) => product.category === "Ingredient");
-    const world = CatProduct.filter((product) => product.category === "World-Cuisine");
+    const [beef, chicken, fish, vegetable, desert] = useProduct();
+    const [key, setKey] = useState("Beef");
+    console.log(beef);
+
+    // const mealType = CatProduct.filter(
+    //     (product) => product.category === "meal-type",
+    // );
+    // const diet = CatProduct.filter((product) => product.category === "Diet-and-Health");
+    // const Dish = CatProduct.filter((product) => product.category === "Dish-Type");
+    // const Vegetable = CatProduct.filter((product) => product.category === "Vegetable");
+    // const world = CatProduct.filter((product) => product.category === "World-Cuisine");
     return (
         <Container className={styles.cattab}>
             <h1 className='text-center'>Recipe Categories</h1>
@@ -27,46 +29,46 @@ const Categories = () => {
                         onSelect={(k) => setKey(k)}
                         className="mb-3 d-flex justify-content-center"
                     >
-                        <Tab eventKey="Meal Type" title="Meal Type" className="bg-blue">
+                        <Tab eventKey="Beef" title="Beef" className="bg-blue">
                             <Row className="py-5 g-4">
-                                {mealType.length === 0 ? <div className="w-75 mx-auto">
+                                {beef.length === 0 ? <div className="w-75 mx-auto">
                                     <Spinner animation="border" variant="secondary" />
-                                </div> : mealType.map((product) => (
+                                </div> : beef.map((product) => (
                                     <Category product={product} key={product.id} />))}
                             </Row>
                         </Tab>
-                        <Tab eventKey="Diet and Health" title="Diet and Health">
+                        <Tab eventKey="Chicken" title="Chicken">
                             <Row className="py-5 g-4">
-                                {diet.length === 0 ? <div className="w-75 mx-auto">
+                                {chicken.length === 0 ? <div className="w-75 mx-auto">
                                     <Spinner animation="border" variant="secondary" />
-                                </div> : diet.map((product) => (
+                                </div> : chicken.map((product) => (
                                     <Category product={product} key={product.id} />
                                 ))}
                             </Row>
                         </Tab>
-                        <Tab eventKey="Dish Type" title="Dish Type">
+                        <Tab eventKey="Fish" title="Fish">
                             <Row className="py-5 g-4">
-                                {Dish.length === 0 ? <div className="w-75 mx-auto">
+                                {fish.length === 0 ? <div className="w-75 mx-auto">
                                     <Spinner animation="border" variant="secondary" />
-                                </div> : Dish.map((product) => (
+                                </div> : fish.map((product) => (
                                     <Category product={product} key={product.id} />
                                 ))}
                             </Row>
                         </Tab>
-                        <Tab eventKey="Ingredient" title="Ingredient">
+                        <Tab eventKey="Vegetable" title="Vegetable">
                             <Row className="py-5 g-4">
-                                {ingredient.length === 0 ? <div className="w-75 mx-auto">
+                                {vegetable.length === 0 ? <div className="w-75 mx-auto">
                                     <Spinner animation="border" variant="secondary" />
-                                </div> : ingredient.map((product) => (
+                                </div> : vegetable.map((product) => (
                                     <Category product={product} key={product.id} />
                                 ))}
                             </Row>
                         </Tab>
-                        <Tab eventKey="World Cuisine" title="World Cuisine">
+                        <Tab eventKey="Pizza" title="Pizza">
                             <Row className="py-5 g-4">
-                                {world.length === 0 ? <div className="w-75 mx-auto">
+                                {desert.length === 0 ? <div className="w-75 mx-auto">
                                     <Spinner animation="border" variant="secondary" />
-                                </div> : world.map((product) => (
+                                </div> : desert.map((product) => (
                                     <Category product={product} key={product.id} />
                                 ))}
                             </Row>
