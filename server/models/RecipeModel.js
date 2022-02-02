@@ -23,9 +23,6 @@ const recipeSchema = new Schema(
     image: {
       type: String,
     },
-    status: {
-      type: String,
-    },
     tags: [],
     facts: {
       type: String,

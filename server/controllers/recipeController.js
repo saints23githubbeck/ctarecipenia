@@ -18,7 +18,6 @@ exports.addRecipe = async (req, res) => {
   } catch (err) {
     console.error(err)
     res.status(400).json({ error: err.message })
-    res.send("Unable to add recipe")
   }
 }
 
@@ -28,7 +27,7 @@ exports.addRecipe = async (req, res) => {
     @access Public
 */
 exports.getRecipes = async (req, res) => {
-  //console.log("get recipes");
+  //console.log("get recipes")
   try {
     let totalRecipes = await Recipe.countDocuments()
     const recipes = await Recipe.find({})
@@ -59,7 +58,7 @@ exports.getRecipeById = async (req, res) => {
   //console.log(checkedId)
   if (!checkedId) {
     res.status(400).json({
-      message: "Invalid recipe ID",
+      message: "No recipe with id " + checkedId + " exists",
     })
   }
 
@@ -94,11 +93,7 @@ exports.deleteRecipeById = async (req, res) => {
         res.json({
           message: `Successfully deleted recipe that had the form: ${deletedRecipe}.`,
         })
-        // console.log(
-        //   `Successfully deleted recipe that had the form: ${deletedRecipe}.`
-        // )
       } else {
-        //console.log("No document matches the provided query.")
         res.json({ message: "No recipe matches the provided query." })
       }
       return deletedRecipe
@@ -106,16 +101,19 @@ exports.deleteRecipeById = async (req, res) => {
     .catch((err) => console.error(`Failed to find and delete recipe: ${err}`))
 }
 
+/*
+    @route  /recipe/:recipeId
+    @desc    Update a recipe information
+    @access private
+*/
+
 exports.updateRecipe = async (req, res) => {
   let updateRecipe = req.body
   let recipeId = req.params.recipeId
   const checkedId = mongoose.isValidObjectId(recipeId)
-
-  //res.json({ updateRecipe, checkedId })
-
   try {
     if (!checkedId) {
-      res.json({ message: "Invalid request" })
+      res.json({ message: "No recipe with id " + checkedId + " exists" })
     }
     const updatedRecipe = await Recipe.findOneAndUpdate(
       recipeId,
@@ -128,8 +126,7 @@ exports.updateRecipe = async (req, res) => {
       updatedRecipe,
     })
   } catch (err) {
-    //console.log("Recipe update failedU ----> ", err)
-    // return res.status(400).send("Product update failed");
+    //console.log("Recipe update failed ----> ", err)
     res.status(400).json({
       err: err.message,
     })
