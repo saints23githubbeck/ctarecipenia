@@ -6,8 +6,11 @@ import usePopular from '../../../hooks/usePopular';
 import Single from './Single/Single';
 
 const Popular = () => {
-    const [popular] = usePopular();
+    const [popular,setIsAll,isAll] = usePopular();
     console.log(popular);
+    const handleSeeAll = () => {
+        setIsAll(!isAll);
+      };
     return (
         <div className='mt-2' style={{
             backgroundColor: '#FFF2F2', paddingTop: '24px'
@@ -18,7 +21,7 @@ const Popular = () => {
                         <h1 className={styles.popular}>Popular Recipes</h1>
                         <div className='text-end'>
                             <Link to='' className={styles.seeallLink}>
-                                <Button variant='outline-success'>See All <span><i className="fas fa-angle-right"></i></span></Button>
+                                <Button  onClick={handleSeeAll} variant='outline-success'>See All <span><i className="fas fa-angle-right"></i></span></Button>
                             </Link>
                         </div>
                     </div>

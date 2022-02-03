@@ -4,7 +4,7 @@ import styles from '../../../assets/css/Newsletter.module.css';
 
 const Newsletter = () => {
     return (
-        <div className='' style={{ backgroundColor: "#FF4A4A" }}>
+        <div className='mt-5' style={{ backgroundColor: "#FF4A4A" }}>
             <Container>
                 <div className='d-flex justify-content-between align-items-center'>
                     <div className='text-white py-5'>
