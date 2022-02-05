@@ -40,7 +40,7 @@ const ManageAds = () => {
       <FormModal
         show={modalShow}
         onHide={() => setModalShow(false)}
-        title="New Ads"
+        title="New Ad"
       />
     </>
   );
