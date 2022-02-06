@@ -25,7 +25,7 @@ app.use(express.json())
 // app.use("/", require("./routes/recipeRoutes"))
 
 app.get("/", (req, res) => res.send("Hello World!"))
-app.use("/", require("./routes/recipeRoutes")) 
+app.use("/", require("./routes/recipeRoutes"))
 
 fs.readdirSync("./routes").map((route) =>
   app.use("/", require("./routes/" + route))

@@ -1,5 +1,3 @@
-
-
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
@@ -12,8 +10,8 @@ const blogSchema = new Schema(
     content: {
       type: String,
       minLength: 40,
-      required: true
-      },
+      required: true,
+    },
     image: {
       type: String,
     },
@@ -22,4 +20,6 @@ const blogSchema = new Schema(
   { timestamps: true }
 )
 
-module.exports = Blog = mongoose.model("Blog", blogSchema)
+const Blog = mongoose.model("Blog", blogSchema)
+
+module.exports = Blog
