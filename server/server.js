@@ -3,6 +3,7 @@ const cors = require("cors")
 const fs = require("fs")
 const morgan = require("morgan")
 const recipeDb = require("./config/db")
+const cookieParser = require("cookie-parser")
 require("dotenv").config()
 const app = express()
 
@@ -20,18 +21,16 @@ app.use(cors())
 app.use(morgan("dev"))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
-
-// app.get("/", (req, res) => res.send("Hello World!"))
-// app.use("/", require("./routes/recipeRoutes"))
+app.use(cookieParser())
 
 app.get("/", (req, res) => res.send("Hello World!"))
-app.use("/", require("./routes/recipeRoutes"))
+// app.use("/", require("./routes/recipeRoutes"))
 
 fs.readdirSync("./routes").map((route) =>
   app.use("/", require("./routes/" + route))
 )
 
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 8080
 
 app.listen(port, () =>
   console.log(`app listening on port ${port}! http://localhost:${port}`)
