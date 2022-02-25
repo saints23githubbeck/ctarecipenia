@@ -7,8 +7,6 @@ import { useDispatch } from "react-redux";
 import { addRecipe } from '../../appState/recipe/actions';
 
 import "./AddRecipe.css"
-// import swal from 'sweetalert';
-
 
 const AddRecipe = () => {
 
