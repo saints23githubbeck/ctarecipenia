@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const Blog = require("../models/Blog")
+const Blog = require("../models/BlogModel")
 
 /*
     @route  /blog/create

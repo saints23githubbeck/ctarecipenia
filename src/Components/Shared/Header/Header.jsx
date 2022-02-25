@@ -1,23 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { logOut } from '../../../appState/auth/actions';
 import styles from "../../../assets/css/Header.module.css";
 import {
   Button,
   Container,
-  Form,
-  FormControl,
-  Modal,
+  Dropdown,
   Nav,
   Navbar,
 } from "react-bootstrap";
+
 import { NavLink } from "react-router-dom";
-import useFirebase from "../../../hooks/useFirebase";
 const Header = () => {
+ 
+  const dispatch = useDispatch();
+  const loggedIn = useSelector((state)=> state.loggedIn);
+ 
+  let data = localStorage.getItem("user")? JSON.parse(localStorage.getItem("user")):null;
+  console.log(data, "1st user from head log");
+  const [user, setUser] = useState(data?.user);
 
-  const { user, logOut } = useFirebase();
+  useEffect(()=> {
+    setUser(localStorage.getItem("user")? JSON.parse(localStorage.getItem("user")).user:null);
+  },[loggedIn])
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+
+  const handlelogOut = ( ) => {
+    console.log("user l0gout from head log")
+    dispatch(logOut());
+  }
+
+
   return (
     <>
       <Navbar collapseOnSelect expand="lg" className={styles.menu}>
@@ -30,7 +44,7 @@ const Header = () => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="ms-auto align-items-center">
-              <Nav.Link as={NavLink} to="/home" className={styles.itemNav}>
+              <Nav.Link as={NavLink} to="/" className={styles.itemNav}>
                 Home
               </Nav.Link>
               <Nav.Link as={NavLink} to="/recipes" className={styles.itemNav}>
@@ -54,103 +68,40 @@ const Header = () => {
               </Nav.Link>
             </Nav>
             <Nav className="ms-auto align-items-center">
-              <Nav.Link onClick={handleShow} className={styles.itemNav}>
+              <Nav.Link className={styles.itemNav}>
                 <i className="fas fa-search"></i>
               </Nav.Link>
-              {user?.email ? (
+              {user ?(
                 <div className={styles.itemNav}>
-                  <i className="fas fa-user"></i> {user.displayName}
+                  
+                  <Dropdown className="d-inline mx-2">
+                    <Dropdown.Toggle 
+                    id="dropdown-autoclose-true" 
+                    style={{background: "inherit", border: "none"}}>
+                      <i className="fas fa-user"></i> {user.username}
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu className="mt-3">
+                      <Dropdown.Item href="#">Profile</Dropdown.Item>
+                      <Dropdown.Item href="/addrecipe">ADD RECIPE</Dropdown.Item>   
+                      <div onClick={handlelogOut} className={styles.itemNav}>
+                        <Button className={styles.recipebtn}>Log Out</Button>
+                      </div>
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </div>
-              ) : (
+              ):(
                 <Nav.Link as={NavLink} to="/login" className={styles.itemNav}>
-                  <i className="fas fa-user"></i> Login
+                  {/* <i className="fas fa-user"></i>  */}
+                  Login
                 </Nav.Link>
-              )}
-              {user.email && (
-                <div onClick={() => logOut()} className={styles.itemNav}>
-                  <Button className={styles.recipebtn}>Log Out</Button>
-                </div>
               )}
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Search Recipe Name</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form className="d-flex">
-            <FormControl
-              type="search"
-              placeholder="Recipe Keyword"
-              className="me-2"
-              aria-label="Search"
-            />
-            <Button variant="outline-success">Search</Button>
-          </Form>
-        </Modal.Body>
-      </Modal>
     </>
   );
-
-    // const [show, setShow] = useState(false);
-    // const handleClose = () => setShow(false);
-    // const handleShow = () => setShow(true);
-    return (
-        <>
-            <Navbar collapseOnSelect expand="lg" className={styles.menu}>
-                <Container fluid>
-                    <Navbar.Brand>
-                        <Nav.Link as={NavLink} to="/">
-                            <span className={styles.logo}>Recipemania</span>
-                        </Nav.Link>
-                    </Navbar.Brand>
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                    <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav className="ms-auto align-items-center">
-                            <Nav.Link as={NavLink} to="/home" className={styles.itemNav} >Home</Nav.Link>
-                            <Nav.Link as={NavLink} to="/categories" className={styles.itemNav}>Categories</Nav.Link>
-                            <Nav.Link as={NavLink} to="/about-us" className={styles.itemNav}>About Us</Nav.Link>
-                            <Nav.Link as={NavLink} to="/community" className={styles.itemNav}>Community</Nav.Link>
-                            <Nav.Link as={NavLink} to="/contact" className={styles.itemNav}>Contact Us</Nav.Link>
-                            <Nav.Link as={NavLink} to="/dashboard" className={styles.itemNav}>Dashboard</Nav.Link>
-                        </Nav>
-                        <Nav className="ms-auto align-items-center">
-                            <Nav.Link onClick={handleShow} className={styles.itemNav}>
-                                <i className="fas fa-search"></i>
-                            </Nav.Link>
-                            <Nav.Link as={NavLink} to="/login" className={styles.itemNav}>
-                                <i className="fas fa-user"></i> Login
-                            </Nav.Link>
-                            <Nav.Link as={NavLink} to="/addrecipe" className={styles.itemNav}>
-                                <Button className={styles.recipebtn}>
-                                    <i className="fas fa-plus-circle"></i> Add Recipe
-                                </Button>
-                            </Nav.Link>
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Search Recipe Name</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form className="d-flex">
-                        <FormControl
-                            type="search"
-                            placeholder="Recipe Keyword"
-                            className="me-2"
-                            aria-label="Search"
-                        />
-                        <Button variant="outline-success">Search</Button>
-                    </Form>
-                </Modal.Body>
-            </Modal>
-        </>
-    );
-
 };
 
 export default Header;

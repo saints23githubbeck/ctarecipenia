@@ -9,7 +9,7 @@ const mongoose = require("mongoose")
 
 exports.addRecipe = async (req, res) => {
   try {
-    // console.log(req.body)
+     console.log(req.body, "serve body log")
     const recipe = await new Recipe(req.body).save()
     res.status(201).json({
       message: "Recipe added",

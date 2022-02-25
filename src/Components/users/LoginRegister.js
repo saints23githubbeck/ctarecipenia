@@ -1,28 +1,27 @@
-
 import React, { useEffect, useState } from 'react';
+import TextField from '@mui/material/TextField';
+import { Checkbox, FormControlLabel } from '@mui/material';
+import AOS from 'aos';
+import { useDispatch } from "react-redux";
+
 import loginImageBoy from '../../images/login-image.png';
 import loginImageGirl from '../../images/login-image-girl.png';
 import loginLogo from '../../images/login-logo.png';
 import './LoginRegister.css';
-import TextField from '@mui/material/TextField';
-import { Checkbox, FormControlLabel } from '@mui/material';
-
-import AOS from 'aos';
+import { logInUser, signUp } from '../../appState/auth/actions';
 import 'aos/dist/aos.css';
-import useFirebase from "../../hooks/useFirebase";
-import axios from "axios";
+
 
 const LoginRegister = () => {
-  const {
-    user,
-    signInWithGoogle,
-    loginUser,
-    logOut,
-    authErrorMessage,
-    registerUser,
-  } = useFirebase();
-  // const [isRegister,setIsregister] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  // const loggedIn = useSelector((state)=> state.loggedIn);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    AOS.init();
+  }, []);
+
+
+  // const [errorMessage, setErrorMessage] = useState("");
   const [isToggle, setIsToggle] = useState(false);
   const [userData, setUserData] = useState({});
   const [userLoginData, setUserLoginData] = useState({});
@@ -56,37 +55,26 @@ const LoginRegister = () => {
     console.log(userData);
     if (isToggle) {
       if (userData.password === userData.checkPassword) {
-        registerUser(userData.email, userData.password, userData.name);
-        axios
-          .post("http://localhost:5000/addusers", {
-            userData,
-          })
-          .then(function (response) {
-            console.log(response.data);
-            setErrorMessage(response.data);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+        const formdata = {
+          username: userData.name,
+          password: userData.password,
+          email: userData.email
+        }
+        dispatch(signUp(formdata));
       } else {
-        setErrorMessage("Please Check Password");
+        // setErrorMessage("Please Check Password");
       }
     } else {
-      loginUser(userLoginData.email, userLoginData.password);
+      console.log(userLoginData, "from login log") 
+      const formdata = {
+        email: userLoginData.email, 
+        password: userLoginData.password
+      }
+      dispatch(logInUser(formdata));
       console.log("login");
     }
   };
-  useEffect(() => {
-    AOS.init();
-  }, []);
-  const handleGoogleSIgnIn = () => {
-    signInWithGoogle();
-  };
-  const handlelogout = () => {
-    logOut();
-  };
-  console.log(user);
-  console.log(errorMessage);
+
   return (
     <div id="loginRegister-container">
       <div className="row login-register">
@@ -94,11 +82,11 @@ const LoginRegister = () => {
           className="col-md-6 loginimage"
           data-aos="fade-down"
           data-aos-delay="500"
-        >
+        >       
           {isToggle ? (
-            <img className="w-100" src={loginImageGirl} alt="" />
+            <img className="w-100" src={loginImageGirl} alt="loginImageGirl" />
           ) : (
-            <img className="w-100" src={loginImageBoy} alt="" />
+            <img className="w-100" src={loginImageBoy} alt="loginImageBoy" />
           )}
         </div>
         <div
@@ -117,30 +105,7 @@ const LoginRegister = () => {
             <form onSubmit={handleLoginRegister}>
               <div>
                 {isToggle ? (
-                  <div>
-                    {/* <div className="row">
-                      <TextField
-                        type="text"
-                        value={userFullName.firstName}
-                        onChange={handleName}
-                        name="firstName"
-                        className="my-input col-md-6"
-                        id="standard-basic"
-                        label="First Name"
-                        variant="standard"
-                      />
-
-                      <TextField
-                        type="text"
-                        value={userFullName.lastName}
-                        onChange={handleName}
-                        name="lastName"
-                        className="my-input col-md-6"
-                        id="standard-basic"
-                        label="Last Name"
-                        variant="standard"
-                      />
-                    </div> */}
+                  <div>                  
                     <TextField
                       type="text"
                       onBlur={handleOnBlur}
@@ -230,7 +195,7 @@ const LoginRegister = () => {
                 label="Create An Account"
               />
 
-              {errorMessage && isToggle && (
+              {/* {errorMessage && isToggle && (
                 <div class="alert alert-danger" role="alert">
                   {errorMessage} !
                 </div>
@@ -239,22 +204,7 @@ const LoginRegister = () => {
                 <div class="alert alert-danger" role="alert">
                   {authErrorMessage} !
                 </div>
-              )}
-
-              {/* <div>
-                            <div className="row">
-                                <div className="col-md-6">
-                                    <div className='d-grid mt-2'>
-                                        <button className='my-bg-button'>Login</button>
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <div className='d-grid mt-2'>
-                                        <button onChange={handleRegister} className='my-register-button'>Register</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> */}
+              )} */}
             </form>
           </div>
         </div>

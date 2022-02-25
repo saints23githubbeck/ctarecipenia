@@ -1,0 +1,11 @@
+*{
+  word-wrap: break-word;
+  word-break: break-all;
+  max-width: initial;
+  flex-direction: column-reverse;
+  grid-template-columns: repeat(12, 1fr);
+
+  grid-column: span 6;
+  row-gap: 40px;
+
+}
