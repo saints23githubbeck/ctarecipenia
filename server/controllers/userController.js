@@ -4,34 +4,48 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 
 exports.register = asyncHandler(async (req, res) => {
-  const { username, password, email } = req.body
-  console.log(username, password, email, "regiter log");
-  if (!username || !password || !email) {
-    
+  const { username, password, email, lastName, firstName, secret, profilePic } =
+    req.body
+  if (!username || !password || !email || !lastName || !firstName || !secret) {
     res.status(400)
     throw new Error("Please fill all required fields")
   }
-  
+
+  if (password && password.length < 6) {
+    return res.json({
+      error: "Password should be 6 or more characters long",
+    })
+  }
+
   const userExists = await User.findOne({ email })
   if (userExists) {
     res.status(400)
     throw new Error("User with that email already exists")
   }
 
+  const name = `${firstName} ${lastName}`
+
   const salt = await bcrypt.genSalt(12)
   const hashPassword = await bcrypt.hash(password, salt)
 
-  const user = await User.create({ email, username, password: hashPassword })
+  const user = await User.create({
+    email,
+    username,
+    password: hashPassword,
+    name,
+    secret,
+    profilePic,
+  })
 
   const userToken = createToken(user._id, email)
 
-  //res.cookie("userTOKEN", userToken)
-
   if (user) {
     user.password = undefined
+    user.secret = undefined
     res.status(201).json({
-      user,
+      message: "Signup success! Please login.",
       success: true,
+      user,
       token: userToken,
     })
   } else {
@@ -46,12 +60,13 @@ exports.login = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email })
 
   const match = await bcrypt.compare(password, user.password)
-    const userToken = createToken(user._id, email)
 
   if (match) {
+    const userToken = createToken(user._id, email)
     user.password = undefined
+    user.secret = undefined
     res.status(200).json({
-      message: "welcome back",
+      message: `Welcome back ${user.username}`,
       user,
       token: userToken,
     })
@@ -61,12 +76,193 @@ exports.login = asyncHandler(async (req, res) => {
   }
 })
 
+exports.forgotPassword = asyncHandler(async (req, res) => {
+  // console.log(req.body);
+  const { email, newPassword, secret } = req.body
 
+  //const userSecret = secret
+  // validation
+  if (!newPassword || newPassword < 6) {
+    return res.json({
+      message: "Password is required and must be at least 6 characters",
+    })
+  }
+  if (!secret || !email) {
+    return res.json({
+      message: "Please fill all fields",
+    })
+  }
+  const user = await User.findOne({ email, secret })
+  if (!user) {
+    return res.json({
+      message: "Invalid user credentials",
+    })
+  }
 
-exports.getUserProfile =asyncHandler(async (req, res) => {
+  try {
+    const salt = await bcrypt.genSalt(12)
+    const hashPassword = await bcrypt.hash(newPassword, salt)
+    await User.findByIdAndUpdate(user._id, { password: hashPassword })
+    return res.json({
+      success: "Congrats, Now you can login with your new password",
+    })
+  } catch (err) {
+    //console.log(err)
+    return res.json({
+      message: "Something wrong. Try again.",
+    })
+  }
+})
+
+exports.profileUpdate = asyncHandler(async (req, res) => {
+  try {
+    // console.log("profile update req.body", req.body);
+    const { secret, password, username, firstName, lastName, profilePic } =
+      req.body
+    const updateInfo = {}
+
+    if (username) {
+      updateInfo.username = username
+    }
+
+    if (firstName && lastName) {
+      updateInfo.name = `${req.body.firstName} ${req.body.lastName}`
+    }
+
+    if (password) {
+      if (password.length < 6) {
+        return res.json({
+          error: "Password is required and should be min 6 characters long",
+        })
+      } else {
+        const salt = await bcrypt.genSalt(12)
+        const hashedPassword = await bcrypt.hash(password, salt)
+        updateInfo.password = hashedPassword
+      }
+    }
+    if (secret) {
+      updateInfo.secret = secret
+    }
+
+    if (profilePic) {
+      updateInfo.profilePic = profilePic
+    }
+    let user = await User.findByIdAndUpdate(res.user._id, updateInfo, {
+      new: true,
+    })
+    // console.log('updated user', user)
+    user.password = undefined
+    user.secret = undefined
+    res.json({ message: "Profile has been updated", user })
+  } catch (err) {
+    if (err.code === 11000) {
+      return res.json({ error: " Username already taken" })
+    }
+    return res.status(500).json(err)
+  }
+})
+
+exports.deleteUser = asyncHandler(async (req, res) => {
+  try {
+    const user = await User.findByIdAndDelete(res.user._id)
+
+    res.json({
+      message: `Your account has been deleted. Goodbye! ${user.name}`,
+    })
+  } catch (err) {
+    console.log(err)
+  }
+})
+
+exports.getMyProfile = asyncHandler(async (req, res) => {
+  const user = res.user
+  res.status(200).json({ user })
+})
+
+exports.getAdminProfile = asyncHandler(async (req, res) => {
   res.status(200).json(res.user)
 })
 
+exports.searchUser = asyncHandler(async (req, res) => {
+  const { query } = req.params
+  if (!query) return
+  try {
+    const user = await User.find({
+      $or: [
+        { name: { $regex: query, $options: "i" } },
+        { username: { $regex: query, $options: "i" } },
+      ],
+    }).select("-password -secret")
+    res.json(user)
+  } catch (err) {
+    console.log(err)
+  }
+})
+
+exports.getUsersByAdmin = asyncHandler(async (req, res) => {
+  try {
+    const users = await User.find({})
+    users && res.status(201).json({ users })
+  } catch (error) {
+    res.status(404).json({ errors: error.message })
+  }
+})
+
+exports.fetchSubscribers = asyncHandler(async (req, res) => {
+  try {
+    const subscribers = await User.find({ status: "subscriber" })
+    subscribers && res.status(201).json({ subscribers })
+  } catch (error) {
+    res.status(404).json({ errors: error.message })
+  }
+})
+
+
+
+exports.getUserByIdByAdmin = asyncHandler(async (req, res) => {
+  try {
+    const userId = res.user._id
+    const user = await User.findById({ _id: userId }).select(
+      "-password -secret"
+    )
+    user && res.json({ user })
+  } catch (error) {
+    res.status(404)
+    throw new Error("User not found")
+  }
+})
+
+exports.updateUserByAdmin = asyncHandler(async (req, res) => {
+  const { email, username, status } = req.body
+  try {
+    const userId = res.user._id
+    const user = await User.findById({ _id: userId }).select(
+      "-password -secret"
+    )
+
+    if (user) {
+      user.username = username || user.username
+      user.email = email || user.email
+      user.status = status || user.status
+
+      const updatedUser = await user.save()
+
+      updatedUser.password = undefined
+      updatedUser.secret = undefined
+
+      res.json({
+        updatedUser,
+      })
+    } else {
+      res.status(404)
+      throw new Error("User not found")
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+})
+
+//middleware
 const createToken = (userId, email) => {
   return jwt.sign({ userId, email }, process.env.JWT_SECRET, {
     expiresIn: "30 days",

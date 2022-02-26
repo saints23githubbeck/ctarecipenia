@@ -7,20 +7,37 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Please enter a username"],
       unique: true,
+      lowercase: true,
+      trim: true,
+      min: 4,
+      match: [/^[a-zA-Z0-9._]+$/, "username contains invalid characters"],
+    },
+    name: {
+      type: String,
     },
     password: {
       type: String,
+      min: 6,
       required: [true, "Please enter a password"],
     },
     email: {
       type: String,
       required: true,
-      unique: [true, "Please enter a valid email"],
+      unique: true,
+      trim: true,
+      lowercase: true,
+      match: [/\S+@\S+\.\S+/, "Invalid email address"],
     },
-    isAdmin: {
+    secret: {
       type: String,
       required: true,
-      default: false,
+    },
+    profilePic: {
+      type: String,
+    },
+    status: {
+      type: String,
+      default: "subscriber",
     },
   },
   { timestamps: true }
