@@ -11,6 +11,7 @@ const {
   getUserByIdByAdmin,
   getMyProfile,
   fetchSubscribers,
+  updateUserByAdmin,
 } = require("../controllers/userController")
 const {
   requireSignIn,
@@ -33,5 +34,6 @@ router.delete("/remove-user", requireSignIn, deleteUser)
 router.get("/users", requireSignIn, adminMiddleware, getUsersByAdmin)
 router.get("/admin", requireSignIn, adminMiddleware, getAdminProfile)
 router.get("/user", requireSignIn, adminMiddleware, getUserByIdByAdmin)
+router.get("/update-user", requireSignIn, adminMiddleware, updateUserByAdmin)
 
 module.exports = router

@@ -27,13 +27,14 @@ exports.register = asyncHandler(async (req, res) => {
 
   const salt = await bcrypt.genSalt(12)
   const hashPassword = await bcrypt.hash(password, salt)
+  const hashedSecret = await bcrypt.hash(secret, salt)
 
   const user = await User.create({
     email,
     username,
     password: hashPassword,
     name,
-    secret,
+    secret: hashedSecret,
     profilePic,
   })
 
@@ -78,45 +79,47 @@ exports.login = asyncHandler(async (req, res) => {
 
 exports.forgotPassword = asyncHandler(async (req, res) => {
   // console.log(req.body);
-  const { email, newPassword, secret } = req.body
+  const { email, newPassword, userSecret } = req.body
 
-  //const userSecret = secret
+  if (!userSecret || !email) {
+    return res.json({
+      message: "Please fill all fields",
+    })
+  }
   // validation
   if (!newPassword || newPassword < 6) {
     return res.json({
       message: "Password is required and must be at least 6 characters",
     })
   }
-  if (!secret || !email) {
-    return res.json({
-      message: "Please fill all fields",
-    })
-  }
-  const user = await User.findOne({ email, secret })
-  if (!user) {
-    return res.json({
-      message: "Invalid user credentials",
-    })
-  }
 
-  try {
-    const salt = await bcrypt.genSalt(12)
-    const hashPassword = await bcrypt.hash(newPassword, salt)
-    await User.findByIdAndUpdate(user._id, { password: hashPassword })
-    return res.json({
-      success: "Congrats, Now you can login with your new password",
-    })
-  } catch (err) {
-    //console.log(err)
-    return res.json({
-      message: "Something wrong. Try again.",
-    })
+  const user = await User.findOne({ email })
+  !user && res.json({ message: "Invalid user credentials" })
+
+  const match = await bcrypt.compare(userSecret, user.secret)
+
+  if (match) {
+    try {
+      const salt = await bcrypt.genSalt(12)
+      const hashPassword = await bcrypt.hash(newPassword, salt)
+      await User.findByIdAndUpdate(user._id, { password: hashPassword })
+      return res.json({
+        success: "Password changed, Now you can login with your new password",
+      })
+    } catch (err) {
+      //console.log(err)
+      return res.json({
+        message: "Something wrong. Try again.",
+      })
+    }
   }
 })
 
 exports.profileUpdate = asyncHandler(async (req, res) => {
+  const userId = res.user._id
+  //res.json(userId)
   try {
-    // console.log("profile update req.body", req.body);
+    //console.log("profile update req.body", req.body);
     const { secret, password, username, firstName, lastName, profilePic } =
       req.body
     const updateInfo = {}
@@ -141,19 +144,22 @@ exports.profileUpdate = asyncHandler(async (req, res) => {
       }
     }
     if (secret) {
-      updateInfo.secret = secret
+      const salt = await bcrypt.genSalt(12)
+      const hashedSecret = await bcrypt.hash(secret, salt)
+      updateInfo.secret = hashedSecret
     }
 
     if (profilePic) {
       updateInfo.profilePic = profilePic
     }
-    let user = await User.findByIdAndUpdate(res.user._id, updateInfo, {
+    let user = await User.findByIdAndUpdate(userId, updateInfo, {
       new: true,
     })
+
     // console.log('updated user', user)
     user.password = undefined
     user.secret = undefined
-    res.json({ message: "Profile has been updated", user })
+    res.json({ message: "Profile has been updated", updateInfo })
   } catch (err) {
     if (err.code === 11000) {
       return res.json({ error: " Username already taken" })
@@ -163,8 +169,9 @@ exports.profileUpdate = asyncHandler(async (req, res) => {
 })
 
 exports.deleteUser = asyncHandler(async (req, res) => {
+  const userId = res.user._id
   try {
-    const user = await User.findByIdAndDelete(res.user._id)
+    const user = await User.findByIdAndDelete(userId)
 
     res.json({
       message: `Your account has been deleted. Goodbye! ${user.name}`,
@@ -210,14 +217,14 @@ exports.getUsersByAdmin = asyncHandler(async (req, res) => {
 
 exports.fetchSubscribers = asyncHandler(async (req, res) => {
   try {
-    const subscribers = await User.find({ status: "subscriber" })
+    const subscribers = await User.find({ status: "subscriber" }).select(
+      "-password -secret"
+    )
     subscribers && res.status(201).json({ subscribers })
   } catch (error) {
     res.status(404).json({ errors: error.message })
   }
 })
-
-
 
 exports.getUserByIdByAdmin = asyncHandler(async (req, res) => {
   try {
