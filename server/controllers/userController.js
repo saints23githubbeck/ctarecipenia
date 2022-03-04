@@ -116,8 +116,7 @@ exports.forgotPassword = asyncHandler(async (req, res) => {
 })
 
 exports.profileUpdate = asyncHandler(async (req, res) => {
-  const userId = res.user._id
-  //res.json(userId)
+  console.log(res.user)
   try {
     //console.log("profile update req.body", req.body);
     const { secret, password, username, firstName, lastName, profilePic } =
@@ -152,7 +151,7 @@ exports.profileUpdate = asyncHandler(async (req, res) => {
     if (profilePic) {
       updateInfo.profilePic = profilePic
     }
-    let user = await User.findByIdAndUpdate(userId, updateInfo, {
+    let user = await User.findByIdAndUpdate(res.user._id, updateInfo, {
       new: true,
     })
 

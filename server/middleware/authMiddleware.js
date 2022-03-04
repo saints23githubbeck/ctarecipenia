@@ -15,7 +15,10 @@ exports.requireSignIn = asyncHandler(async (req, res, next) => {
       //verify the token
       const accessToken = jwt.verify(token, process.env.JWT_SECRET)
       //get user information from verified access token
-      res.user = await User.findOne(accessToken._id).select("-password")
+      // console.log("accessToken", accessToken)
+      const accessTokenId = accessToken.userId
+      res.user = await User.findOne({ accessTokenId })
+
       next()
     } catch (error) {
       console.log(
@@ -34,8 +37,8 @@ exports.requireSignIn = asyncHandler(async (req, res, next) => {
 })
 
 exports.authMiddleware = async (req, res, next) => {
-  const userId = res.user._id
-  const user = await User.findById({ _id: userId }).exec()
+  //console.log("authMiddleware", res.user)
+  const user = await User.findById(res.user._id).exec()
   if (!user) {
     return res.status(400).json({
       error: "User not found",
