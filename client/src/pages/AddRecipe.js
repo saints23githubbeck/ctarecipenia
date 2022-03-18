@@ -5,5 +5,4 @@ const AddRecipe = () => {
     <div>AddRecipe</div>
   )
 }
-
 export default AddRecipe
