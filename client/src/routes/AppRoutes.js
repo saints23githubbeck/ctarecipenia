@@ -6,20 +6,53 @@ import {
 
 
 import LandingPage from "../pages/LandingPage";
-import { NoAuthRoute } from "./NoAuthRoute";
-import { AuthRoute } from "./AuthRoute";
+// import { NoAuthRoute } from "./NoAuthRoute";
+// import { AuthRoute } from "./AuthRoute";
 import UserDashboard from "../pages/UserDashboard";
 import Profile from "../pages/Profile";
+import ContactUs from "../pages/ContactUs";
+import Recipes from "../pages/Recipes";
+import Blogs from "../pages/Blogs";
+import AppLayout from '../layout/AppLayout'
+
 
 const AppRoutes = (props) => {
   return (
     <BrowserRouter> 
       <div className="wrapper">
-      <Routes>
-          <Route path="/" element={<LandingPage />}/>
-          <Route path="/user-dashboard" element={<UserDashboard />}/>
-          <Route path="/profile" element={<Profile />}/>
-      </Routes>  
+        <Routes>
+            <Route path="/" element={
+              <AppLayout landingPage="true">
+                <LandingPage/>
+              </AppLayout>
+            }/>
+            <Route path="/user-dashboard" element={
+              <AppLayout>
+                <UserDashboard />
+              </AppLayout>
+            }/>
+            <Route path="/profile" element={   
+              <AppLayout>
+                <Profile />
+              </AppLayout>
+            }/>
+            <Route path="/contact-us" element={   
+              <AppLayout>
+                <ContactUs />
+              </AppLayout>
+            }/>
+            <Route path="/recipes" element={ 
+              <AppLayout>
+                <Recipes />
+              </AppLayout>
+            }/>
+            <Route path="/blogs" element={
+              <AppLayout>
+                <Blogs />
+              </AppLayout>
+            }/>
+            
+        </Routes>  
       </div>
     </BrowserRouter>
   );
