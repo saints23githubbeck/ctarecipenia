@@ -34,6 +34,7 @@ const userSchema = new Schema(
     },
     profilePic: {
       type: String,
+      default: ""
     },
     status: {
       type: String,

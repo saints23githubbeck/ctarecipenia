@@ -30,6 +30,7 @@ router.put("/profile-update", requireSignIn, authMiddleware, profileUpdate)
 router.get("/search-user/:query", searchUser)
 router.delete("/remove-user", requireSignIn, deleteUser)
 
+
 //admin routes
 router.get("/users", requireSignIn, adminMiddleware, getUsersByAdmin)
 router.get("/admin", requireSignIn, adminMiddleware, getAdminProfile)

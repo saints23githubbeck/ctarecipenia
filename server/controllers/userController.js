@@ -59,7 +59,7 @@ exports.login = asyncHandler(async (req, res) => {
   const { email, password } = req.body
 
   const user = await User.findOne({ email })
-
+  
   const match = await bcrypt.compare(password, user.password)
 
   if (match) {
