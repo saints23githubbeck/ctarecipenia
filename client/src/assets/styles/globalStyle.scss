@@ -25,6 +25,9 @@
   src: url("../fonts/Montserrat-Bold.ttf");
   font-weight: 700;
 }
+span{
+  font-size: 15px;
+}
 p{
   font-size: 19px;
   font-weight: 400;
@@ -52,8 +55,11 @@ ul{
   max-width: 1440px;
   margin: 0 auto;
 }
-
-@media (min-width: 670px ) {
+.wrapper{
+  width: 90%;
+  margin: 0 auto;
+}
+@media (min-width: 768px ) {
   p{
     font-size: 28px;
   }

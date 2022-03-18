@@ -19,7 +19,6 @@ import AppLayout from '../layout/AppLayout'
 const AppRoutes = (props) => {
   return (
     <BrowserRouter> 
-      <div className="wrapper">
         <Routes>
             <Route path="/" element={
               <AppLayout landingPage="true">
@@ -52,8 +51,7 @@ const AppRoutes = (props) => {
               </AppLayout>
             }/>
             
-        </Routes>  
-      </div>
+        </Routes> 
     </BrowserRouter>
   );
 }
