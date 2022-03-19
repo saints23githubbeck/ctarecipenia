@@ -5,6 +5,14 @@
   font-family: Montserrat;
 }
 
+:root {
+  --black: #000000;
+  --white: #ffffff;
+  --primary: #FDA47A;
+  --secondary: #FFF5EC;
+  --dark: #231E1E;
+}
+
 @font-face {
   font-family: Montserrat;
   src: url("../fonts/Montserrat-Regular.ttf");
@@ -25,9 +33,9 @@
   src: url("../fonts/Montserrat-Bold.ttf");
   font-weight: 700;
 }
-span{
-  font-size: 15px;
-}
+// span{
+//   font-size: 15px;
+// }
 p,h1,h2,h3,h4,h5,span{
   color: #282B30;
 }
@@ -58,14 +66,26 @@ h5{
 ul{
   list-style-type: none;
 }
+img{
+  max-width: 100%;
+}
+
+.text_primary{
+  color: var(--primary);
+}
 .App{
   max-width: 1440px;
   margin: 0 auto;
+  position: relative;
 }
 .wrapper{
   width: 90%;
   margin: 0 auto;
 }
+// .applayout{
+//   position: relative;
+//   max-width: 1440px;
+// }
 @media (min-width: 768px ) {
   p{
     font-size: 28px;

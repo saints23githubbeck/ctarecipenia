@@ -1,17 +1,35 @@
-import React from 'react'
+import React, { useState, useEffect }  from 'react'
 import {
   Link
 } from "react-router-dom";
 
 import "../assets/styles/footer.scss"
 import logo1 from "../assets/images/logo1.png"
+import logo2 from "../assets/images/logo2.png"
 
 const Footer = () => {
+
+  const [screen, setScreen] = useState(window.innerWidth);
+  const [mobile, setMobile] = useState(screen > 768?true:false);
+
+  useEffect(() => {
+    function handleResize() {
+      setScreen(window.innerWidth);
+    }
+    window.addEventListener('resize', handleResize);
+    if(screen > 768){
+      setMobile(false);
+    }else{
+      setMobile(true);
+    }
+    return () => window.removeEventListener('resize', handleResize);
+}, [screen]);
+
   return (
     <footer>
       <div className='footer'>
         <div>
-          <img className='logo' src={logo1} alt="logo" />
+          <img className='logo' src={ mobile ? logo1:logo2 } alt="logo" />
         </div>
         <div>
           <h5>Recent Categories</h5>
@@ -19,21 +37,22 @@ const Footer = () => {
             <ul>
               <li><Link to="/">Category6</Link></li>
               <li><Link to="/">Category4</Link></li>
+              <li><Link to="/">Coffee</Link></li>
               <li><Link to="/">Category5</Link></li>
               <li><Link to="/">Tea</Link></li>
               <li><Link to="/">Bread</Link></li>
               <li><Link to="/">Pork</Link></li>
               <li><Link to="/">Cookies</Link></li>
-              <li><Link to="/">Ice Cream</Link></li>
+              
             </ul>
             <ul>
-              <li><Link to="/">Coffee</Link></li>
+              <li><Link to="/">Category6</Link></li>
               <li><Link to="/">Category6</Link></li>
               <li><Link to="/">Category6</Link></li>
               <li><Link to="/">Pasta</Link></li>
-              <li><Link to="/">Category6</Link></li>
               <li><Link to="/">Cupcakes</Link></li>
               <li><Link to="/">Category</Link></li>
+              <li><Link to="/">Ice Cream</Link></li>
               <li><Link to="/">Shrimp</Link></li>
             </ul>
           </div>
@@ -67,15 +86,15 @@ const Footer = () => {
             <li><Link to="/">Login/ Register </Link></li>
           </ul>
         </div>
-        <div className='d-flex'>
+        <div className=''>
           <div>
             <h5>NEWSLETTER</h5>
-            <small>Sign up to receive email updates on new recipes</small>
+            <p>Sign up to receive email updates on new recipes</p>
           </div>
-          <div className='d-flex'>
+          <form className='d-flex'>
             <input type="text" placeholder='Your email address' />
-            <button>SUBSCRIBE</button>
-          </div>
+            <button type='submit'>SUBSCRIBE</button>
+          </form>
         </div>
       </div>
     </footer>

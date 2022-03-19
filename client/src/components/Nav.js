@@ -36,7 +36,7 @@ const Nav = ({landingPage}) => {
   }, [screen]);
  
   return (
-    <nav className={`py-3 py-md-2 ${landingPage?"":"blackNav"}`}  >
+    <nav className={`pt-3 py-md-2 ${landingPage?"":"blackNav"}`}  >
       <div  className='nav_wrapper wrapper d-flex justify-content-between flex-column flex-md-row md-align-items-center'>
         <div>
           <img className='logo' src={ landingPage || mobile ? logo1:logo2 } alt="logo" />

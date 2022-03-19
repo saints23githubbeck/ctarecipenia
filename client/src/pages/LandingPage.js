@@ -1,10 +1,12 @@
 import React from 'react'
-import Nav from '../components/Nav'
+import Header from '../components/landingPage/Header'
+import Latest from '../components/landingPage/Latest'
 
 const LandingPage = () => {
   return (
     <div>
-      LandingPage
+      <Header />
+      <Latest />
     </div>
   )
 }

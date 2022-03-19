@@ -8,7 +8,7 @@ const AppLayout = (props) => {
   const { landingPage } = props;
 
   return (
-    <div>
+    <div className='applayout'>
       <Nav landingPage={landingPage} />
         {props.children}
       <Footer />
