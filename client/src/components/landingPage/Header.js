@@ -1,6 +1,5 @@
 import React from 'react'
 
-import "../../assets/styles/landingPage.scss"
 import headerImage from "../../assets/images/header-image.png"
 import headerBg from "../../assets/images/header-bg-vector.png"
 
