@@ -9,7 +9,7 @@ import latestRecipe6 from "../../assets/images/latest-recipe6.png"
 import ownerImage from "../../assets/images/latest-recipe-owner-image.png"
 
 
-const Latest = () => {
+const LatestRecipe = () => {
 
   const latestData = [
     {
@@ -64,7 +64,7 @@ const Latest = () => {
       </div>
 
       <div className='card_group'>
-        <div className='mobile_none'> &lt; </div>
+        <div className='mobile_none lessThan'> &lt; </div>
         <div className='card_wrapper'>
           {
             latestData.map((recipe, index) => (
@@ -77,14 +77,20 @@ const Latest = () => {
                   <img src={recipe.ownerImage} alt={recipe.ownerName} />
                   <span><strong>{recipe.ownerName}</strong></span>
                 </div>
+                <div className='rating' style={{ textAlign: "center" }}>
+                  <span className='rated'>&#9733;</span>
+                  <span className='rated'>&#9733;</span>
+                  <span className='rated'>&#9733;</span>
+                  <span >&#9733;</span>
+                </div>
               </div>
             ))
           }
         </div>
-        <div className='mobile_none'> &gt; </div>
+        <div className='mobile_none greaterThan'> &gt; </div>
       </div>
     </div>
   )
 }
 
-export default Latest
+export default LatestRecipe
