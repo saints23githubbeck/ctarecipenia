@@ -8,6 +8,7 @@ import Header from '../components/landingPage/Header'
 import LatestRecipe from '../components/landingPage/LatestRecipe'
 import PopularAuthor from '../components/landingPage/PopularAuthor'
 import PopularRecipe from '../components/landingPage/PopularRecipe'
+import StayWithUs from '../components/StayWithUs'
 
 const LandingPage = () => {
   return (
@@ -20,6 +21,7 @@ const LandingPage = () => {
         <Categories />
         <Blogs />
       </div>
+      <StayWithUs />
     </div>
   )
 }
