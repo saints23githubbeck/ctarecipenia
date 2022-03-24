@@ -1,4 +1,3 @@
-import React from 'react'
 
 import latestRecipe1 from "../../assets/images/latest-recipe1.png"
 import latestRecipe2 from "../../assets/images/latest-recipe2.png"

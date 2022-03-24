@@ -9,17 +9,22 @@ import logo1 from "../assets/images/logo1.png"
 import logo2 from "../assets/images/logo2.png"
 import menuBar from "../assets/images/menu-bar.png"
 
-const Nav = ({landingPage}) => {
+const Nav = ({landingPage, setModalShow}) => {
 
   const [menu, setMenu] = useState(false);
   const [screen, setScreen] = useState(window.innerWidth);
   const [mobile, setMobile] = useState(screen > 768?true:false);
+
 
   const handleMenu = () => {
     setMenu(!menu)
   }
   const closeMenu = () => {
     setMenu(!menu)
+  }
+  const handleLogin = () => {
+    setModalShow(true)
+    closeMenu()
   }
 
   useEffect(() => {
@@ -39,7 +44,9 @@ const Nav = ({landingPage}) => {
     <nav className={`pt-3 py-md-2 ${landingPage?"":"blackNav"}`}  >
       <div  className='nav_wrapper wrapper d-flex justify-content-between flex-column flex-md-row md-align-items-center'>
         <div>
-          <img className='logo' src={ landingPage || mobile ? logo1:logo2 } alt="logo" />
+          <Link to="/">
+            <img className='logo' src={ landingPage || mobile ? logo1:logo2 } alt="logo" />
+          </Link>
         </div>
         <div className='nav_section'> 
           <div 
@@ -54,10 +61,13 @@ const Nav = ({landingPage}) => {
             <li onClick={closeMenu}><Link to="/recipes">Recipes</Link></li>
             <li onClick={closeMenu}><Link to="/blogs">Blogs</Link></li>
             <li onClick={closeMenu}><Link to="/contact-us">Contact Us</Link></li>
-            <li><span>Login / Register</span></li>
+            <li onClick={handleLogin}><span>Login / Register</span></li>
           </ul>
         </div>
       </div>
+
+
+       
     </nav>
   )
 }

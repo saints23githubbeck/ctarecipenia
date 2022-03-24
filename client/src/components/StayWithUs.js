@@ -1,4 +1,4 @@
-import React from 'react'
+import { Link } from "react-router-dom"
 
 import dribbleVector from "../assets/images/dribble_vector.png"
 import dribblelogo from "../assets/images/dribble_logo.png"
@@ -25,44 +25,54 @@ const StayWithUs = () => {
 
   const socials = [
     {
-      vector : facebookVector ,
-      logo: facebooklogo
+      vector : facebookVector,
+      logo: facebooklogo,
+      link: ""
     },
     {
-      vector : twitterVector ,
-      logo: twitterlogo
+      vector : twitterVector,
+      logo: twitterlogo,
+      link: ""
     },
     {
-      vector : instagramVector ,
-      logo: instagramlogo
+      vector : instagramVector,
+      logo: instagramlogo,
+      link: ""
     },
     {
-      vector : whatsappVector ,
-      logo: whatsapplogo
+      vector : whatsappVector,
+      logo: whatsapplogo,
+      link: ""
     },
     {
-      vector : youtubeVector ,
-      logo: youtubelogo
+      vector : youtubeVector,
+      logo: youtubelogo,
+      link: ""
     },
     {
-      vector : snapchatVector ,
-      logo: snapchatlogo
+      vector : snapchatVector,
+      logo: snapchatlogo,
+      link: ""
     },
     {
-      vector : dribbleVector ,
-      logo: dribblelogo
+      vector : dribbleVector,
+      logo: dribblelogo,
+      link: ""
     },
     {
-      vector : pininterestVector ,
-      logo: pininterestlogo
+      vector : pininterestVector,
+      logo: pininterestlogo,
+      link: ""
     },
     {
-      vector : tVector ,
-      logo: tlogo
+      vector : tVector,
+      logo: tlogo,
+      link: ""
     },
     {
-      vector : behanceVector ,
-      logo: behancelogo
+      vector : behanceVector,
+      logo: behancelogo,
+      link: ""
     }
   ]
 
@@ -76,15 +86,16 @@ const StayWithUs = () => {
         <div className='social_wrapper'>
           {
             socials.map((social, index) => (
+              <Link key={index} to={`/${social.link}`}>
               <div 
               className='social' 
-              key={index} 
               style={{
                 backgroundImage: `url('${social.vector}')`, 
                 backgroundRepeat: "no-repeat"
                 }}>
                 <span><img src={social.logo} alt="logo" /></span>
               </div>
+              </Link>
             ))
           }
         </div>

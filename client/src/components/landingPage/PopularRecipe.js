@@ -1,4 +1,4 @@
-import React from 'react'
+
 import popularRecipe from "../../assets/images/popular-recipe.png"
 
 const PopularRecipe = () => {
