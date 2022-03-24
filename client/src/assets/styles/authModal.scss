@@ -1,0 +1,120 @@
+
+
+.authModal{
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  padding: 30px 0;
+
+  p{
+    font-weight: 500;
+    font-size: 12px;
+  }
+  span{
+    font-size: 8.32209px;
+  }
+
+  
+
+  .loginIcon{
+    background: #FDA47A;
+    border-radius: 27.7403px;
+    width: 55px;
+    height: 55px;
+    margin: 0 auto;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .forgotIcon{
+    width: 55px;
+    height: 55px;
+    margin: 0 auto;
+  }
+
+  form{
+    margin-bottom: 20px;
+      text-align: left;
+      font-size: 8.32209px;
+    input{
+      background: rgba(92, 92, 92, 0.33);
+      width: 100%;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px 0 15px;
+    }
+    input[type=checkbox]{
+      width: 8px;
+      height: 8px;
+      margin-right: 5px;
+    }
+    button{
+      width: 100%;
+      background-color: var(--primary);
+      color: #ffffff;
+      border: none;
+      outline: none;
+      font-size: 12px;
+      padding: 10px;
+      &:hover{
+        background-color: var(--primaryHovered);
+      }
+    }
+  }
+}
+
+@media (min-width: 768px ) {
+
+ 
+
+  .authModal{
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 30px 0;
+  
+    p{
+      font-size: 30px;
+    }
+    span{
+      font-size: 30px;
+    }
+    form{
+       font-size: 25px;
+      input{
+        border: none;
+        padding: 10px 20px;
+        margin: 15px 0;
+      }
+      input[type=checkbox]{
+        width: 25px;
+        height: 25px;
+        margin-right: 10px;
+      }
+      label{
+        display: none;
+      }
+      button{
+
+        font-size: 30px;
+        padding: 10px;
+
+      }
+    }
+  
+    .loginIcon{
+      border-radius: 100px;
+      width: 200px;
+      height: 200px;
+      padding: 15px;
+      
+    }
+    .forgotIcon{
+      width: 200px;
+      height: 200px;
+    }
+  }
+
+}

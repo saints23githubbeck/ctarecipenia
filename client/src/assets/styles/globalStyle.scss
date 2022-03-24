@@ -2,9 +2,159 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: Montserrat;
 }
 
+:root {
+  --black: #000000;
+  --white: #ffffff;
+  --primary: #FDA47A;
+  --primaryHovered: #c06c45;
+  --secondary: #FFF5EC;
+  --dark: #231E1E;
+}
+
+@font-face {
+  font-family: Montserrat;
+  src: url("../fonts/Montserrat-Regular.ttf");
+  font-weight: 400;
+}
+@font-face {
+  font-family: Montserrat;
+  src: url("../fonts/Montserrat-Medium.ttf");
+  font-weight: 500;
+}
+@font-face {
+  font-family: Montserrat;
+  src: url("../fonts/Montserrat-SemiBold.ttf");
+  font-weight: 600;
+}
+@font-face {
+  font-family: Montserrat;
+  src: url("../fonts/Montserrat-Bold.ttf");
+  font-weight: 700;
+}
+// span{
+//   font-size: 15px;
+// }
+p,h1,h2,h3,h4,h5,span{
+  color: #282B30;
+}
+p{
+  font-size: 19px;
+  font-weight: 400;
+}
+h1{
+  font-size: 15px;
+  font-weight: 700;
+}
+h2{
+  font-size: 20px;
+  font-weight: 600;
+}
+h3{
+  font-size: 20px;
+  font-weight: 500;
+}
+h4{
+  font-size: 10px;
+  font-weight: 400;
+}
+h5{
+  font-size: 15px;
+  font-weight: 500;
+}
+ul{
+  list-style-type: none;
+}
+img{
+  max-width: 100%;
+}
+.pointer{
+  cursor: pointer;
+}
+.text_primary{
+  color: var(--primary);
+}
 .App{
   max-width: 1440px;
   margin: 0 auto;
+  position: relative;
+}
+.wrapper{
+  width: 90%;
+  margin: 0 auto;
+}
+
+.stay_with_us{
+  background-color: var(--dark) ;
+  
+  &>div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    div{
+      p,h3{
+        color: #ffffff!important;
+      }
+    }
+    .social_wrapper{
+      display: flex;
+      flex-wrap: wrap;
+      width: 50%;
+      margin: 20px auto;
+      .social{
+        height: 80px;
+        width: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 5px;
+      }
+    }
+  }
+}
+
+
+@media (min-width: 768px ) {
+  p{
+    font-size: 28px;
+  }
+  h1{
+    font-size: 54px;
+  }
+  h2{
+    font-size: 35px;
+  }
+  h3{
+    font-size: 30px;
+  }
+  h4{
+    font-size: 28px;
+  }
+  h5{
+    font-size: 20px;
+  }
+
+  .stay_with_us{
+    margin-bottom: 30px;
+    margin-top: 20px;
+    &>div{
+      flex-direction: row;
+      padding: 40px 0;
+      p{
+        font-size: 22px;
+      }
+      .social_wrapper{
+        flex-wrap: wrap;
+        width: 50%;
+        margin: 0px auto;
+        .social{
+          height: 100px;
+          width: 100px;
+        }
+      }
+    }
+  }
 }
