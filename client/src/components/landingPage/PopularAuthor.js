@@ -1,4 +1,3 @@
-import React from 'react'
 
 import author1 from "../../assets/images/author1.png"
 import author2 from "../../assets/images/author2.png"

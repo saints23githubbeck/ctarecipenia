@@ -1,5 +1,3 @@
-import React from 'react'
-
 import category1 from "../../assets/images/category1.png"
 import category2 from "../../assets/images/category2.png"
 import category3 from "../../assets/images/category3.png"

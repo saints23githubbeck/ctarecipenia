@@ -38,7 +38,7 @@ header{
 .latest{
   padding: 20px 0;
 
-  div{
+  & > div:nth-child(1){
     button{
       border: none;
       background-color: var(--primary);
@@ -47,6 +47,7 @@ header{
       padding-left: 10px;
       color: white;
       font-size: 15.5738px;
+      width: initial;
       height: 34px;
       text-align: center;
       display: flex;
