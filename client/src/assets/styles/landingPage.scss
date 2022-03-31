@@ -1,14 +1,14 @@
-header{
+header {
   position: relative;
   text-align: right;
   width: 90%;
   height: 350px;
   margin: 0 auto;
-  &>img{
+  & > img {
     width: 50%;
     height: 100%;
   }
-  .hero{
+  .hero {
     height: 282px;
     position: absolute;
     top: 30px;
@@ -16,30 +16,29 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
-    
-    div{
+
+    div {
       width: 45%;
-      h1{
-         margin-top: -60px;
-         text-align: left;
+      h1 {
+        margin-top: -60px;
+        text-align: left;
       }
       // img{
       //   margin-left: -70px;
       // }
 
-      &:nth-child(1){
+      &:nth-child(1) {
         width: 40%;
       }
-      
     }
   }
 }
 
-.latest{
+.latest {
   padding: 20px 0;
 
-  & > div:nth-child(1){
-    button{
+  & > div:nth-child(1) {
+    button {
       border: none;
       background-color: var(--primary);
       border-radius: 15.5738px;
@@ -52,13 +51,13 @@ header{
       text-align: center;
       display: flex;
       align-items: center;
-      &:hover{
+      &:hover {
         background-color: var(--primaryHovered);
-        span{
+        span {
           background-color: rgb(224, 221, 221);
         }
       }
-      span{
+      span {
         display: inline-block;
         width: 30px;
         height: 30px;
@@ -72,128 +71,203 @@ header{
       }
     }
   }
-  .card_group{
-    .mobile_none{
+  .card_group {
+    .mobile_none {
       display: none;
     }
-    .card_wrapper{
+    .card_wrapper {
       width: 90%;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      .card{
+      .card {
         width: 100%;
         background-color: var(--secondary);
         margin-top: 40px;
         padding: 15px;
-        div:nth-child(1){
+        div:nth-child(1) {
           text-align: center;
         }
-        span{
+        span {
           margin-left: 15px;
         }
-       
       }
     }
   }
 }
-.rating{
-  
+.rating {
   font-size: 8px;
-  span{
+  span {
     color: rgb(196, 196, 196);
   }
-  .rated{
-    color: #FFBD3F;
+  .rated {
+    color: #ffbd3f;
   }
 }
-.popularRecipe{
-  .card_wrapper{
+.popularRecipe {
+  .card_wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    .popular_card{
-       width: 47%;
-      div{
+    .popular_card {
+      width: 47%;
+      div {
         width: 49%;
-        h4{
+        h4 {
           margin: 0;
         }
-        p{
+        p {
           font-size: 7px;
         }
       }
     }
   }
 }
-.popularAuthor{
-  .author{
+.popularAuthor {
+  .author {
     margin: 30px 0;
     width: 30%;
     padding: 5px;
     padding-bottom: 20px;
-    background: #E2DBDB;
+    background: #e2dbdb;
     box-shadow: 0px 1.09548px 1.09548px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
-    div{
+    div {
       text-align: center;
       width: 80%;
       margin: 0 auto;
     }
-    p{
+    p {
       font-size: 6px;
       margin-top: 10px;
       margin-bottom: 0;
     }
-    
   }
 }
-.category-blog{
+.category-blog {
   display: flex;
   flex-direction: column-reverse;
   padding: 40px 0;
-  .categories{
+  .categories {
     width: 85%;
-    
-    .categories_wrapper{
+
+    .categories_wrapper {
       background-color: var(--primary);
       display: flex;
       flex-wrap: wrap;
       padding: 15px;
-      .category{
+      .category {
         width: 33%;
         text-align: center;
-        p{
+        p {
           font-size: 12px;
           color: white;
         }
       }
     }
   }
-  .blogs{
+  .blogs {
     margin-bottom: 40px;
-    p{
-      border-bottom: 0.601408px solid #C4C4C4;
+    p {
+      border-bottom: 0.601408px solid #c4c4c4;
     }
   }
 }
 
-@media (min-width: 570px ) {
-  header{
-     height: 450px;
+.bodyContainer {
+  padding: 200px 0px 50px 0px;
+}
+.topWrap {
+  background: #e2dbdb;
+  padding: 0px 100px;
+}
+.searchList > input {
+  padding-left: 30px;
+  width: 500px;
+  height: 50px;
+  border: 1px solid #ebecec;
+  box-sizing: border-box;
+  border-radius: 5px;
+  margin: 10px 0px;
+  outline: none;
+}
+.searchList1 > input {
+  padding-left: 30px;
+  width: 500px;
+  height: 50px;
+  box-sizing: border-box;
+  border-radius: 5px 0px 0px 5px;
+  margin: 10px 0px;
+  outline: none;
+}
+.searchList1 > button {
+  width: 60px;
+  height: 50px;
+  background: #ffbd3f;
+  box-sizing: border-box;
+  border-radius: 0px 5px 5px 0px;
+  margin: 10px 0px;
+  outline: none;
+  border: 2px solid #ffbd3f;
+}
+.searchList,
+.searchList1 > input,
+button :hover {
+  border: none;
+}
+
+.recipeCat {
+  background: #ffbd3f;
+  margin: 30px 100px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  padding: 10px;
+  p,
+  span {
+    font-weight: 400;
+    font-size: 21.6826px;
+    line-height: 26px;
+    color: #fff;
+    margin: 15px;
+  }
+  span {
+    margin-right: 10px;
+  }
+}
+.cardContainer{
+  padding: 5px 100px;
+}
+.recipeContainer{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
+}
+.recipeCard{
+  width: 295.08px;
+height: 327px;
+background: #FFF5EC;
+border-radius: 25px;
+text-align: center;
+margin: 20px ;
+padding: 5px;
+}
+
+@media (min-width: 570px) {
+  header {
+    height: 450px;
   }
 
-  .latest{
-    .card_group{
-      .mobile_none{
+  .latest {
+    .card_group {
+      .mobile_none {
         display: none;
       }
-      .card_wrapper{
+      .card_wrapper {
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: space-between;
-        .card{
+        .card {
           width: 47%;
         }
       }
@@ -201,43 +275,42 @@ header{
   }
 }
 
-
-@media (min-width: 768px ) {
-  header{
+@media (min-width: 768px) {
+  header {
     width: 100%;
     height: 1000px;
-    &>img{
+    & > img {
       width: 40%;
       height: 100%;
     }
-    .hero{
+    .hero {
       padding-top: 150px;
       height: 682px;
-      div{
+      div {
         width: 40%;
-        h1{
-           margin-top: -170px;
+        h1 {
+          margin-top: -170px;
         }
       }
     }
   }
-  
-  .rating{
+
+  .rating {
     font-size: 22px;
   }
 
-  .latest{
+  .latest {
     padding: 40px 0;
-    div{
+    div {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      button{
+      button {
         border-radius: 25px;
         padding-left: 20px;
         font-size: 25px;
         height: 58px;
-        span{
+        span {
           display: inline-block;
           width: 55px;
           height: 54px;
@@ -248,24 +321,24 @@ header{
         }
       }
     }
-    .card_group{
+    .card_group {
       align-items: flex-start;
-      .mobile_none{
+      .mobile_none {
         display: block;
         font-size: 30px;
         height: 50px;
-        color: #C4C4C4;
+        color: #c4c4c4;
       }
-      .lessThan{
+      .lessThan {
         margin-top: 150px;
       }
-      .greaterThan{
+      .greaterThan {
         align-self: flex-end;
         margin-bottom: 130px;
       }
-      .card_wrapper{
+      .card_wrapper {
         width: 90%;
-        .card{
+        .card {
           width: 28%;
           margin-top: 70px;
         }
@@ -273,50 +346,49 @@ header{
     }
   }
 
-  .popularRecipe{
+  .popularRecipe {
     padding: 40px 0;
-    .card_wrapper{
-      .popular_card{
-         width: 50%;
-        div{
-          p{
-            font-size:22px;
+    .card_wrapper {
+      .popular_card {
+        width: 50%;
+        div {
+          p {
+            font-size: 22px;
           }
         }
       }
     }
   }
 
-  .popularAuthor{
-    .author{
+  .popularAuthor {
+    .author {
       margin: 30px 0;
       width: 30%;
       padding: 15px;
-      background: #E2DBDB;
+      background: #e2dbdb;
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
       border-radius: 38px;
-      div{
+      div {
         text-align: center;
         width: 80%;
         margin: 0 auto;
       }
-      p{
+      p {
         font-size: 22px;
       }
-      
     }
   }
 
-  .category-blog{
+  .category-blog {
     flex-direction: row;
     justify-content: space-between;
-    .categories{
+    .categories {
       width: 30%;
     }
-    .blogs{
+    .blogs {
       width: 45%;
       margin-bottom: 0px;
-      h3{
+      h3 {
         margin-bottom: 40px;
       }
     }
