@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {
-  Link
+  Link, NavLink
 } from "react-router-dom";
 
 
@@ -55,17 +55,25 @@ const Nav = ({landingPage, setModalShow}) => {
             <span>Menu</span>
             <img className='menuBar' src={menuBar} alt="menu bar" />
           </div>  
+          {/* <nav className={`nav_items ${menu?'open':'close'}`}>
+          <NavLink to="/" onClick={closeMenu}>Home</NavLink>
+            <NavLink to="/categories" onClick={closeMenu}>Categories</NavLink>
+            <NavLink to="/recipes" onClick={closeMenu}>Recipes</NavLink>
+            <NavLink to="/blogs" onClick={closeMenu}>Blogs</NavLink>
+            <NavLink to="/contact-us" onClick={closeMenu}>Contact Us</NavLink>
+            <li onClick={handleLogin}><span>Login / Register</span></li>
+          </nav> */}
           <ul className={`nav_items ${menu?'open':'close'}`}>
-            <li onClick={closeMenu}><Link to="/">Home</Link></li>
-            <li onClick={closeMenu}><Link to="/categories">Categories</Link></li>
-            <li onClick={closeMenu}><Link to="/recipes">Recipes</Link></li>
-            <li onClick={closeMenu}><Link to="/blogs">Blogs</Link></li>
-            <li onClick={closeMenu}><Link to="/contact-us">Contact Us</Link></li>
+            <li onClick={closeMenu}><NavLink to="/">Home</NavLink></li>
+            <li onClick={closeMenu}><NavLink to="/categories">Categories</NavLink></li>
+            <li onClick={closeMenu}><NavLink to="/recipes">Recipes</NavLink></li>
+            <li onClick={closeMenu}><NavLink to="/blogs">Blogs</NavLink></li>
+            <li onClick={closeMenu}><NavLink to="/contact-us">Contact Us</NavLink></li>
             <li onClick={handleLogin}><span>Login / Register</span></li>
           </ul>
         </div>
       </div>
-
+ 
 
        
     </nav>

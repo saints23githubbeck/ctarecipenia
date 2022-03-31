@@ -29,6 +29,7 @@ import BlogsAdmin from "../pages/admin/BlogsAdmin";
 import CategoriesAdmin from "../pages/admin/CategoriesAdmin";
 import PagesAdmin from "../pages/admin/PagesAdmin";
 import Categories from "../pages/Categories";
+import AddRecipe from "../pages/AddRecipe";
 
 const AppRoutes = (props) => {
   return (
@@ -57,6 +58,11 @@ const AppRoutes = (props) => {
             <Route path="/recipes" element={ 
               <AppLayout>
                 <Recipes />
+              </AppLayout>
+            }/>
+            <Route path="/addrecipe" element={ 
+              <AppLayout>
+                <AddRecipe />
               </AppLayout>
             }/>
             <Route path="/categories" element={ 
