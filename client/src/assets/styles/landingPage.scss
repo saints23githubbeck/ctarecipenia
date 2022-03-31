@@ -252,7 +252,35 @@ text-align: center;
 margin: 20px ;
 padding: 5px;
 }
-
+.pContainer{
+  display: flex;
+  justify-content: space-around;
+}
+.activeP{
+  width: 25px;
+  height: 25px;
+  border-radius: 20px;
+  background: #ffbd3f;
+  text-align: center;
+  padding: auto;
+  color: #ebecec;
+  margin: 0px 10px;
+}
+.disableP{
+  width: 25px;
+  height: 25px;
+  background-color: grey;
+  color: transparent;
+  text-align: center;
+  padding: auto;
+  margin: 0px 10px;
+}
+.previousP, .nextP{
+  color: #000;
+  font-weight: 600;
+  text-align: center;
+  margin: 0px 10px;
+}
 @media (min-width: 570px) {
   header {
     height: 450px;

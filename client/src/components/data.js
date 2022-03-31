@@ -218,9 +218,27 @@ export const allRecipe = [
       ownerName:"Bambam"
     },
     {
-      title: "Chicken",
+      title: "sweet",
       recipeImage: latestRecipe6,
       ownerImage: ownerImage,
+      ownerName:"Kamraj"
+    },
+    {
+      title: "Chicken",
+      recipeImage: latestRecipe4,
+      ownerImage: ownerImage,
       ownerName:"Bambam"
+    },
+    {
+      title: "Chicken",
+      recipeImage: latestRecipe5,
+      ownerImage: ownerImage,
+      ownerName:"Bambam"
+    },
+    {
+      title: "sweet",
+      recipeImage: latestRecipe6,
+      ownerImage: ownerImage,
+      ownerName:"Kamraj"
     },
   ];

@@ -1,7 +1,60 @@
+import { useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { allRecipe, recipeCat } from "../components/data";
+import ReactPaginate from "react-paginate"
+import * as BiIcons from "react-icons/bi"
+
+const PER_PAGE = 12;
+const URL= {allRecipe}
 
 const Recipes = () => {
+  const [currentPage, setCurrentPage] = useState(0);
+  const [data, setData] = useState([]);
+  
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+ 
+  function fetchData () {
+    fetch(URL)
+      .then((res) => res.json())
+      .then((allRecipe) => {
+      setData(allRecipe);
+    });
+  };
+
+  const handlePageClick = ({selected: selectedPage }) => {
+    setCurrentPage(selectedPage);
+  }
+
+  const offset = currentPage * PER_PAGE
+
+  const currentPageData = allRecipe
+    .slice(offset, offset + PER_PAGE)
+    .map((allRecipe, index) => (
+      <div key={index} className="recipeCard">
+        <div>
+          <img src={allRecipe.recipeImage} alt="recipeImage" />
+        </div>
+        <h3>{allRecipe.title}</h3>
+        <div>
+          <img src={allRecipe.ownerImage} alt={allRecipe.ownerName} />
+          <span>
+            <strong>{allRecipe.ownerName}</strong>
+          </span>
+        </div>
+        <div className="rating" style={{ textAlign: "center" }}>
+          <span className="rated">&#9733;</span>
+          <span className="rated">&#9733;</span>
+          <span className="rated">&#9733;</span>
+          <span>&#9733;</span>
+        </div>
+      </div>
+    ));
+
+    const pageCount = Math.ceil(allRecipe.length / PER_PAGE);
+
   return (
     <div className="bodyContainer">
       <div className="topWrap">
@@ -32,7 +85,21 @@ const Recipes = () => {
       <div className="cardContainer">
         <h2>All Recipes</h2>
         <div className="recipeContainer">
-        {allRecipe.map((allRecipe, index) => (
+          {currentPageData}
+          </div>
+<ReactPaginate 
+previousLabel={<BiIcons.BiLeftArrowAlt />}
+nextLabel={<BiIcons.BiRightArrowAlt />}
+pageCount={pageCount}
+onPageChange={handlePageClick}
+containerClassName={"pContainer "} 
+previousLinkClassName={"previousP"}
+nextLinkClassName={"nextP"}
+disabledClassName={"disableP"}
+activeClassName={"activeP"}
+/>
+
+        {/* {allRecipe.map((allRecipe, index) => (
           <div key={index} className="recipeCard">
             <div>
               <img src={allRecipe.recipeImage} alt="recipeImage" />
@@ -51,10 +118,10 @@ const Recipes = () => {
               <span>&#9733;</span>
             </div>
           </div>
-        ))}
+        ))} */}
       </div>
       </div>
-    </div>
+  
   );
 };
 
