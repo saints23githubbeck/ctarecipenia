@@ -101,7 +101,7 @@ header {
     color: rgb(196, 196, 196);
   }
   .rated {
-    color: #ffbd3f;
+    color: var(--primary);
   }
 }
 .popularRecipe {
@@ -180,7 +180,7 @@ header {
 }
 .topWrap {
   background: #e2dbdb;
-  padding: 0px 100px;
+  padding: 20px 100px;
 }
 .searchList > input {
   padding-left: 30px;
@@ -204,12 +204,13 @@ header {
 .searchList1 > button {
   width: 60px;
   height: 50px;
-  background: #ffbd3f;
+  background: var(--primary);
   box-sizing: border-box;
   border-radius: 0px 5px 5px 0px;
   margin: 10px 0px;
   outline: none;
-  border: 2px solid #ffbd3f;
+  border: 2px solid var(--primary);
+  color: #fff;
 }
 .searchList,
 .searchList1 > input,
@@ -218,7 +219,7 @@ button :hover {
 }
 
 .recipeCat {
-  background: #ffbd3f;
+  background: var(--primary);
   margin: 30px 100px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -246,7 +247,7 @@ button :hover {
 .recipeCard{
   width: 295.08px;
 height: 327px;
-background: #FFF5EC;
+background: var(--secondary);
 border-radius: 25px;
 text-align: center;
 margin: 20px ;
@@ -254,13 +255,13 @@ padding: 5px;
 }
 .pContainer{
   display: flex;
-  justify-content: space-around;
+  justify-content: end;
 }
 .activeP{
   width: 25px;
   height: 25px;
   border-radius: 20px;
-  background: #ffbd3f;
+  background: var(--primary);
   text-align: center;
   padding: auto;
   color: #ebecec;

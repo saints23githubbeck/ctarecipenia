@@ -1,34 +1,33 @@
 import { useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { allRecipe, recipeCat } from "../components/data";
-import ReactPaginate from "react-paginate"
-import * as BiIcons from "react-icons/bi"
+import ReactPaginate from "react-paginate";
+import * as BiIcons from "react-icons/bi";
 
-const PER_PAGE = 12;
-const URL= {allRecipe}
+const PER_PAGE = 15;
+const URL = { allRecipe };
 
 const Recipes = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
-  
+
   useEffect(() => {
     fetchData();
   }, []);
 
- 
-  function fetchData () {
+  function fetchData() {
     fetch(URL)
       .then((res) => res.json())
       .then((allRecipe) => {
-      setData(allRecipe);
-    });
-  };
-
-  const handlePageClick = ({selected: selectedPage }) => {
-    setCurrentPage(selectedPage);
+        setData(allRecipe);
+      });
   }
 
-  const offset = currentPage * PER_PAGE
+  const handlePageClick = ({ selected: selectedPage }) => {
+    setCurrentPage(selectedPage);
+  };
+
+  const offset = currentPage * PER_PAGE;
 
   const currentPageData = allRecipe
     .slice(offset, offset + PER_PAGE)
@@ -53,7 +52,7 @@ const Recipes = () => {
       </div>
     ));
 
-    const pageCount = Math.ceil(allRecipe.length / PER_PAGE);
+  const pageCount = Math.ceil(allRecipe.length / PER_PAGE);
 
   return (
     <div className="bodyContainer">
@@ -73,31 +72,30 @@ const Recipes = () => {
       </div>
 
       <div className="recipeCat">
-        {recipeCat.map((recipeCat, index) => (
-          <div key={index} className="">
-            <p>
-              <span>{recipeCat.icon}</span>
-              {recipeCat.name}
-            </p>
-          </div>
-        ))}
-      </div>
+          {recipeCat.map((recipeCat, index) => (
+            <div key={index} className="">
+              <p>
+                <span>{recipeCat.icon}</span>
+                {recipeCat.name}
+              </p>
+            </div>
+          ))}
+        </div>
+
       <div className="cardContainer">
         <h2>All Recipes</h2>
-        <div className="recipeContainer">
-          {currentPageData}
-          </div>
-<ReactPaginate 
-previousLabel={<BiIcons.BiLeftArrowAlt />}
-nextLabel={<BiIcons.BiRightArrowAlt />}
-pageCount={pageCount}
-onPageChange={handlePageClick}
-containerClassName={"pContainer "} 
-previousLinkClassName={"previousP"}
-nextLinkClassName={"nextP"}
-disabledClassName={"disableP"}
-activeClassName={"activeP"}
-/>
+        <div className="recipeContainer">{currentPageData}</div>
+        <ReactPaginate
+          previousLabel={<BiIcons.BiLeftArrowAlt />}
+          nextLabel={<BiIcons.BiRightArrowAlt />}
+          pageCount={pageCount}
+          onPageChange={handlePageClick}
+          containerClassName={"pContainer "}
+          previousLinkClassName={"previousP"}
+          nextLinkClassName={"nextP"}
+          disabledClassName={"disableP"}
+          activeClassName={"activeP"}
+        />
 
         {/* {allRecipe.map((allRecipe, index) => (
           <div key={index} className="recipeCard">
@@ -120,8 +118,7 @@ activeClassName={"activeP"}
           </div>
         ))} */}
       </div>
-      </div>
-  
+    </div>
   );
 };
 
