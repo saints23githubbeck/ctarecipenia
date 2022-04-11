@@ -10,8 +10,8 @@ import LandingPage from "../pages/LandingPage";
 // import { AuthRoute } from "./AuthRoute";
 import UserDashboard from "../pages/UserDashboard";
 import Profile from "../pages/Profile";
-import ContactUs from "../pages/ContactUs";
 import Recipes from "../pages/Recipes";
+import ContactUs from "../pages/ContactUs";
 import Blogs from "../pages/Blogs";
 import AppLayout from '../layout/AppLayout'
 import LoginAdmin from "../pages/admin/LoginAdmin";
@@ -50,14 +50,16 @@ const AppRoutes = (props) => {
                 <Profile />
               </AppLayout>
             }/>
-            <Route path="/contact-us" element={   
-              <AppLayout>
-                <ContactUs />
-              </AppLayout>
-            }/>
+            
             <Route path="/recipes" element={ 
               <AppLayout>
                 <Recipes />
+              </AppLayout>
+            }/>
+
+            <Route path="/contact-us" element={   
+              <AppLayout>
+                <ContactUs/>
               </AppLayout>
             }/>
             <Route path="/addrecipe" element={ 
