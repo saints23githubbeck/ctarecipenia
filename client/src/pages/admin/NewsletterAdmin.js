@@ -46,7 +46,7 @@ const NewsletterAdmin = () => {
     .slice(offset, offset + PER_PAGE)
     .map((newsletter, index) => (
       <tr key={index} className="">
-        <td className="tdata">{newsletter.ti}</td>
+        <td className="tdata">{newsletter.email}</td>
         <td className="tdata">{newsletter.created}</td>
         <td className="tdata buttonEdit">
           <button className="detailsButton" style={{ backgroundColor: "red" }}>
