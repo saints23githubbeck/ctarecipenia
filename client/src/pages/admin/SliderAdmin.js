@@ -41,12 +41,10 @@ const SliderAdmin = () => {
             cursor: "pointer",
             alignItems: "center",
             height: '20px',
-            width: '250px',
             borderRadius: '5px'
           }}
         >
-          <FaPlus />
-          <p>Add New Record</p>
+          <p> <FaPlus /> Add New Record</p>
         </div>
       </div>
 
