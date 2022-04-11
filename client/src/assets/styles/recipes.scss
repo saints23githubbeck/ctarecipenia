@@ -1,0 +1,43 @@
+@media (min-width: 100px) and (max-width: 768px) {
+ 
+.topWrap, .cardContainer {
+    padding: 20px 20px;
+}
+.searchList > input {
+    width: 90% !important;
+    padding-left: 15px !important;
+  }
+
+  .searchList1 > input {
+    padding-left: 15px !important;
+    width: 80% !important;
+  }
+  .searchList1 > button {
+    width: 20% !important;
+  }
+
+.recipeContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.recipeCat {
+    background: var(--primary);
+    margin: 30px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    padding: 5px;
+    p,
+    span {
+      font-weight: 300;
+      font-size: 12px;
+      line-height: 15px;
+      color: #fff;
+      margin: 5px;
+    }
+    span {
+      margin-right: 10px;
+    }
+  }
+
+  
+}

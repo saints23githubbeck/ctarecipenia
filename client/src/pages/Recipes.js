@@ -4,6 +4,8 @@ import { allRecipe, recipeCat } from "../components/data";
 import ReactPaginate from "react-paginate";
 import * as BiIcons from "react-icons/bi";
 
+import "../assets/styles/recipes.scss"
+
 const PER_PAGE = 15;
 const URL = { allRecipe };
 

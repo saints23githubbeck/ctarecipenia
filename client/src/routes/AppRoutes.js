@@ -30,6 +30,7 @@ import CategoriesAdmin from "../pages/admin/CategoriesAdmin";
 import PagesAdmin from "../pages/admin/PagesAdmin";
 import Categories from "../pages/Categories";
 import AddRecipe from "../pages/AddRecipe";
+import EditRecord from '../components/admin/EditRecord'
 
 const AppRoutes = (props) => {
   return (
@@ -136,6 +137,11 @@ const AppRoutes = (props) => {
             <Route path="/admin/pages" element={
                 <AdminLayout title="/ Pages">
                   <PagesAdmin />
+                </AdminLayout>
+            }/> 
+            <Route path="/admin/slider/edit" element={
+                <AdminLayout title="/ Edit">
+                  <EditRecord />
                 </AdminLayout>
             }/> 
         </Routes> 
