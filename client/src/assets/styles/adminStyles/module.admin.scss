@@ -1,0 +1,98 @@
+.container {
+  background-color: rgb(227, 227, 227);
+  height: 100vh;
+}
+
+.fill {
+  background-color: #fff;
+  margin: 10px;
+  padding: 15px;
+  h5 {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 30px;
+    color: #282b30;
+    margin: 20px 0px 0px 30px;
+  }
+  p {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+    margin: 20px 30px;
+    color: rgba(40, 43, 48, 0.64);
+  }
+}
+.dashCard {
+  padding: 10px;
+  width: 90%;
+  h1,
+  p,
+  h3 {
+    color: #ffffff;
+    font-size: 15px;
+  }
+}
+
+.fills {
+  background-color: #fff;
+  margin: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.stepHeader {
+  display: flex;
+  justify-content: space-between;
+  h5 {
+    width: 25%;
+    margin: 5px;
+    height: 40px;
+    background-color: #cacbcd;
+    text-align: center;
+    padding: 10px 0px;
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #fff;
+    cursor: pointer;
+  }
+}
+.stepBody {
+  background: #fff;
+  margin: -5px 5px;
+}
+.detailsButton{
+    cursor: pointer;
+    margin: 2px;
+    width: 60px;
+    height: 30px;
+    font-size: 12px;
+    border-radius: 5px;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    padding: 5px;
+    color: #fff;
+    border: none;
+  }
+  td, th{
+    padding: 10px;
+  }
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+  table {
+    overflow-x: auto;
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    border-spacing: 0;
+     width: 100%; 
+    border: 1px solid #ddd;
+  }
+  

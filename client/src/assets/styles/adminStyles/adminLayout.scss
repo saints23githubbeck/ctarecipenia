@@ -1,53 +1,54 @@
-.adminlayout{
+.adminlayout {
   display: flex;
   flex-direction: column;
   height: 100%;
-  .sideNav{
+  .sideNav {
     background-color: var(--dark);
-    & > div{
-      position: relative; 
+    & > div {
+      position: relative;
     }
-    .logo_wrapper{
+    .logo_wrapper {
       padding: 35px 30px;
       // width: 80%;
       width: 100%;
       margin: 0 auto;
-      background: #231E1E;
-      .logo{
+      background: #231e1e;
+      .logo {
         width: 114px;
         margin-left: 10px;
       }
     }
-    .cancel{
+    .cancel {
       margin-bottom: 66px;
     }
-    .open{
+    .open {
       display: block;
     }
-    .close{
+    .close {
       display: none;
     }
-    .sideNav_contents{
+    .sideNav_contents {
       position: absolute;
       z-index: 10;
       top: 0;
       left: 0;
       width: 100%;
       background-color: rgba(0, 0, 0, 0.4);
-      // overflow-y: scroll;    
-      & > ul{
+      // overflow-y: scroll;
+      & > ul {
         padding: 29px;
         background-color: var(--dark);
-        width: 65%;      
-        li{
+        width: 65%;
+        li {
           padding: 5px;
-          img{
+          img {
             width: 15px;
             height: 15px;
             margin-right: 10px;
             margin-top: -5px;
-          }   
-          a, .subNav{
+          }
+          a,
+          .subNav {
             display: block;
             padding: 8px;
             border-radius: 4px;
@@ -55,46 +56,46 @@
             text-decoration: none;
             font-size: 14px;
             cursor: pointer;
-            &:hover{
+            &:hover {
               background-color: rgba(255, 255, 255, 0.2);
-              color: white!important;
-               span{
-                  color: white!important;
+              color: white !important;
+              span {
+                color: white !important;
               }
             }
           }
-          .subNav span{
-              color: rgba(196, 196, 196, 0.8);
-          }  
+          .subNav span {
+            color: rgba(196, 196, 196, 0.8);
+          }
         }
-        .subNav_wrapper{
-          ul{
+        .subNav_wrapper {
+          ul {
             display: none;
             padding-left: 10px;
           }
-          .openSub{
+          .openSub {
             display: block;
           }
-          .closeSub{
+          .closeSub {
             display: none;
           }
         }
-      }   
+      }
     }
   }
-  .children{
-    header{
+  .children {
+    header {
       height: 36px;
       // background-color: red;
       width: 100%;
-      div{
+      div {
         width: 80%;
         margin: 0 auto;
-        text-align: left; 
+        text-align: left;
         font-size: 10px;
         padding-top: 10px;
-        img{
-          &:nth-child(1){
+        img {
+          &:nth-child(1) {
             display: none;
           }
           width: 16px;
@@ -102,9 +103,9 @@
           margin-right: 10px;
           margin-top: -3px;
         }
-        a{
+        a {
           text-decoration: none;
-          color: #C4C4C4;
+          color: #c4c4c4;
         }
       }
     }
@@ -112,56 +113,58 @@
 }
 
 @media (min-width: "768px") {
-  .adminlayout{
+  .adminlayout {
     flex-direction: row;
     width: 100%;
     margin: 0 auto;
     max-width: 1400px;
-    .sideNav{
+    .sideNav {
       width: 25%;
       height: 100vh;
       overflow-y: scroll;
-      & > div{
+      & > div {
         position: relative;
         width: 60%;
         margin: 0 auto;
       }
-      .logo_wrapper{
-        padding: 88px 0px 0px;    
-        background: #231E1E;
-        .logo{
+      .logo_wrapper {
+        padding: 88px 0px 0px;
+        background: #231e1e;
+        .logo {
           width: 138px;
           margin-left: 0px;
         }
-        .menubar{
+        .menubar {
           display: none;
         }
       }
-      .cancel{
-         display: none;
+      .cancel {
+        display: none;
       }
-      .close{
+      .close {
         display: block;
       }
-      .sideNav_contents{
+      .sideNav_contents {
         position: initial;
-        background: #231E1E; 
-        & > ul{
+        background: #231e1e;
+        & > ul {
           padding: 29px 0;
-          width: 100%;      
-        }   
+          width: 100%;
+        }
       }
     }
-    .children{
+    .children {
       width: 75%;
-      header{
+      height: 100vh;
+      overflow-y: scroll;
+      header {
         height: 53px;
         display: flex;
         align-items: center;
-        div{
-            width: 100%;
-          img{
-            &:nth-child(1){
+        div {
+          width: 100%;
+          img {
+            &:nth-child(1) {
               display: initial;
               margin-left: 40px;
             }

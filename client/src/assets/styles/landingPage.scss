@@ -177,45 +177,47 @@ header {
 
 .bodyContainer {
   padding: 200px 0px 50px 0px;
+  width: 100vw;
 }
 .topWrap {
   background: #e2dbdb;
   padding: 20px 100px;
-}
-.searchList > input {
-  padding-left: 30px;
-  width: 500px;
-  height: 50px;
-  border: 1px solid #ebecec;
-  box-sizing: border-box;
-  border-radius: 5px;
-  margin: 10px 0px;
-  outline: none;
-}
-.searchList1 > input {
-  padding-left: 30px;
-  width: 500px;
-  height: 50px;
-  box-sizing: border-box;
-  border-radius: 5px 0px 0px 5px;
-  margin: 10px 0px;
-  outline: none;
-}
-.searchList1 > button {
-  width: 60px;
-  height: 50px;
-  background: var(--primary);
-  box-sizing: border-box;
-  border-radius: 0px 5px 5px 0px;
-  margin: 10px 0px;
-  outline: none;
-  border: 2px solid var(--primary);
-  color: #fff;
-}
-.searchList,
-.searchList1 > input,
-button :hover {
-  border: none;
+
+  .searchList > input {
+    padding-left: 30px;
+    width: 500px;
+    height: 50px;
+    border: 1px solid #ebecec;
+    box-sizing: border-box;
+    border-radius: 5px;
+    margin: 10px 0px;
+    outline: none;
+  }
+  .searchList1 > input {
+    padding-left: 30px;
+    width: 500px;
+    height: 50px;
+    box-sizing: border-box;
+    border-radius: 5px 0px 0px 5px;
+    margin: 10px 0px;
+    outline: none;
+  }
+  .searchList1 > button {
+    width: 60px;
+    height: 50px;
+    background: var(--primary);
+    box-sizing: border-box;
+    border-radius: 0px 5px 5px 0px;
+    margin: 10px 0px;
+    outline: none;
+    border: 2px solid var(--primary);
+    color: #fff;
+  }
+  .searchList,
+  .searchList1 > input,
+  button :hover {
+    border: none;
+  }
 }
 
 .recipeCat {
@@ -236,28 +238,27 @@ button :hover {
     margin-right: 10px;
   }
 }
-.cardContainer{
+.cardContainer {
   padding: 5px 100px;
 }
-.recipeContainer{
+.recipeContainer {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-
 }
-.recipeCard{
+.recipeCard {
   width: 295.08px;
-height: 327px;
-background: var(--secondary);
-border-radius: 25px;
-text-align: center;
-margin: 20px ;
-padding: 5px;
+  height: 327px;
+  background: var(--secondary);
+  border-radius: 25px;
+  text-align: center;
+  margin: 20px;
+  padding: 5px;
 }
-.pContainer{
+.pContainer {
   display: flex;
   justify-content: end;
 }
-.activeP{
+.activeP {
   width: 25px;
   height: 25px;
   border-radius: 20px;
@@ -267,7 +268,7 @@ padding: 5px;
   color: #ebecec;
   margin: 0px 10px;
 }
-.disableP{
+.disableP {
   width: 25px;
   height: 25px;
   background-color: grey;
@@ -276,7 +277,8 @@ padding: 5px;
   padding: auto;
   margin: 0px 10px;
 }
-.previousP, .nextP{
+.previousP,
+.nextP {
   color: #000;
   font-weight: 600;
   text-align: center;
@@ -302,6 +304,7 @@ padding: 5px;
       }
     }
   }
+
 }
 
 @media (min-width: 768px) {
@@ -422,4 +425,7 @@ padding: 5px;
       }
     }
   }
+
+
+  
 }
