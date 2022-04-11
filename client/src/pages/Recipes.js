@@ -99,26 +99,7 @@ const Recipes = () => {
           activeClassName={"activeP"}
         />
 
-        {/* {allRecipe.map((allRecipe, index) => (
-          <div key={index} className="recipeCard">
-            <div>
-              <img src={allRecipe.recipeImage} alt="recipeImage" />
-            </div>
-            <h3>{allRecipe.title}</h3>
-            <div>
-              <img src={allRecipe.ownerImage} alt={allRecipe.ownerName} />
-              <span>
-                <strong>{allRecipe.ownerName}</strong>
-              </span>
-            </div>
-            <div className="rating" style={{ textAlign: "center" }}>
-              <span className="rated">&#9733;</span>
-              <span className="rated">&#9733;</span>
-              <span className="rated">&#9733;</span>
-              <span>&#9733;</span>
-            </div>
-          </div>
-        ))} */}
+        
       </div>
     </div>
   );

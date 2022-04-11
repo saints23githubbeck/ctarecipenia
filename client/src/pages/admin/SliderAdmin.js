@@ -1,12 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { record } from "../../components/admin/data";
+import ReactPaginate from "react-paginate";
+import * as BiIcons from "react-icons/bi";
+
+const PER_PAGE = 10;
+const URL = { record };
 
 const SliderAdmin = () => {
   const navigate = useNavigate();
   const [addRecord, setAddRecord] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [data, setData] = useState([]);
 
   const handleOpen = (item) => {
     setShowModal(true);
@@ -17,16 +24,57 @@ const SliderAdmin = () => {
     setShowModal(false);
   };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  function fetchData() {
+    fetch(URL)
+      .then((res) => res.json())
+      .then((record) => {
+        setData(record);
+      });
+  }
+
+  const handlePageClick = ({ selected: selectedPage }) => {
+    setCurrentPage(selectedPage);
+  };
+
+  const offset = currentPage * PER_PAGE;
+
+  const currentPageData = record
+    .slice(offset, offset + PER_PAGE)
+    .map((record, index) => (
+      <tr key={index} className="">
+        <td className="tdata">{record.title}</td>
+        <td className="tdata">{record.image}</td>
+        <td className="tdata buttonEdit">
+          <button
+            className="detailsButton"
+            onClick={() => navigate("/admin/slider/edit", { state: record })}
+            style={{ backgroundColor: "orange" }}
+          >
+            Edit
+          </button>
+          <button className="detailsButton" style={{ backgroundColor: "red" }}>
+            Delete
+          </button>
+        </td>
+      </tr>
+    ));
+
+  const pageCount = Math.ceil(record.length / PER_PAGE);
+
   return (
     <div className="fill">
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
-          alignItems: 'center',
-          textAlign: 'center',
-          margin: '10px',
-          padding: '20px',
+          alignItems: "center",
+          textAlign: "center",
+          margin: "10px",
+          padding: "20px",
           color: "#fff",
         }}
       >
@@ -40,11 +88,14 @@ const SliderAdmin = () => {
             fontSize: "16px",
             cursor: "pointer",
             alignItems: "center",
-            height: '20px',
-            borderRadius: '5px'
+            height: "20px",
+            borderRadius: "5px",
           }}
         >
-          <p> <FaPlus /> Add New Record</p>
+          <p>
+            {" "}
+            <FaPlus /> Add New Record
+          </p>
         </div>
       </div>
 
@@ -55,32 +106,19 @@ const SliderAdmin = () => {
             <th className="thead">Image</th>
             <th className="thead">Operations</th>
           </tr>
-          {record.map((item, index) => {
-            return (
-              <tr key={index} className="">
-                <td className="tdata">{item.title}</td>
-                <td className="tdata">{item.image}</td>
-                <td className="tdata buttonEdit">
-                  <button
-                    className="detailsButton"
-                    onClick={() =>
-                      navigate("/admin/slider/edit", { state: item })
-                    }
-                    style={{ backgroundColor: "orange" }}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="detailsButton"
-                    style={{ backgroundColor: "red" }}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
+          {currentPageData}
         </table>
+        <ReactPaginate
+          previousLabel={<BiIcons.BiLeftArrowAlt />}
+          nextLabel={<BiIcons.BiRightArrowAlt />}
+          pageCount={pageCount}
+          onPageChange={handlePageClick}
+          containerClassName={"pContainer "}
+          previousLinkClassName={"previousP"}
+          nextLinkClassName={"nextP"}
+          disabledClassName={"disableP"}
+          activeClassName={"activeP"}
+        />
       </div>
     </div>
   );
