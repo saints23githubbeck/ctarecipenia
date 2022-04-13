@@ -29,7 +29,7 @@ const ContactUs = () => {
   ]
   return (
     <section className="contact">
-      <div className="contact-nav">
+      <div className="sub-nav">
         <div className="flex wrapper">
           <h1>Contact Us</h1>
           <ul className="list">

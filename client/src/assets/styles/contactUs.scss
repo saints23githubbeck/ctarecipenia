@@ -9,6 +9,10 @@
     font-size: 12px;
   }
 
+  h1,h3,h5,span,li,label{
+    font-weight: 500;
+  }
+
   .flex{
     display: flex;
   }
@@ -22,28 +26,11 @@
   .contact-form,.question{
     margin: 20px 0;
   }
-  
-  
-  .contact-nav{
-    background-color:#E2DBDB;
-    padding: 10px 0;
-    .flex{
-      justify-content: space-between;
-      align-items: center;
-      h1{
-        margin: 0;
-      }
-      .list{
-        margin: 0;
-        padding: 0;
-        li{
-          display: inline-block;
-          margin-left: 10px;
-        }
-      }
-    }
 
+  label{
+    margin-bottom: 5px;
   }
+  
   .wrapper{
     .img{
       display: flex;
@@ -70,11 +57,8 @@
             background: linear-gradient(0deg, #FDA47A, #FDA47A),
             linear-gradient(0deg, #FDA47A, #FDA47A);
             ;
-            padding: 15px 20px;
+            padding: 15px;
             border-radius: 50%;
-            img{
-
-            }
           }
           span{
             font-size: 12px;
@@ -84,22 +68,26 @@
     }
     .contact-form{
       h3{
-        margin: 40px 0 20px 0;
+        font-weight: 600;
       }
       form{
         margin-top: 20px;
         .form{
           flex-direction: column;
-          // gap: 10px;
+
           .inputs{
             .input{
-              margin: 10px 0;
+              margin: 15px 0;
+              input{
+                padding: 5px 0;
+              }
             }
           }
           .textarea{
             textarea{
               width: 100%;
-              height: 300px;
+              padding-bottom: 50%;
+              // height: 300px;
             }
           }
         }
@@ -113,6 +101,10 @@
             outline: none;
             border: none;
             color: white;
+            font-weight: 700;
+            &:hover{
+              background: #d2815b;
+          }
           }
         }
       }
@@ -127,25 +119,13 @@
     padding-top:97px;
 
     .contact-form,.question{
-      margin: 50px 0;
+      margin: 20px 0;
     }
 
     li{
       font-size: 14px;
     }
   
-    
-    .contact-nav{
-      .flex{
-        padding-left: 5%;
-        max-width: 1000px;
-        margin: 0;
-        h1{
-          font-size: 35px;
-        }
-      }
-  
-    }
     .wrapper{
       .question{
         .question-contain{
@@ -160,19 +140,25 @@
         }
       }
       .contact-form{
-
         form{
           max-width: 700px;
           .form{
             flex-direction: row;
+            align-items: baseline;
             justify-content: space-between;
             .inputs{
-              width: 45%;
+              width: 47%;
+              .input{
+                margin: 0px 0 30px 0;
+                input{
+                  padding: 5px 0;
+                }
+              }
             }
             .textarea{
               width: 50%;
               textarea{
-                height: 215px;
+                padding-bottom: 50%;
               }
             }
           }
@@ -183,7 +169,4 @@
       }
     }
   }
-  
-  
-  
 }
