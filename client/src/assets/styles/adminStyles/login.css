@@ -1,0 +1,63 @@
+.loginAdmin {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  padding-top: 150px;
+}
+
+.loginAdmin div form {
+  margin-bottom: 20px;
+  text-align: left;
+  font-size: 8.32209px;
+}
+
+.loginAdmin div form input {
+  background: rgba(92, 92, 92, 0.33);
+  width: 100%;
+  border: none;
+  padding: 10px 20px;
+  margin: 10px 0 15px;
+}
+
+.loginAdmin div form button {
+  width: 100%;
+  background-color: var(--primary);
+  color: #ffffff;
+  border: none;
+  outline: none;
+  font-size: 12px;
+  padding: 10px;
+}
+
+.loginAdmin div form button:hover {
+  background-color: var(--primaryHovered);
+}
+
+@media (min-width: 768px) {
+  .loginAdmin div {
+    width: 70%;
+  }
+  .loginAdmin div form {
+    font-size: 25px;
+  }
+  .loginAdmin div form input {
+    border: none;
+    padding: 10px 20px;
+    margin: 25px 0;
+  }
+  .loginAdmin div form label {
+    display: none;
+  }
+  .loginAdmin div form button {
+    font-size: 30px;
+    padding: 10px;
+  }
+}
+/*# sourceMappingURL=login.css.map */

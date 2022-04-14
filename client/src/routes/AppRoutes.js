@@ -12,7 +12,8 @@ import UserDashboard from "../pages/UserDashboard";
 import Profile from "../pages/Profile";
 import ContactUs from "../pages/ContactUs";
 import Recipes from "../pages/Recipes";
-import Blogs from "../pages/Blogs";
+import BlogsPage from "../pages/BlogsPage";
+import SingleBlog from "../pages/SingleBlog";
 import AppLayout from '../layout/AppLayout'
 import LoginAdmin from "../pages/admin/LoginAdmin";
 import AdminLayout from "../layout/AdminLayout";
@@ -29,6 +30,8 @@ import BlogsAdmin from "../pages/admin/BlogsAdmin";
 import CategoriesAdmin from "../pages/admin/CategoriesAdmin";
 import PagesAdmin from "../pages/admin/PagesAdmin";
 import Categories from "../pages/Categories";
+import AddRecipe from "../pages/AddRecipe";
+
 
 const AppRoutes = (props) => {
   return (
@@ -59,6 +62,11 @@ const AppRoutes = (props) => {
                 <Recipes />
               </AppLayout>
             }/>
+            <Route path="/addrecipe" element={ 
+              <AppLayout>
+                <AddRecipe />
+              </AppLayout>
+            }/>
             <Route path="/categories" element={ 
               <AppLayout>
                 <Categories />
@@ -66,7 +74,12 @@ const AppRoutes = (props) => {
             }/>
             <Route path="/blogs" element={
               <AppLayout>
-                <Blogs />
+                <BlogsPage />
+              </AppLayout>
+            }/> 
+            <Route path="/blogs/:id" element={
+              <AppLayout>
+                <SingleBlog/>
               </AppLayout>
             }/> 
 

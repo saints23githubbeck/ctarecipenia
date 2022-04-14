@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {
-  Link
+  Link, NavLink
 } from "react-router-dom";
 
 
@@ -55,17 +55,18 @@ const Nav = ({landingPage, setModalShow}) => {
             <span>Menu</span>
             <img className='menuBar' src={menuBar} alt="menu bar" />
           </div>  
+
           <ul className={`nav_items ${menu?'open':'close'}`}>
-            <li onClick={closeMenu}><Link to="/">Home</Link></li>
-            <li onClick={closeMenu}><Link to="/categories">Categories</Link></li>
-            <li onClick={closeMenu}><Link to="/recipes">Recipes</Link></li>
-            <li onClick={closeMenu}><Link to="/blogs">Blogs</Link></li>
-            <li onClick={closeMenu}><Link to="/contact-us">Contact Us</Link></li>
+            <li onClick={closeMenu}><NavLink to="/">Home</NavLink></li>
+            <li onClick={closeMenu}><NavLink to="/categories">Categories</NavLink></li>
+            <li onClick={closeMenu}><NavLink to="/recipes">Recipes</NavLink></li>
+            <li onClick={closeMenu}><NavLink to="/blogs">Blogs</NavLink></li>
+            <li onClick={closeMenu}><NavLink to="/contact-us">Contact Us</NavLink></li>
             <li onClick={handleLogin}><span>Login / Register</span></li>
           </ul>
         </div>
       </div>
-
+ 
 
        
     </nav>

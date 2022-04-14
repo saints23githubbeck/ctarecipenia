@@ -59,7 +59,7 @@ const LatestRecipe = () => {
         <button>
           See all
           <span>&#8594;</span>
-        </button>
+      </button>
       </div>
 
       <div className='card_group'>
