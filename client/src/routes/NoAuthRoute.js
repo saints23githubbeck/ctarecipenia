@@ -3,8 +3,6 @@ import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from "react-router-dom";
 
 export const NoAuthRoute = () => {
-    const loggedIn = useSelector((state)=> state.loggedIn);
-     console.log(loggedIn,"noauth log")
- 
+    const loggedIn = useSelector((state) => state.user.isLoggedIn);
     return loggedIn ? <Navigate to="/home" />:<Outlet /> ;
 };

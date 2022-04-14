@@ -4,9 +4,9 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 
 exports.register = asyncHandler(async (req, res) => {
-  const { username, password, email, lastName, firstName, secret, profilePic } =
+  const { username, password, email, secret, profilePic } =
     req.body
-  if (!username || !password || !email || !lastName || !firstName || !secret) {
+  if (!username || !password || !email || !secret) {
     res.status(400)
     throw new Error("Please fill all required fields")
   }
@@ -23,8 +23,6 @@ exports.register = asyncHandler(async (req, res) => {
     throw new Error("User with that email already exists")
   }
 
-  const name = `${firstName} ${lastName}`
-
   const salt = await bcrypt.genSalt(12)
   const hashPassword = await bcrypt.hash(password, salt)
   const hashedSecret = await bcrypt.hash(secret, salt)
@@ -33,7 +31,6 @@ exports.register = asyncHandler(async (req, res) => {
     email,
     username,
     password: hashPassword,
-    name,
     secret: hashedSecret,
     profilePic,
   })
@@ -119,7 +116,7 @@ exports.profileUpdate = asyncHandler(async (req, res) => {
   console.log(res.user)
   try {
     //console.log("profile update req.body", req.body);
-    const { secret, password, username, firstName, lastName, profilePic } =
+    const { secret, password, username, profilePic } =
       req.body
     const updateInfo = {}
 
