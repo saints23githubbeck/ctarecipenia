@@ -3,15 +3,15 @@ import axios from "axios";
 
 // const API = axios.create({baseURL: "http://localhost:5000"});
 
-const API = axios.create({baseURL: "https://mohkabir-memory-app.herokuapp.com"});
+const API = axios.create({baseURL: "https://localhost5000"});
 
 
-  API.interceptors.request.use((req) => {
-    if(localStorage.getItem("auth")){
-      req.headers.Autorization = `Bearer ${JSON.parse(localStorage.getItem("auth")).token}`;
-    }
-    return req;
-  })
+  // API.interceptors.request.use((req) => {
+  //   if(localStorage.getItem("auth")){
+  //     req.headers.Autorization = `Bearer ${JSON.parse(localStorage.getItem("auth")).token}`;
+  //   }
+  //   return req;
+  // })
 
 export const fetchPostapi = () => API.get("/posts");
 export const createPostapi = (formData) => API.post("/posts", formData);
