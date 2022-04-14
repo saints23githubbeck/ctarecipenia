@@ -1,0 +1,298 @@
+.user-dash-board {
+  input,
+  textarea {
+    ::placeholder {
+      font-size: 15px;
+    }
+    border: 1px solid #c4c4c454;
+  }
+
+    ul{
+        li{
+            font-weight: 500;
+        }
+    }
+
+    .sub-nav{
+        .flex{
+            .list{
+                li:nth-child(1){
+                    display: none;
+                }
+                li:nth-child(2)::after{
+                    content: '>';
+                    position: absolute;
+                    transform: translateX(40%);
+                  }
+            }
+        }
+
+    }
+
+  .wrapper {
+    margin-top: 20px;
+    .user-menu {
+      width: 275px;
+      margin: 20px 10px 20px;
+      flex-direction: column;
+      .profile {
+        align-items: start;
+        gap: 20px;
+        padding: 40px 20px;
+        background-color: #fda47a;
+        .img {
+          img {
+            width: 83px;
+          }
+        }
+        .name {
+          h5 {
+            margin: 7px 0 3px 0;
+            font-weight: 800;
+            color: white;
+          }
+          h5:nth-child(2) {
+            font-weight: 500;
+          }
+        }
+      }
+
+      .menu-list {
+        background-color: #e2dbdb;
+        flex-direction: column;
+        padding: 35px 20px;
+        gap: 20px;
+        .flex {
+          align-items: baseline;
+          gap: 15px;
+          padding: 0px 20px;
+          h5 {
+            font-weight: 500;
+          }
+          img {
+            width: 14px;
+          }
+        }
+      }
+    }
+    .form {
+      form {
+        max-width: 500px;
+        h5 {
+          font-weight: 400;
+          margin-bottom: 10px;
+        }
+        h2 {
+          margin: 30px 0 40px;
+          font-weight: 400;
+        }
+        .inputs {
+          flex-direction: column;
+          gap: 21px;
+          .left,
+          .right {
+            flex-direction: column;
+            gap: 21px;
+            .input {
+              width: 100%;
+              input {
+                width: 100%;
+                padding-left: 15px;
+              }
+            }
+          }
+        }
+        .textarea {
+          margin-top: 21px;
+          textarea {
+            padding-bottom: 50%;
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .center {
+          margin: 30px 0 20px;
+        }
+        .checkbox {
+          .check {
+            align-items: center;
+            margin: 10px 0;
+            gap: 10px;
+            h5 {
+              margin: 0;
+            }
+          }
+          .upload-sec {
+            .upload {
+              align-items: center;
+              flex-wrap: wrap;
+              margin: 20px 0;
+              gap: 5px;
+              .upload-div {
+                background-color: #fda47a;
+                color: white;
+                height: 45px;
+                padding: 0 30px;
+                h5 {
+                    word-wrap: break-word;
+                    color: white;
+                    font-weight: 700;
+                  line-height: 45px;
+                }
+              }
+              .upload-img {
+                img {
+                  height: 45px;
+                }
+              }
+            }
+          }
+        }
+        .upload-btn {
+          text-align: center;
+          margin: 50px 0 80px;
+          button {
+            padding: 8px 18px;
+            font-size: 15px;
+            border: none;
+            background-color: #fda47a;
+            color: white;
+            outline: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .user-dash-board {
+    h2,
+    h5 {
+      font-size: 25px;
+    }
+    .sub-nav{
+        .flex{
+            .list{
+                display: flex;
+                li:nth-child(2)::after{
+                    content: '>';
+                    position: absolute;
+                    transform: translateX(40%);
+                  }
+                li:nth-child(1){
+                    display: block;
+                }
+            }
+        }
+      }
+    padding-top: 97px;
+    .wrapper {
+      margin-top: 0px;
+      display: flex;
+      align-items: flex-start;
+      .user-menu {
+        width: 387px;
+        h5 {
+            font-size: 20px;
+          }
+        .profile {
+          .img {
+            img {
+              width: 118px;
+            }
+          }
+          .name {
+            h5 {
+              margin: 15px 0 3px 0;
+            }
+            h5:nth-child(2) {
+                margin:0;
+            }
+          }
+        }
+
+        .menu-list {
+          gap: 40px;
+          .flex {
+            padding: 0px 35px;
+            img {
+              width: 20px;
+            }
+          }
+        }
+      }
+      .form {
+        width: 60%;
+        margin-left: 10px;
+        form {
+          max-width: unset;
+          h5 {
+            margin-bottom: 10px;
+          }
+          h2 {
+            margin: 14px 0 40px;
+          }
+          .inputs {
+            flex-direction: row;
+            gap: 21px;
+            .left,
+            .right {
+              width: 50%;
+              flex-direction: column;
+              gap: 21px;
+              .input {
+                width: 100%;
+                input {
+                  width: 100%;
+                  padding: 8px 15px;
+                }
+              }
+            }
+          }
+          .textarea {
+            margin-top: 21px;
+            textarea {
+              padding-bottom: 10%;
+            }
+          }
+          .center {
+            margin: 10px 0 20px;
+          }
+          .checkbox {
+            display: flex;
+            align-items: baseline;
+            gap: 80px;
+            .check {
+              h5 {
+                font-size: 15px;
+              }
+            }
+            .upload-sec {
+              .upload {
+                .upload-div {
+                  h5 {
+                    font-size: 15px;
+                  }
+                }
+                .upload-img {
+                  img {
+                    height: 45px;
+                  }
+                }
+              }
+            }
+          }
+          .upload-btn {
+            text-align: left;
+            margin: 10px 0 80px;
+            button {
+              padding: 8px 18px;
+              font-size: 15px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
