@@ -10,10 +10,11 @@ import LandingPage from "../pages/LandingPage";
 // import { AuthRoute } from "./AuthRoute";
 import UserDashboard from "../pages/UserDashboard";
 import Profile from "../pages/Profile";
-import ContactUs from "../pages/ContactUs";
 import Recipes from "../pages/Recipes";
-// import BlogsPage from "../pages/BlogsPage";
+import BlogsPage from "../pages/BlogsPage";
 import SingleBlog from "../pages/SingleBlog";
+import ContactUs from "../pages/ContactUs";
+// import Blogs from "../pages/Blogs";
 import AppLayout from '../layout/AppLayout'
 import LoginAdmin from "../pages/admin/LoginAdmin";
 import AdminLayout from "../layout/AdminLayout";
@@ -31,6 +32,7 @@ import CategoriesAdmin from "../pages/admin/CategoriesAdmin";
 import PagesAdmin from "../pages/admin/PagesAdmin";
 import Categories from "../pages/Categories";
 import AddRecipe from "../pages/AddRecipe";
+import EditRecord from '../components/admin/EditRecord'
 
 
 const AppRoutes = (props) => {
@@ -52,14 +54,16 @@ const AppRoutes = (props) => {
                 <Profile />
               </AppLayout>
             }/>
-            <Route path="/contact-us" element={   
-              <AppLayout>
-                <ContactUs />
-              </AppLayout>
-            }/>
+            
             <Route path="/recipes" element={ 
               <AppLayout>
                 <Recipes />
+              </AppLayout>
+            }/>
+
+            <Route path="/contact-us" element={   
+              <AppLayout>
+                <ContactUs/>
               </AppLayout>
             }/>
             <Route path="/addrecipe" element={ 
@@ -72,7 +76,7 @@ const AppRoutes = (props) => {
                 <Categories />
               </AppLayout>
             }/>
-            {/* <Route path="/blogs" element={
+            <Route path="/blogs" element={
               <AppLayout>
                 <BlogsPage />
               </AppLayout>
@@ -81,7 +85,7 @@ const AppRoutes = (props) => {
               <AppLayout>
                 <SingleBlog/>
               </AppLayout>
-            }/>  */}
+            }/> 
 
 
             {/* admin routes */}
@@ -143,6 +147,11 @@ const AppRoutes = (props) => {
             <Route path="/admin/pages" element={
                 <AdminLayout title="/ Pages">
                   <PagesAdmin />
+                </AdminLayout>
+            }/> 
+            <Route path="/admin/slider/edit" element={
+                <AdminLayout title="/ Edit">
+                  <EditRecord />
                 </AdminLayout>
             }/> 
         </Routes> 
