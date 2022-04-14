@@ -12,7 +12,7 @@ import UserDashboard from "../pages/UserDashboard";
 import Profile from "../pages/Profile";
 import ContactUs from "../pages/ContactUs";
 import Recipes from "../pages/Recipes";
-import BlogsPage from "../pages/BlogsPage";
+// import BlogsPage from "../pages/BlogsPage";
 import SingleBlog from "../pages/SingleBlog";
 import AppLayout from '../layout/AppLayout'
 import LoginAdmin from "../pages/admin/LoginAdmin";
@@ -72,7 +72,7 @@ const AppRoutes = (props) => {
                 <Categories />
               </AppLayout>
             }/>
-            <Route path="/blogs" element={
+            {/* <Route path="/blogs" element={
               <AppLayout>
                 <BlogsPage />
               </AppLayout>
@@ -81,7 +81,7 @@ const AppRoutes = (props) => {
               <AppLayout>
                 <SingleBlog/>
               </AppLayout>
-            }/> 
+            }/>  */}
 
 
             {/* admin routes */}
