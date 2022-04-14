@@ -18,7 +18,7 @@ const Blogs = () => {
       <div>
         {
           blogs.map((blog, index) => (
-            <p>{blog.title}</p>
+            <p key={index}>{blog.title}</p>
           ))
         }
       </div>

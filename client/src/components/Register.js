@@ -1,29 +1,103 @@
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import loginIcon from "../assets/images/login-icon.png"
+import { signUp } from "../appState/actions/AuthAction";
+import loginIcon from "../assets/images/login-icon.png";
 
 const Register = (props) => {
+  const dispatch = useDispatch();
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const handleinput = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handleRegister = (e) => {
+    e.preventDefault();
+    if (formData.username.length < 4) {
+      return alert("username must be above 3");
+    }
+
+    if (formData.password.length < 6) {
+      return alert("password must not be below Six");
+    }
+    if (formData.confirmPassword !== formData.password) {
+      return alert("password dont match");
+    }
+    const newFormdata = { ...formData, secret: "recipemania" };
+    const { confirmPassword, ...otherData } = newFormdata;
+
+    console.log(otherData, "otherData log");
+    dispatch(signUp(otherData));
+    clear();
+  };
+
+  const clear = () => {
+    setFormData({
+      username: "",
+      confirmPassword: "",
+      email: "",
+      password: "",
+    });
+  };
+
   return (
     <div>
       <div className="loginIcon">
         <img src={loginIcon} alt="login Icon" />
       </div>
-      <span className='text_primary'>Welcome</span>
-      <form action="">
+      <span className="text_primary">Welcome</span>
+      <form onSubmit={handleRegister}>
         <label htmlFor="text">Username</label>
-        <input type="text" placeholder='Username' />
+        <input
+          type="text"
+          onChange={handleinput}
+          name="username"
+          placeholder="Username"
+          value={formData.username}
+        />
         <label htmlFor="email">Email</label>
-        <input type="text" placeholder='Email' />
+        <input
+          type="text"
+          onChange={handleinput}
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+        />
         <label htmlFor="password">Password</label>
-        <input type="password" placeholder='Password'/>
+        <input
+          type="password"
+          onChange={handleinput}
+          name="password"
+          value={formData.password}
+          placeholder="Password"
+        />
         <label htmlFor="confirm-password">Confirm Password</label>
-        <input type="password" placeholder='Password'/>
-   
-        <button>REGISTER NOW</button>
+        <input
+          type="password"
+          onChange={handleinput}
+          name="confirmPassword"
+          value={formData.confirmPassword}
+          placeholder="Confirm Password"
+        />
+
+        <button type="submit">REGISTER NOW</button>
       </form>
 
-    <p>Already a Member? <b className='text_primary pointer' onClick={()=> props.handleAuthType("login")}>Login</b></p>
+      <p>
+        Already a Member?{" "}
+        <b
+          className="text_primary pointer"
+          onClick={() => props.handleAuthType("login")}
+        >
+          Login
+        </b>
+      </p>
     </div>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;

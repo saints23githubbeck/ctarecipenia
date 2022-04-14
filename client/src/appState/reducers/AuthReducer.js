@@ -1,39 +1,44 @@
 import * as actiontypes from "../actionTypes";
 
-
-export const loggedIn = (state = false, action) => {
-  switch (action.type) {
-    case actiontypes.APP_SET_LOGGED_IN:
-      return action.payload;
-    case actiontypes.APP_CLEAR:
-      return false;
-    default:
-      return state;
-  }
+const initialState = {
+  isLoggedIn: localStorage.getItem("user") ? true : false,
+  user: localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user")).user
+    : null,
+  message: "",
 };
 
-export const auth = (state = {authdata: null}, action) => {
+export const user = (state = initialState, action) => {
   switch (action.type) {
-    case actiontypes.AUTH :
-      localStorage.setItem("auth", JSON.stringify(action?.payload));
-      return { ...state, athdata: "loggedIn"}
+    case actiontypes.LOG_OUT:
+      localStorage.clear();
+      return {
+        ...state,
+        isLoggedIn: false,
+        message: "signed out",
+        user: null,
+      };
       break;
-      case actiontypes.LOG_OUT:
-        localStorage.clear();
-      return {...state, authdata: null}
-      ;
+    case actiontypes.SIGN_IN:
+      localStorage.setItem("user", JSON.stringify(action?.payload));
+      return {
+        ...state,
+        isLoggedIn: true,
+        message: action?.payload.message,
+        user: action?.payload.user,
+      };
       break;
-      case actiontypes.SIGN_IN:
-        localStorage.setItem("auth", JSON.stringify(action?.payload));
-      return {...state, authdata: action?.payload}
-      ;
-      case actiontypes.SIGN_UP:
-      // localStorage.setItem("auth", JSON.stringify(action?.payload));
-      return {...state, athdata: "signedUp"}
-      ;
-      
+    case actiontypes.SIGN_UP:
+      localStorage.setItem("user", JSON.stringify(action?.payload));
+      return {
+        ...state,
+        isLoggedIn: true,
+        message: action?.payload.message,
+        user: action?.payload.user,
+      };
+
     default:
-      return state
+      return state;
       break;
   }
-}
+};
