@@ -1,0 +1,200 @@
+.adminlayout {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 100%;
+}
+
+.adminlayout .sideNav {
+  background-color: var(--dark);
+}
+
+.adminlayout .sideNav > div {
+  position: relative;
+}
+
+.adminlayout .sideNav .logo_wrapper {
+  padding: 35px 30px;
+  width: 100%;
+  margin: 0 auto;
+  background: #231E1E;
+}
+
+.adminlayout .sideNav .logo_wrapper .logo {
+  width: 114px;
+  margin-left: 10px;
+}
+
+.adminlayout .sideNav .cancel {
+  margin-bottom: 66px;
+}
+
+.adminlayout .sideNav .open {
+  display: block;
+}
+
+.adminlayout .sideNav .close {
+  display: none;
+}
+
+.adminlayout .sideNav .sideNav_contents {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.adminlayout .sideNav .sideNav_contents > ul {
+  padding: 29px;
+  background-color: var(--dark);
+  width: 65%;
+}
+
+.adminlayout .sideNav .sideNav_contents > ul li {
+  padding: 5px;
+}
+
+.adminlayout .sideNav .sideNav_contents > ul li img {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  margin-top: -5px;
+}
+
+.adminlayout .sideNav .sideNav_contents > ul li a, .adminlayout .sideNav .sideNav_contents > ul li .subNav {
+  display: block;
+  padding: 8px;
+  border-radius: 4px;
+  color: rgba(196, 196, 196, 0.8);
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.adminlayout .sideNav .sideNav_contents > ul li a:hover, .adminlayout .sideNav .sideNav_contents > ul li .subNav:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white !important;
+}
+
+.adminlayout .sideNav .sideNav_contents > ul li a:hover span, .adminlayout .sideNav .sideNav_contents > ul li .subNav:hover span {
+  color: white !important;
+}
+
+.adminlayout .sideNav .sideNav_contents > ul li .subNav span {
+  color: rgba(196, 196, 196, 0.8);
+}
+
+.adminlayout .sideNav .sideNav_contents > ul .subNav_wrapper ul {
+  display: none;
+  padding-left: 10px;
+}
+
+.adminlayout .sideNav .sideNav_contents > ul .subNav_wrapper .openSub {
+  display: block;
+}
+
+.adminlayout .sideNav .sideNav_contents > ul .subNav_wrapper .closeSub {
+  display: none;
+}
+
+.adminlayout .children header {
+  height: 36px;
+  width: 100%;
+}
+
+.adminlayout .children header div {
+  width: 80%;
+  margin: 0 auto;
+  text-align: left;
+  font-size: 10px;
+  padding-top: 10px;
+}
+
+.adminlayout .children header div img {
+  width: 16px;
+  height: 13px;
+  margin-right: 10px;
+  margin-top: -3px;
+}
+
+.adminlayout .children header div img:nth-child(1) {
+  display: none;
+}
+
+.adminlayout .children header div a {
+  text-decoration: none;
+  color: #C4C4C4;
+}
+
+@media (min-width: 768px) {
+  .adminlayout {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    width: 100%;
+    margin: 0 auto;
+    max-width: 1400px;
+  }
+  .adminlayout .sideNav {
+    width: 25%;
+    height: 100vh;
+    overflow-y: scroll;
+  }
+  .adminlayout .sideNav > div {
+    position: relative;
+    width: 60%;
+    margin: 0 auto;
+  }
+  .adminlayout .sideNav .logo_wrapper {
+    padding: 88px 0px 0px;
+    background: #231E1E;
+  }
+  .adminlayout .sideNav .logo_wrapper .logo {
+    width: 138px;
+    margin-left: 0px;
+  }
+  .adminlayout .sideNav .logo_wrapper .menubar {
+    display: none;
+  }
+  .adminlayout .sideNav .cancel {
+    display: none;
+  }
+  .adminlayout .sideNav .close {
+    display: block;
+  }
+  .adminlayout .sideNav .sideNav_contents {
+    position: initial;
+    background: #231E1E;
+  }
+  .adminlayout .sideNav .sideNav_contents > ul {
+    padding: 29px 0;
+    width: 100%;
+  }
+  .adminlayout .children {
+    width: 75%;
+  }
+  .adminlayout .children header {
+    height: 53px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .adminlayout .children header div {
+    width: 100%;
+  }
+  .adminlayout .children header div img:nth-child(1) {
+    display: initial;
+    margin-left: 40px;
+  }
+}
+/*# sourceMappingURL=adminLayout.css.map */

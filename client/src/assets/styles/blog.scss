@@ -1,0 +1,206 @@
+.blog-page{
+    padding-top: 40px;
+    span{
+        font-size: 6px;
+    }
+    h3,p,span{
+        font-weight: 400;
+    }
+    .flex{
+        display: flex;
+    }
+    button{
+        margin-top : 10px;
+        font-size: 7px;
+        font-weight: 700;
+        padding: 7px 10px ;
+        border: none;
+        outline : none;
+        background: #FDA47A;
+        color: white;
+        &:hover{
+            background: #d2815b;
+        }
+    }
+    .blog-wrap{
+        flex-direction: column;
+        .left{
+            .blog-lists{
+                display: flex;
+                gap: 20px;
+                flex-direction: column;
+                max-width: 420px;
+                margin:20px auto;
+                .blog-list{
+                    align-items : flex-start;
+                    gap: 10px;
+                    .img{
+                            width: 50%;
+                            img{
+                                width: 100%;
+                            }
+                    }
+                    .text{
+                        width: 50%;
+                            h3{
+                                font-size: 12px; 
+                            }
+                            .info{
+                                margin: 10px 0 10px;
+                                flex-wrap: wrap;
+                                gap: 2px;
+                                >div{
+                                    align-items: center;
+                                    gap: 2px;
+                                }
+                            }
+                            p{
+                                font-size: 9px;
+                                line-height: 1.7;
+                            }
+                    }
+    
+                }
+            }
+            .pagination{
+                margin: 70px 0 40px;
+                .numbers{
+                    width: 80%;
+                    margin: auto;
+                    gap: 20px;
+                    align-items: center;
+                    .number{
+                        text-align: center;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 50%;
+                        width: 50px;
+                        height: 50px;
+                        background: linear-gradient(0deg, #FDA47A, #FDA47A),
+                        linear-gradient(0deg, #FDA47A, #FDA47A);
+                        ;
+                    }
+                    .number:nth-child(2),.number:nth-child(3){
+                        background: #C4C4C4;
+                    }
+                    .number:nth-child(3){
+                        visibility: hidden;
+                    }
+                    h3{
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+        .right{
+            .blogs {
+                margin: 20px 0;
+                h3{
+                    font-weight: 500;
+                }
+                p {
+                width: 100%;
+                  border-bottom: 0.601408px solid #c4c4c4;
+                }
+              }
+        }
+    }
+
+    .sub-nav{
+        .flex{
+          .list{
+            li:nth-child(2){
+            font-weight: 500;
+            }
+          }
+        }
+      }
+      
+}
+
+
+
+@media (min-width: 768px ) {
+    .blog-page{
+        padding-top: 97px;
+        button{
+            margin-top : 30px;
+            font-size: 16px;
+            padding: 15px;
+        }
+        span{
+            font-size: 12px;
+        }
+        .blog-wrap{
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+            .left{
+                .blog-lists{
+                    gap: 40px;
+                    flex-direction: column;
+                    max-width: 900px;
+                    margin:20px auto;
+                    .blog-list{
+                        align-items : flex-start;
+                        gap: 20px;
+                        .img{
+                            img{
+                                max-height: 270px;
+                                max-width: 500px;
+                            }
+                        }
+                        .text{
+                            width: 60%;
+                            p{
+                                font-size: 20px;
+                                line-height: 1.7;
+                            }
+                                h3{
+                                    font-size: 25px; 
+                                }
+                                .info{
+                                    margin: 25px 0 ;
+                                    gap: 6px;
+                                    >div{
+                                        gap: 3px;
+                                    }
+                                }
+                        }
+        
+                    }
+                }
+                .pagination{
+                    .numbers{
+                        width: 100%;
+                        gap: 20px;
+                        justify-content: end;
+                        .number{
+                            padding: 2px;
+                            width: 60px;
+                            height: 60px;
+                        }
+                        .number:nth-child(3){
+                            visibility: visible;
+                        }
+                        
+                    }
+                }
+            }
+            .right{
+                width: 40%;
+                margin: 0 0 0 50px;
+                .blogs {
+                    h3{
+                        font-size: 35px;
+                    }
+                    p {
+                        width: 80%;
+                        font-size: 20px ;
+                    }
+                  }
+            }
+        }
+    }
+}
