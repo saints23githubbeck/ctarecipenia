@@ -11,8 +11,10 @@ import LandingPage from "../pages/LandingPage";
 import UserDashboard from "../pages/UserDashboard";
 import Profile from "../pages/Profile";
 import Recipes from "../pages/Recipes";
+import BlogsPage from "../pages/BlogsPage";
+import SingleBlog from "../pages/SingleBlog";
 import ContactUs from "../pages/ContactUs";
-import Blogs from "../pages/Blogs";
+// import Blogs from "../pages/Blogs";
 import AppLayout from '../layout/AppLayout'
 import LoginAdmin from "../pages/admin/LoginAdmin";
 import AdminLayout from "../layout/AdminLayout";
@@ -31,6 +33,7 @@ import PagesAdmin from "../pages/admin/PagesAdmin";
 import Categories from "../pages/Categories";
 import AddRecipe from "../pages/AddRecipe";
 import EditRecord from '../components/admin/EditRecord'
+
 
 const AppRoutes = (props) => {
   return (
@@ -75,7 +78,12 @@ const AppRoutes = (props) => {
             }/>
             <Route path="/blogs" element={
               <AppLayout>
-                <Blogs />
+                <BlogsPage />
+              </AppLayout>
+            }/> 
+            <Route path="/blogs/:id" element={
+              <AppLayout>
+                <SingleBlog/>
               </AppLayout>
             }/> 
 
