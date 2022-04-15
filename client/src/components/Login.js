@@ -12,12 +12,10 @@ const Login = (props) => {
     password: "",
   });
   const handleinput = (e) => {
-    console.log(e.target.name, e.target.value, "e log");
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log(formData, "formData log");
      dispatch(logIn(formData, navigate));
     clear();
   };
