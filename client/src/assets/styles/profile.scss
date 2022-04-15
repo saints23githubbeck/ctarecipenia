@@ -1,0 +1,79 @@
+.profile-page{
+    .wrapper{
+        .right{
+            max-width: 420px;
+            margin:0 auto 50px;
+            .review{
+                background: #E2DBDB;
+                .review-comment{
+                    padding:10px 15px;
+                    align-items: baseline;
+                    span{
+                        font-size: 25px;
+                        font-weight: 400;
+                        margin-right: 10px;
+                    }
+                }
+            }
+            .card_wrapper {
+                flex-wrap: wrap;
+                gap: 50px;
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .profile-page{
+        padding-top: 125px;
+        .wrapper{
+            display: flex;
+            .right{
+                width: 65%;
+                max-width: unset;
+                margin: 20px auto;
+                .review{
+                    .review-comment{
+                        justify-content: space-evenly;
+                        padding:0px 10px;
+                        align-items: center;
+                        span{
+                            width: 10%;
+                            font-size: 100px;
+                            margin-right: -20px;
+                        }
+                        h5{
+                            width: 87%;
+                            font-size: 25px;
+                        }
+                    }
+                }
+                .card_wrapper {
+                    justify-content: space-between;
+                    gap: 10px;
+                    row-gap: 33px;
+                    flex-direction: row;
+                    margin: 27px 0;
+
+                    .card{
+                        width: 47%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .profile-page{
+        .wrapper{
+            .right{
+                .card_wrapper {
+                    .card{
+                        width: 30%;
+                    }
+                }
+            }
+        }
+    }
+}

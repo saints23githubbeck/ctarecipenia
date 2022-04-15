@@ -14,7 +14,6 @@ import instagram from "../assets/images/ig.png";
 
 import danger from "../assets/images/danger.png";
 import mail from "../assets/images/mail.png";
-import d from "../assets/images/d.png";
 
 import "../assets/styles/singleBlog.scss";
 import blog1 from "../assets/images/blog1.png";
@@ -24,15 +23,17 @@ import blog4 from "../assets/images/blog4.png";
 import blog5 from "../assets/images/blog5.png";
 import blog6 from "../assets/images/blog6.png";
 
-import latestRecipe1 from "../assets/images/latest-recipe1.png";
-import latestRecipe2 from "../assets/images/latest-recipe2.png";
-import ownerImage from "../assets/images/latest-recipe-owner-image.png";
-
 import { useParams } from "react-router-dom";
 
 import smile from "../assets/images/smileEmoji.png";
 import frown from "../assets/images/frownEmoji.png";
 import thumb from "../assets/images/thumbEmoji.png";
+import Card from "../components/Card";
+
+import latestRecipe1 from "../assets/images/latest-recipe1.png";
+import latestRecipe2 from "../assets/images/latest-recipe2.png";
+import ownerImage from "../assets/images/latest-recipe-owner-image.png";
+
 
 const SingleBlog = () => {
   const single = [
@@ -110,7 +111,7 @@ const SingleBlog = () => {
       ownerImage: ownerImage,
       ownerName: "Bambam",
     }
-  ];
+];
 
   const [data, setData] = useState([{}]);
 
@@ -126,7 +127,7 @@ const SingleBlog = () => {
 
   return (
     <section className="single-blog">
-       <div className="sub-nav">
+      <div className="sub-nav">
         <div className="flex wrapper">
           <h1>{title}</h1>
           <ul className="list flex">
@@ -164,28 +165,9 @@ const SingleBlog = () => {
           </div>
         </div>
         <h3 className="left-h3">You may also like</h3>
-        <div className="card_wrapper">
-          {latestData.map((recipe, index) => (
-            <div key={index} className="card">
-              <div>
-                <img src={recipe.recipeImage} alt="recipeImage" />
-              </div>
-              <h3>{recipe.title}</h3>
-              <div>
-                <img src={recipe.ownerImage} alt={recipe.ownerName} />
-                <span>
-                  <strong>{recipe.ownerName}</strong>
-                </span>
-              </div>
-              <div className="rating" style={{ textAlign: "center" }}>
-                <span className="rated">&#9733;</span>
-                <span className="rated">&#9733;</span>
-                <span className="rated">&#9733;</span>
-                <span>&#9733;</span>
-              </div>
-            </div>
-          ))}
-        </div>
+
+        <Card latestData={latestData}/>
+
         <div className="max-width">
           <div className="center">
             <h1>What do you think?</h1>
