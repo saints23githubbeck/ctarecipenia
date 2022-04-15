@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { signUp } from "../appState/actions/AuthAction";
 import loginIcon from "../assets/images/login-icon.png";
 
 const Register = (props) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     username: "",
@@ -31,7 +33,7 @@ const Register = (props) => {
     const { confirmPassword, ...otherData } = newFormdata;
 
     console.log(otherData, "otherData log");
-    dispatch(signUp(otherData));
+    dispatch(signUp(otherData, navigate));
     clear();
   };
 

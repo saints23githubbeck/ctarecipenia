@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import loginIcon from "../assets/images/login-icon.png";
 import { useDispatch, useSelector } from "react-redux";
 import { logIn, signUp } from "../appState/actions/AuthAction";
+import { useNavigate } from "react-router-dom";
 
 const Login = (props) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     email: "",
@@ -16,7 +18,7 @@ const Login = (props) => {
   const handleLogin = (e) => {
     e.preventDefault();
     console.log(formData, "formData log");
-     dispatch(logIn(formData));
+     dispatch(logIn(formData, navigate));
     clear();
   };
 

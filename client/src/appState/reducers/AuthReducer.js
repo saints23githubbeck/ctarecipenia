@@ -8,35 +8,46 @@ const initialState = {
   message: "",
 };
 
+// const initialState = {
+//   isLoggedIn: false,
+//   user:null,
+//   message: "",
+// };
+
 export const user = (state = initialState, action) => {
   switch (action.type) {
+    case actiontypes.SIGN_IN:
+      localStorage.setItem("user", JSON.stringify(action?.payload))
+      return {
+        ...state,
+        isLoggedIn: true,
+        message: action?.payload.message,
+        user: action?.payload.user,
+      };
+    case actiontypes.SIGN_UP:
+      localStorage.setItem("user", JSON.stringify(action?.payload))
+      return {
+        ...state,
+        isLoggedIn: true,
+        message: action?.payload.message,
+        user: action?.payload.user,
+      };
     case actiontypes.LOG_OUT:
-      localStorage.clear();
+      console.log("from reducer");
       return {
         ...state,
         isLoggedIn: false,
         message: "signed out",
         user: null,
       };
-      break;
-    case actiontypes.SIGN_IN:
-      localStorage.setItem("user", JSON.stringify(action?.payload));
+    case actiontypes.CLEAR_STORAGE:
+      console.log("from reducer");
       return {
         ...state,
-        isLoggedIn: true,
-        message: action?.payload.message,
-        user: action?.payload.user,
+        isLoggedIn: false,
+        message: "signed out",
+        user: null,
       };
-      break;
-    case actiontypes.SIGN_UP:
-      localStorage.setItem("user", JSON.stringify(action?.payload));
-      return {
-        ...state,
-        isLoggedIn: true,
-        message: action?.payload.message,
-        user: action?.payload.user,
-      };
-
     default:
       return state;
       break;
