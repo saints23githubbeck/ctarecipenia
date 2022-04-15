@@ -1,13 +1,13 @@
-import * as actiontypes from "../actionTypes";
+// import * as actiontypes from "../actionTypes";
 
-export const updateError = (error)  => {
+// export const updateError = (error)  => {
 
-  try {
-    dispatch({
-      type: actiontypes.UPDATE_ERROR,
-      payload: error
-    })
-  } catch (error) {
-    console.log(error);
-  }
-}
+//   try {
+//     dispatch({
+//       type: actiontypes.UPDATE_ERROR,
+//       payload: error
+//     })
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
