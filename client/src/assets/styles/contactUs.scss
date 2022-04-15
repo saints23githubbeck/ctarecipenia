@@ -13,11 +13,6 @@
     font-weight: 500;
   }
 
-  .flex{
-    display: flex;
-  }
-
-
   input,textarea{
     border: 0.91px solid #282B3099;
     width: 100%;
@@ -87,7 +82,6 @@
             textarea{
               width: 100%;
               padding-bottom: 50%;
-              // height: 300px;
             }
           }
         }
