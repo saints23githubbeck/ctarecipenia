@@ -45,10 +45,10 @@ export const ds = (navigate) => async (dispatch) => {
 
 export const logOutAction = (navigate) => {
   console.log("logout action 1");
-  localStorage.clear();
+   localStorage.clear();
   navigate("/");
   return {
-    type: actiontypes.CLEAR_STORAGE,
+    type: actiontypes.LOG_OUT,
     payload: "clear",
   };
 };
