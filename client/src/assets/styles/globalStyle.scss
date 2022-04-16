@@ -154,6 +154,20 @@ img {
         img {
           width: 14px;
         }
+        a {
+          &:link {
+             color: #fda47a !important;
+            h5{
+              color: #fda47a !important;
+            }
+          }
+          &:active {
+             color: #fda47a !important;
+            h5{
+              color: #fda47a !important;
+            }
+          }
+        }
       }
     }
   }
@@ -277,6 +291,7 @@ img {
             width: 20px;
           }
         }
+        
       }
     }
   }

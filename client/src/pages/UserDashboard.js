@@ -3,11 +3,6 @@ import "../assets/styles/userDashBoard.scss";
 import profilerec from "../assets/images/userdashboardprofileRec.png";
 import UserProfile from "../components/UserProfile";
 
-import dashboard from "../assets/images/dashboard.png";
-import user from "../assets/images/user.png";
-import recipe from "../assets/images/recipe.png";
-import logout from "../assets/images/logout.png";
-
 const UserDashboard = () => {
   return (
     <section className="user-dash-board">
@@ -15,24 +10,14 @@ const UserDashboard = () => {
         <div className="flex wrapper">
           <h1>Dashboard - Bambam</h1>
           <ul className="list">
-          <li>Home</li>
+            <li>Home</li>
             <li>Dashboard</li>
             <li>Bambam</li>
           </ul>
         </div>
       </div>
       <div className="wrapper">
-        <UserProfile 
-        first='Dashboard'
-        secound = 'My Profile'
-        third = 'My Recipes'
-        fourth='Logout'
-
-        firstImg= {dashboard}
-        secoundImg= {user}
-        thirdImg = {recipe}
-        fourthImg={logout}
-        />
+        <UserProfile isProfile={false} />
         <div className="form">
           <form>
             <h2>Profile</h2>
@@ -95,7 +80,6 @@ const UserDashboard = () => {
               <button>SAVE</button>
             </div>
           </form>
-
         </div>
       </div>
     </section>
