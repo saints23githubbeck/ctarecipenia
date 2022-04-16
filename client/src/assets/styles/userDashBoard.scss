@@ -26,55 +26,10 @@
                   }
             }
         }
-
-    }
+      }
 
   .wrapper {
     margin-top: 20px;
-    .user-menu {
-      width: 275px;
-      margin: 20px 10px 20px;
-      flex-direction: column;
-      .profile {
-        align-items: start;
-        gap: 20px;
-        padding: 40px 20px;
-        background-color: #fda47a;
-        .img {
-          img {
-            width: 83px;
-          }
-        }
-        .name {
-          h5 {
-            margin: 7px 0 3px 0;
-            font-weight: 800;
-            color: white;
-          }
-          h5:nth-child(2) {
-            font-weight: 500;
-          }
-        }
-      }
-
-      .menu-list {
-        background-color: #e2dbdb;
-        flex-direction: column;
-        padding: 35px 20px;
-        gap: 20px;
-        .flex {
-          align-items: baseline;
-          gap: 15px;
-          padding: 0px 20px;
-          h5 {
-            font-weight: 500;
-          }
-          img {
-            width: 14px;
-          }
-        }
-      }
-    }
     .form {
       form {
         max-width: 500px;
@@ -167,6 +122,7 @@
 
 @media (min-width: 768px) {
   .user-dash-board {
+    padding-top:125px;
     h2,
     h5 {
       font-size: 25px;
@@ -186,44 +142,12 @@
             }
         }
       }
-    padding-top: 97px;
     .wrapper {
       margin-top: 0px;
       display: flex;
       align-items: flex-start;
-      .user-menu {
-        width: 387px;
-        h5 {
-            font-size: 20px;
-          }
-        .profile {
-          .img {
-            img {
-              width: 118px;
-            }
-          }
-          .name {
-            h5 {
-              margin: 15px 0 3px 0;
-            }
-            h5:nth-child(2) {
-                margin:0;
-            }
-          }
-        }
-
-        .menu-list {
-          gap: 40px;
-          .flex {
-            padding: 0px 35px;
-            img {
-              width: 20px;
-            }
-          }
-        }
-      }
       .form {
-        width: 60%;
+        width: 70%;
         margin-left: 10px;
         form {
           max-width: unset;

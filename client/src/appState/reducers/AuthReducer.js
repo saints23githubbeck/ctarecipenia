@@ -2,7 +2,7 @@ import * as actiontypes from "../actionTypes";
 // isLoggedIn: localStorage.getItem("user") ? true : false
 // isLoggedIn: true,
 const initialState = {
-  isLoggedIn: localStorage.getItem("user") ? true : false,
+  isLoggedIn: true,
   user: localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user")).user
     : null,

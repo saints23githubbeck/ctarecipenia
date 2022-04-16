@@ -1,12 +1,12 @@
 import "../assets/styles/userDashBoard.scss";
 
+import profilerec from "../assets/images/userdashboardprofileRec.png";
+import UserProfile from "../components/UserProfile";
+
 import dashboard from "../assets/images/dashboard.png";
 import user from "../assets/images/user.png";
 import recipe from "../assets/images/recipe.png";
 import logout from "../assets/images/logout.png";
-
-import profilerec from "../assets/images/userdashboardprofileRec.png";
-import profilecircle from "../assets/images/userdashboardprofilecircle.png";
 
 const UserDashboard = () => {
   return (
@@ -22,32 +22,17 @@ const UserDashboard = () => {
         </div>
       </div>
       <div className="wrapper">
-        <div className="user-menu flex">
-          <div className="profile flex">
-            <div className="img">
-              <img src={profilecircle} alt="" />
-            </div>
-            <div className="name">
-              <h5>Bambam</h5>
-              <h5>User</h5>
-            </div>
-          </div>
-          <div className="menu-list flex">
-            <div className="dashboard-item flex">
-              <img src={dashboard} alt="" /> <h5>Dashboard</h5>
-            </div>
-            <div className="profile-item flex">
-              <img src={user} alt="" /> <h5>My Profile</h5>
-            </div>
-            <div className="recipe-item flex">
-              <img src={recipe} alt="" /> <h5>My Recipes</h5>
-            </div>
-            <div className="Logout-item flex">
-              <img src={logout} alt="" /> <h5>Logout</h5>
-            </div>
-          </div>
-        </div>
+        <UserProfile 
+        first='Dashboard'
+        secound = 'My Profile'
+        third = 'My Recipes'
+        fourth='Logout'
 
+        firstImg= {dashboard}
+        secoundImg= {user}
+        thirdImg = {recipe}
+        fourthImg={logout}
+        />
         <div className="form">
           <form>
             <h2>Profile</h2>
