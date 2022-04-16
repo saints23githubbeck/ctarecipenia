@@ -90,6 +90,17 @@ img {
   margin: 0 auto;
   position: relative;
 }
+
+.linked {
+  color: #000000;
+  &:active {
+    color: #fda47a !important;
+    h5 {
+      color: #fda47a !important;
+    }
+  }
+}
+
 .wrapper {
   width: 90%;
   margin: 0 auto;
@@ -118,13 +129,30 @@ img {
     margin: 20px 10px 20px;
     flex-direction: column;
     .profile {
+      
       align-items: start;
       gap: 20px;
       padding: 40px 20px;
       background-color: #fda47a;
-      .img {
-        img {
+      
+      .profile_text_img {
+        border: 1px solid black;
+        width: 30%;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50px;
+        overflow: hidden;
+        .profile_img {
           width: 83px;
+          width: 100%;
+          height: 100%;
+        }
+        .profile_text {
+          font-size: 1.5em;
+          font-weight: 700;
+          text-transform: uppercase;
         }
       }
       .name {
@@ -132,6 +160,7 @@ img {
           margin: 7px 0 3px 0;
           font-weight: 800;
           color: white;
+          text-transform: capitalize;
         }
         h5:nth-child(2) {
           font-weight: 500;
@@ -153,20 +182,6 @@ img {
         }
         img {
           width: 14px;
-        }
-        a {
-          &:link {
-             color: #fda47a !important;
-            h5{
-              color: #fda47a !important;
-            }
-          }
-          &:active {
-             color: #fda47a !important;
-            h5{
-              color: #fda47a !important;
-            }
-          }
         }
       }
     }
@@ -268,9 +283,18 @@ img {
         font-size: 20px;
       }
       .profile {
-        .img {
-          img {
-            width: 118px;
+        .profile_text_img {
+          
+          height: 100px;
+          padding: 0;
+
+          .profile_img {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+          }
+          .profile_text {
+            font-size: 2.5em;
           }
         }
         .name {
@@ -291,7 +315,6 @@ img {
             width: 20px;
           }
         }
-        
       }
     }
   }
