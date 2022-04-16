@@ -39,6 +39,7 @@ const Login = (props) => {
         <form onSubmit={handleLogin}>
           <label htmlFor="email">Email</label>
           <input
+            required
             type="text"
             placeholder="ayo@gmail.com"
             onChange={handleinput}
@@ -47,6 +48,7 @@ const Login = (props) => {
           />
           <label htmlFor="password">Password</label>
           <input
+            required
             type="password"
             value={formData.password}
             onChange={handleinput}

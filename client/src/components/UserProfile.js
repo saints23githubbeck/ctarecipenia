@@ -1,28 +1,27 @@
+import React, { useState } from "react";
 import "../assets/styles/userDashBoard.scss";
 
 import profilecircle from "../assets/images/userdashboardprofilecircle.png";
 
+import { Link, NavLink } from "react-router-dom";
+import dashboardIcon from "../assets/images/dashboard.png";
+import userIcon from "../assets/images/user.png";
+import recipeIcon from "../assets/images/recipe.png";
+import logoutIcon from "../assets/images/logout.png";
 
-import { Link } from "react-router-dom";
+const UserProfile = ({ isProfile }) => {
+  const [profileData, setProfileData] = useState({
+    name: "Bambam",
+    profileViews: "120 Profile Views",
+    gender: "Female",
+    country: "Nigeria",
+    email: "ayo@gmail.com",
+    recipes: "7 Recipes",
+    joinedDate: "Member Since Febuary 14,2022",
+  });
+  const { name, profileViews, gender, country, email, recipes, joinedDate } =
+    profileData;
 
-const UserProfile = ({
-  first,
-  secound,
-  third,
-  fourth,
-  fifth,
-  sixth,
-  seventh,
-  exist,
-
-  firstImg,
-  secoundImg,
-  thirdImg,
-  fourthImg,
-  fifthImg,
-  sixthImg,
-  seventhImg
-}) => {
   return (
     <div className="user-menu flex">
       <div className="profile flex">
@@ -35,60 +34,64 @@ const UserProfile = ({
         </div>
       </div>
       <div className="menu-list flex">
-        <div className="flex">
-          <img src={firstImg} alt="" />{" "}
-          <Link to="/user-dashboard">
-            <h5>{first}</h5>
-          </Link>
-        </div>
-        <div className="flex">
-          <img src={secoundImg} alt="" />{" "}
-          <Link to="/profile">
-            <h5>{secound}</h5>
-          </Link>
-        </div>
-        <div className="flex">
-          <img src={thirdImg} alt="" />
-          <Link to="/addrecipe">
-            <h5>{third}</h5>
-          </Link>
-        </div>
-        <div className="flex">
-          <img src={fourthImg} alt="" />
-          <Link to="">
-            <h5>{fourth}</h5>
-          </Link>
-        </div>
-
-        {exist ? (
-          <div className="flex">
-            <img src={fifthImg} alt="" />
-            <Link to="">
-              <h5>{fifth}</h5>
-            </Link>
+        {isProfile ? (
+          <div>
+            <div className="flex">
+              {/* <img src={fifthImg} alt="" /> */}
+              <h5>{name}</h5>
+            </div>
+            <div className="flex">
+              {/* <img src={fifthImg} alt="" /> */}
+              <h5>{gender}</h5>
+            </div>
+            <div className="flex">
+              {/* <img src={fifthImg} alt="" /> */}
+              <h5>{email}</h5>
+            </div>
+            <div className="flex">
+              {/* <img src={fifthImg} alt="" /> */}
+              <h5>{country}</h5>
+            </div>
+            <div className="flex">
+              {/* <img src={fifthImg} alt="" /> */}
+              <h5>{recipes}</h5>
+            </div>
+            <div className="flex">
+              {/* <img src={fifthImg} alt="" /> */}
+              <h5>{joinedDate}</h5>
+            </div>
+            <div className="flex">
+              {/* <img src={fifthImg} alt="" /> */}
+              <h5>{profileViews}</h5>
+            </div>
           </div>
         ) : (
-          ""
-        )}
-        {exist ? (
-          <div className="flex">
-            <img src={sixthImg} alt="" />
-            <Link to="">
-              <h5>{sixth}</h5>
-            </Link>
+          <div>
+            <div className="flex">
+              <img src={dashboardIcon} alt="dashboardIcon" />
+              <NavLink to="/user-dashboard">
+                <h5>Dashboard</h5>
+              </NavLink>
+            </div>
+            <div className="flex">
+              <img src={userIcon} alt="userIcon" />
+              <Link to="/profile">
+                <h5>My Profile</h5>
+              </Link>
+            </div>
+            <div className="flex">
+              <img src={recipeIcon} alt="recipeIcon" />
+              <NavLink to="/addrecipe">
+                <h5>My Recipes</h5>
+              </NavLink>
+            </div>
+            <div className="flex">
+              <img src={logoutIcon} alt="logoutIcon" />
+              <Link to="">
+                <h5>Logout</h5>
+              </Link>
+            </div>
           </div>
-        ) : (
-          ""
-        )}
-        {exist ? (
-          <div className="flex">
-            <img src={seventhImg} alt="" />
-            <Link to="">
-              <h5>{seventh}</h5>
-            </Link>
-          </div>
-        ) : (
-          ""
         )}
       </div>
     </div>

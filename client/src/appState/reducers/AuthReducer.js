@@ -1,19 +1,18 @@
 import * as actiontypes from "../actionTypes";
-// isLoggedIn: localStorage.getItem("user") ? true : false
-// isLoggedIn: true,
+
+// const initialState = {
+//   isLoggedIn: true,
+//   user:null,
+//   message: "",
+// };
+
 const initialState = {
-  isLoggedIn: true,
+  isLoggedIn: localStorage.getItem("user") ? true : false,
   user: localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user")).user
     : null,
   message: "",
 };
-
-// const initialState = {
-//   isLoggedIn: false,
-//   user:null,
-//   message: "",
-// };
 
 export const user = (state = initialState, action) => {
   switch (action.type) {
