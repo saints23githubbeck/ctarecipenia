@@ -1,36 +1,29 @@
-import React from 'react'
+import React , {useState} from 'react'
 
 import "../assets/styles/myRecipe.scss";
 
 import ownerImage from "../assets/images/latest-recipe-owner-image.png";
-
-
-
 
 import UserProfile from "../components/UserProfile";
 
 import view from "../assets/images/view.png";
 import edit from "../assets/images/edit.png";
 
-import dashboard from "../assets/images/dashboard.png";
-import user from "../assets/images/user.png";
-import recipe from "../assets/images/recipe.png";
-import logout from "../assets/images/logout.png";
-
-
 const MyRecipe = () => {
-    const recipesList = [
+    const [recipesList , setRecipesList] = useState([
         {
             id : 1,
             photo : ownerImage,
             title : 'Garlic Chicken',
-            category : 'Food'
+            category : 'Food',
+            view: false
         },
         {
             id : 2,
             photo : ownerImage,
             title : 'Garlic Chicken',
-            category : 'Food'
+            category : 'Food',
+            view: false
         },
         {
             id : 3,
@@ -42,21 +35,40 @@ const MyRecipe = () => {
             id : 4,
             photo : ownerImage,
             title : 'Garlic Chicken',
-            category : 'Food'
+            category : 'Food',
+            view: false
         },
         {
             id : 5,
             photo : ownerImage,
             title : 'Garlic Chicken',
-            category : 'Food'
+            category : 'Food',
+            view: false
         },
         {
             id : 6,
             photo : ownerImage,
             title : 'Garlic Chicken',
-            category : 'Food'
+            category : 'Food',
+            view: false
         }
-    ]
+    ])
+    const [ changeText , setchangeText] = useState(true)
+
+    const handleDelete = (e) => {
+        console.log(e)
+        const filtered = recipesList.filter(recipe => recipe !== e);
+        setRecipesList(filtered)
+    }
+
+    const handleEdit = (e) => {
+        e.map((h) => {
+
+        })
+    }
+
+    console.log(changeText , 'change')
+
 
   return (
     <section className='myrecipe'>
@@ -70,17 +82,7 @@ const MyRecipe = () => {
             </div>
       </div>
       <div className="wrapper">
-      <UserProfile 
-        first='Dashboard'
-        secound = 'My Profile'
-        third = 'My Recipes'
-        fourth='Logout'
-
-        firstImg= {dashboard}
-        secoundImg= {user}
-        thirdImg = {recipe}
-        fourthImg={logout}
-        />
+      <UserProfile isProfile={false}/>
           <div className="right">
               <div className="recipe-list">
                   <div className="heading">
@@ -102,16 +104,39 @@ const MyRecipe = () => {
                                 <div className="row1">
                                     <img src={recipe.photo} alt="" />
                                 </div>
-                                <div className="row2">
-                                    <h5>{recipe.title}</h5>
-                                </div>
-                                <div className="row3">
-                                    <h5>{recipe.category}</h5>
-                                </div>
-                                <div className="row5 flex">
+
+                                {
+                                    changeText ? (
+                                        <>
+                                            <div className="row2">
+                                            <h5>{recipe.title}</h5>
+                                            </div>
+                                            <div className="row3">
+                                                <h5>{recipe.category}</h5>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <div className="row2">
+                                            <input type="text" />
+                                        </div>
+                                        <div className="row3">
+                                            <input type="text" />
+                                        </div>
+                                        </>
+                                    )
+                                }
+
+                                <div className="row5 flex actions">
                                     <div className="view"><img src={view} alt="" /></div>
-                                    <div className="edit"><img src={edit} alt="" /></div>
-                                    <div className="delete"><img src={view} alt="" /></div>
+                                    <div onClick={(e) => handleEdit(recipe)}
+                                     className="edit">
+                                         <img src={edit} alt="" />
+                                    </div>
+                                    
+                                    <div onClick={(e) => handleDelete(recipe)} className="delete">
+                                        <img src={view} alt="" />
+                                    </div>
                                 </div>
                             </div>
                         ))

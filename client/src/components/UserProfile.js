@@ -4,10 +4,22 @@ import "../assets/styles/userDashBoard.scss";
 import profilecircle from "../assets/images/userdashboardprofilecircle.png";
 
 import { Link, NavLink } from "react-router-dom";
+
 import dashboardIcon from "../assets/images/dashboard.png";
 import userIcon from "../assets/images/user.png";
 import recipeIcon from "../assets/images/recipe.png";
 import logoutIcon from "../assets/images/logout.png";
+
+
+import nameIcon from "../assets/images/user.png";
+import genderIcon from "../assets/images/female.png";
+import emailIcon from "../assets/images/mail.png";
+import joinedDateIcon from "../assets/images/calender.png";
+import profileViewsIcon from "../assets/images/view.png";
+import countryIcon from "../assets/images/flag.png";
+import recipesIcon from "../assets/images/recipe.png";
+
+
 
 const UserProfile = ({ isProfile }) => {
   const [profileData, setProfileData] = useState({
@@ -18,9 +30,10 @@ const UserProfile = ({ isProfile }) => {
     email: "ayo@gmail.com",
     recipes: "7 Recipes",
     joinedDate: "Member Since Febuary 14,2022",
+
+
   });
-  const { name, profileViews, gender, country, email, recipes, joinedDate } =
-    profileData;
+  const { name, profileViews, gender, country, email, recipes, joinedDate } = profileData;
 
   return (
     <div className="user-menu flex">
@@ -35,38 +48,38 @@ const UserProfile = ({ isProfile }) => {
       </div>
       <div className="menu-list flex">
         {isProfile ? (
-          <div>
+          <>
             <div className="flex">
-              {/* <img src={fifthImg} alt="" /> */}
+              <img src={nameIcon} alt="nameIcon" />
               <h5>{name}</h5>
             </div>
             <div className="flex">
-              {/* <img src={fifthImg} alt="" /> */}
+              <img src={genderIcon} alt="genderIcon" />
               <h5>{gender}</h5>
             </div>
             <div className="flex">
-              {/* <img src={fifthImg} alt="" /> */}
+              <img src={emailIcon} alt="emailIcon" />
               <h5>{email}</h5>
             </div>
             <div className="flex">
-              {/* <img src={fifthImg} alt="" /> */}
+              <img src={countryIcon} alt="countryIcon" />
               <h5>{country}</h5>
             </div>
             <div className="flex">
-              {/* <img src={fifthImg} alt="" /> */}
+              <img src={recipesIcon} alt="recipesIcon" />
               <h5>{recipes}</h5>
             </div>
             <div className="flex">
-              {/* <img src={fifthImg} alt="" /> */}
+              <img src={joinedDateIcon} alt="joinedDateIcon" />
               <h5>{joinedDate}</h5>
             </div>
             <div className="flex">
-              {/* <img src={fifthImg} alt="" /> */}
+              <img src={profileViewsIcon} alt="profileViewsIcon" />
               <h5>{profileViews}</h5>
             </div>
-          </div>
+          </>
         ) : (
-          <div>
+          <>
             <div className="flex">
               <img src={dashboardIcon} alt="dashboardIcon" />
               <NavLink to="/user-dashboard">
@@ -81,7 +94,7 @@ const UserProfile = ({ isProfile }) => {
             </div>
             <div className="flex">
               <img src={recipeIcon} alt="recipeIcon" />
-              <NavLink to="/addrecipe">
+              <NavLink to="/myrecipe">
                 <h5>My Recipes</h5>
               </NavLink>
             </div>
@@ -91,7 +104,7 @@ const UserProfile = ({ isProfile }) => {
                 <h5>Logout</h5>
               </Link>
             </div>
-          </div>
+          </>
         )}
       </div>
     </div>

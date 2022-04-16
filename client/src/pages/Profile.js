@@ -4,20 +4,13 @@ import Card from './../components/Card';
 
 import "../assets/styles/profile.scss";
 
-import user from "../assets/images/user.png";
-import female from "../assets/images/female.png";
-import mail from "../assets/images/mail.png";
-import calender from "../assets/images/calender.png";
-import view from "../assets/images/view.png";
-import flag from "../assets/images/flag.png";
+
 
 import latestRecipe1 from "../assets/images/latest-recipe1.png";
 import latestRecipe2 from "../assets/images/latest-recipe2.png";
 import ownerImage from "../assets/images/latest-recipe-owner-image.png";
 
 
-
-import recipe from "../assets/images/recipe.png";
 
 const Profile = () => {
 
@@ -57,7 +50,7 @@ const Profile = () => {
       ownerName: "Bambam",
     }
 ];
-  const exist = true
+  
 
   return (
     <section className="profile-page">
@@ -79,7 +72,7 @@ const Profile = () => {
             <div className="review-comment flex">
               <span>“</span>
               <h5>
-                {" "}
+                
                 I’m Ayo and this is where i share all my recipe, i am a food
                 lover.
               </h5>
