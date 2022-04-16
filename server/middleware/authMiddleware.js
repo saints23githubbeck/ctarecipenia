@@ -4,7 +4,7 @@ const User = require("../models/userModel")
 
 exports.requireSignIn = asyncHandler(async (req, res, next) => {
   let token
-  
+
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
@@ -14,17 +14,17 @@ exports.requireSignIn = asyncHandler(async (req, res, next) => {
       token = req.headers.authorization.split(" ")[1]
       //verify the token
       const accessToken = jwt.verify(token, process.env.JWT_SECRET)
+
       //get user information from verified access token
       // console.log("accessToken", accessToken)
       const accessTokenId = accessToken.userId
-      res.user = await User.findOne({ accessTokenId })
+      res.user = await User.findById(accessTokenId)
 
       next()
     } catch (error) {
       console.log(
         `Error getting user information. Access denied: ${error.message}`
-      )
-
+      ) 
       res.status(401)
       throw new Error("Access Denied")
     }

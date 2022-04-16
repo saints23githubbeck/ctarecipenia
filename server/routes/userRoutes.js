@@ -25,7 +25,6 @@ router.post("/login", login)
 router.post("/password-reset", forgotPassword)
 router.get("/me", requireSignIn, authMiddleware, getMyProfile)
 router.get("/all-users", fetchSubscribers)
-
 router.put("/profile-update", requireSignIn, authMiddleware, profileUpdate)
 router.get("/search-user/:query", searchUser)
 router.delete("/remove-user", requireSignIn, deleteUser)
