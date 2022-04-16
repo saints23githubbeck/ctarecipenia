@@ -29,6 +29,22 @@ export const logIn = (formData, navigate) => async (dispatch) => {
   }
 };
 
+
+
+export const updateUser = (userData, navigate) => async (dispatch) => {
+  try {
+    const { data } = await loginApi(userData);
+    dispatch({
+      type: actiontypes.SIGN_IN,
+      payload: data,
+    });
+    navigate("/user-dashboard");
+    console.log("successful", data);
+  } catch (error) {
+    console.log(error?.response?.data.msg);
+  }
+};
+
 export const ds = (navigate) => async (dispatch) => {
   console.log("logout");
   localStorage.clear();
