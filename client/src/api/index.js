@@ -1,17 +1,17 @@
 import axios from "axios";
 
-
 // const API = axios.create({baseURL: "http://localhost:5000"});
 
 const API = axios.create({ baseURL: "http://localhost:8080" });
 
-
-  // API.interceptors.request.use((req) => {
-  //   if(localStorage.getItem("auth")){
-  //     req.headers.Autorization = `Bearer ${JSON.parse(localStorage.getItem("auth")).token}`;
-  //   }
-  //   return req;
-  // })
+const getToken = () => {
+  return localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user")).token
+    : null;
+};
+const config = {
+  headers: { Authorization: `Bearer ${getToken()}` },
+};
 
 // export const fetchPostapi = () => API.get("/posts");
 // export const createPostapi = (formData) => API.post("/posts", formData);
@@ -21,3 +21,8 @@ const API = axios.create({ baseURL: "http://localhost:8080" });
 
 export const loginApi = (formdata) => API.post(`/login`, formdata);
 export const signupApi = (formdata) => API.post(`/register`, formdata);
+export const updateUserApi = (userData) => {
+   console.log(config, " log");
+  return API.put(`/profile-update`, userData, config);
+ 
+};

@@ -4,7 +4,7 @@ const User = require("../models/userModel")
 
 exports.requireSignIn = asyncHandler(async (req, res, next) => {
   let token
-
+  
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
