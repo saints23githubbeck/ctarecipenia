@@ -50,7 +50,7 @@
           <td className="tdata buttonEdit">
             <button
               className="detailsButton"
-              onClick={() => navigate("/admin/slider/edit", { state: page })}
+              onClick={() => navigate("/admin/page/edit", { state: page })}
               style={{ backgroundColor: "orange" }}
             >
               Edit

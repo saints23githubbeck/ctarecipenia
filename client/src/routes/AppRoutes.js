@@ -26,9 +26,17 @@ import BlogsAdmin from "../pages/admin/BlogsAdmin";
 import CategoriesAdmin from "../pages/admin/CategoriesAdmin";
 import PagesAdmin from "../pages/admin/PagesAdmin";
 import Categories from "../pages/Categories";
-import AddRecipe from "../pages/AddRecipe";
-import EditRecord from "../components/admin/EditRecord";
 import MyRecipe from "../pages/MyRecipe";
+
+import AddRecipe from "../pages/AddRecipe";
+import EditSlider from "../components/admin/EditSlider";
+import EditAdvert from "../components/admin/EditAdvert";
+import EditAdmin from "../components/admin/EditAdmin";
+import EditUser from "../components/admin/EditUser";
+import EditBlog from "../components/admin/EditBlog";
+import EditCategory from "../components/admin/EditCategory";
+import EditRecipe from "../components/admin/EditRecipe";
+import EditPage from "../components/admin/EditPage";
 
 const AppRoutes = (props) => {
   return (
@@ -222,10 +230,90 @@ const AppRoutes = (props) => {
           path="/admin/slider/edit"
           element={
             <AdminLayout title="/ Edit">
-              <EditRecord />
+              <EditSlider />
             </AdminLayout>
           }
         />
+        <Route
+          path="/admin/advert/edit"
+          element={
+            <AdminLayout title="/ Edit">
+              <EditAdvert />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="/admin/administrator/edit"
+          element={
+            <AdminLayout title="/ Edit">
+              <EditAdmin />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="/admin/normaluser/edit"
+          element={
+            <AdminLayout title="/ Edit">
+              <EditUser />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="/admin/blog/edit"
+          element={
+            <AdminLayout title="/ Edit">
+              <EditBlog />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="/admin/categories/edit"
+          element={
+            <AdminLayout title="/ Edit">
+              <EditCategory />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="/admin/recipe/edit"
+          element={
+            <AdminLayout title="/ Edit">
+              <EditRecipe />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="/admin/page/edit"
+          element={
+            <AdminLayout title="/ Edit">
+              <EditPage />
+            </AdminLayout>
+          }
+        />
+        {/* <Route
+          path="/admin/slider/edit"
+          element={
+            <AdminLayout title="/ Edit">
+              <EditSlider />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="/admin/slider/edit"
+          element={
+            <AdminLayout title="/ Edit">
+              <EditSlider />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="/admin/slider/edit"
+          element={
+            <AdminLayout title="/ Edit">
+              <EditSlider />
+            </AdminLayout>
+          }
+        /> */}
       </Routes>
     </BrowserRouter>
   );

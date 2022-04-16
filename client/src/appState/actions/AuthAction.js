@@ -1,5 +1,5 @@
 import * as actiontypes from "../actionTypes";
-import { loginApi, signupApi } from "../../api";
+import { loginApi, signupApi, updateUserApi } from "../../api";
 
 export const signUp = (FormData, navigate) => async (dispatch) => {
   try {
@@ -23,6 +23,22 @@ export const logIn = (formData, navigate) => async (dispatch) => {
       payload: data,
     });
     navigate("/user-dashboard");
+    console.log("successful", data);
+  } catch (error) {
+    console.log(error?.response?.data.msg);
+  }
+};
+
+
+
+export const updateUser = (userData, navigate) => async (dispatch) => {
+  try {
+    const { data } = await updateUserApi(userData);
+    dispatch({
+      type: actiontypes.UPDATE_USER,
+      payload: data,
+    });
+    navigate("/profile");
     console.log("successful", data);
   } catch (error) {
     console.log(error?.response?.data.msg);

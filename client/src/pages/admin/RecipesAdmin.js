@@ -76,7 +76,7 @@ const RecipesAdmin = () => {
         <td className="tdata buttonEdit">
           <button
             className="detailsButton"
-            onClick={() => navigate("/admin/slider/edit", { state: recipes })}
+            onClick={() => navigate("/admin/recipe/edit", { state: recipes })}
             style={{ backgroundColor: "orange" }}
           >
             Edit

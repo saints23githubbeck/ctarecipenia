@@ -33,10 +33,17 @@ export const user = (state = initialState, action) => {
         isLoggedIn: true,
         message: action?.payload.message,
         user: action?.payload.user,
-      }
+      };
+    case actiontypes.UPDATE_USER:
+      localStorage.setItem("user", JSON.stringify(action?.payload));
+      return {
+        ...state,
+        message: action?.payload.message,
+        user: action?.payload.user,
+      };
     case actiontypes.LOG_OUT:
-      console.log("from reducer logout")
-      return state
+      console.log("from reducer logout");
+      return state;
     // case actiontypes.CLEAR_STORAGE:
     //   console.log("from reducer");
     //   return {
@@ -46,7 +53,7 @@ export const user = (state = initialState, action) => {
     //     user: null,
     //   };
     default:
-      return state
+      return state;
   }
 };
 

@@ -88,7 +88,7 @@ const UsersNormal = () => {
         <td className="tdata buttonEdit">
           <button
             className="detailsButton"
-            onClick={() => navigate("/admin/slider/edit", { state: user })}
+            onClick={() => navigate("/admin/normaluser/edit", { state: user })}
             style={{ backgroundColor: "orange" }}
           >
             Edit
