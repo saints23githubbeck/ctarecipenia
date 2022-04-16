@@ -49,7 +49,7 @@ const UserProfile = ({
         </div>
         <div className="flex">
           <img src={thirdImg} alt="" />
-          <Link to="/addrecipe">
+          <Link to="/myrecipe">
             <h5>{third}</h5>
           </Link>
         </div>

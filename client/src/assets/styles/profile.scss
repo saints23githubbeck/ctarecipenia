@@ -15,7 +15,7 @@
                     }
                 }
             }
-            .card_wrapper {
+            .cards {
                 flex-wrap: wrap;
                 gap: 50px;
             }
@@ -48,7 +48,7 @@
                         }
                     }
                 }
-                .card_wrapper {
+                .cards {
                     justify-content: space-between;
                     gap: 10px;
                     row-gap: 33px;
@@ -68,7 +68,7 @@
     .profile-page{
         .wrapper{
             .right{
-                .card_wrapper {
+                .cards {
                     .card{
                         width: 30%;
                     }

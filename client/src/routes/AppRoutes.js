@@ -28,6 +28,7 @@ import PagesAdmin from "../pages/admin/PagesAdmin";
 import Categories from "../pages/Categories";
 import AddRecipe from "../pages/AddRecipe";
 import EditRecord from "../components/admin/EditRecord";
+import MyRecipe from "../pages/MyRecipe";
 
 const AppRoutes = (props) => {
   return (
@@ -113,6 +114,17 @@ const AppRoutes = (props) => {
             }
           />
         </Route>
+        <Route exact path="/myrecipe" element={<AuthRoute />}>
+          <Route
+            path="/myrecipe"
+            element={
+              <AppLayout>
+                <MyRecipe/>
+              </AppLayout>
+            }
+          />
+        </Route>
+
 
         {/* admin routes */}
         <Route path="/admin" element={<LoginAdmin />} />

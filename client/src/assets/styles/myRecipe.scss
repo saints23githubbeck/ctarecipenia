@@ -1,0 +1,92 @@
+.myrecipe{
+    .wrapper{
+        .right{
+            max-width: 420px;
+            .recipe-list{
+                .heading{
+                    margin: 20px 0;
+                }
+                .grid{
+                    display: grid;
+                    grid-template-columns: repeat(5 , 1fr );
+                    align-items: center;
+                    .row1{
+                        // width: 20%;
+                        grid-column: 1/2;
+                    }
+                    .category{
+                        // width: 30%;
+                        // padding: 0 10px;
+                        grid-column: 3/4;
+                    }
+                    .title{
+                        // width: 40%;
+                        grid-column: 2/3;
+                    }
+                    .actions{
+                        grid-column: 5/6;
+                    }
+                }           
+                .caption{
+                    .head{
+                        border-top: 0.47px solid #C4C4C4;
+                        border-bottom: 0.47px solid #C4C4C4;
+                        gap: 10px;
+                        padding: 10px 15px;
+                        li{
+                            font-size: 7.09px;
+                            font-weight: 700;
+                        }
+                        // li:nth-child(3){
+                        //     padding: 0 20px;
+                        // }
+                    }
+                }
+                .recipes{
+                    flex-direction: column;
+                    margin:0 0 20px 0;
+                    gap: 20px;
+                    .recipe{
+                        box-shadow: 0px 1.881379246711731px 1.881379246711731px 0px #00000040;
+                        display: grid;
+                        grid-template-columns: repeat(5 , 1fr );
+                        gap:12px;
+                        padding: 5px 0;
+                        align-items: center;
+                        text-align: center;
+                        .category{
+                            // width: 30%;
+                            // padding: 0 10px;
+                            grid-column: 3/4;
+                        }
+                        .title{
+                            // width: 40%;
+                            grid-column: 2/3;
+                        }
+                        .actions{
+                            grid-column: 5/6;
+                            // width: 40%;
+                            gap:5px;
+                            .view,.edit,.delete{
+                                border-radius: 50%;
+                                width: 20px;
+                            }
+                            .view{
+                                background-color: yellow;
+                            }
+                            .edit{
+                                background-color: rgb(11, 25, 176);
+                            }
+                            .delete{
+                                background-color: rgb(216, 10, 10);
+                            }
+                        }
+                    }
+                    h5{
+                        font-size: 7.09px;
+                    }
+                }
+            }
+        }
+    }
+}
