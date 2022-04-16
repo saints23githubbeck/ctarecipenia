@@ -50,7 +50,7 @@ const CategoriesAdmin = () => {
         <td className="tdata buttonEdit">
           <button
             className="detailsButton"
-            onClick={() => navigate("/admin/slider/edit", { state: categories })}
+            onClick={() => navigate("/admin/categories/edit", { state: categories })}
             style={{ backgroundColor: "orange" }}
           >
             Edit

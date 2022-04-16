@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const EditRecord = () => {
+const EditSlider = () => {
   const { state } = useLocation();
 
   function reset() {
@@ -70,4 +70,4 @@ const EditRecord = () => {
   );
 };
 
-export default EditRecord;
+export default EditSlider;
