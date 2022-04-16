@@ -241,12 +241,17 @@ img {
         display: inline-block;
         margin-left: 20px;
         font-size: 15px;
+        font-weight: 500;
+              a{
+                  color: black;
+              }
       }
       li:nth-child(1)::after {
         content: ">";
         position: absolute;
         transform: translateX(40%);
       }
+
     }
   }
 }

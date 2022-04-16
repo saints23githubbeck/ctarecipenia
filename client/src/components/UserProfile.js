@@ -33,8 +33,6 @@ const UserProfile = ({ isProfile }) => {
     email: "ayo@gmail.com",
     recipes: "7 Recipes",
     joinedDate: "Member Since Febuary 14,2022",
-
-
   });
   const { name, profileViews, gender, country, email, recipes, joinedDate } = profileData;
 
@@ -129,7 +127,7 @@ const UserProfile = ({ isProfile }) => {
             </div>
             <div className="flex">
               <img src={recipeIcon} alt="recipeIcon" />
-              <NavLink to="/addrecipe" className="linked">
+              <NavLink to="/myrecipe" className="linked">
                 <h5>My Recipes</h5>
               </NavLink>
             </div>

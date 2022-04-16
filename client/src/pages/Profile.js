@@ -9,6 +9,7 @@ import "../assets/styles/profile.scss";
 import latestRecipe1 from "../assets/images/latest-recipe1.png";
 import latestRecipe2 from "../assets/images/latest-recipe2.png";
 import ownerImage from "../assets/images/latest-recipe-owner-image.png";
+import { Link } from 'react-router-dom';
 
 
 
@@ -58,7 +59,7 @@ const Profile = () => {
         <div className="flex wrapper">
           <h1>Profile - Bambam</h1>
           <ul className="list">
-            <li>Home</li>
+            <li><Link to='/'>Home</Link></li>
             <li>Profile</li>
             <li>Bambam</li>
           </ul>

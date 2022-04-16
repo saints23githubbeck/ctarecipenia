@@ -27,6 +27,14 @@ const UserDashboard = () => {
     console.log(userData, "update log")
      dispatch(updateUser(userData, navigate));
   };
+
+  const [selectedFile , setSelectedFile] = useState()
+  console.log(selectedFile ,'fil')
+
+  const handleFile = (e) => {
+    console.log(e , 'this')
+  }
+
   return (
     <section className="user-dash-board">
       <div className="sub-nav">
@@ -122,17 +130,19 @@ const UserDashboard = () => {
             <h5 className="center">Gender</h5>
             <div className="checkbox">
               <div className="check flex">
-                <input type="radio" name="Female" id="Female" />
-                <h5>Female</h5>
+                <input type="radio" name="gender" id="Female" />
+                <label htmlFor="Female">Female</label>
               </div>
               <div className="check flex">
-                <input type="radio" name="Male" id="Male" />
-                <h5>Male</h5>
+                <input type="radio" name="gender" id="Male" />
+                <label htmlFor="Male">Male</label>
               </div>
               <div className="upload-sec">
                 <div className="upload flex">
                   <div className="upload-div">
-                    <h5>UPLOAD IMAGE</h5>
+                    <input type='file'
+                    onChange={(e) => handleFile(e)} id="file" accept="image/*"/>
+                    <label htmlFor="file">UPLOAD IMAGE</label>
                   </div>
                   <div className="upload-img">
                     <img src={profilerec} alt="" />

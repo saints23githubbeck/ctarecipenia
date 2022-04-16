@@ -2,52 +2,52 @@ import React, { useState } from "react";
 
 import "../assets/styles/myRecipe.scss";
 
-import ownerImage from "../assets/images/latest-recipe-owner-image.png";
+
+import Userphoto1 from "../assets/images/blog1.png";
+import Userphoto2 from "../assets/images/blog2.png";
+import Userphoto3 from "../assets/images/blog3.png";
+
+
 
 import UserProfile from "../components/UserProfile";
 
-import view from "../assets/images/view.png";
-import edit from "../assets/images/edit.png";
+import viewIcon from "../assets/images/viewiconwhite.png";
+import deleteIcon from "../assets/images/deleteicon.png";
+import editIcon from "../assets/images/edit.png";
 import { Link } from 'react-router-dom';
 
 const MyRecipe = () => {
   const [recipesList, setRecipesList] = useState([
     {
       id: 1,
-      photo: ownerImage,
+      photo: Userphoto1,
       title: "Garlic Chicken",
       category: "Food",
     },
     {
       id: 2,
-      photo: ownerImage,
+      photo: Userphoto2,
       title: "Garlic Chicken",
       category: "Food",
     },
     {
       id: 3,
-      photo: ownerImage,
+      photo: Userphoto3,
       title: "Garlic Chicken",
       category: "Food",
     },
     {
       id: 4,
-      photo: ownerImage,
+      photo: Userphoto1,
       title: "Garlic Chicken",
       category: "Food",
     },
     {
       id: 5,
-      photo: ownerImage,
+      photo: Userphoto2,
       title: "Garlic Chicken",
       category: "Food",
-    },
-    {
-      id: 6,
-      photo: ownerImage,
-      title: "Garlic Chicken",
-      category: "Food",
-    },
+    }
   ]);
 
   const handleDelete = (e) => {
@@ -62,7 +62,7 @@ const MyRecipe = () => {
         <div className="flex wrapper">
           <h1>My Recipes</h1>
           <ul className="list flex">
-            <li>Home</li>
+            <li><Link to='/'>Home</Link></li>
             <li>My Recipe</li>
           </ul>
         </div>
@@ -86,7 +86,7 @@ const MyRecipe = () => {
             <div className="recipes flex">
               {recipesList.map((recipe) => (
                 <div key={recipe.id} className="recipe grid">
-                  <div className="row1">
+                  <div className="row1 img">
                     <img src={recipe.photo} alt="" />
                   </div>
 
@@ -98,17 +98,17 @@ const MyRecipe = () => {
                   </div>
                   <div className="row5 flex actions">
                     <div className="view">
-                      <img src={view} alt="" />
+                      <img src={viewIcon} alt="" />
                     </div>
                     <Link to='/addrecipe'>
                     <div className="edit">
-                      <img src={edit} alt="" />
+                      <img src={editIcon} alt="" />
                     </div></Link>
                     <div
                       onClick={(e) => handleDelete(recipe)}
                       className="delete"
                     >
-                      <img src={view} alt="" />
+                      <img src={deleteIcon} alt="" />
                     </div>
                   </div>
                 </div>
