@@ -25,7 +25,6 @@ router.post("/login", login)
 router.post("/password-reset", forgotPassword)
 router.get("/me", requireSignIn, authMiddleware, getMyProfile)
 router.get("/all-users", fetchSubscribers)
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjViMThiNmMyOGU0OGU1YzFhMGM1NjEiLCJlbWFpbCI6Im5ld3BlcnNvbkBtYWlsLm1lIiwiaWF0IjoxNjUwMTM3MzkzLCJleHAiOjE2NTI3MjkzOTN9.dROBgbRRqkYJvSweE1T-vDDR68azuJQ0RkkSFWTM1S0
 router.put("/profile-update", requireSignIn, authMiddleware, profileUpdate)
 router.get("/search-user/:query", searchUser)
 router.delete("/remove-user", requireSignIn, deleteUser)
