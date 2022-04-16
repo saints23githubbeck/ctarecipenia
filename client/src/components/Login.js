@@ -12,12 +12,10 @@ const Login = (props) => {
     password: "",
   });
   const handleinput = (e) => {
-    console.log(e.target.name, e.target.value, "e log");
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log(formData, "formData log");
      dispatch(logIn(formData, navigate));
     clear();
   };
@@ -41,6 +39,7 @@ const Login = (props) => {
         <form onSubmit={handleLogin}>
           <label htmlFor="email">Email</label>
           <input
+            required
             type="text"
             placeholder="ayo@gmail.com"
             onChange={handleinput}
@@ -49,6 +48,7 @@ const Login = (props) => {
           />
           <label htmlFor="password">Password</label>
           <input
+            required
             type="password"
             value={formData.password}
             onChange={handleinput}
