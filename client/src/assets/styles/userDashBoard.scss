@@ -84,27 +84,9 @@
               margin: 20px 0;
               gap: 5px;
               .upload-div {
-                // outline : solid red;
-                // background-color : red;
-                // background-color: #fda47a;
-                // color: white;
-                // height: 45px;
-                // padding: 0 30px;
-                // input{
-                //   display: none;
-                // }
-                // h5 {
-                //     word-wrap: break-word;
-                //     color: white;
-                //     font-weight: 700;
-                //   line-height: 45px;
-                // }
                 input[type="file"]{
                   display: none;
                 }
-                // .file-input{
-                //   display: none;
-                // }
                 label{
                     background-color: #fda47a;
                     color: white;

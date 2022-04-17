@@ -113,30 +113,26 @@ const UserProfile = ({ isProfile }) => {
           </>
         ) : (
           <>
-            <div className="flex">
+              <NavLink className="flex" to="/user-dashboard"
+              >
               <img src={dashboardIcon} alt="dashboardIcon" />
-              <NavLink to="/user-dashboard" className="linked">
                 <h5>Dashboard</h5>
               </NavLink>
-            </div>
-            <div className="flex">
+            
+              <Link className="flex" to="/profile">
               <img src={userIcon} alt="userIcon" />
-              <Link to="/profile">
                 <h5>My Profile</h5>
               </Link>
-            </div>
-            <div className="flex">
-              <img src={recipeIcon} alt="recipeIcon" />
-              <NavLink to="/myrecipe" className="linked">
+            
+              <NavLink className="flex" to="/myrecipe">
+                <img src={recipeIcon} alt="recipeIcon" />
                 <h5>My Recipes</h5>
               </NavLink>
-            </div>
-            <div className="flex">
-              <img src={logoutIcon} alt="logoutIcon" />
-              <Link to="">
+            
+              <Link className="flex" to="">
+                <img src={logoutIcon} alt="logoutIcon" />
                 <h5>Logout</h5>
               </Link>
-            </div>
           </>
         )}
       </div>

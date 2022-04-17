@@ -91,13 +91,9 @@ img {
   position: relative;
 }
 
-.linked {
-  color: #000000;
-  &:active {
-    color: #fda47a !important;
-    h5 {
-      color: #fda47a !important;
-    }
+.active{
+  h5{
+    color: #fda47a;
   }
 }
 
@@ -129,12 +125,11 @@ img {
     margin: 20px 10px 20px;
     flex-direction: column;
     .profile {
-      
       align-items: start;
       gap: 20px;
       padding: 40px 20px;
       background-color: #fda47a;
-      
+
       .profile_text_img {
         border: 1px solid black;
         width: 30%;
@@ -177,8 +172,12 @@ img {
         align-items: baseline;
         gap: 15px;
         padding: 0px 20px;
+        
         h5 {
           font-weight: 500;
+          &:hover{
+            color: #b87455;
+          }
         }
         img {
           width: 14px;

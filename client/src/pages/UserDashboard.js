@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,11 +28,14 @@ const UserDashboard = () => {
      dispatch(updateUser(userData, navigate));
   };
 
-  const [selectedFile , setSelectedFile] = useState()
-  console.log(selectedFile ,'fil')
 
-  const handleFile = (e) => {
-    console.log(e , 'this')
+
+  const [selectedFile , setSelectedFile] = useState(null)
+  const target = useRef(null)
+
+  const handleFile =(e) => {
+    const uploaded = e.target.files[0]
+    setSelectedFile(URL.createObjectURL(uploaded))
   }
 
   return (
@@ -141,15 +144,25 @@ const UserDashboard = () => {
                 <div className="upload flex">
                   <div className="upload-div">
                     <input type='file'
-                    onChange={(e) => handleFile(e)} id="file" accept="image/*"/>
-                    <label htmlFor="file">UPLOAD IMAGE</label>
+                    ref={target}
+                    onChange={(e) => handleFile(e)}/>
+                    <label 
+                      onClick={() => target.current.click()}
+                    htmlFor="file">UPLOAD IMAGE</label>
                   </div>
                   <div className="upload-img">
-                    <img src={profilerec} alt="" />
+                    {
+                      selectedFile !== null && <img src={selectedFile} alt="img" />
+                    }
                   </div>
                 </div>
               </div>
             </div>
+
+
+
+
+
             <div className="upload-btn">
               <button type="submit">SAVE</button>
             </div>
