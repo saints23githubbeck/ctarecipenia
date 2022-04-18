@@ -38,13 +38,21 @@
     }
   }
   .profile {
+      margin-top: -20px;
+      button:focus {
+        box-shadow: 0 0 0 0.25rem rgba(147, 253, 48, 0) !important;
+      }
+      button:active {
+        box-shadow: 0 0 0 0.25rem rgba(147, 253, 48, 0) !important;
+      }
     .profile_toggle {
       border-radius: 50px;
       display: inline-block;
       text-align: center;
       width: 50px;
       height: 50px;
-      margin-top: -12px;
+      margin-top: -5px;
+      overflow: hidden;
       span {
         border: 1px solid black;
         background-color: #fda47a;
@@ -58,6 +66,10 @@
         font-weight: 800;
         text-transform: uppercase;
         border-radius: 50px;
+      }
+      img{
+        height: 100%;
+        width: 100%;
       }
     }
     button {

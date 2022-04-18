@@ -120,7 +120,7 @@ const CategoriesNav = () => {
   return (
     <div className="categorgy_nav">
       {categories.map((category, index) => (
-        <Link to="/" key={index} className="category_item">
+        <Link to="/recipes" key={index} className="category_item">
           <img src={category.image} alt="category image" />
           <p>{category.name}</p>
         </Link>

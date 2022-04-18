@@ -102,9 +102,9 @@ const AppRoutes = (props) => {
             }
           />
         </Route>
-        <Route exact path="/profile" element={<AuthRoute />}>
+        <Route exact path="/profile/:username" element={<AuthRoute />}>
           <Route
-            path="/profile"
+            path="/profile/:username"
             element={
               <AppLayout>
                 <Profile />
@@ -127,12 +127,11 @@ const AppRoutes = (props) => {
             path="/myrecipe"
             element={
               <AppLayout>
-                <MyRecipe/>
+                <MyRecipe />
               </AppLayout>
             }
           />
         </Route>
-
 
         {/* admin routes */}
         <Route path="/admin" element={<LoginAdmin />} />
