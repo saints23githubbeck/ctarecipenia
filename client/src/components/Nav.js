@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Dropdown } from "react-bootstrap";
+import { Dropdown, DropdownButton, ButtonGroup, SplitButton } from "react-bootstrap";
 
 import { logOut, logOutAction } from "../appState/actions/AuthAction";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,7 @@ import logo2 from "../assets/images/logo2.png";
 import menuBar from "../assets/images/menu-bar.png";
 import logoutLogo from "../assets/images/log-out.svg";
 import dashboardLogo from "../assets/images/dashboard-logo.svg";
+import CategoriesNav from "./CategoriesNav";
 
 const Nav = ({ landingPage, setModalShow }) => {
     const navigate = useNavigate();
@@ -75,8 +76,11 @@ const Nav = ({ landingPage, setModalShow }) => {
             <li onClick={closeMenu}>
               <NavLink to="/">Home</NavLink>
             </li>
-            <li onClick={closeMenu}>
-              <NavLink to="/categories">Categories</NavLink>
+            <li className="categories_link">
+              {/* <NavLink to="/categories">Categories</NavLink> */}
+              <DropdownButton id="dropdown-item-button" title="Categories">
+                <CategoriesNav />
+              </DropdownButton>
             </li>
             <li onClick={closeMenu}>
               <NavLink to="/recipes">Recipes</NavLink>
