@@ -26,6 +26,8 @@ import BlogsAdmin from "../pages/admin/BlogsAdmin";
 import CategoriesAdmin from "../pages/admin/CategoriesAdmin";
 import PagesAdmin from "../pages/admin/PagesAdmin";
 import Categories from "../pages/Categories";
+import MyRecipe from "../pages/MyRecipe";
+
 import AddRecipe from "../pages/AddRecipe";
 import EditSlider from "../components/admin/EditSlider";
 import EditAdvert from "../components/admin/EditAdvert";
@@ -120,6 +122,17 @@ const AppRoutes = (props) => {
             }
           />
         </Route>
+        <Route exact path="/myrecipe" element={<AuthRoute />}>
+          <Route
+            path="/myrecipe"
+            element={
+              <AppLayout>
+                <MyRecipe/>
+              </AppLayout>
+            }
+          />
+        </Route>
+
 
         {/* admin routes */}
         <Route path="/admin" element={<LoginAdmin />} />
