@@ -1,42 +1,40 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import LandingPage from "../pages/LandingPage";
 import { NoAuthRoute } from "./NoAuthRoute";
 import { AuthRoute } from "./AuthRoute";
-import UserDashboard from "../pages/UserDashboard";
-import Profile from "../pages/Profile";
-import Recipes from "../pages/Recipes";
-import BlogsPage from "../pages/BlogsPage";
-import SingleBlog from "../pages/SingleBlog";
-import ContactUs from "../pages/ContactUs";
-// import Blogs from "../pages/Blogs";
-import AppLayout from "../layout/AppLayout";
-import LoginAdmin from "../pages/admin/LoginAdmin";
-import AdminLayout from "../layout/AdminLayout";
-
-import DashboardAdmin from "../pages/admin/DashboardAdmin";
-import SettingsAdmin from "../pages/admin/SettingsAdmin";
-import SliderAdmin from "../pages/admin/SliderAdmin";
-import UsersNormal from "../pages/admin/UsersNormal";
-import UsersAdministrator from "../pages/admin/UsersAdministrator";
-import NewsletterAdmin from "../pages/admin/NewsletterAdmin";
-import AdvertisementAdmin from "../pages/admin/AdvertisementAdmin";
-import RecipesAdmin from "../pages/admin/RecipesAdmin";
-import BlogsAdmin from "../pages/admin/BlogsAdmin";
-import CategoriesAdmin from "../pages/admin/CategoriesAdmin";
-import PagesAdmin from "../pages/admin/PagesAdmin";
-import Categories from "../pages/Categories";
-import MyRecipe from "../pages/MyRecipe";
-
-import AddRecipe from "../pages/AddRecipe";
-import EditSlider from "../components/admin/EditSlider";
-import EditAdvert from "../components/admin/EditAdvert";
-import EditAdmin from "../components/admin/EditAdmin";
-import EditUser from "../components/admin/EditUser";
-import EditBlog from "../components/admin/EditBlog";
-import EditCategory from "../components/admin/EditCategory";
-import EditRecipe from "../components/admin/EditRecipe";
-import EditPage from "../components/admin/EditPage";
+import {
+  LandingPage,
+  UserDashboard,
+  Profile,
+  Recipes,
+  BlogsPage,
+  SingleBlog,
+  ContactUs,
+  AppLayout,
+  LoginAdmin,
+  AdminLayout,
+  DashboardAdmin,
+  SettingsAdmin,
+  SliderAdmin,
+  UsersNormal,
+  UsersAdministrator,
+  NewsletterAdmin,
+  AdvertisementAdmin,
+  RecipesAdmin,
+  BlogsAdmin,
+  CategoriesAdmin,
+  PagesAdmin,
+  Categories,
+  AddRecipe,
+  EditSlider,
+  EditAdvert,
+  EditAdmin,
+  EditUser,
+  EditBlog,
+  EditCategory,
+  EditRecipe,
+  EditPage,
+  MyRecipe,
+} from "../pages";
 
 const AppRoutes = (props) => {
   return (
@@ -49,7 +47,7 @@ const AppRoutes = (props) => {
               <LandingPage />
             </AppLayout>
           }
-        />
+        />{" "}
         <Route
           path="/recipes"
           element={
@@ -57,7 +55,7 @@ const AppRoutes = (props) => {
               <Recipes />
             </AppLayout>
           }
-        />
+        />{" "}
         <Route
           path="/contact-us"
           element={
@@ -65,7 +63,7 @@ const AppRoutes = (props) => {
               <ContactUs />
             </AppLayout>
           }
-        />
+        />{" "}
         <Route
           path="/categories"
           element={
@@ -73,7 +71,7 @@ const AppRoutes = (props) => {
               <Categories />
             </AppLayout>
           }
-        />
+        />{" "}
         <Route
           path="/blogs"
           element={
@@ -81,7 +79,7 @@ const AppRoutes = (props) => {
               <BlogsPage />
             </AppLayout>
           }
-        />
+        />{" "}
         <Route
           path="/blogs/:id"
           element={
@@ -90,8 +88,7 @@ const AppRoutes = (props) => {
             </AppLayout>
           }
         />
-
-        {/* protected routes */}
+        {/* protected routes */}{" "}
         <Route exact path="/user-dashboard" element={<AuthRoute />}>
           <Route
             path="/user-dashboard"
@@ -100,8 +97,8 @@ const AppRoutes = (props) => {
                 <UserDashboard />
               </AppLayout>
             }
-          />
-        </Route>
+          />{" "}
+        </Route>{" "}
         <Route exact path="/profile" element={<AuthRoute />}>
           <Route
             path="/profile"
@@ -110,8 +107,8 @@ const AppRoutes = (props) => {
                 <Profile />
               </AppLayout>
             }
-          />
-        </Route>
+          />{" "}
+        </Route>{" "}
         <Route exact path="/addrecipe" element={<AuthRoute />}>
           <Route
             path="/addrecipe"
@@ -120,14 +117,16 @@ const AppRoutes = (props) => {
                 <AddRecipe />
               </AppLayout>
             }
-          />
+          />{" "}
         </Route>
+        {/* admin routes */} <Route path="/admin" element={<LoginAdmin />} />{" "}
+
         <Route exact path="/myrecipe" element={<AuthRoute />}>
           <Route
             path="/myrecipe"
             element={
               <AppLayout>
-                <MyRecipe/>
+                <MyRecipe />
               </AppLayout>
             }
           />
@@ -143,7 +142,7 @@ const AppRoutes = (props) => {
               <DashboardAdmin />
             </AdminLayout>
           }
-        />
+        />{" "}
         <Route
           path="/admin/settings"
           element={
@@ -152,7 +151,6 @@ const AppRoutes = (props) => {
             </AdminLayout>
           }
         />
-
         <Route
           path="/admin/slider"
           element={
@@ -160,7 +158,7 @@ const AppRoutes = (props) => {
               <SliderAdmin />
             </AdminLayout>
           }
-        />
+        />{" "}
         <Route
           path="/admin/administrator"
           element={
@@ -169,7 +167,6 @@ const AppRoutes = (props) => {
             </AdminLayout>
           }
         />
-
         <Route
           path="/admin/normalUsers"
           element={
@@ -177,7 +174,7 @@ const AppRoutes = (props) => {
               <UsersNormal />
             </AdminLayout>
           }
-        />
+        />{" "}
         <Route
           path="/admin/categories"
           element={
@@ -185,7 +182,7 @@ const AppRoutes = (props) => {
               <CategoriesAdmin />
             </AdminLayout>
           }
-        />
+        />{" "}
         <Route
           path="/admin/recipes"
           element={
@@ -193,7 +190,7 @@ const AppRoutes = (props) => {
               <RecipesAdmin />
             </AdminLayout>
           }
-        />
+        />{" "}
         <Route
           path="/admin/blog"
           element={
@@ -201,7 +198,7 @@ const AppRoutes = (props) => {
               <BlogsAdmin />
             </AdminLayout>
           }
-        />
+        />{" "}
         <Route
           path="/admin/advertisement"
           element={
@@ -209,7 +206,7 @@ const AppRoutes = (props) => {
               <AdvertisementAdmin />
             </AdminLayout>
           }
-        />
+        />{" "}
         <Route
           path="/admin/newsletter"
           element={
@@ -217,7 +214,7 @@ const AppRoutes = (props) => {
               <NewsletterAdmin />
             </AdminLayout>
           }
-        />
+        />{" "}
         <Route
           path="/admin/pages"
           element={
@@ -225,7 +222,7 @@ const AppRoutes = (props) => {
               <PagesAdmin />
             </AdminLayout>
           }
-        />
+        />{" "}
         <Route
           path="/admin/slider/edit"
           element={
@@ -233,7 +230,7 @@ const AppRoutes = (props) => {
               <EditSlider />
             </AdminLayout>
           }
-        />
+        />{" "}
         <Route
           path="/admin/advert/edit"
           element={
@@ -241,7 +238,7 @@ const AppRoutes = (props) => {
               <EditAdvert />
             </AdminLayout>
           }
-        />
+        />{" "}
         <Route
           path="/admin/administrator/edit"
           element={
@@ -249,7 +246,7 @@ const AppRoutes = (props) => {
               <EditAdmin />
             </AdminLayout>
           }
-        />
+        />{" "}
         <Route
           path="/admin/normaluser/edit"
           element={
@@ -257,7 +254,7 @@ const AppRoutes = (props) => {
               <EditUser />
             </AdminLayout>
           }
-        />
+        />{" "}
         <Route
           path="/admin/blog/edit"
           element={
@@ -265,7 +262,7 @@ const AppRoutes = (props) => {
               <EditBlog />
             </AdminLayout>
           }
-        />
+        />{" "}
         <Route
           path="/admin/categories/edit"
           element={
@@ -273,7 +270,7 @@ const AppRoutes = (props) => {
               <EditCategory />
             </AdminLayout>
           }
-        />
+        />{" "}
         <Route
           path="/admin/recipe/edit"
           element={
@@ -281,7 +278,7 @@ const AppRoutes = (props) => {
               <EditRecipe />
             </AdminLayout>
           }
-        />
+        />{" "}
         <Route
           path="/admin/page/edit"
           element={
@@ -290,31 +287,7 @@ const AppRoutes = (props) => {
             </AdminLayout>
           }
         />
-        {/* <Route
-          path="/admin/slider/edit"
-          element={
-            <AdminLayout title="/ Edit">
-              <EditSlider />
-            </AdminLayout>
-          }
-        />
-        <Route
-          path="/admin/slider/edit"
-          element={
-            <AdminLayout title="/ Edit">
-              <EditSlider />
-            </AdminLayout>
-          }
-        />
-        <Route
-          path="/admin/slider/edit"
-          element={
-            <AdminLayout title="/ Edit">
-              <EditSlider />
-            </AdminLayout>
-          }
-        /> */}
-      </Routes>
+      </Routes>{" "}
     </BrowserRouter>
   );
 };

@@ -10,7 +10,6 @@ import Userphoto3 from "../assets/images/blog3.png";
 
 
 import UserProfile from "../components/UserProfile";
-
 import viewIcon from "../assets/images/viewiconwhite.png";
 import deleteIcon from "../assets/images/deleteicon.png";
 import editIcon from "../assets/images/edit.png";
