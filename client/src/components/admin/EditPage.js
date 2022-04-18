@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import React from "react";
 
 const EditPage = () => {
-  // const { state } = useLocation();
+  const { state } = useLocation();
 
   function reset() {
     window.location.reload();
@@ -18,9 +18,9 @@ const EditPage = () => {
       </div>
 
       <hr className="m-3" />
-{/* 
+
 <div className="row  m-3">
- <p className="w-25 h-75 text-end ptag">Recipe</p>
+ <p className="w-25 h-75 text-end ptag">Title</p>
  <input className="w-75 h-75 p-1 border"
    type="email"
    required
@@ -33,30 +33,29 @@ const EditPage = () => {
 <hr className="m-3" />
 
 <div className="row  m-3">
- <p className="w-25 h-75 text-end ptag">Title</p>
+ <p className="w-25 h-75 text-end ptag">Permlink</p>
  <input className="w-75 h-75 p-1 border"
    type="tel"
    required
    id="phone"
    autoComplete="number"
    autoFocus
-   placeholder={state.title}
+   placeholder={state.permlink}
  />
 </div>
 <hr className="m-3" />
 
 <div className="row  m-3">
- <p className="w-25 h-75 text-end ptag">Image</p>
- <input className="w-75 h-75 p-1 border"
-   type="file"
-   required
-   id="phone"
-   autoComplete="number"
-   autoFocus
-   placeholder={state.image}
+ <p className="w-25 h-75 text-end ptag">Content</p>
+ <textarea className="w-75 h-75 p-1 border"
+   type="text"
+rows={5}
+   id="name"
+   autoComplete="name"
+   placeholder={state.content}
  />
 </div>
-<hr className="m-3" /> */}
+<hr className="m-3" />
 <div className="m-3">
           <Link to={-1}>
             <button

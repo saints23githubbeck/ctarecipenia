@@ -5,7 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 const EditAdmin = () => {
   const { state } = useLocation();
   const name = state.username.split(" ");
-
+ 
   function reset() {
     window.location.reload();
   }

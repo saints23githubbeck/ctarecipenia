@@ -1,33 +1,39 @@
 import React from "react";
 import "../../assets/styles/adminStyles/module.admin.scss";
+import { RiUser2Line  } from "react-icons/ri";
+import { HiUserGroup  } from "react-icons/hi";
+import { GrCopy, GrView  } from "react-icons/gr";
+import { MdOutlineCategory  } from "react-icons/md";
+import { ImSpoonKnife } from "react-icons/im";
+import { FaBloggerB } from "react-icons/fa";
+import { BsNewspaper } from "react-icons/bs";
 
 const DashboardCard = (props) => {
   const { icon, title, count, total, bgColor } = props;
   return (
+    <>
     <div
-      className="dashCard"
+      className="dashCard p-2"
       style={{
-        margin: "15px",
+        margin:"8px",
         backgroundColor: bgColor,
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          padding: "0px 10px ",
-        }}
-      >
-        <h1>{icon}</h1>
-        <div>
-          <p>{title}</p>
+      <div className="d-flex">
+        <h1 style={{
+          width:'50%', height:"40%", color: "#fff"
+        }}>{icon}</h1>
+        <div className="w-75">
+          <h3 className="text-start ">{title}</h3>
           <h3>{count}</h3>
         </div>
       </div>
       <hr />
       {/* {progress} */}
-      <p>{total}</p>
+      <p className="text-wrap text-center">{total}</p>
     </div>
+    {/* <div className="iconShow" >{icon}</div> */}
+    </>
   );
 };
 
@@ -37,56 +43,56 @@ const DashboardAdmin = () => {
       <div className="fill">
         <div className="fills">
           <DashboardCard
-            icon={""}
+            icon={<RiUser2Line />}
             title={"ADMINISTRATORS"}
             count={2}
             total={"TOTAL ADMINS"}
             bgColor={"#9F7417"}
           />
           <DashboardCard
-            icon={""}
+            icon={<HiUserGroup />}
             title={"NOMAL USERS"}
             count={3}
             total={"TOTAL NORMAL USERS"}
             bgColor={"#FFC42B"}
           />
           <DashboardCard
-            icon={""}
+            icon={<GrView />}
             title={"VISITS"}
             count={3}
             total={"TOTAL VISITS"}
             bgColor={"#BA1EAA"}
           />
           <DashboardCard
-            icon={""}
+            icon={<MdOutlineCategory />}
             title={"CATEGORIES"}
             count={3}
             total={"TOTAL CATEGORIES"}
             bgColor={"#282B30"}
           />
           <DashboardCard
-            icon={""}
+            icon={<ImSpoonKnife />}
             title={"RECIPES"}
             count={3}
             total={"TOTAL RECIPES"}
             bgColor={"#F378A3"}
           />
           <DashboardCard
-            icon={""}
+            icon={<FaBloggerB />}
             title={"BLOGS"}
             count={3}
             total={"TOTAL BLOGS"}
             bgColor={"#235B40"}
           />
           <DashboardCard
-            icon={""}
+            icon={<BsNewspaper />}
             title={"NEWSLETTER"}
             count={3}
             total={"TOTAL GLOBAL NEWSLETTER"}
             bgColor={"#3BE9BF"}
           />
           <DashboardCard
-            icon={""}
+            icon={<GrCopy />}
             title={"PAGES"}
             count={3}
             total={"TOTAL PAGES"}
@@ -95,7 +101,7 @@ const DashboardAdmin = () => {
         </div>
       </div>
 
-      <div className="fill">
+      <div className="fill w-100 p-2">
         <h5>Recipes Under Review</h5>
         <hr />
         <p> There is no recipes need reviewing</p>
