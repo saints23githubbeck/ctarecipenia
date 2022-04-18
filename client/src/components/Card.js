@@ -3,7 +3,7 @@ import React from 'react'
 const Card = ({latestData}) => {
 
   return (
-    <div className="card_wrapper">
+    <div className="cards">
     {latestData.map((recipe, index) => (
       <div key={index} className="card">
         <div>
