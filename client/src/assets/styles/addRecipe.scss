@@ -1,0 +1,260 @@
+.add-recipe {
+
+  textarea,
+  input,
+  select {
+    width: 100%;
+    border: 1px solid #c4c4c454;
+    &::placeholder {
+        color: #282b30;
+        font-size: 15px;
+      }
+  }
+    input,
+    select {
+        padding: 2px 2px 2px 15px;
+    }
+
+
+  label {
+    font-size: 15px;
+    font-weight: 400;
+    margin-bottom: 5px;
+  }
+  .wrapper {
+    .right {
+      max-width: 500px;
+      margin: 50px 0;
+      form {
+          margin: 30px 0;
+        .flex {
+          flex-direction: column;
+          gap: 15px;
+        }
+        .inputs {
+          .file {
+            .file-item{
+                margin: 15px 0;
+                input {
+                font-size: 12px;
+                }
+                .file-display {
+                background: #c4c4c454;
+                height: 45px;
+                padding-left: 20px;
+                h3 {
+                    line-height: 45px;
+                    font-size: 12px;
+                    font-weight: 500;
+                }
+                }
+            }
+          }
+        }
+        .textarea {
+          textarea {
+            padding-bottom: 50%;
+            height: 100%;
+          }
+        }
+
+        .checkbox {
+          gap: 10px;
+          label {
+            margin-bottom: 1px;
+          }
+          .checks{
+            .check {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                label {
+                  margin: 0;
+                }
+                input {
+                  width: unset;
+                }
+              }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .add-recipe {
+    padding-top: 125px;
+    label {
+        margin-bottom: 0px;
+    }
+    .wrapper {
+      margin-top: 0px;
+      display: flex;
+      align-items: flex-start;
+      .user-menu{
+        width: 350px;
+      }
+      .right {
+        max-width: unset;
+        width: 60%;
+        margin: 20px 0 20px 10px;
+        .heading{
+            h3{
+                font-size: 25px;
+            }
+        }
+        form {
+            .flex {
+                gap: 20px;
+            }
+          .inputs{
+            .input,.textarea,.checkbox {
+              display: flex;
+              flex-direction: row;
+            justify-content: space-between;
+              align-items: center;
+              label{
+                  width: 30%;
+              }
+              input,select,textarea,.checks{
+                  width:70%;
+              }
+            }
+            .textarea{
+                align-items: flex-start;
+                gap: 0;
+                textarea{
+                    padding-bottom: 10%;
+                }
+            }
+            .checkbox {
+                gap: 0px;
+                label {
+                  margin-bottom: 0px;
+                }
+                .checks{
+                    flex-direction: row;
+                    gap: 20px;
+                  .check {
+                      gap: 10px;
+                    }
+                }
+            }
+            .file {
+                display: flex;
+                .div{
+                    width: 30%;
+                }
+                .file-item{
+                    width: 70%;
+                    margin: 15px 0;
+                    input {
+                    font-size: 12px;
+                    }
+                    .file-display {
+                    background: #c4c4c454;
+                    height: 45px;
+                    padding-left: 20px;
+                    h3 {
+                        line-height: 45px;
+                        font-size: 12px;
+                    }
+                    }
+                }
+              }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1000px) {
+    .add-recipe {
+        label{
+            font-size: 20px;
+        }
+        input,
+        select {
+            padding: 10px 10px 10px 15px;
+        }
+      .wrapper {
+        gap: 20px;
+        .user-menu{
+            width: 387px;
+        }
+        .right {
+          width: 65%;
+          form {
+              .flex {
+                  gap: 25px;
+              }
+            .inputs{
+              .input,.textarea,.checkbox {
+                label{
+                    width: 20%;
+                }
+                input,select,textarea,.checks{
+                    width:78%;
+                }
+              }
+              .textarea{
+                  align-items: flex-start;
+                  gap: 0;
+                  textarea{
+                      padding-bottom: 10%;
+                  }
+              }
+              .checkbox {
+                  .checks{                  
+                      justify-content: space-between;
+                  }
+              }
+              .aside-input{   
+                .aside-right,.aside-left{
+                      display: flex;
+                      flex-direction: row;
+                      justify-content: space-between;
+                      .input{
+                          display: flex;
+                          justify-content: space-between;
+                          width: 45%;
+                          gap: 20px;
+                            label{
+                                width: 40%;
+                            }
+                            input{
+                                width: 51%;
+                            }
+                      }
+                  }
+                }
+
+              .file {
+                  .div{
+                      width: 22%;
+                  }
+                  .file-item{
+                      width: 78%;
+                      margin: 15px 0;
+                      input {
+                      font-size: 15px;
+                      }
+                      .file-display {
+                      height: 79px;
+                      padding-left: 20px;
+                      h3 {
+                          line-height: 79px;
+                          font-size: 15px;
+                      }
+                      }
+                  }
+                }
+            }
+          }
+        }
+      }
+    }
+  }
+  

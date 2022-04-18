@@ -85,6 +85,9 @@ img {
 .text_primary {
   color: var(--primary);
 }
+input,button{
+  outline : none;
+}
 .App {
   max-width: 1440px;
   margin: 0 auto;
