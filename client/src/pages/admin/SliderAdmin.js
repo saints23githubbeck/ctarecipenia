@@ -47,7 +47,7 @@ const SliderAdmin = () => {
     .map((record, index) => (
       <tr key={index} className="">
         <td className="tdata">{record.title}</td>
-        <td className="tdata">{record.image}</td>
+        <td className="tdata"><img src={record.image} alt={record.image} style={{width: "50px", height:"20px", borderRadius:"150px 150px 40px 40px"}} /></td>
         <td className="tdata buttonEdit">
           <button
             className="detailsButton"

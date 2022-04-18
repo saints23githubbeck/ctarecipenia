@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { IoMdArrowDropleft } from "react-icons/io";
 
 const EditSlider = () => {
   const { state } = useLocation();
@@ -10,61 +11,93 @@ const EditSlider = () => {
 
   return (
     <div>
-      <div className="textBox">
-        <h2>Edit Record</h2>
+      <div className="d-flex m-3 justify-content-between">
+        <h5 className="p-3">Slider</h5>
         <Link to={-1}>
-          {" "}
-          <p>Back</p>
+          <h6>
+            <IoMdArrowDropleft /> Back
+          </h6>
         </Link>
       </div>
 
-      <div className="addUserBody">
-        <div className="formInput">
-          <p className="h3Space">Recipe</p>
-          <input type="text" name="name" placeholder={state.title} />
-        </div>
-        <div className="formInput">
-          <p className="h3Space">Title</p>
-          <input type="text" name="name" placeholder={state.title} />
-        </div>
+      <hr className="m-3" />
 
-        <div className="formInput">
-          <p className="h3Space">Image</p>
-          <input type="file" name="number" placeholder={state.image} />
-        </div>
-        <div>
-          <Link to={-1}>
-            <button
-              style={{
-                marginRight: "50px",
-                backgroundColor: "green",
-                border: "none",
-                borderRadius: "5px",
-                padding: 10,
-                color: "#fff",
-                width: "100px",
-                fontSize: 16,
-              }}
-            >
-              Save
-            </button>
-          </Link>
+      <div className="row  m-3">
+        <p className="w-25 h-75 text-end ptag">Recipe</p>
+        <input
+          className="w-75 h-75 p-1 border"
+          type="email"
+          required
+          id="email"
+          autoComplete="email"
+          autoFocus
+          placeholder={state.title}
+        />
+      </div>
+      <hr className="m-3" />
+
+      <div className="row  m-3">
+        <p className="w-25 h-75 text-end ptag">Title</p>
+        <input
+          className="w-75 h-75 p-1 border"
+          type="tel"
+          required
+          id="phone"
+          autoComplete="number"
+          autoFocus
+          placeholder={state.title}
+        />
+      </div>
+      <hr className="m-3" />
+
+      <div className="row  m-3">
+        <p className="w-25 h-75 text-end ptag">Image</p>
+        <input
+          className="w-50 h-75 p-1 border"
+          type="file"
+          required
+          id="phone"
+          autoComplete="number"
+          autoFocus
+          placeholder={state.image}
+        />
+         <img className="w-25 h-75 p-1" src={state.image} alt={state.image} style={{width: "30px", height:"30px", borderRadius:"10px"}} />
+      </div>
+      <hr className="m-3" />
+      <div className="m-3">
+        <Link to={-1}>
           <button
             style={{
               marginRight: "50px",
-              backgroundColor: "orange",
+              backgroundColor: "green",
               border: "none",
               borderRadius: "5px",
               padding: 10,
               color: "#fff",
               width: "100px",
               fontSize: 16,
+              marginBottom: "40px",
             }}
-            onClick={reset}
           >
-            Reset
+            Save
           </button>
-        </div>
+        </Link>
+        <button
+          style={{
+            marginRight: "50px",
+            backgroundColor: "orange",
+            border: "none",
+            borderRadius: "5px",
+            padding: 10,
+            color: "#fff",
+            width: "100px",
+            fontSize: 16,
+            marginBottom: "40px",
+          }}
+          onClick={reset}
+        >
+          Reset
+        </button>
       </div>
     </div>
   );
