@@ -31,6 +31,7 @@ import EditBlog from "../components/admin/EditBlog";
 import EditCategory from "../components/admin/EditCategory";
 import EditRecipe from "../components/admin/EditRecipe";
 import EditPage from "../components/admin/EditPage";
+import MyRecipe from "./MyRecipe";
 
 export {
   LandingPage,
@@ -64,4 +65,5 @@ export {
   EditCategory,
   EditRecipe,
   EditPage,
+  MyRecipe
 };

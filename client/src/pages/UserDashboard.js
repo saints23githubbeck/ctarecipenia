@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,6 +27,17 @@ const UserDashboard = () => {
     console.log(userData, "update log")
      dispatch(updateUser(userData, navigate));
   };
+
+
+
+  const [selectedFile , setSelectedFile] = useState(null)
+  const target = useRef(null)
+
+  const handleFile =(e) => {
+    const uploaded = e.target.files[0]
+    setSelectedFile(URL.createObjectURL(uploaded))
+  }
+
   return (
     <section className="user-dash-board">
       <div className="sub-nav">
@@ -122,24 +133,36 @@ const UserDashboard = () => {
             <h5 className="center">Gender</h5>
             <div className="checkbox">
               <div className="check flex">
-                <input type="radio" name="Female" id="Female" />
-                <h5>Female</h5>
+                <input type="radio" name="gender" id="Female" />
+                <label htmlFor="Female">Female</label>
               </div>
               <div className="check flex">
-                <input type="radio" name="Male" id="Male" />
-                <h5>Male</h5>
+                <input type="radio" name="gender" id="Male" />
+                <label htmlFor="Male">Male</label>
               </div>
               <div className="upload-sec">
                 <div className="upload flex">
                   <div className="upload-div">
-                    <h5>UPLOAD IMAGE</h5>
+                    <input type='file'
+                    ref={target}
+                    onChange={(e) => handleFile(e)}/>
+                    <label 
+                      onClick={() => target.current.click()}
+                    htmlFor="file">UPLOAD IMAGE</label>
                   </div>
                   <div className="upload-img">
-                    <img src={profilerec} alt="" />
+                    {
+                      selectedFile !== null && <img src={selectedFile} alt="img" />
+                    }
                   </div>
                 </div>
               </div>
             </div>
+
+
+
+
+
             <div className="upload-btn">
               <button type="submit">SAVE</button>
             </div>

@@ -5,9 +5,10 @@ import * as actiontypes from "../actionTypes";
 //   user:null,
 //   message: "",
 // };
+// isLoggedIn: localStorage.getItem("user") ? true : false,
 
 const initialState = {
-  isLoggedIn: localStorage.getItem("user") ? true : false,
+  isLoggedIn: true,
   user: localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user")).user
     : null,

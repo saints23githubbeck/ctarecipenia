@@ -33,6 +33,7 @@ import {
   EditCategory,
   EditRecipe,
   EditPage,
+  MyRecipe,
 } from "../pages";
 
 const AppRoutes = (props) => {
@@ -119,6 +120,21 @@ const AppRoutes = (props) => {
           />{" "}
         </Route>
         {/* admin routes */} <Route path="/admin" element={<LoginAdmin />} />{" "}
+
+        <Route exact path="/myrecipe" element={<AuthRoute />}>
+          <Route
+            path="/myrecipe"
+            element={
+              <AppLayout>
+                <MyRecipe />
+              </AppLayout>
+            }
+          />
+        </Route>
+
+
+        {/* admin routes */}
+        <Route path="/admin" element={<LoginAdmin />} />
         <Route
           path="/admin/dashboard"
           element={
