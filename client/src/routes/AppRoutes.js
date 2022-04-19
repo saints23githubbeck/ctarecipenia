@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { NoAuthRoute } from "./NoAuthRoute";
 import { AuthRoute } from "./AuthRoute";
 import {
   LandingPage,

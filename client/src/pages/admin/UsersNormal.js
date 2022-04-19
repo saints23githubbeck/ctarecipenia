@@ -14,13 +14,12 @@ const UsersNormal = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
-  const [userList, setUserList] = useState(user)
+  const [userList, setUserList] = useState(user);
 
   const handleDelete = (e) => {
     const filtered = userList.filter((user) => user !== e);
     setUserList(filtered);
   };
-  
 
   const status = (status) => {
     switch (status) {
@@ -97,10 +96,14 @@ const UsersNormal = () => {
             onClick={() => navigate("/admin/normaluser/edit", { state: user })}
             style={{ backgroundColor: "orange" }}
           >
-            Edit
+            <BiIcons.BiEdit className="text-white h6" /> Edit
           </button>
-          <button className="detailsButton" style={{ backgroundColor: "red" }} onClick={(e) => handleDelete(user)}>
-            Delete
+          <button
+            className="detailsButton"
+            style={{ backgroundColor: "red" }}
+            onClick={(e) => handleDelete(user)}
+          >
+            <BiIcons.BiTrash className="text-white h6" /> Delete
           </button>
         </td>
       </tr>
@@ -164,11 +167,7 @@ const UsersNormal = () => {
           activeClassName={"activeP"}
         />
       </div>
-      <AdminModal
-    open={showModal}
-    onclose={handleClose}
-    addUser={addUser}
-    />
+      <AdminModal open={showModal} onclose={handleClose} addUser={addUser} />
     </div>
   );
 };

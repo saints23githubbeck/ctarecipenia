@@ -15,7 +15,7 @@ const SliderAdmin = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
-  const [recordList, setRecordList] = useState(record)
+  const [recordList, setRecordList] = useState(record);
 
   const handleDelete = (e) => {
     const filtered = recordList.filter((record) => record !== e);
@@ -54,17 +54,31 @@ const SliderAdmin = () => {
     .map((record) => (
       <tr key={record.id} className="">
         <td className="tdata">{record.title}</td>
-        <td className="tdata"><img src={record.image} alt={record.image} style={{width: "50px", height:"20px", borderRadius:"150px 150px 40px 40px"}} /></td>
+        <td className="tdata">
+          <img
+            src={record.image}
+            alt={record.image}
+            style={{
+              width: "50px",
+              height: "20px",
+              borderRadius: "150px 150px 40px 40px",
+            }}
+          />
+        </td>
         <td className="tdata buttonEdit">
           <button
             className="detailsButton"
             onClick={() => navigate("/admin/slider/edit", { state: record })}
             style={{ backgroundColor: "orange" }}
           >
-            Edit
+            <BiIcons.BiEdit className="text-white h6" /> Edit
           </button>
-          <button className="detailsButton" style={{ backgroundColor: "red" }}  onClick={(e) => handleDelete(record)}>
-            Delete
+          <button
+            className="detailsButton"
+            style={{ backgroundColor: "red" }}
+            onClick={(e) => handleDelete(record)}
+          >
+            <BiIcons.BiTrash className="text-white h6" /> Delete
           </button>
         </td>
       </tr>
@@ -126,11 +140,11 @@ const SliderAdmin = () => {
           activeClassName={"activeP"}
         />
       </div>
-    <AdminModal
-    open={showModal}
-    onclose={handleClose}
-    addSlider={addSlider}
-    />
+      <AdminModal
+        open={showModal}
+        onclose={handleClose}
+        addSlider={addSlider}
+      />
     </div>
   );
 };

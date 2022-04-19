@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
+import { BiEdit } from "react-icons/bi";
 import { useEffect, useState } from "react";
 import { blog } from "../../components/admin/data";
 import ReactPaginate from "react-paginate";
@@ -15,13 +16,12 @@ const BlogsAdmin = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
-  const [blogList, setBlogList] = useState(blog)
+  const [blogList, setBlogList] = useState(blog);
 
   const handleDelete = (e) => {
     const filtered = blogList.filter((blog) => blog !== e);
     setBlogList(filtered);
   };
-  
 
   const handleOpen = (item) => {
     setShowModal(true);
@@ -57,15 +57,19 @@ const BlogsAdmin = () => {
         <td className="tdata">{blog.topic}</td>
         <td className="tdata">{blog.visit}</td>
         <td className="tdata buttonEdit">
-        <button
-              className="detailsButton"
-              onClick={() => navigate("/admin/blog/edit", { state: blog  })}
-              style={{ backgroundColor: "orange" }}
-            >
-              Edit
-            </button>
-          <button className="detailsButton" style={{ backgroundColor: "red" }}  onClick={(e) => handleDelete(blog)}>
-            Delete
+          <button
+            className="detailsButton"
+            onClick={() => navigate("/admin/blog/edit", { state: blog })}
+            style={{ backgroundColor: "orange" }}
+          >
+            <BiEdit className="text-white h6" /> Edit
+          </button>
+          <button
+            className="detailsButton"
+            style={{ backgroundColor: "red" }}
+            onClick={(e) => handleDelete(blog)}
+          >
+            <BiIcons.BiTrash className="text-white h6" /> Delete
           </button>
         </td>
       </tr>
@@ -127,11 +131,7 @@ const BlogsAdmin = () => {
           activeClassName={"activeP"}
         />
       </div>
-      <AdminModal
-    open={showModal}
-    onclose={handleClose}
-    addBlog={addBlog}
-    />
+      <AdminModal open={showModal} onclose={handleClose} addBlog={addBlog} />
     </div>
   );
 };

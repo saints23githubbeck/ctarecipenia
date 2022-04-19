@@ -15,7 +15,7 @@ const RecipesAdmin = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
-  const [recipesList, setRecipesList] = useState(recipes)
+  const [recipesList, setRecipesList] = useState(recipes);
 
   const handleDelete = (e) => {
     const filtered = recipesList.filter((recipes) => recipes !== e);
@@ -85,10 +85,14 @@ const RecipesAdmin = () => {
             onClick={() => navigate("/admin/recipe/edit", { state: recipes })}
             style={{ backgroundColor: "orange" }}
           >
-            Edit
+            <BiIcons.BiEdit className="text-white h6" /> Edit
           </button>
-          <button className="detailsButton" style={{ backgroundColor: "red" }} onClick={(e) => handleDelete(recipes)}>
-            Delete
+          <button
+            className="detailsButton"
+            style={{ backgroundColor: "red" }}
+            onClick={(e) => handleDelete(recipes)}
+          >
+            <BiIcons.BiTrash className="text-white h6" /> Delete
           </button>
         </td>
       </tr>
@@ -130,7 +134,7 @@ const RecipesAdmin = () => {
       </div>
 
       <div style={{ overflowX: "auto" }}>
-        <table className=""> 
+        <table className="">
           <tr>
             <th className="thead ">Category</th>
             <th className="thead">Title</th>
@@ -153,10 +157,10 @@ const RecipesAdmin = () => {
         />
       </div>
       <AdminModal
-    open={showModal}
-    onclose={handleClose}
-    addRecipe={addRecipe}
-    />
+        open={showModal}
+        onclose={handleClose}
+        addRecipe={addRecipe}
+      />
     </div>
   );
 };

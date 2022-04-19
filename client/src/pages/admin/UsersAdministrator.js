@@ -14,13 +14,12 @@ const UsersAdministrator = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
-  const [adminUserList, setAdminUserList] = useState(adminUser)
+  const [adminUserList, setAdminUserList] = useState(adminUser);
 
   const handleDelete = (e) => {
     const filtered = adminUserList.filter((adminUser) => adminUser !== e);
     setAdminUserList(filtered);
   };
-  
 
   const status = (status) => {
     switch (status) {
@@ -94,13 +93,19 @@ const UsersAdministrator = () => {
         <td className="tdata buttonEdit">
           <button
             className="detailsButton"
-            onClick={() => navigate("/admin/administrator/edit", { state: adminUser })}
+            onClick={() =>
+              navigate("/admin/administrator/edit", { state: adminUser })
+            }
             style={{ backgroundColor: "orange" }}
           >
-            Edit
+            <BiIcons.BiEdit className="text-white h6" /> Edit
           </button>
-          <button className="detailsButton" style={{ backgroundColor: "red" }} onClick={(e) => handleDelete(adminUser)}>
-            Delete
+          <button
+            className="detailsButton"
+            style={{ backgroundColor: "red" }}
+            onClick={(e) => handleDelete(adminUser)}
+          >
+            <BiIcons.BiTrash className="text-white h6" /> Delete
           </button>
         </td>
       </tr>
@@ -165,11 +170,7 @@ const UsersAdministrator = () => {
           activeClassName={"activeP"}
         />
       </div>
-      <AdminModal
-    open={showModal}
-    onclose={handleClose}
-    addAdmin={addAdmin}
-    />
+      <AdminModal open={showModal} onclose={handleClose} addAdmin={addAdmin} />
     </div>
   );
 };
