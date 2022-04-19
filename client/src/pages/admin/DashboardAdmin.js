@@ -7,9 +7,10 @@ import { MdOutlineCategory  } from "react-icons/md";
 import { ImSpoonKnife } from "react-icons/im";
 import { FaBloggerB } from "react-icons/fa";
 import { BsNewspaper } from "react-icons/bs";
+import ProgressBar from "../../components/admin/ProgressBar";
 
 const DashboardCard = (props) => {
-  const { icon, title, count, total, bgColor } = props;
+  const { icon, title, count, total, bgColor, number } = props;
   return (
     <>
     <div
@@ -28,11 +29,9 @@ const DashboardCard = (props) => {
           <h3>{count}</h3>
         </div>
       </div>
-      <hr />
-      {/* {progress} */}
+      <ProgressBar number={number} />
       <p className="text-wrap text-center">{total}</p>
     </div>
-    {/* <div className="iconShow" >{icon}</div> */}
     </>
   );
 };
@@ -46,12 +45,14 @@ const DashboardAdmin = () => {
             icon={<RiUser2Line />}
             title={"ADMINISTRATORS"}
             count={2}
+            number={50}
             total={"TOTAL ADMINS"}
             bgColor={"#9F7417"}
           />
           <DashboardCard
             icon={<HiUserGroup />}
             title={"NOMAL USERS"}
+            number={20}
             count={3}
             total={"TOTAL NORMAL USERS"}
             bgColor={"#FFC42B"}
@@ -59,6 +60,7 @@ const DashboardAdmin = () => {
           <DashboardCard
             icon={<GrView />}
             title={"VISITS"}
+            number={30}
             count={3}
             total={"TOTAL VISITS"}
             bgColor={"#BA1EAA"}
@@ -67,12 +69,14 @@ const DashboardAdmin = () => {
             icon={<MdOutlineCategory />}
             title={"CATEGORIES"}
             count={3}
+            number={82}
             total={"TOTAL CATEGORIES"}
             bgColor={"#282B30"}
           />
           <DashboardCard
             icon={<ImSpoonKnife />}
             title={"RECIPES"}
+            number={57.80}
             count={3}
             total={"TOTAL RECIPES"}
             bgColor={"#F378A3"}
@@ -80,6 +84,7 @@ const DashboardAdmin = () => {
           <DashboardCard
             icon={<FaBloggerB />}
             title={"BLOGS"}
+            number={70}
             count={3}
             total={"TOTAL BLOGS"}
             bgColor={"#235B40"}
@@ -87,6 +92,7 @@ const DashboardAdmin = () => {
           <DashboardCard
             icon={<BsNewspaper />}
             title={"NEWSLETTER"}
+            number={90}
             count={3}
             total={"TOTAL GLOBAL NEWSLETTER"}
             bgColor={"#3BE9BF"}
@@ -94,6 +100,7 @@ const DashboardAdmin = () => {
           <DashboardCard
             icon={<GrCopy />}
             title={"PAGES"}
+            number={37}
             count={3}
             total={"TOTAL PAGES"}
             bgColor={"#F02020"}
