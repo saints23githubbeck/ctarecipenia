@@ -3,7 +3,7 @@ import { IoMdArrowDropleft } from 'react-icons/io';
 import React from "react";
 
 const EditBlog = () => {
-  // const { state } = useLocation();
+  const { state } = useLocation();
 
   function reset() {
     window.location.reload();
@@ -19,26 +19,41 @@ const EditBlog = () => {
 
       <hr className="m-3" />
 
-{/* <div className="row  m-3">
- <p className="w-25 h-75 text-end ptag">Recipe</p>
- <input className="w-75 h-75 p-1 border"
-   type="email"
-   required
-   id="email"
-   autoComplete="email"
-   autoFocus
-   placeholder={state.title}
- />
-</div>
-<hr className="m-3" />
+      <div className="d-flex  align-items-center w-80 m-3">
+        <div className="w-50 row m-1">
+      <p className="w-25 h-75 text-end ptag px-4">Prepare Time</p>
+          <input
+            className="w-75 h-75 p-1 border"
+            type="text"
+            required
+            id="name"
+            autoComplete="name"
+            autoFocus
+            placeholder={state.prepareTime}
+          />
+        </div>
+        <div className="w-50 row m-1">
+          <p className="w-25 h-75 text-end ptag px-4">Cooking Time</p>
+          <input
+            className="w-75 h-75 p-1 border"
+            type="text"
+            required
+            id="name"
+            autoComplete="name"
+            autoFocus
+            placeholder={state.cookingTime}
+          />
+        </div>
+      </div>
+      <hr className="m-3" />
 
 <div className="row  m-3">
  <p className="w-25 h-75 text-end ptag">Title</p>
  <input className="w-75 h-75 p-1 border"
-   type="tel"
+   type="text"
    required
-   id="phone"
-   autoComplete="number"
+   id="name"
+   autoComplete="name"
    autoFocus
    placeholder={state.title}
  />
@@ -46,17 +61,72 @@ const EditBlog = () => {
 <hr className="m-3" />
 
 <div className="row  m-3">
- <p className="w-25 h-75 text-end ptag">Image</p>
+ <p className="w-25 h-75 text-end ptag">Permlink</p>
  <input className="w-75 h-75 p-1 border"
-   type="file"
+   type="text"
    required
-   id="phone"
-   autoComplete="number"
+   id="name"
+   autoComplete="name"
    autoFocus
-   placeholder={state.image}
+   placeholder={state.permlink}
  />
 </div>
-<hr className="m-3" /> */}
+<hr className="m-3" />
+
+<div className="row  m-3">
+ <p className="w-25 h-75 text-end ptag">Short Description</p>
+ <textarea className="w-75 h-75 p-1 border"
+   type="text"
+rows={5}
+   id="name"
+   autoComplete="name"
+   placeholder={state.shortDesc}
+ />
+</div>
+<hr className="m-3" />
+
+<div className="row  m-3">
+ <p className="w-25 h-75 text-end ptag">Description</p>
+ <textarea className="w-75 h-75 p-1 border"
+   type="text"
+rows={10}
+   id="name"
+   autoComplete="name"
+   placeholder={state.desc}
+ />
+</div>
+<hr className="m-3" />
+
+<div className="row  m-3">
+        <p className="w-25 h-75 text-end ptag">Image</p>
+        <input
+          className="w-50 h-75 p-1 border"
+          type="file"
+          required
+          id="phone"
+          autoComplete="number"
+          autoFocus
+          placeholder={state.image}
+        />
+         <img className="w-25 h-75 p-1" src={state.image} alt={state.image} style={{width: "30px", height:"30px", borderRadius:"10px"}} />
+      </div>
+      <hr className="m-3" />
+
+
+      <div className="row  m-3">
+ <p className="w-25 h-75 text-end ptag">Meta Description</p>
+ <input className="w-75 h-75 p-1 border"
+   type="text"
+   required
+   id="name"
+   autoComplete="name"
+   autoFocus
+   placeholder={state.metaDesc}
+ />
+</div>
+<hr className="m-3" /> 
+
+
 <div className="m-3">
           <Link to={-1}>
             <button
