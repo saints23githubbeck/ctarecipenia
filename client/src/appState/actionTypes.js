@@ -5,3 +5,4 @@ export const SIGN_IN = "SIGN_IN";
 export const UPDATE_USER = "UPDATE_USER";
 
 export const GET_PROFILE = "GET_PROFILE";
+export const ADD_NEW_RECIPE = "ADD_NEW_RECIPE";

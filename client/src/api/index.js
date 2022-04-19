@@ -17,3 +17,4 @@ export const signupApi = (formdata) => API.post(`/register`, formdata);
 export const updateUserApi = (userData) => API.put(`/profile-update`, userData);
 
 export const getProfileApi = (username) => API.get(`/search-user/${username}`);
+export const addNewRecipeApi = (newRecipe) => API.post(`/add-recipe`, newRecipe);
