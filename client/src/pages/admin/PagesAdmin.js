@@ -4,13 +4,14 @@
   import { page } from "../../components/admin/data";
   import ReactPaginate from "react-paginate";
   import * as BiIcons from "react-icons/bi";
+import AdminModal from "../../components/modals/AdminModal";
   
   const PER_PAGE = 15;
   const URL = { page };
   
   const PagesAdmin = () => {
     const navigate = useNavigate();
-    const [addRecord, setAddRecord] = useState("");
+    const [addPage, setAddPage] = useState("");
     const [showModal, setShowModal] = useState(false);
     const [currentPage, setCurrentPage] = useState(0);
     const [data, setData] = useState([]);
@@ -23,7 +24,7 @@
   
     const handleOpen = (item) => {
       setShowModal(true);
-      setAddRecord(item);
+      setAddPage(item);
     };
   
     const handleClose = () => {
@@ -68,7 +69,7 @@
         </tr>
       ));
   
-    const pageCount = Math.ceil(page.length / PER_PAGE);
+    const pageCount = Math.ceil(pageList.length / PER_PAGE);
   
     return (
       <div className="fill">
@@ -85,7 +86,7 @@
         >
           <h3>Categories</h3>
           <div
-            onClick={() => handleOpen("addRecord")}
+            onClick={() => handleOpen("addPage")}
             style={{
               display: "flex",
               justifyContent: "end",
@@ -124,6 +125,11 @@
             activeClassName={"activeP"}
           />
         </div>
+        <AdminModal
+    open={showModal}
+    onclose={handleClose}
+    addPage={addPage}
+    />
       </div>
     );
   };

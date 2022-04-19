@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import { record } from "../../components/admin/data";
 import ReactPaginate from "react-paginate";
 import * as BiIcons from "react-icons/bi";
+import AdminModal from "../../components/modals/AdminModal";
 
 const PER_PAGE = 10;
 const URL = { record };
 
 const SliderAdmin = () => {
   const navigate = useNavigate();
-  const [addRecord, setAddRecord] = useState("");
+  const [addSlider, setAddSlider] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
@@ -23,7 +24,7 @@ const SliderAdmin = () => {
 
   const handleOpen = (item) => {
     setShowModal(true);
-    setAddRecord(item);
+    setAddSlider(item);
   };
 
   const handleClose = () => {
@@ -69,7 +70,7 @@ const SliderAdmin = () => {
       </tr>
     ));
 
-  const pageCount = Math.ceil(record.length / PER_PAGE);
+  const pageCount = Math.ceil(recordList.length / PER_PAGE);
 
   return (
     <div className="fill">
@@ -86,7 +87,7 @@ const SliderAdmin = () => {
       >
         <h3>Slider</h3>
         <div
-          onClick={() => handleOpen("addRecord")}
+          onClick={() => handleOpen("addSlider")}
           style={{
             display: "flex",
             justifyContent: "end",
@@ -126,6 +127,11 @@ const SliderAdmin = () => {
           activeClassName={"activeP"}
         />
       </div>
+    <AdminModal
+    open={showModal}
+    onclose={handleClose}
+    addSlider={addSlider}
+    />
     </div>
   );
 };

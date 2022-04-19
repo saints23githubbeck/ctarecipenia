@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import { categories } from "../../components/admin/data";
 import ReactPaginate from "react-paginate";
 import * as BiIcons from "react-icons/bi";
+import AdminModal from "../../components/modals/AdminModal";
 
 const PER_PAGE = 15;
 const URL = { categories };
 
 const CategoriesAdmin = () => {
   const navigate = useNavigate();
-  const [addRecord, setAddRecord] = useState("");
+  const [addCategory, setAddCategory] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
@@ -19,7 +20,7 @@ const CategoriesAdmin = () => {
 
   const handleOpen = (item) => {
     setShowModal(true);
-    setAddRecord(item);
+    setAddCategory(item);
   };
 
   const handleClose = () => {
@@ -69,7 +70,7 @@ const CategoriesAdmin = () => {
       </tr>
     ));
 
-  const pageCount = Math.ceil(categories.length / PER_PAGE);
+  const pageCount = Math.ceil(categoriesList.length / PER_PAGE);
 
   return (
     <div className="fill">
@@ -86,7 +87,7 @@ const CategoriesAdmin = () => {
       >
         <h3>Categories</h3>
         <div
-          onClick={() => handleOpen("addRecord")}
+          onClick={() => handleOpen("addCategory")}
           style={{
             display: "flex",
             justifyContent: "end",
@@ -125,6 +126,11 @@ const CategoriesAdmin = () => {
           activeClassName={"activeP"}
         />
       </div>
+      <AdminModal
+    open={showModal}
+    onclose={handleClose}
+    addCategory={addCategory}
+    />
     </div>
   );
 };

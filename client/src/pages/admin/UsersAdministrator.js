@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 import { adminUser } from "../../components/admin/data";
 import ReactPaginate from "react-paginate";
 import * as BiIcons from "react-icons/bi";
+import AdminModal from "../../components/modals/AdminModal";
 
 const PER_PAGE = 10;
 const URL = { adminUser };
 const UsersAdministrator = () => {
   const navigate = useNavigate();
-  const [addRecord, setAddRecord] = useState("");
+  const [addAdmin, setAddAdmin] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
@@ -25,10 +26,8 @@ const UsersAdministrator = () => {
     switch (status) {
       case "Active":
         return "green";
-        break;
       case "Inactive":
         return "red";
-        break;
       default:
         return "grey";
     }
@@ -36,7 +35,7 @@ const UsersAdministrator = () => {
 
   const handleOpen = (item) => {
     setShowModal(true);
-    setAddRecord(item);
+    setAddAdmin(item);
   };
 
   const handleClose = () => {
@@ -107,7 +106,7 @@ const UsersAdministrator = () => {
       </tr>
     ));
 
-  const pageCount = Math.ceil(adminUser.length / PER_PAGE);
+  const pageCount = Math.ceil(adminUserList.length / PER_PAGE);
 
   return (
     <div className="fill">
@@ -124,7 +123,7 @@ const UsersAdministrator = () => {
       >
         <h3>Users</h3>
         <div
-          onClick={() => handleOpen("addRecord")}
+          onClick={() => handleOpen("addAdmin")}
           style={{
             display: "flex",
             justifyContent: "end",
@@ -167,6 +166,11 @@ const UsersAdministrator = () => {
           activeClassName={"activeP"}
         />
       </div>
+      <AdminModal
+    open={showModal}
+    onclose={handleClose}
+    addAdmin={addAdmin}
+    />
     </div>
   );
 };
