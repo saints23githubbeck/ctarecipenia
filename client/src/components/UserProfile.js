@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import "../assets/styles/userDashBoard.scss";
 
 import profilecircle from "../assets/images/userdashboardprofilecircle.png";
-import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 
+import { logOutAction } from "../appState/actions/AuthAction";
 import dashboardIcon from "../assets/images/dashboard.png";
 import userIcon from "../assets/images/user.png";
 import recipeIcon from "../assets/images/recipe.png";
 import logoutIcon from "../assets/images/logout.png";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import nameIcon from "../assets/images/user.png";
 import genderIcon from "../assets/images/female.png";
@@ -19,22 +20,31 @@ import profileViewsIcon from "../assets/images/view.png";
 import countryIcon from "../assets/images/flag.png";
 import recipesIcon from "../assets/images/recipe.png";
 
-
-
-const UserProfile = ({ isProfile }) => {
+const UserProfile = ({ isProfile, profileInfo }) => {
   const userProfile = useSelector((state) => state.user);
   const { user, isLoggedIn } = userProfile;
-
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [profileData, setProfileData] = useState({
-    name: "Bambam",
+    name: profileInfo?.name? profileInfo.name : profileInfo?.username,
     profileViews: "120 Profile Views",
-    gender: "Female",
-    country: "Nigeria",
-    email: "ayo@gmail.com",
+    gender: profileInfo?.gender,
+    country: profileInfo?.country,
+    email: profileInfo?.email,
+    profilePic: profileInfo?.profilePic,
     recipes: "7 Recipes",
     joinedDate: "Member Since Febuary 14,2022",
   });
-  const { name, profileViews, gender, country, email, recipes, joinedDate } = profileData;
+  const {
+    name,
+    profileViews,
+    gender,
+    country,
+    email,
+    recipes,
+    joinedDate,
+    profilePic,
+  } = profileData;
 
   return (
     <div className="user-menu flex">
@@ -44,13 +54,13 @@ const UserProfile = ({ isProfile }) => {
           {!isProfile ? (
             <div>
               {user?.profilePic ? (
-                // <img
-                //   className="profile_img"
-                //   src={user?.profilePic}
-                //   alt="user profile"
-                // />
-                <img className="profile_img" src={profilecircle} alt="" />
+                <img
+                  className="profile_img"
+                  src={user?.profilePic}
+                  alt="user profile"
+                />
               ) : (
+                /// <img className="profile_img" src={profilecircle} alt="" />
                 <span className="profile_text">
                   {user?.username?.split("")[0]}
                 </span>
@@ -59,14 +69,14 @@ const UserProfile = ({ isProfile }) => {
           ) : (
             <div>
               {/* other person profile */}
-              {user?.profilePic ? (
-                // <img
-                //   className="profile_img"
-                //   src={user?.profilePic}
-                //   alt="user profile"
-                // />
-                <img className="profile_img" src={profilecircle} alt="" />
+              {profilePic ? (
+                <img
+                  className="profile_img"
+                  src={profilePic}
+                  alt="user profile"
+                />
               ) : (
+                // <img className="profile_img" src={profilecircle} alt="" />
                 <span className="profile_text">
                   {user?.username?.split("")[0]}
                 </span>
@@ -113,26 +123,28 @@ const UserProfile = ({ isProfile }) => {
           </>
         ) : (
           <>
-              <NavLink className="flex" to="/user-dashboard"
-              >
+            <NavLink className="flex" to="/user-dashboard">
               <img src={dashboardIcon} alt="dashboardIcon" />
-                <h5>Dashboard</h5>
-              </NavLink>
-            
-              <Link className="flex" to="/profile">
+              <h5>Dashboard</h5>
+            </NavLink>
+
+            <Link className="flex" to={`/profile/:${user.username}`}>
               <img src={userIcon} alt="userIcon" />
-                <h5>My Profile</h5>
-              </Link>
-            
-              <NavLink className="flex" to="/myrecipe">
-                <img src={recipeIcon} alt="recipeIcon" />
-                <h5>My Recipes</h5>
-              </NavLink>
-            
-              <Link className="flex" to="">
-                <img src={logoutIcon} alt="logoutIcon" />
-                <h5>Logout</h5>
-              </Link>
+              <h5>My Profile</h5>
+            </Link>
+
+            <NavLink className="flex" to="/myrecipe">
+              <img src={recipeIcon} alt="recipeIcon" />
+              <h5>My Recipes</h5>
+            </NavLink>
+
+            <span
+              className="flex"
+              onClick={() => dispatch(logOutAction(navigate))}
+            >
+              <img src={logoutIcon} alt="logoutIcon" />
+              <h5>Logout</h5>
+            </span>
           </>
         )}
       </div>

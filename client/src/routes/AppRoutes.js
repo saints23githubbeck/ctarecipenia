@@ -46,7 +46,7 @@ const AppRoutes = (props) => {
               <LandingPage />
             </AppLayout>
           }
-        />{" "}
+        />
         <Route
           path="/recipes"
           element={
@@ -54,7 +54,7 @@ const AppRoutes = (props) => {
               <Recipes />
             </AppLayout>
           }
-        />{" "}
+        />
         <Route
           path="/contact-us"
           element={
@@ -62,7 +62,7 @@ const AppRoutes = (props) => {
               <ContactUs />
             </AppLayout>
           }
-        />{" "}
+        />
         <Route
           path="/categories"
           element={
@@ -70,7 +70,7 @@ const AppRoutes = (props) => {
               <Categories />
             </AppLayout>
           }
-        />{" "}
+        />
         <Route
           path="/blogs"
           element={
@@ -78,7 +78,7 @@ const AppRoutes = (props) => {
               <BlogsPage />
             </AppLayout>
           }
-        />{" "}
+        />
         <Route
           path="/blogs/:id"
           element={
@@ -87,7 +87,7 @@ const AppRoutes = (props) => {
             </AppLayout>
           }
         />
-        {/* protected routes */}{" "}
+        {/* protected routes */}
         <Route exact path="/user-dashboard" element={<AuthRoute />}>
           <Route
             path="/user-dashboard"
@@ -96,18 +96,18 @@ const AppRoutes = (props) => {
                 <UserDashboard />
               </AppLayout>
             }
-          />{" "}
-        </Route>{" "}
-        <Route exact path="/profile" element={<AuthRoute />}>
+          />
+        </Route>
+        <Route exact path="/profile/:username" element={<AuthRoute />}>
           <Route
-            path="/profile"
+            path="/profile/:username"
             element={
               <AppLayout>
                 <Profile />
               </AppLayout>
             }
-          />{" "}
-        </Route>{" "}
+          />
+        </Route>
         <Route exact path="/addrecipe" element={<AuthRoute />}>
           <Route
             path="/addrecipe"
@@ -116,9 +116,9 @@ const AppRoutes = (props) => {
                 <AddRecipe />
               </AppLayout>
             }
-          />{" "}
+          />
         </Route>
-        {/* admin routes */} <Route path="/admin" element={<LoginAdmin />} />{" "}
+        {/* admin routes */} <Route path="/admin" element={<LoginAdmin />} />
 
         <Route exact path="/myrecipe" element={<AuthRoute />}>
           <Route
@@ -131,7 +131,6 @@ const AppRoutes = (props) => {
           />
         </Route>
 
-
         {/* admin routes */}
         <Route path="/admin" element={<LoginAdmin />} />
         <Route
@@ -141,7 +140,7 @@ const AppRoutes = (props) => {
               <DashboardAdmin />
             </AdminLayout>
           }
-        />{" "}
+        />
         <Route
           path="/admin/settings"
           element={
@@ -157,7 +156,7 @@ const AppRoutes = (props) => {
               <SliderAdmin />
             </AdminLayout>
           }
-        />{" "}
+        />
         <Route
           path="/admin/administrator"
           element={
@@ -173,7 +172,7 @@ const AppRoutes = (props) => {
               <UsersNormal />
             </AdminLayout>
           }
-        />{" "}
+        />
         <Route
           path="/admin/categories"
           element={
@@ -181,7 +180,7 @@ const AppRoutes = (props) => {
               <CategoriesAdmin />
             </AdminLayout>
           }
-        />{" "}
+        />
         <Route
           path="/admin/recipes"
           element={
@@ -189,7 +188,7 @@ const AppRoutes = (props) => {
               <RecipesAdmin />
             </AdminLayout>
           }
-        />{" "}
+        />
         <Route
           path="/admin/blog"
           element={
@@ -197,7 +196,7 @@ const AppRoutes = (props) => {
               <BlogsAdmin />
             </AdminLayout>
           }
-        />{" "}
+        />
         <Route
           path="/admin/advertisement"
           element={
@@ -205,7 +204,7 @@ const AppRoutes = (props) => {
               <AdvertisementAdmin />
             </AdminLayout>
           }
-        />{" "}
+        />
         <Route
           path="/admin/newsletter"
           element={
@@ -213,7 +212,7 @@ const AppRoutes = (props) => {
               <NewsletterAdmin />
             </AdminLayout>
           }
-        />{" "}
+        />
         <Route
           path="/admin/pages"
           element={
@@ -221,7 +220,7 @@ const AppRoutes = (props) => {
               <PagesAdmin />
             </AdminLayout>
           }
-        />{" "}
+        />
         <Route
           path="/admin/slider/edit"
           element={
@@ -229,7 +228,7 @@ const AppRoutes = (props) => {
               <EditSlider />
             </AdminLayout>
           }
-        />{" "}
+        />
         <Route
           path="/admin/advert/edit"
           element={
@@ -237,7 +236,7 @@ const AppRoutes = (props) => {
               <EditAdvert />
             </AdminLayout>
           }
-        />{" "}
+        />
         <Route
           path="/admin/administrator/edit"
           element={
@@ -245,7 +244,7 @@ const AppRoutes = (props) => {
               <EditAdmin />
             </AdminLayout>
           }
-        />{" "}
+        />
         <Route
           path="/admin/normaluser/edit"
           element={
@@ -253,7 +252,7 @@ const AppRoutes = (props) => {
               <EditUser />
             </AdminLayout>
           }
-        />{" "}
+        />
         <Route
           path="/admin/blog/edit"
           element={
@@ -261,7 +260,7 @@ const AppRoutes = (props) => {
               <EditBlog />
             </AdminLayout>
           }
-        />{" "}
+        />
         <Route
           path="/admin/categories/edit"
           element={
@@ -269,7 +268,7 @@ const AppRoutes = (props) => {
               <EditCategory />
             </AdminLayout>
           }
-        />{" "}
+        />
         <Route
           path="/admin/recipe/edit"
           element={
@@ -277,7 +276,7 @@ const AppRoutes = (props) => {
               <EditRecipe />
             </AdminLayout>
           }
-        />{" "}
+        />
         <Route
           path="/admin/page/edit"
           element={
@@ -286,7 +285,7 @@ const AppRoutes = (props) => {
             </AdminLayout>
           }
         />
-      </Routes>{" "}
+      </Routes>
     </BrowserRouter>
   );
 };

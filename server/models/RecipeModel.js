@@ -1,10 +1,10 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
-const Schema = mongoose.Schema
+const Schema = mongoose.Schema;
 
 const recipeSchema = new Schema(
   {
-    name: {
+    title: {
       type: String,
       required: [true, "Please enter recipe name"],
       trim: true,
@@ -23,6 +23,36 @@ const recipeSchema = new Schema(
     image: {
       type: String,
     },
+    description: {
+      type: String,
+    },
+    videoLink: {
+      type: String,
+    },
+    direction: {
+      type: String,
+    },
+    metaDescription: {
+      type: String,
+    },
+    featuredImage: {
+      type: String,
+    },
+    permlink: {
+      type: String,
+    },
+    difficulty: {
+      type: String,
+    },
+    prepareTime: {
+      type: String,
+    },
+    serves: {
+      type: String,
+    },
+    calories: {
+      type: String,
+    },
     tags: [],
     facts: {
       type: String,
@@ -33,8 +63,8 @@ const recipeSchema = new Schema(
     ingredients: [],
   },
   { timestamps: new Date().getTime }
-)
+);
 
-const Recipe = mongoose.model("Recipe", recipeSchema)
+const Recipe = mongoose.model("Recipe", recipeSchema);
 
-module.exports = Recipe
+module.exports = Recipe;

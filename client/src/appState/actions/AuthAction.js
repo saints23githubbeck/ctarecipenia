@@ -34,37 +34,21 @@ export const logIn = (formData, navigate) => async (dispatch) => {
 export const updateUser = (userData, navigate) => async (dispatch) => {
   try {
     const { data } = await updateUserApi(userData);
+     console.log(data ,"data log action redux");
     dispatch({
       type: actiontypes.UPDATE_USER,
       payload: data,
     });
-    navigate("/profile");
+    navigate("/user-dashboard");
     console.log("successful", data);
   } catch (error) {
-    console.log(error?.response?.data.msg);
+    console.log("errorno update action redux");
   }
 };
 
-export const ds = (navigate) => async (dispatch) => {
-  console.log("logout");
-  localStorage.clear();
+export const logOutAction = (navigate) => async (dispatch) => {
   dispatch({
     type: actiontypes.LOG_OUT,
-  });
-  
-  // dispatch({
-  //   type: actiontypes.CLEAR_STORAGE,
-  // });
-
-  navigate("/");
-};
-
-export const logOutAction = (navigate) => {
-  console.log("logout action 1");
-   localStorage.clear();
-  navigate("/");
-  return {
-    type: actiontypes.LOG_OUT,
-    payload: "clear",
-  };
+  })
+  navigate("/")
 };
