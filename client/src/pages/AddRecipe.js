@@ -1,10 +1,18 @@
-import React from "react";
+import React , {useState , useRef} from "react";
 import { Link } from "react-router-dom";
 import UserProfile from "../components/UserProfile";
 
 import "../assets/styles/addRecipe.scss";
 
 const AddRecipe = () => {
+  const [selectedFile , setSelectedFile] = useState(null)
+  const target = useRef(null)
+
+  const handleFile =(e) => {
+    const uploaded = e.target.files[0]
+    setSelectedFile(URL.createObjectURL(uploaded))
+  }
+
   return (
     <section class="add-recipe">
       <div className="sub-nav">
@@ -118,10 +126,19 @@ const AddRecipe = () => {
               <div className="file">
                   <div className="div"></div>
                   <div className="file-item">
-                  <input type="file" name="" id="" />
-                  <div className="file-display">
-                      <h3>No photos uploaded yet !</h3>
-                  </div>
+                    <input type='file'
+                    ref={target}
+                    onChange={(e) => handleFile(e)}/>
+                    
+                    {
+                      selectedFile !== null ? <div className="img-file">
+                        <img src={selectedFile} alt="img" />
+                      </div> : 
+                      <div className="file-display">
+                        <h3>No photos uploaded yet !</h3>
+                      </div>
+                    }
+    
                   </div>
               </div>
 

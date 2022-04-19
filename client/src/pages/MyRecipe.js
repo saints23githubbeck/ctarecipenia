@@ -3,17 +3,17 @@ import React, { useState } from "react";
 import "../assets/styles/myRecipe.scss";
 
 
-import Userphoto1 from "../assets/images/blog1.png";
-import Userphoto2 from "../assets/images/blog2.png";
-import Userphoto3 from "../assets/images/blog3.png";
+import Userphoto1 from "../assets/images/blog1.svg";
+import Userphoto2 from "../assets/images/blog2.svg";
+import Userphoto3 from "../assets/images/blog3.svg";
 
 
 
 import UserProfile from "../components/UserProfile";
 
-import viewIcon from "../assets/images/viewiconwhite.png";
-import deleteIcon from "../assets/images/deleteicon.png";
-import editIcon from "../assets/images/edit.png";
+import viewIcon from "../assets/images/viewIcon.svg";
+import deleteIcon from "../assets/images/deleteIcon.svg";
+import editIcon from "../assets/images/editIcon.svg";
 import { Link } from 'react-router-dom';
 
 const MyRecipe = () => {
@@ -97,9 +97,10 @@ const MyRecipe = () => {
                     <h5>{recipe.category}</h5>
                   </div>
                   <div className="row5 flex actions">
+                    <Link to='/viewrecipe'>
                     <div className="view">
                       <img src={viewIcon} alt="" />
-                    </div>
+                    </div></Link>
                     <Link to='/addrecipe'>
                     <div className="edit">
                       <img src={editIcon} alt="" />

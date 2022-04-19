@@ -1,13 +1,14 @@
-import blog1 from "../assets/images/blog1.png";
-import blog2 from "../assets/images/blog2.png";
-import blog3 from "../assets/images/blog3.png";
-import blog4 from "../assets/images/blog4.png";
-import blog5 from "../assets/images/blog5.png";
-import blog6 from "../assets/images/blog6.png";
+import blog1 from "../assets/images/blog1.svg";
+import blog2 from "../assets/images/blog2.svg";
+import blog3 from "../assets/images/blog3.svg";
+import blog4 from "../assets/images/blog4.svg";
+import blog5 from "../assets/images/blog5.svg";
+import blog6 from "../assets/images/blog6.svg";
 
-import eye from "../assets/images/eye.png";
-import clock from "../assets/images/clock.png";
-import calender from "../assets/images/calender.png";
+
+import eyeIcon from "../assets/images/eyeIcon.svg";
+import clockIcon from "../assets/images/clockIcon.svg";
+import calenderIcon from "../assets/images/calenderIcon.svg";
 
 import Blogs from "../components/landingPage/Blogs";
 
@@ -101,14 +102,14 @@ const BlogsPage = () => {
                   <h3>{blog.title}</h3>
                   <div className="info flex">
                     <div className="view flex">
-                      <img src={eye} alt="" /> <span>{blog.view}</span>
+                      <img src={eyeIcon} alt="" /> <span>{blog.view}</span>
                     </div>
                     <div className="clock flex">
-                      <img src={clock} alt="" />
+                      <img src={clockIcon} alt="" />
                       <span>Last Update : {blog.lastUpdate}</span>
                     </div>
                     <div className="calender flex">
-                      <img src={calender} alt="" />
+                      <img src={calenderIcon} alt="" />
                       <span>Created : {blog.created}</span>
                     </div>
                   </div>

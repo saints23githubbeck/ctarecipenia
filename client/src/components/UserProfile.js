@@ -5,19 +5,19 @@ import profilecircle from "../assets/images/userdashboardprofilecircle.png";
 import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 
-import dashboardIcon from "../assets/images/dashboard.png";
-import userIcon from "../assets/images/user.png";
-import recipeIcon from "../assets/images/recipe.png";
-import logoutIcon from "../assets/images/logout.png";
+import dashboardIcon from "../assets/images/dashboardIcon.svg";
+import userIcon from "../assets/images/userIcon.svg";
+import recipeIcon from "../assets/images/recipeIcon.svg";
+import logoutIcon from "../assets/images/logoutIcon.svg";
 
 
-import nameIcon from "../assets/images/user.png";
+import nameIcon from "../assets/images/userIcon.svg";
 import genderIcon from "../assets/images/female.png";
-import emailIcon from "../assets/images/mail.png";
-import joinedDateIcon from "../assets/images/calender.png";
+import emailIcon from "../assets/images/mailIcon.svg";
+import joinedDateIcon from "../assets/images/calenderIcon.svg";
 import profileViewsIcon from "../assets/images/view.png";
 import countryIcon from "../assets/images/flag.png";
-import recipesIcon from "../assets/images/recipe.png";
+import recipesIcon from "../assets/images/recipeIcon.svg";
 
 
 
@@ -40,15 +40,9 @@ const UserProfile = ({ isProfile }) => {
     <div className="user-menu flex">
       <div className="profile flex">
         <div className="profile_text_img">
-          {/* <img src={profilecircle} alt="" /> */}
           {!isProfile ? (
             <div>
               {user?.profilePic ? (
-                // <img
-                //   className="profile_img"
-                //   src={user?.profilePic}
-                //   alt="user profile"
-                // />
                 <img className="profile_img" src={profilecircle} alt="" />
               ) : (
                 <span className="profile_text">
@@ -58,13 +52,8 @@ const UserProfile = ({ isProfile }) => {
             </div>
           ) : (
             <div>
-              {/* other person profile */}
               {user?.profilePic ? (
-                // <img
-                //   className="profile_img"
-                //   src={user?.profilePic}
-                //   alt="user profile"
-                // />
+
                 <img className="profile_img" src={profilecircle} alt="" />
               ) : (
                 <span className="profile_text">

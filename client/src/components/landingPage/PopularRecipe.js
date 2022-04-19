@@ -1,7 +1,7 @@
 
 import popularRecipe from "../../assets/images/popular-recipe.png"
 
-const PopularRecipe = () => {
+const PopularRecipe = ({title, span}) => {
 
   const popularRecipes = [
     {
@@ -23,8 +23,8 @@ const PopularRecipe = () => {
   ]
   return (
     <div className='wrapper popularRecipe'>
-        <h2>Most Popular
-          <span className='text_primary'>Recipe</span>
+        <h2>{title}
+          <span className='text_primary'>{span}</span>
         </h2>
         <div className='card_wrapper'>
          {

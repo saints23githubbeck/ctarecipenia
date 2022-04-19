@@ -14,10 +14,10 @@ const LandingPage = () => {
     <div>
       <Header />
       <LatestRecipe />
-      <PopularRecipe />
+      <PopularRecipe title='Most Popular' span='Recipe'/>
       <PopularAuthor />
       <div className='category-blog wrapper'>
-        <Categories />
+        <Categories/>
         <Blogs />
       </div>
       <StayWithUs />

@@ -1,38 +1,29 @@
 import React, { useEffect, useState } from "react";
 
-import eyeColor from "../assets/images/eyeColor.png";
-import clockColor from "../assets/images/clockColor.png";
-import calenderColor from "../assets/images/calenderColor.png";
-
-import user from "../assets/images/user.png";
-import love from "../assets/images/love.png";
-import lock from "../assets/images/lock.png";
-
-import facebook from "../assets/images/fb.png";
-import twitter from "../assets/images/tw.png";
-import instagram from "../assets/images/ig.png";
-
-import danger from "../assets/images/danger.png";
-import mail from "../assets/images/mail.png";
 
 import "../assets/styles/singleBlog.scss";
-import blog1 from "../assets/images/blog1.png";
-import blog2 from "../assets/images/blog2.png";
-import blog3 from "../assets/images/blog3.png";
-import blog4 from "../assets/images/blog4.png";
-import blog5 from "../assets/images/blog5.png";
-import blog6 from "../assets/images/blog6.png";
+
+import eyeColorIcon from "../assets/images/viewColouredColor.svg";
+import clockColorIcon from "../assets/images/clockColouredIcon.svg";
+import calenderColorIcon from "../assets/images/calenderColouredColor.svg";
+
+
+import blog1 from "../assets/images/blog1.svg";
+import blog2 from "../assets/images/blog2.svg";
+import blog3 from "../assets/images/blog3.svg";
+import blog4 from "../assets/images/blog4.svg";
+import blog5 from "../assets/images/blog5.svg";
+import blog6 from "../assets/images/blog6.svg";
+
 
 import { useParams } from "react-router-dom";
 
-import smile from "../assets/images/smileEmoji.png";
-import frown from "../assets/images/frownEmoji.png";
-import thumb from "../assets/images/thumbEmoji.png";
 import Card from "../components/Card";
 
 import latestRecipe1 from "../assets/images/latest-recipe1.png";
 import latestRecipe2 from "../assets/images/latest-recipe2.png";
 import ownerImage from "../assets/images/latest-recipe-owner-image.png";
+import Review from './../components/Review';
 
 
 const SingleBlog = () => {
@@ -93,25 +84,25 @@ const SingleBlog = () => {
     },
   ];
 
-  const latestData = [
-    {
-      title: "Chicken",
-      recipeImage: latestRecipe1,
-      ownerImage: ownerImage,
-      ownerName: "Bambam",
-    },
-    {
-      title: "Chicken",
-      recipeImage: latestRecipe2,
-      ownerImage: ownerImage,
-      ownerName: "Bambam",
-    },{
-      title: "Chicken",
-      recipeImage: latestRecipe2,
-      ownerImage: ownerImage,
-      ownerName: "Bambam",
-    }
-];
+    const latestData = [
+      {
+        title: "Chicken",
+        recipeImage: latestRecipe1,
+        ownerImage: ownerImage,
+        ownerName: "Bambam",
+      },
+      {
+        title: "Chicken",
+        recipeImage: latestRecipe2,
+        ownerImage: ownerImage,
+        ownerName: "Bambam",
+      },{
+        title: "Chicken",
+        recipeImage: latestRecipe2,
+        ownerImage: ownerImage,
+        ownerName: "Bambam",
+      }
+  ];
 
   const [data, setData] = useState([{}]);
 
@@ -145,14 +136,14 @@ const SingleBlog = () => {
                 <h3>{title}</h3>
                 <div className="info flex">
                   <div className="view flex">
-                    <img src={eyeColor} alt="" /> <span>{view}</span>
+                    <img src={eyeColorIcon} alt="" /> <span>{view}</span>
                   </div>
                   <div className="clock flex">
-                    <img src={clockColor} alt="" />
+                    <img src={clockColorIcon} alt="" />
                     <span>Last Update : {lastUpdate}</span>
                   </div>
                   <div className="calender flex">
-                    <img src={calenderColor} alt="" />
+                    <img src={calenderColorIcon} alt="" />
                     <span>Created : {created}</span>
                   </div>
                 </div>
@@ -165,79 +156,10 @@ const SingleBlog = () => {
           </div>
         </div>
         <h3 className="left-h3">You may also like</h3>
-
         <Card latestData={latestData}/>
+        
+        <Review/>
 
-        <div className="max-width">
-          <div className="center">
-            <h1>What do you think?</h1>
-          </div>
-          <div className="left">
-            <h1>23 Responses</h1>
-          </div>
-          <div className="icons flex">
-            <img src={frown} alt="" />
-            <img src={thumb} alt="" />
-            <img src={smile} alt="" />
-          </div>
-
-          <div className="comment flex">
-            <p>0 Comments</p>
-            <p>Bambam</p>
-            <p>
-              <img src={lock} alt="" /> Disqus’Privacy Policy
-            </p>
-          </div>
-          <div className="favorite flex">
-            <img src={love} alt="" />
-            <p>Favorite</p>
-            <span className="number">1</span>
-          </div>
-          <form>
-            <div className="log-in flex">
-              <div className="user">
-                <img src={user} alt="" />
-              </div>
-              <div className="input">
-                <input type="text" placeholder="Start the discussion..." />
-                <p>LOG IN WITH</p>
-              </div>
-            </div>
-            <div className="sign-up flex">
-              <div className="social flex">
-                <div className="fb">
-                  <img src={facebook} alt="" />
-                </div>
-                <div className="tw">
-                  <img src={twitter} alt="" />
-                </div>
-                <div className="ig">
-                  <img src={instagram} alt="" />
-                </div>
-              </div>
-              <div className="input">
-                <p>OR SIGN UP WITH DISQUS ?</p>
-                <input type="text" placeholder="Name" />
-              </div>
-            </div>
-            <div className="center">
-              <h1>Be the first to comment.</h1>
-            </div>
-          </form>
-          <div className="prefooter flex">
-            <div className="mail">
-              <img src={mail} alt="" /> <span>Subscribe</span>
-            </div>
-            <div className="d">
-              <span className="d-img">D</span>
-              <span>Add Disqus to your site</span>
-            </div>
-            <div className="danger">
-              <img src={danger} alt="" /> <span>Do Not Sell My Data</span>
-            </div>
-          </div>
-          <h1 className="right">DISQUS</h1>
-        </div>
       </div>
     </section>
   );

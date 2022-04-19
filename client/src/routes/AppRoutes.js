@@ -37,6 +37,7 @@ import EditBlog from "../components/admin/EditBlog";
 import EditCategory from "../components/admin/EditCategory";
 import EditRecipe from "../components/admin/EditRecipe";
 import EditPage from "../components/admin/EditPage";
+import ViewRecipe from "../pages/ViewRecipe";
 
 const AppRoutes = (props) => {
   return (
@@ -128,6 +129,16 @@ const AppRoutes = (props) => {
             element={
               <AppLayout>
                 <MyRecipe/>
+              </AppLayout>
+            }
+          />
+        </Route>
+        <Route exact path="/viewrecipe" element={<AuthRoute />}>
+          <Route
+            path="/viewrecipe"
+            element={
+              <AppLayout>
+                <ViewRecipe/>
               </AppLayout>
             }
           />
