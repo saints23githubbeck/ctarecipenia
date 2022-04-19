@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
+import { BiEdit } from "react-icons/bi";
 import { useEffect, useState } from "react";
 import { advertisement } from "../../components/admin/data";
 import ReactPaginate from "react-paginate";
@@ -66,14 +67,14 @@ const AdvertisementAdmin = () => {
             }
             style={{ backgroundColor: "orange" }}
           >
-            Edit
+            <BiEdit className="text-white h6" /> Edit
           </button>
           <button
             className="detailsButton"
             style={{ backgroundColor: "red" }}
             onClick={(e) => handleDelete(advertisement)}
           >
-            Delete
+            <BiIcons.BiTrash className="text-white h6" /> Delete
           </button>
         </td>
       </tr>
@@ -104,13 +105,12 @@ const AdvertisementAdmin = () => {
             fontSize: "16px",
             cursor: "pointer",
             alignItems: "center",
-            height: "20px",
             borderRadius: "5px",
           }}
         >
-          <p>
+          <p className="text-white m-2">
             {" "}
-            <FaPlus /> Add New Record
+            <FaPlus /> Add Advert
           </p>
         </div>
       </div>

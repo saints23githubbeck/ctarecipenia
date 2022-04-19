@@ -74,11 +74,10 @@ const handleDelete = (e) => {
             fontSize: "16px",
             cursor: "pointer",
             alignItems: "center",
-            height: "20px",
             borderRadius: "5px",
           }}
         >
-          <p>
+          <p className="text-white m-2">
             {" "}
             <FaShare /> Export Newsletter
           </p>

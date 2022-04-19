@@ -131,13 +131,11 @@ const UsersNormal = () => {
             fontSize: "16px",
             cursor: "pointer",
             alignItems: "center",
-            height: "20px",
             borderRadius: "5px",
           }}
         >
-          <p>
-            {" "}
-            <FaPlus /> Add New Record
+          <p className="text-white m-2">
+            <FaPlus /> Add User
           </p>
         </div>
       </div>
