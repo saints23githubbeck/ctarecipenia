@@ -28,10 +28,10 @@ const EditCategory = () => {
             display: "grid",
             gridTemplateColumns: "1fr, 1fr, 1fr, 1fr, 1fr, 1fr,",
           }}
-          className="w-75 h-75 p-1"
+          className="grid w-75 h-75 p-1"
         >
           {categories.map((item, index) => (
-            <div key={index}>
+            <div key={index} className="text-center d-flex align-items-center">
               <input type="radio"  />
               <label className="px-3">{item.icon}</label>
             </div>
@@ -68,45 +68,6 @@ const EditCategory = () => {
       </div>
       <hr className="m-3" />
 
-      {/* 
-<div className="row  m-3">
- <p className="w-25 h-75 text-end ptag">Recipe</p>
- <input className="w-75 h-75 p-1 border"
-   type="email"
-   required
-   id="email"
-   autoComplete="email"
-   autoFocus
-   placeholder={state.title}
- />
-</div>
-<hr className="m-3" />
-
-<div className="row  m-3">
- <p className="w-25 h-75 text-end ptag">Title</p>
- <input className="w-75 h-75 p-1 border"
-   type="tel"
-   required
-   id="phone"
-   autoComplete="number"
-   autoFocus
-   placeholder={state.title}
- />
-</div>
-<hr className="m-3" />
-
-<div className="row  m-3">
- <p className="w-25 h-75 text-end ptag">Image</p>
- <input className="w-75 h-75 p-1 border"
-   type="file"
-   required
-   id="phone"
-   autoComplete="number"
-   autoFocus
-   placeholder={state.image}
- />
-</div>
-<hr className="m-3" /> */}
       <div className="m-3">
         <Link to={-1}>
           <button

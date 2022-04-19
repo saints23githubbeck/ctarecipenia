@@ -65,7 +65,7 @@ const EditRecipe = () => {
 
       <div className="row m-3">
         <p className="w-25 h-75 text-end ptag">Difficulty</p>
-        <div className="d-flex justify-content-between  w-75 h-75 p-1">
+        <div className="d-flex justify-content-between   w-75 h-75 p-1">
           <div className="">
             <input type="radio" />
             <label>Easy</label>
@@ -83,9 +83,9 @@ const EditRecipe = () => {
       </div>
       <hr className="m-3" />
 
-      <div className="d-flex justify-content-end m-3">
-        <div className="row m-1">
-          <p className="w-25 h-75 text-end ptag">Prepare Time</p>
+      <div className="d-flex  align-items-center w-80 m-3">
+        <div className="w-50 row m-1">
+      <p className="w-25 h-75 text-end ptag px-4">Prepare Time</p>
           <input
             className="w-75 h-75 p-1 border"
             type="text"
@@ -93,11 +93,11 @@ const EditRecipe = () => {
             id="name"
             autoComplete="name"
             autoFocus
-            placeholder={state.permlink}
+            placeholder={state.prepareTime}
           />
         </div>
-        <div className="row m-1">
-          <p className="w-25 h-75 text-end ptag">Cooking Time</p>
+        <div className="w-50 row m-1">
+          <p className="w-25 h-75 text-end ptag px-4">Cooking Time</p>
           <input
             className="w-75 h-75 p-1 border"
             type="text"
@@ -105,38 +105,40 @@ const EditRecipe = () => {
             id="name"
             autoComplete="name"
             autoFocus
-            placeholder={state.permlink}
-          />
-        </div>
-      </div>
-      <hr className="m-3" />
-      <div className="d-flex justify-content-end m-3">
-        <div className="row m-1">
-          <p className="w-25 h-75 text-end ptag">Serves </p>
-          <input
-            className="w-75 h-75 p-1 border"
-            type="text"
-            required
-            id="name"
-            autoComplete="name"
-            autoFocus
-            placeholder={state.permlink}
-          />
-        </div>
-        <div className="row m-1">
-          <p className="w-25 h-75 text-end ptag">Calories</p>
-          <input
-            className="w-75 h-75 p-1 border"
-            type="text"
-            required
-            id="name"
-            autoComplete="name"
-            autoFocus
-            placeholder={state.permlink}
+            placeholder={state.cookingTime}
           />
         </div>
       </div>
       <hr className="m-3" />
+
+      <div className="d-flex  align-items-center w-80 m-3">
+        <div className="w-50 row m-1">
+      <p className="w-25 h-75 text-end ptag px-4">Serves</p>
+          <input
+            className="w-75 h-75 p-1 border"
+            type="text"
+            required
+            id="name"
+            autoComplete="name"
+            autoFocus
+            placeholder={state.serves}
+          />
+        </div>
+        <div className="w-50 row m-1">
+          <p className="w-25 h-75 text-end ptag px-4">Calories </p>
+          <input
+            className="w-75 h-75 p-1 border"
+            type="text"
+            required
+            id="name"
+            autoComplete="name"
+            autoFocus
+            placeholder={state.calories}
+          />
+        </div>
+      </div>
+      <hr className="m-3" />
+     
 
       <div className="row  m-3">
         <p className="w-25 h-75 text-end ptag">Description</p>
