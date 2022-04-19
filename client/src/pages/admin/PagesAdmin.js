@@ -14,6 +14,12 @@
     const [showModal, setShowModal] = useState(false);
     const [currentPage, setCurrentPage] = useState(0);
     const [data, setData] = useState([]);
+    const [pageList, setPageList] = useState(page)
+
+  const handleDelete = (e) => {
+    const filtered = pageList.filter((page) => page !== e);
+    setPageList(filtered);
+  };
   
     const handleOpen = (item) => {
       setShowModal(true);
@@ -42,10 +48,10 @@
   
     const offset = currentPage * PER_PAGE;
   
-    const currentPageData = page
+    const currentPageData = pageList
       .slice(offset, offset + PER_PAGE)
-      .map((page, index) => (
-        <tr key={index} className="">
+      .map((page) => (
+        <tr key={page.id} className="">
           <td className="tdata">{page.title}</td>
           <td className="tdata buttonEdit">
             <button
@@ -55,7 +61,7 @@
             >
               Edit
             </button>
-            <button className="detailsButton" style={{ backgroundColor: "red" }}>
+            <button className="detailsButton" style={{ backgroundColor: "red" }} onClick={(e) => handleDelete(page)}>
               Delete
             </button>
           </td>

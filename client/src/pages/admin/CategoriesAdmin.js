@@ -14,6 +14,8 @@ const CategoriesAdmin = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
+  const [categoriesList, setCategoriesList] = useState(categories)
+
 
   const handleOpen = (item) => {
     setShowModal(true);
@@ -22,6 +24,11 @@ const CategoriesAdmin = () => {
 
   const handleClose = () => {
     setShowModal(false);
+  };
+
+  const handleDelete = (e) => {
+    const filtered = categoriesList.filter((categories) => categories !== e);
+    setCategoriesList(filtered);
   };
 
   useEffect(() => {
@@ -42,10 +49,10 @@ const CategoriesAdmin = () => {
 
   const offset = currentPage * PER_PAGE;
 
-  const currentPageData = categories
+  const currentPageData = categoriesList
     .slice(offset, offset + PER_PAGE)
-    .map((categories, index) => (
-      <tr key={index} className="">
+    .map((categories) => (
+      <tr key={categories.id} className="">
         <td className="tdata">{categories.icon}{" "}{categories.name}</td>
         <td className="tdata buttonEdit">
           <button
@@ -55,7 +62,7 @@ const CategoriesAdmin = () => {
           >
             Edit
           </button>
-          <button className="detailsButton" style={{ backgroundColor: "red" }}>
+          <button className="detailsButton" style={{ backgroundColor: "red" }} onClick={(e) => handleDelete(categories)}>
             Delete
           </button>
         </td>

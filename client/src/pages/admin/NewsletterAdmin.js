@@ -14,6 +14,7 @@ const NewsletterAdmin = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
+  const [newsletterList, setNewsletterList] = useState(newsletter)
 
   const handleOpen = (item) => {
     setShowModal(true);
@@ -23,6 +24,11 @@ const NewsletterAdmin = () => {
   const handleClose = () => {
     setShowModal(false);
   };
+
+const handleDelete = (e) => {
+  const filtered = newsletterList.filter((newsletter) => newsletter !== e);
+  setNewsletterList(filtered);
+};
 
   useEffect(() => {
     fetchData();
@@ -42,14 +48,14 @@ const NewsletterAdmin = () => {
 
   const offset = currentPage * PER_PAGE;
 
-  const currentPageData = newsletter
+  const currentPageData = newsletterList
     .slice(offset, offset + PER_PAGE)
-    .map((newsletter, index) => (
-      <tr key={index} className="">
+    .map((newsletter) => (
+      <tr key={newsletter.id} className="">
         <td className="tdata">{newsletter.email}</td>
         <td className="tdata">{newsletter.created}</td>
         <td className="tdata buttonEdit">
-          <button className="detailsButton" style={{ backgroundColor: "red" }}>
+          <button className="detailsButton" style={{ backgroundColor: "red" }}  onClick={(e) => handleDelete(newsletter)}>
             Delete
           </button>
         </td>

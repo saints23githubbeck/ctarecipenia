@@ -14,6 +14,13 @@ const BlogsAdmin = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
+  const [blogList, setBlogList] = useState(blog)
+
+  const handleDelete = (e) => {
+    const filtered = blogList.filter((blog) => blog !== e);
+    setBlogList(filtered);
+  };
+  
 
   const handleOpen = (item) => {
     setShowModal(true);
@@ -42,10 +49,10 @@ const BlogsAdmin = () => {
 
   const offset = currentPage * PER_PAGE;
 
-  const currentPageData = blog
+  const currentPageData = blogList
     .slice(offset, offset + PER_PAGE)
-    .map((blog, index) => (
-      <tr key={index} className="">
+    .map((blog) => (
+      <tr key={blog.id} className="">
         <td className="tdata">{blog.topic}</td>
         <td className="tdata">{blog.visit}</td>
         <td className="tdata buttonEdit">
@@ -56,7 +63,7 @@ const BlogsAdmin = () => {
             >
               Edit
             </button>
-          <button className="detailsButton" style={{ backgroundColor: "red" }}>
+          <button className="detailsButton" style={{ backgroundColor: "red" }}  onClick={(e) => handleDelete(blog)}>
             Delete
           </button>
         </td>
