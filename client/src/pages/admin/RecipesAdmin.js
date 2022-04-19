@@ -13,6 +13,12 @@ const RecipesAdmin = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
+  const [recipesList, setRecipesList] = useState(recipes)
+
+  const handleDelete = (e) => {
+    const filtered = recipesList.filter((recipes) => recipes !== e);
+    setRecipesList(filtered);
+  };
 
   const status = (status) => {
     switch (status) {
@@ -54,10 +60,10 @@ const RecipesAdmin = () => {
 
   const offset = currentPage * PER_PAGE;
 
-  const currentPageData = recipes
+  const currentPageData = recipesList
     .slice(offset, offset + PER_PAGE)
-    .map((recipes, index) => (
-      <tr key={index} className="">
+    .map((recipes) => (
+      <tr key={recipes.id} className="">
         <td className="tdata">{recipes.category}</td>
         <td className="tdata">{recipes.title}</td>
         <td className="tdata">{recipes.published}</td>
@@ -81,7 +87,7 @@ const RecipesAdmin = () => {
           >
             Edit
           </button>
-          <button className="detailsButton" style={{ backgroundColor: "red" }}>
+          <button className="detailsButton" style={{ backgroundColor: "red" }} onClick={(e) => handleDelete(recipes)}>
             Delete
           </button>
         </td>

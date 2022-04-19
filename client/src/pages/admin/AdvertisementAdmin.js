@@ -13,6 +13,12 @@
     const [showModal, setShowModal] = useState(false);
     const [currentPage, setCurrentPage] = useState(0);
     const [data, setData] = useState([]);
+  const [advertisementList, setAdvertisementList] = useState(advertisement)
+
+  const handleDelete = (e) => {
+    const filtered = advertisementList.filter((advertisement) => advertisement !== e);
+    setAdvertisementList(filtered);
+  };
   
     const status = (status) => {
       switch (status) {
@@ -54,10 +60,10 @@
   
     const offset = currentPage * PER_PAGE;
   
-    const currentPageData = advertisement
+    const currentPageData = advertisementList
       .slice(offset, offset + PER_PAGE)
-      .map((advertisement, index) => (
-        <tr key={index} className="">
+      .map((advertisement) => (
+        <tr key={advertisement.id} className="">
           <td className="tdata"> {advertisement.title}</td>
           <td className="tdata">{advertisement.type}</td>
           <td className="tdata">{advertisement.location}</td>
@@ -70,7 +76,7 @@
             >
               Edit
             </button>
-            <button className="detailsButton" style={{ backgroundColor: "red" }}>
+            <button className="detailsButton" style={{ backgroundColor: "red" }}  onClick={(e) => handleDelete(advertisement)}>
               Delete
             </button>
           </td>

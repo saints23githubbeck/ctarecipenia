@@ -13,6 +13,13 @@ const UsersAdministrator = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
+  const [adminUserList, setAdminUserList] = useState(adminUser)
+
+  const handleDelete = (e) => {
+    const filtered = adminUserList.filter((adminUser) => adminUser !== e);
+    setAdminUserList(filtered);
+  };
+  
 
   const status = (status) => {
     switch (status) {
@@ -54,10 +61,10 @@ const UsersAdministrator = () => {
 
   const offset = currentPage * PER_PAGE;
 
-  const currentPageData = adminUser
+  const currentPageData = adminUserList
     .slice(offset, offset + PER_PAGE)
-    .map((adminUser, index) => (
-      <tr key={index} className="">
+    .map((adminUser) => (
+      <tr key={adminUser.id} className="">
         <td className="tdata">
           <img
             src={adminUser.image}
@@ -93,7 +100,7 @@ const UsersAdministrator = () => {
           >
             Edit
           </button>
-          <button className="detailsButton" style={{ backgroundColor: "red" }}>
+          <button className="detailsButton" style={{ backgroundColor: "red" }} onClick={(e) => handleDelete(adminUser)}>
             Delete
           </button>
         </td>

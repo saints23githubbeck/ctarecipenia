@@ -13,6 +13,13 @@ const UsersNormal = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
+  const [userList, setUserList] = useState(user)
+
+  const handleDelete = (e) => {
+    const filtered = userList.filter((user) => user !== e);
+    setUserList(filtered);
+  };
+  
 
   const status = (status) => {
     switch (status) {
@@ -54,10 +61,10 @@ const UsersNormal = () => {
 
   const offset = currentPage * PER_PAGE;
 
-  const currentPageData = user
+  const currentPageData = userList
     .slice(offset, offset + PER_PAGE)
-    .map((user, index) => (
-      <tr key={index} className="">
+    .map((user) => (
+      <tr key={user.id} className="">
         <td className="tdata">
           <img
             src={user.image}
@@ -93,7 +100,7 @@ const UsersNormal = () => {
           >
             Edit
           </button>
-          <button className="detailsButton" style={{ backgroundColor: "red" }}>
+          <button className="detailsButton" style={{ backgroundColor: "red" }} onClick={(e) => handleDelete(user)}>
             Delete
           </button>
         </td>
