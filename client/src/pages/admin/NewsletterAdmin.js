@@ -1,5 +1,4 @@
-import { useNavigate } from "react-router-dom";
-import { FaPlus } from "react-icons/fa";
+import {  FaShare } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { newsletter } from "../../components/admin/data";
 import ReactPaginate from "react-paginate";
@@ -9,21 +8,10 @@ const PER_PAGE = 10;
 const URL = { newsletter };
 
 const NewsletterAdmin = () => {
-  const navigate = useNavigate();
-  const [addRecord, setAddRecord] = useState("");
-  const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
   const [newsletterList, setNewsletterList] = useState(newsletter)
 
-  const handleOpen = (item) => {
-    setShowModal(true);
-    setAddRecord(item);
-  };
-
-  const handleClose = () => {
-    setShowModal(false);
-  };
 
 const handleDelete = (e) => {
   const filtered = newsletterList.filter((newsletter) => newsletter !== e);
@@ -62,7 +50,7 @@ const handleDelete = (e) => {
       </tr>
     ));
 
-  const pageCount = Math.ceil(newsletter.length / PER_PAGE);
+  const pageCount = Math.ceil(newsletterList.length / PER_PAGE);
 
   return (
     <div className="fill">
@@ -79,7 +67,6 @@ const handleDelete = (e) => {
       >
         <h3>Newsletter</h3>
         <div
-          onClick={() => handleOpen("addRecord")}
           style={{
             display: "flex",
             justifyContent: "end",
@@ -87,13 +74,12 @@ const handleDelete = (e) => {
             fontSize: "16px",
             cursor: "pointer",
             alignItems: "center",
-            height: "20px",
             borderRadius: "5px",
           }}
         >
-          <p>
+          <p className="text-white m-2">
             {" "}
-            <FaPlus /> Add New Record
+            <FaShare /> Export Newsletter
           </p>
         </div>
       </div>

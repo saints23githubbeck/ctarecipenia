@@ -35,23 +35,17 @@
     font-size: 13px;
   }
 }
-// .iconShow{
-//   position: absolute;
-//   z-index: 99;
-//   width: 110px !important;
-//   height: 150px !important;
-//   left: 36%;
-//   top: 13.5%;
-
-//   // color: rgba(255, 255, 255, 0.13);
-//   background-blend-mode: soft-light;
-// }
 
 .fills {
   background-color: #fff;
   margin: 3px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+          
 }
 
 .stepHeader {
@@ -86,7 +80,7 @@
 .detailsButton {
   cursor: pointer;
   margin: 2px;
-  width: 60px;
+  width: 70px;
   height: 30px;
   font-size: 12px;
   border-radius: 5px;

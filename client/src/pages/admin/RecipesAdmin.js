@@ -4,12 +4,14 @@ import { useEffect, useState } from "react";
 import { recipes } from "../../components/admin/data";
 import ReactPaginate from "react-paginate";
 import * as BiIcons from "react-icons/bi";
+import AdminModal from "../../components/modals/AdminModal";
 
 const PER_PAGE = 10;
 const URL = { recipes };
+
 const RecipesAdmin = () => {
   const navigate = useNavigate();
-  const [addRecord, setAddRecord] = useState("");
+  const [addRecipe, setAddRecipe] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
@@ -24,10 +26,8 @@ const RecipesAdmin = () => {
     switch (status) {
       case "Active":
         return "green";
-        break;
       case "Inactive":
         return "red";
-        break;
       default:
         return "grey";
     }
@@ -35,7 +35,7 @@ const RecipesAdmin = () => {
 
   const handleOpen = (item) => {
     setShowModal(true);
-    setAddRecord(item);
+    setAddRecipe(item);
   };
 
   const handleClose = () => {
@@ -94,7 +94,7 @@ const RecipesAdmin = () => {
       </tr>
     ));
 
-  const pageCount = Math.ceil(recipes.length / PER_PAGE);
+  const pageCount = Math.ceil(recipesList.length / PER_PAGE);
 
   return (
     <div className="fill">
@@ -111,7 +111,7 @@ const RecipesAdmin = () => {
       >
         <h3>Recipes</h3>
         <div
-          onClick={() => handleOpen("addRecord")}
+          onClick={() => handleOpen("addRecipe")}
           style={{
             display: "flex",
             justifyContent: "end",
@@ -119,13 +119,12 @@ const RecipesAdmin = () => {
             fontSize: "16px",
             cursor: "pointer",
             alignItems: "center",
-            height: "20px",
             borderRadius: "5px",
           }}
         >
-          <p>
+          <p className="text-white m-2">
             {" "}
-            <FaPlus /> Add New Record
+            <FaPlus /> Add Recipe
           </p>
         </div>
       </div>
@@ -153,6 +152,11 @@ const RecipesAdmin = () => {
           activeClassName={"activeP"}
         />
       </div>
+      <AdminModal
+    open={showModal}
+    onclose={handleClose}
+    addRecipe={addRecipe}
+    />
     </div>
   );
 };

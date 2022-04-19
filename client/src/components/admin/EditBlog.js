@@ -19,9 +19,9 @@ const EditBlog = () => {
 
       <hr className="m-3" />
 
-      <div className="d-flex justify-content-end m-3">
-        <div className="row m-1">
-          <p className="w-25 h-75 text-end ptag">Prepare Time</p>
+      <div className="d-flex  align-items-center w-80 m-3">
+        <div className="w-50 row m-1">
+      <p className="w-25 h-75 text-end ptag px-4">Prepare Time</p>
           <input
             className="w-75 h-75 p-1 border"
             type="text"
@@ -29,11 +29,11 @@ const EditBlog = () => {
             id="name"
             autoComplete="name"
             autoFocus
-            placeholder={state.permlink}
+            placeholder={state.prepareTime}
           />
         </div>
-        <div className="row m-1">
-          <p className="w-25 h-75 text-end ptag">Cooking Time</p>
+        <div className="w-50 row m-1">
+          <p className="w-25 h-75 text-end ptag px-4">Cooking Time</p>
           <input
             className="w-75 h-75 p-1 border"
             type="text"
@@ -41,7 +41,7 @@ const EditBlog = () => {
             id="name"
             autoComplete="name"
             autoFocus
-            placeholder={state.permlink}
+            placeholder={state.cookingTime}
           />
         </div>
       </div>

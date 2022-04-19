@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import { blog } from "../../components/admin/data";
 import ReactPaginate from "react-paginate";
 import * as BiIcons from "react-icons/bi";
+import AdminModal from "../../components/modals/AdminModal";
 
 const PER_PAGE = 10;
 const URL = { blog };
 
 const BlogsAdmin = () => {
   const navigate = useNavigate();
-  const [addRecord, setAddRecord] = useState("");
+  const [addBlog, setAddBlog] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
@@ -24,7 +25,7 @@ const BlogsAdmin = () => {
 
   const handleOpen = (item) => {
     setShowModal(true);
-    setAddRecord(item);
+    setAddBlog(item);
   };
 
   const handleClose = () => {
@@ -70,7 +71,7 @@ const BlogsAdmin = () => {
       </tr>
     ));
 
-  const pageCount = Math.ceil(blog.length / PER_PAGE);
+  const pageCount = Math.ceil(blogList.length / PER_PAGE);
 
   return (
     <div className="fill">
@@ -87,7 +88,7 @@ const BlogsAdmin = () => {
       >
         <h3>Blog</h3>
         <div
-          onClick={() => handleOpen("addRecord")}
+          onClick={() => handleOpen("addBlog")}
           style={{
             display: "flex",
             justifyContent: "end",
@@ -95,13 +96,12 @@ const BlogsAdmin = () => {
             fontSize: "16px",
             cursor: "pointer",
             alignItems: "center",
-            height: "20px",
             borderRadius: "5px",
           }}
         >
-          <p>
+          <p className="text-white m-2">
             {" "}
-            <FaPlus /> Add New Record
+            <FaPlus /> Add Blog
           </p>
         </div>
       </div>
@@ -127,6 +127,11 @@ const BlogsAdmin = () => {
           activeClassName={"activeP"}
         />
       </div>
+      <AdminModal
+    open={showModal}
+    onclose={handleClose}
+    addBlog={addBlog}
+    />
     </div>
   );
 };

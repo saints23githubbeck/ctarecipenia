@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 import { user } from "../../components/admin/data";
 import ReactPaginate from "react-paginate";
 import * as BiIcons from "react-icons/bi";
+import AdminModal from "../../components/modals/AdminModal";
 
 const PER_PAGE = 10;
 const URL = { user };
 const UsersNormal = () => {
   const navigate = useNavigate();
-  const [addRecord, setAddRecord] = useState("");
+  const [addUser, setAddUser] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
@@ -25,10 +26,8 @@ const UsersNormal = () => {
     switch (status) {
       case "Active":
         return "green";
-        break;
       case "Inactive":
         return "red";
-        break;
       default:
         return "grey";
     }
@@ -36,7 +35,7 @@ const UsersNormal = () => {
 
   const handleOpen = (item) => {
     setShowModal(true);
-    setAddRecord(item);
+    setAddUser(item);
   };
 
   const handleClose = () => {
@@ -107,7 +106,7 @@ const UsersNormal = () => {
       </tr>
     ));
 
-  const pageCount = Math.ceil(user.length / PER_PAGE);
+  const pageCount = Math.ceil(userList.length / PER_PAGE);
 
   return (
     <div className="fill">
@@ -124,7 +123,7 @@ const UsersNormal = () => {
       >
         <h3>Users</h3>
         <div
-          onClick={() => handleOpen("addRecord")}
+          onClick={() => handleOpen("addUser")}
           style={{
             display: "flex",
             justifyContent: "end",
@@ -132,13 +131,11 @@ const UsersNormal = () => {
             fontSize: "16px",
             cursor: "pointer",
             alignItems: "center",
-            height: "20px",
             borderRadius: "5px",
           }}
         >
-          <p>
-            {" "}
-            <FaPlus /> Add New Record
+          <p className="text-white m-2">
+            <FaPlus /> Add User
           </p>
         </div>
       </div>
@@ -167,6 +164,11 @@ const UsersNormal = () => {
           activeClassName={"activeP"}
         />
       </div>
+      <AdminModal
+    open={showModal}
+    onclose={handleClose}
+    addUser={addUser}
+    />
     </div>
   );
 };
