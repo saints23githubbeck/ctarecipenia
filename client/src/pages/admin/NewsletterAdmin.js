@@ -1,4 +1,4 @@
-import {  FaShare } from "react-icons/fa";
+import { FaShare } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { newsletter } from "../../components/admin/data";
 import ReactPaginate from "react-paginate";
@@ -10,13 +10,12 @@ const URL = { newsletter };
 const NewsletterAdmin = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
-  const [newsletterList, setNewsletterList] = useState(newsletter)
+  const [newsletterList, setNewsletterList] = useState(newsletter);
 
-
-const handleDelete = (e) => {
-  const filtered = newsletterList.filter((newsletter) => newsletter !== e);
-  setNewsletterList(filtered);
-};
+  const handleDelete = (e) => {
+    const filtered = newsletterList.filter((newsletter) => newsletter !== e);
+    setNewsletterList(filtered);
+  };
 
   useEffect(() => {
     fetchData();
@@ -43,7 +42,11 @@ const handleDelete = (e) => {
         <td className="tdata">{newsletter.email}</td>
         <td className="tdata">{newsletter.created}</td>
         <td className="tdata buttonEdit">
-          <button className="detailsButton" style={{ backgroundColor: "red" }}  onClick={(e) => handleDelete(newsletter)}>
+          <button
+            className="detailsButton"
+            style={{ backgroundColor: "red" }}
+            onClick={(e) => handleDelete(newsletter)}
+          >
             Delete
           </button>
         </td>

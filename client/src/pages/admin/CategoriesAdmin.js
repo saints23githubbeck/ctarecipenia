@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { BiEdit } from "react-icons/bi";
 import { FaPlus } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { categories } from "../../components/admin/data";
@@ -15,8 +16,7 @@ const CategoriesAdmin = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
-  const [categoriesList, setCategoriesList] = useState(categories)
-
+  const [categoriesList, setCategoriesList] = useState(categories);
 
   const handleOpen = (item) => {
     setShowModal(true);
@@ -54,17 +54,25 @@ const CategoriesAdmin = () => {
     .slice(offset, offset + PER_PAGE)
     .map((categories) => (
       <tr key={categories.id} className="">
-        <td className="tdata">{categories.icon}{" "}{categories.name}</td>
+        <td className="tdata">
+          {categories.icon} {categories.name}
+        </td>
         <td className="tdata buttonEdit">
           <button
             className="detailsButton"
-            onClick={() => navigate("/admin/categories/edit", { state: categories })}
+            onClick={() =>
+              navigate("/admin/categories/edit", { state: categories })
+            }
             style={{ backgroundColor: "orange" }}
           >
-            Edit
-          </button>
-          <button className="detailsButton" style={{ backgroundColor: "red" }} onClick={(e) => handleDelete(categories)}>
-            Delete
+            <BiEdit className="text-white h6" /> Edit
+          </button>{" "}
+          <button
+            className="detailsButton"
+            style={{ backgroundColor: "red" }}
+            onClick={(e) => handleDelete(categories)}
+          >
+            <BiIcons.BiTrash className="text-white h6" /> Delete
           </button>
         </td>
       </tr>
@@ -126,10 +134,10 @@ const CategoriesAdmin = () => {
         />
       </div>
       <AdminModal
-    open={showModal}
-    onclose={handleClose}
-    addCategory={addCategory}
-    />
+        open={showModal}
+        onclose={handleClose}
+        addCategory={addCategory}
+      />
     </div>
   );
 };
