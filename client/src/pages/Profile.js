@@ -69,11 +69,10 @@ const Profile = () => {
         <UserProfile isProfile={true} />
 
         <div className="right">
-          <div className="review">
+          <div className="comment">
             <div className="review-comment flex">
               <span>“</span>
               <h5>
-                
                 I’m Ayo and this is where i share all my recipe, i am a food
                 lover.
               </h5>
