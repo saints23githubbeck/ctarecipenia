@@ -23,6 +23,7 @@ import Card from "../components/Card";
 import latestRecipe1 from "../assets/images/latest-recipe1.png";
 import latestRecipe2 from "../assets/images/latest-recipe2.png";
 import ownerImage from "../assets/images/latest-recipe-owner-image.png";
+
 import Review from './../components/Review';
 
 

@@ -12,11 +12,11 @@ import logoutIcon from "../assets/images/logoutIcon.svg";
 
 
 import nameIcon from "../assets/images/userIcon.svg";
-import genderIcon from "../assets/images/female.png";
+import genderIcon from "../assets/images/genderIcon.svg";
 import emailIcon from "../assets/images/mailIcon.svg";
 import joinedDateIcon from "../assets/images/calenderIcon.svg";
-import profileViewsIcon from "../assets/images/view.png";
-import countryIcon from "../assets/images/flag.png";
+import profileViewsIcon from "../assets/images/viewIcon.svg";
+import countryIcon from "../assets/images/flagIcon.svg";
 import recipesIcon from "../assets/images/recipeIcon.svg";
 
 
