@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import loginIcon from "../assets/images/login-icon.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logIn } from "../appState/actions/AuthAction";
 import { useNavigate } from "react-router-dom";
 
 const Login = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const {isLoading, message} = useSelector(state => state.user)
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+
   });
   const handleinput = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,7 +19,6 @@ const Login = (props) => {
   const handleLogin = (e) => {
     e.preventDefault();
      dispatch(logIn(formData, navigate));
-    clear();
   };
 
   const clear = () => {
@@ -67,7 +68,8 @@ const Login = (props) => {
               <span>Remember me</span>
             </div>
           </div>
-          <button type="submit">LOGIN</button>
+{message && <p>{message}</p>}
+          <button type="submit">{isLoading? "Loading ..." : "LOGIN"}</button>
         </form>
         <p>
           Don’t have an account ?{" "}
