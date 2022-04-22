@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import profilerec from "../assets/images/userdashboardprofileRec.png";
 import UserProfile from "../components/UserProfile";
 import "../assets/styles/userDashBoard.scss";
 import { updateUser } from "../appState/actions/AuthAction";

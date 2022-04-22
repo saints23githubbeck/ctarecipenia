@@ -6,20 +6,17 @@ import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 
 import dashboardIcon from "../assets/images/dashboardIcon.svg";
-import userIcon from "../assets/images/userIcon.svg";
+import userIcon from "../assets/images/userIconImg.svg";
+
 import recipeIcon from "../assets/images/recipeIcon.svg";
 import logoutIcon from "../assets/images/logoutIcon.svg";
 
-
-import nameIcon from "../assets/images/userIcon.svg";
 import genderIcon from "../assets/images/genderIcon.svg";
 import emailIcon from "../assets/images/mailIcon.svg";
 import joinedDateIcon from "../assets/images/calenderIcon.svg";
 import profileViewsIcon from "../assets/images/viewIcon.svg";
 import countryIcon from "../assets/images/flagIcon.svg";
 import recipesIcon from "../assets/images/recipeIcon.svg";
-
-
 
 const UserProfile = ({ isProfile }) => {
   const userProfile = useSelector((state) => state.user);
@@ -53,7 +50,6 @@ const UserProfile = ({ isProfile }) => {
           ) : (
             <div>
               {user?.profilePic ? (
-
                 <img className="profile_img" src={profilecircle} alt="" />
               ) : (
                 <span className="profile_text">
@@ -72,7 +68,7 @@ const UserProfile = ({ isProfile }) => {
         {isProfile ? (
           <>
             <div className="flex">
-              <img src={nameIcon} alt="nameIcon" />
+              <img src={userIcon} alt="nameIcon" />
               <h5>{name}</h5>
             </div>
             <div className="flex">

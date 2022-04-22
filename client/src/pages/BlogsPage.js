@@ -7,10 +7,11 @@ import blog6 from "../assets/images/blog6.svg";
 
 
 import eyeIcon from "../assets/images/eyeIcon.svg";
-import clockIcon from "../assets/images/clockIcogitn.svg";
+import clockIcon from "../assets/images/clockIcon.svg";
 import calenderIcon from "../assets/images/calenderIcon.svg";
 
 import Blogs from "../components/landingPage/Blogs";
+
 
 import "../assets/styles/blog.scss";
 import { Link } from "react-router-dom";

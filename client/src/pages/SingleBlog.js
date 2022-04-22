@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 import "../assets/styles/singleBlog.scss";
 
-import eyeColorIcon from "../assets/images/viewColouredColor.svg";
+import eyeColorIcon from "../assets/images/viewColouredIcon.svg";
 import clockColorIcon from "../assets/images/clockColouredIcon.svg";
 import calenderColorIcon from "../assets/images/calenderColouredColor.svg";
 

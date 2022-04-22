@@ -2,10 +2,15 @@ import { Link } from "react-router-dom";
 
 import "../assets/styles/viewRecipe.scss";
 
+import authorIcon from "../assets/images/userdashboardprofilecircle.png";
 import searchIcon from "../assets/images/searchIcon.svg";
-import eyeColoredIcon from "../assets/images/eyeIcon.svg";
-import clockColoredIcon from "../assets/images/clockIcon.svg";
-import calenderColoredIcon from "../assets/images/calenderIcon.svg";
+
+
+import eyeColoredIcon from "../assets/images/viewColouredIcon.svg";
+import clockColoredIcon from "../assets/images/clockColouredIcon.svg";
+import calenderColoredIcon from "../assets/images/calenderColouredColor.svg";
+
+import printIcon from "../assets/images/printIcon.svg";
 
 import img from "../assets/images/blog1.svg";
 
@@ -31,6 +36,7 @@ const ViewRecipe = () => {
     views: 150,
     recipeText:
       "This is a chicken Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tincidunt amet, porta morbi mauris. Turpis eget in sce.",
+    authorImg : authorIcon
   };
   const {
     recipeImg,
@@ -43,6 +49,7 @@ const ViewRecipe = () => {
     created,
     views,
     recipeText,
+    authorImg
   } = recipeInfo;
 
   const directionInfo = [
@@ -144,9 +151,12 @@ const ViewRecipe = () => {
                 </div>
               </div>
               <div className="author">
-                <h5>Author</h5>
+              <div className="flex">
+                <div><h5>Author</h5>
                 <h5>Bambam</h5>
-                <p>Ayo@user.com</p>
+                <p>Ayo@user.com</p></div>
+                <div className='author-img'> <img src={authorImg} alt="authorImg" /></div>
+              </div>
                 <h5>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
                   tincidunt amet, po
@@ -208,7 +218,7 @@ const ViewRecipe = () => {
                     <span className="dash"></span>
 
                     <div className="btn">
-                      <button>PRINT</button>
+                      <button> <img src={printIcon} alt="" /> PRINT</button>
                     </div>
                   </div>
                   <p>{recipeText}</p>
@@ -228,7 +238,7 @@ const ViewRecipe = () => {
                 </div>
                 <div className="table">
                   {ingredientList.map((ingredient, index) => (
-                    <div className="items">
+                    <div className="items" key={index}>
                       <ul key={index}>
                         <li>{ingredient.item}</li>
                       </ul>

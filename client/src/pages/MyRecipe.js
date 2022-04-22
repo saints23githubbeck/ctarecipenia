@@ -11,7 +11,7 @@ import Userphoto3 from "../assets/images/blog3.svg";
 
 import UserProfile from "../components/UserProfile";
 
-import viewIcon from "../assets/images/viewIcon.svg";
+import viewIcon from "../assets/images/viewWhiteIcon.svg";
 import deleteIcon from "../assets/images/deleteIcon.svg";
 import editIcon from "../assets/images/editIcon.svg";
 import { Link } from 'react-router-dom';
