@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import { categories } from "../admin/data";
 import { RiCloseFill } from "react-icons/ri";
+import AddRecipe from "./AddRecipe";
 
 const AdminModal = (props) => {
   const {
@@ -16,13 +17,19 @@ const AdminModal = (props) => {
     addAdvert,
     addPage,
   } = props;
+ 
+
+
   return (
     <Dialog open={open} onClose={onclose}>
       {addSlider === "addSlider" && (
         <div>
           <div className="d-flex m-3 justify-content-between align-items-center ">
             <h5 className="p-3">Add Slider</h5>
-           <h5  onClick={onclose} style={{cursor:"pointer"}}> <RiCloseFill className="h3 text-danger" /></h5>
+            <h5 onClick={onclose} style={{ cursor: "pointer" }}>
+              {" "}
+              <RiCloseFill className="h3 text-danger" />
+            </h5>
           </div>
 
           <div className="row  m-3">
@@ -109,7 +116,10 @@ const AdminModal = (props) => {
         <div>
           <div className="d-flex m-3 justify-content-between align-items-center">
             <h5 className="p-3">Add Admin</h5>
-           <h5  onClick={onclose} style={{cursor:"pointer"}}> <RiCloseFill className="h3 text-danger" /></h5>
+            <h5 onClick={onclose} style={{ cursor: "pointer" }}>
+              {" "}
+              <RiCloseFill className="h3 text-danger" />
+            </h5>
           </div>
 
           <div className="row  m-3">
@@ -285,7 +295,10 @@ const AdminModal = (props) => {
         <div>
           <div className="d-flex m-3 justify-content-between align-items-center">
             <h5 className="p-3">Add User</h5>
-           <h5  onClick={onclose} style={{cursor:"pointer"}}> <RiCloseFill className="h3 text-danger" /></h5>
+            <h5 onClick={onclose} style={{ cursor: "pointer" }}>
+              {" "}
+              <RiCloseFill className="h3 text-danger" />
+            </h5>
           </div>
 
           <div className="row  m-3">
@@ -462,7 +475,10 @@ const AdminModal = (props) => {
           {" "}
           <div className="d-flex m-3 justify-content-between align-items-center">
             <h5 className="p-3">Add Category</h5>
-           <h5  onClick={onclose} style={{cursor:"pointer"}}> <RiCloseFill className="h3 text-danger" /></h5>
+            <h5 onClick={onclose} style={{ cursor: "pointer" }}>
+              {" "}
+              <RiCloseFill className="h3 text-danger" />
+            </h5>
           </div>
           <div className="row  m-3">
             <p className="w-25 h-75 text-end ptag">Icon</p>
@@ -539,177 +555,16 @@ const AdminModal = (props) => {
         </div>
       )}
       {addRecipe === "addRecipe" && (
-        <div>
-          {" "}
-          <div className="d-flex m-3 justify-content-between align-items-center">
-            <h5 className="p-3">Add Recipe</h5>
-           <h5  onClick={onclose} style={{cursor:"pointer"}}> <RiCloseFill className="h3 text-danger" /></h5>
-          </div>
-          <div className="row  m-3">
-            <p className="w-25 h-75 text-end ptag">Category</p>
-            <input
-              className="w-75 h-75 p-1 border"
-              type="email"
-              required
-              id="email"
-              autoComplete="email"
-              autoFocus
-              placeholder="category"
-            />
-          </div>
-          <div className="row  m-3">
-            <p className="w-25 h-75 text-end ptag">Title</p>
-            <input
-              className="w-75 h-75 p-1 border"
-              type="tel"
-              required
-              id="phone"
-              autoComplete="number"
-              autoFocus
-              placeholder="title"
-            />
-          </div>
-          <div className="row  m-3">
-            <p className="w-25 h-75 text-end ptag">Permlink</p>
-            <input
-              className="w-75 h-75 p-1 border"
-              type="text"
-              required
-              id="name"
-              autoComplete="name"
-              autoFocus
-              placeholder="permlink"
-            />
-          </div>
-          <div className="row m-3">
-            <p className="w-25 h-75 text-end ptag">Difficulty</p>
-            <div className="d-flex justify-content-between   w-75 h-75 p-1">
-              <div className="">
-                <input type="radio" />
-                <label>Easy</label>
-              </div>
-              <div className="">
-                <input type="radio" />
-                <label>Medium</label>
-              </div>
-              <div className="">
-                <input type="radio" />
-                <label>Hard</label>
-              </div>
-              <div></div>
-            </div>
-          </div>
-          <div className="d-flex  align-items-center w-80 m-3">
-            <div className="w-50 row m-1">
-              <p className="w-25 h-75 text-end ptag px-4">Prepare Time</p>
-              <input
-                className="w-75 h-75 p-1 border"
-                type="text"
-                required
-                id="name"
-                autoComplete="name"
-                autoFocus
-                placeholder="prepareTime"
-              />
-            </div>
-            <div className="w-50 row m-1">
-              <p className="w-25 h-75 text-end ptag px-4">Cooking Time</p>
-              <input
-                className="w-75 h-75 p-1 border"
-                type="text"
-                required
-                id="name"
-                autoComplete="name"
-                autoFocus
-                placeholder="cookingTime"
-              />
-            </div>
-          </div>
-          <div className="d-flex  align-items-center w-80 m-3">
-            <div className="w-50 row m-1">
-              <p className="w-25 h-75 text-end ptag px-4">Serves</p>
-              <input
-                className="w-75 h-75 p-1 border"
-                type="text"
-                required
-                id="name"
-                autoComplete="name"
-                autoFocus
-                placeholder="serves"
-              />
-            </div>
-            <div className="w-50 row m-1">
-              <p className="w-25 h-75 text-end ptag px-4">Calories </p>
-              <input
-                className="w-75 h-75 p-1 border"
-                type="text"
-                required
-                id="name"
-                autoComplete="name"
-                autoFocus
-                placeholder="calories"
-              />
-            </div>
-          </div>
-          <div className="row  m-3">
-            <p className="w-25 h-75 text-end ptag">Description</p>
-            <textarea
-              className="w-75 h-75 p-1 text-wrap border"
-              type="text"
-              rows={5}
-              placeholder="lggjhdPassw jhhdjfhfhjhf ordlggjhdPasswPassw jhhdjfhfhjhf ordlggjhdPassw jhhdjfhfhjhf ordlggjhdPassw jhhdjfhfhjhf ordlggjhdPassw jhhdjfhfhjhf ordlggjhdPassw jhhdjfhfhjhf ordlggjhdPassw"
-            />
-          </div>
-          <div className="row  m-3">
-            <p className="w-25 h-75 text-end ptag">Direction</p>
-            <textarea
-              className="w-75 h-75 p-1 text-wrap border"
-              type="text"
-              rows={5}
-              placeholder=""
-            />
-          </div>
-          <div className="m-3">
-            <button
-              style={{
-                marginRight: "50px",
-                backgroundColor: "blue",
-                border: "none",
-                borderRadius: "5px",
-                padding: 10,
-                color: "#fff",
-                width: "100px",
-                fontSize: 16,
-                marginBottom: "40px",
-              }}
-            >
-              Save
-            </button>
-
-            <button
-              onClick={onclose}
-              style={{
-                marginRight: "50px",
-                backgroundColor: "Red",
-                border: "none",
-                borderRadius: "5px",
-                padding: 10,
-                color: "#fff",
-                width: "100px",
-                fontSize: 16,
-                marginBottom: "40px",
-              }}
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
+      <AddRecipe onclose={onclose} />
       )}
       {addBlog === "addBlog" && (
         <div>
           <div className="d-flex m-3 justify-content-between align-items-center">
             <h5 className="p-3">Add Blog</h5>
-           <h5  onClick={onclose} style={{cursor:"pointer"}}> <RiCloseFill className="h3 text-danger" /></h5>
+            <h5 onClick={onclose} style={{ cursor: "pointer" }}>
+              {" "}
+              <RiCloseFill className="h3 text-danger" />
+            </h5>
           </div>
 
           <div className="d-flex  align-items-center w-80 m-3">
@@ -861,7 +716,10 @@ const AdminModal = (props) => {
         <div>
           <div className="d-flex m-3 justify-content-between align-items-center">
             <h5 className="p-3">Add Advert</h5>
-           <h5  onClick={onclose} style={{cursor:"pointer"}}> <RiCloseFill className="h3 text-danger" /></h5>
+            <h5 onClick={onclose} style={{ cursor: "pointer" }}>
+              {" "}
+              <RiCloseFill className="h3 text-danger" />
+            </h5>
           </div>
 
           <div className="row  m-3">
@@ -952,7 +810,10 @@ const AdminModal = (props) => {
         <div>
           <div className="d-flex m-3 justify-content-between align-items-center">
             <h5 className="p-3">Add Page</h5>
-           <h5  onClick={onclose} style={{cursor:"pointer"}}> <RiCloseFill className="h3 text-danger" /></h5>
+            <h5 onClick={onclose} style={{ cursor: "pointer" }}>
+              {" "}
+              <RiCloseFill className="h3 text-danger" />
+            </h5>
           </div>
 
           <div className="row  m-3">

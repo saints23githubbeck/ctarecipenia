@@ -1,7 +1,9 @@
 import { combineReducers } from "redux";
 import { user } from "./AuthReducer";
 import { profile } from "./profileReducer";
+import { recipe } from "./recipeReducer";
 export const rootReducers = combineReducers({
   user,
   profile,
+  recipe,
 });

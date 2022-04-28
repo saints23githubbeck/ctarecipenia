@@ -1,19 +1,20 @@
 import React, { useRef, useState } from "react";
-
+import { List, MenuList, Select } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import profilerec from "../assets/images/userdashboardprofileRec.png";
 import UserProfile from "../components/UserProfile";
 import "../assets/styles/userDashBoard.scss";
 import { updateUser } from "../appState/actions/AuthAction";
+// import { Country } from "country-state-city";
 
 const UserDashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  // const country = Country.getAllCountries();
   const userProfile = useSelector((state) => state.user).user;
   const [selectedFile, setSelectedFile] = useState(null);
-  const { name, country, username, email, password, description, gender } =
-    userProfile;
+  const { name, username, email, password, description, gender, country } = userProfile;
   const [userGender, setUserGender] = useState(gender);
   const [userData, setUserData] = useState({
     firstName: name.split(" ")[0],
@@ -31,16 +32,14 @@ const UserDashboard = () => {
     setUserGender(e.target.value);
   };
   const handleUpdate = (e) => {
-
     e.preventDefault();
     const newUserdata = {
       ...userData,
       secret: "recipemania",
       profilePic: selectedFile,
-      gender: userGender
+      gender: userGender,
     };
     dispatch(updateUser(newUserdata, navigate));
-
   };
 
   const target = useRef(null);
@@ -89,15 +88,31 @@ const UserDashboard = () => {
                     placeholder="Bambam"
                   />
                 </div>
-                <div className="input">
+                {/* <div className="input">
                   <h5>Country</h5>
-                  <input
-                    type="text"
+                  <Select
                     value={userData.country}
                     onChange={handleinput}
                     name="country"
-                    placeholder="Nigeria"
-                  />
+                    placeholder="Choose your country"
+                  >
+                    {country.map((item, index) => (
+                      <List key={index}>
+                        {/* <MenuList>{item.flag}</MenuList> 
+                        <MenuList>{item.name}</MenuList>
+                      </List>
+                    ))}
+                  </Select>
+                </div> */}
+                <div className="input">
+                  <h5>Country</h5>
+                  <input
+                    value={userData.country}
+                    onChange={handleinput}
+                    name="country"
+                    placeholder="Choose your country"
+                   />
+
                 </div>
               </div>
               <div className="right flex">
