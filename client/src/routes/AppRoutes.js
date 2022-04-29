@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthRoute } from "./AuthRoute";
+import ViewRecipe from "../pages/ViewRecipe";
 import {
   LandingPage,
   UserDashboard,
@@ -126,6 +127,16 @@ const AppRoutes = (props) => {
             element={
               <AppLayout>
                 <MyRecipe />
+              </AppLayout>
+            }
+          />
+        </Route>
+        <Route exact path="/viewrecipe" element={<AuthRoute />}>
+          <Route
+            path="/viewrecipe"
+            element={
+              <AppLayout>
+                <ViewRecipe/>
               </AppLayout>
             }
           />

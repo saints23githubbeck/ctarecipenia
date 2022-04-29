@@ -4,6 +4,20 @@ import "../assets/styles/userDashBoard.scss";
 import profilecircle from "../assets/images/userdashboardprofilecircle.png";
 import { Link, NavLink } from "react-router-dom";
 
+import dashboardIcon from "../assets/images/dashboardIcon.svg";
+import userIcon from "../assets/images/userIconImg.svg";
+
+import recipeIcon from "../assets/images/recipeIcon.svg";
+import logoutIcon from "../assets/images/logoutIcon.svg";
+
+import genderIcon from "../assets/images/genderIcon.svg";
+import emailIcon from "../assets/images/mailIcon.svg";
+import joinedDateIcon from "../assets/images/calenderIcon.svg";
+import profileViewsIcon from "../assets/images/viewIcon.svg";
+import countryIcon from "../assets/images/flagIcon.svg";
+import recipesIcon from "../assets/images/recipeIcon.svg";
+
+const UserProfile = ({ isProfile }) => {
 import { logOutAction } from "../appState/actions/AuthAction";
 import dashboardIcon from "../assets/images/dashboard.png";
 import userIcon from "../assets/images/user.png";
@@ -50,10 +64,10 @@ const UserProfile = ({ isProfile, profileInfo }) => {
     <div className="user-menu flex">
       <div className="profile flex">
         <div className="profile_text_img">
-          {/* <img src={profilecircle} alt="" /> */}
           {!isProfile ? (
             <div>
               {user?.profilePic ? (
+                <img className="profile_img" src={profilecircle} alt="" />
                 <img
                   className="profile_img"
                   src={user?.profilePic}
@@ -68,6 +82,8 @@ const UserProfile = ({ isProfile, profileInfo }) => {
             </div>
           ) : (
             <div>
+              {user?.profilePic ? (
+                <img className="profile_img" src={profilecircle} alt="" />
               {/* other person profile */}
               {profilePic ? (
                 <img
@@ -93,7 +109,7 @@ const UserProfile = ({ isProfile, profileInfo }) => {
         {isProfile ? (
           <>
             <div className="flex">
-              <img src={nameIcon} alt="nameIcon" />
+              <img src={userIcon} alt="nameIcon" />
               <h5>{name}</h5>
             </div>
             <div className="flex">

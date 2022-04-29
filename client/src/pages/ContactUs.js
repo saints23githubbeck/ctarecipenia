@@ -1,14 +1,12 @@
 import '../assets/styles/contactUs.scss'
 
-import contactImg from '../assets/images/contact.png' 
-import contactPhone from '../assets/images/contactPhone.png'
-import contactMail from '../assets/images/contactMail.png'
-import contactMusic from '../assets/images/contactMusic.png'
-import StayWithUs from '../components/StayWithUs'
-import phone from '../assets/images/phone.png'
-import music from '../assets/images/music.png'
-import mail from '../assets/images/mail.png'
+import contactImg from '../assets/images/contact.svg' 
 
+import contactPhone from '../assets/images/contactPhone.svg'
+import contactMail from '../assets/images/contactMail.svg'
+import contactMusic from '../assets/images/contactMusic.svg'
+
+import StayWithUs from '../components/StayWithUs'
 
 
 const ContactUs = () => {
