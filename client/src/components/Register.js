@@ -8,6 +8,7 @@ import loginIcon from "../assets/images/login-icon.png";
 const Register = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { isLoading, message } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -32,9 +33,9 @@ const Register = (props) => {
     const newFormdata = { ...formData, secret: "recipemania" };
     const { confirmPassword, ...otherData } = newFormdata;
 
-    console.log(otherData, "otherData log");
+    // console.log(otherData, "otherData log");
     dispatch(signUp(otherData, navigate));
-    clear();
+    // clear();
   };
 
   const clear = () => {
@@ -85,8 +86,10 @@ const Register = (props) => {
           value={formData.confirmPassword}
           placeholder="Confirm Password"
         />
-
-        <button type="submit">REGISTER NOW</button>
+        {message && <p>{message}</p>}
+        <button type="submit">
+          {isLoading ? "Loading ..." : "REGISTER NOW"}
+        </button>
       </form>
 
       <p>
