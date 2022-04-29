@@ -1,5 +1,4 @@
-import { useNavigate } from "react-router-dom";
-import { FaPlus } from "react-icons/fa";
+import { FaShare } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { newsletter } from "../../components/admin/data";
 import ReactPaginate from "react-paginate";
@@ -9,19 +8,13 @@ const PER_PAGE = 10;
 const URL = { newsletter };
 
 const NewsletterAdmin = () => {
-  const navigate = useNavigate();
-  const [addRecord, setAddRecord] = useState("");
-  const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
+  const [newsletterList, setNewsletterList] = useState(newsletter);
 
-  const handleOpen = (item) => {
-    setShowModal(true);
-    setAddRecord(item);
-  };
-
-  const handleClose = () => {
-    setShowModal(false);
+  const handleDelete = (e) => {
+    const filtered = newsletterList.filter((newsletter) => newsletter !== e);
+    setNewsletterList(filtered);
   };
 
   useEffect(() => {
@@ -42,21 +35,25 @@ const NewsletterAdmin = () => {
 
   const offset = currentPage * PER_PAGE;
 
-  const currentPageData = newsletter
+  const currentPageData = newsletterList
     .slice(offset, offset + PER_PAGE)
-    .map((newsletter, index) => (
-      <tr key={index} className="">
+    .map((newsletter) => (
+      <tr key={newsletter.id} className="">
         <td className="tdata">{newsletter.email}</td>
         <td className="tdata">{newsletter.created}</td>
         <td className="tdata buttonEdit">
-          <button className="detailsButton" style={{ backgroundColor: "red" }}>
+          <button
+            className="detailsButton"
+            style={{ backgroundColor: "red" }}
+            onClick={(e) => handleDelete(newsletter)}
+          >
             Delete
           </button>
         </td>
       </tr>
     ));
 
-  const pageCount = Math.ceil(newsletter.length / PER_PAGE);
+  const pageCount = Math.ceil(newsletterList.length / PER_PAGE);
 
   return (
     <div className="fill">
@@ -73,7 +70,6 @@ const NewsletterAdmin = () => {
       >
         <h3>Newsletter</h3>
         <div
-          onClick={() => handleOpen("addRecord")}
           style={{
             display: "flex",
             justifyContent: "end",
@@ -81,13 +77,12 @@ const NewsletterAdmin = () => {
             fontSize: "16px",
             cursor: "pointer",
             alignItems: "center",
-            height: "20px",
             borderRadius: "5px",
           }}
         >
-          <p>
+          <p className="text-white m-2">
             {" "}
-            <FaPlus /> Add New Record
+            <FaShare /> Export Newsletter
           </p>
         </div>
       </div>

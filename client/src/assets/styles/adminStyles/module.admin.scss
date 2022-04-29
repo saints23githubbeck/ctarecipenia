@@ -27,21 +27,25 @@
   }
 }
 .dashCard {
-  padding: 10px;
-  width: 90%;
-  h1,
+  width: 95%;
+  z-index: 1;
   p,
   h3 {
     color: #ffffff;
-    font-size: 15px;
+    font-size: 13px;
   }
 }
 
 .fills {
   background-color: #fff;
-  margin: 10px;
+  margin: 3px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+          
 }
 
 .stepHeader {
@@ -50,7 +54,7 @@
   h5 {
     width: 25%;
     margin: 5px;
-    height: 40px;
+    height: 60px;
     background-color: #cacbcd;
     text-align: center;
     padding: 10px 0px;
@@ -61,38 +65,65 @@
     line-height: 18px;
     color: #fff;
     cursor: pointer;
+    P {
+      font-size: 12px;
+      font-weight: 600;
+      color: #fff;
+    }
   }
 }
 .stepBody {
   background: #fff;
   margin: -5px 5px;
+  height: 100vh;
 }
-.detailsButton{
-    cursor: pointer;
-    margin: 2px;
-    width: 60px;
-    height: 30px;
+.detailsButton {
+  cursor: pointer;
+  margin: 2px;
+  width: 70px;
+  height: 30px;
+  font-size: 12px;
+  border-radius: 5px;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  padding: 5px;
+  color: #fff;
+  border: none;
+}
+td,
+th {
+  padding: 10px;
+}
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+table {
+  overflow-x: auto;
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+.ptag {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+  color: rgba(40, 43, 48, 0.68);
+}
+
+@media only screen and (max-width: 768px) {
+  .ptag {
     font-size: 12px;
-    border-radius: 5px;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
-    padding: 5px;
-    color: #fff;
-    border: none;
+    padding-right: 5px;
   }
-  td, th{
-    padding: 10px;
+  .fills {
+    background-color: #fff;
+    margin: 3px;
+    display: grid;
+    grid-template-columns: 1fr;
   }
-  tr:nth-child(even) {
-    background-color: #dddddd;
-  }
-  table {
-    overflow-x: auto;
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    border-spacing: 0;
-     width: 100%; 
-    border: 1px solid #ddd;
-  }
-  
+}

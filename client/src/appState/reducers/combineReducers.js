@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import { user } from "./AuthReducer";
-import { logoutReducer } from "./AlertReducer"
+import { profile } from "./profileReducer";
 export const rootReducers = combineReducers({
   user,
-  logoutReducer,
+  profile,
 });

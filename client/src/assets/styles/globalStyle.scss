@@ -100,10 +100,75 @@ input,button{
 
 .active{
   h5{
+.loading {
+  img {
+    width: 100%;
+  }
+}
+.active {
+  h5 {
     color: #fda47a;
   }
 }
 
+
+.categories_link {
+  button {
+    background-color: initial !important;
+    border: none;
+    color: initial;
+    border-color: none;
+    margin-top: -7px;
+    font-weight: 600;
+    font-size: 15px;
+  }
+  button:active {
+      color: #000000;
+    }
+  .show {
+    button:focus {
+      box-shadow: 0 0 0 0.25rem rgba(147, 253, 48, 0) !important;
+    }
+  }
+  .dropdown {
+    button:hover {
+      box-shadow: 0 0 0 0.25rem rgba(24, 24, 24, 0);
+      border: none;
+      color: #000000;
+    }
+  }
+  .dropdown-menu {
+    background-color: transparent;
+  }
+}
+
+.no_landingpage {
+  button {
+    color: white !important;
+  }
+}
+.categorgy_nav {
+  width: 100%;
+  background-color: #231e1e;
+  padding: 5px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  .category_item {
+    width: 30%;
+    display: flex;
+    align-items: baseline;
+    img {
+      width: 15px;
+      margin-right: 8px;
+    }
+    p {
+      font-size: 13px;
+      color: white;
+    }
+  }
+}
 .wrapper {
   width: 90%;
   margin: 0 auto;
@@ -146,15 +211,18 @@ input,button{
         justify-content: center;
         border-radius: 50px;
         overflow: hidden;
-        .profile_img {
-          width: 83px;
+        div {
           width: 100%;
           height: 100%;
-        }
-        .profile_text {
-          font-size: 1.5em;
-          font-weight: 700;
-          text-transform: uppercase;
+          .profile_img {
+            width: 100%;
+            height: 100%;
+          }
+          .profile_text {
+            font-size: 1.5em;
+            font-weight: 700;
+            text-transform: uppercase;
+          }
         }
       }
       .name {
@@ -179,10 +247,10 @@ input,button{
         align-items: baseline;
         gap: 15px;
         padding: 0px 20px;
-        
+
         h5 {
           font-weight: 500;
-          &:hover{
+          &:hover {
             color: #b87455;
           }
         }
@@ -366,16 +434,15 @@ input,button{
         margin-left: 20px;
         font-size: 15px;
         font-weight: 500;
-              a{
-                  color: black;
-              }
+        a {
+          color: black;
+        }
       }
       li:nth-child(1)::after {
         content: ">";
         position: absolute;
         transform: translateX(40%);
       }
-
     }
   }
 }
@@ -399,7 +466,14 @@ input,button{
   h5 {
     font-size: 20px;
   }
-
+  .categorgy_nav {
+    width: 350%;
+    margin-left: -300px;
+    padding: 15px;
+    .category_item {
+      width: 20%;
+    }
+  }
   .wrapper {
     .cards {
       max-width: unset;
@@ -413,7 +487,6 @@ input,button{
       }
       .profile {
         .profile_text_img {
-          
           height: 100px;
           padding: 0;
 

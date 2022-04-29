@@ -4,24 +4,29 @@ import { useEffect, useState } from "react";
 import { user } from "../../components/admin/data";
 import ReactPaginate from "react-paginate";
 import * as BiIcons from "react-icons/bi";
+import AdminModal from "../../components/modals/AdminModal";
 
 const PER_PAGE = 10;
 const URL = { user };
 const UsersNormal = () => {
   const navigate = useNavigate();
-  const [addRecord, setAddRecord] = useState("");
+  const [addUser, setAddUser] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
+  const [userList, setUserList] = useState(user);
+
+  const handleDelete = (e) => {
+    const filtered = userList.filter((user) => user !== e);
+    setUserList(filtered);
+  };
 
   const status = (status) => {
     switch (status) {
       case "Active":
         return "green";
-        break;
       case "Inactive":
         return "red";
-        break;
       default:
         return "grey";
     }
@@ -29,7 +34,7 @@ const UsersNormal = () => {
 
   const handleOpen = (item) => {
     setShowModal(true);
-    setAddRecord(item);
+    setAddUser(item);
   };
 
   const handleClose = () => {
@@ -54,10 +59,10 @@ const UsersNormal = () => {
 
   const offset = currentPage * PER_PAGE;
 
-  const currentPageData = user
+  const currentPageData = userList
     .slice(offset, offset + PER_PAGE)
-    .map((user, index) => (
-      <tr key={index} className="">
+    .map((user) => (
+      <tr key={user.id} className="">
         <td className="tdata">
           <img
             src={user.image}
@@ -91,16 +96,20 @@ const UsersNormal = () => {
             onClick={() => navigate("/admin/normaluser/edit", { state: user })}
             style={{ backgroundColor: "orange" }}
           >
-            Edit
+            <BiIcons.BiEdit className="text-white h6" /> Edit
           </button>
-          <button className="detailsButton" style={{ backgroundColor: "red" }}>
-            Delete
+          <button
+            className="detailsButton"
+            style={{ backgroundColor: "red" }}
+            onClick={(e) => handleDelete(user)}
+          >
+            <BiIcons.BiTrash className="text-white h6" /> Delete
           </button>
         </td>
       </tr>
     ));
 
-  const pageCount = Math.ceil(user.length / PER_PAGE);
+  const pageCount = Math.ceil(userList.length / PER_PAGE);
 
   return (
     <div className="fill">
@@ -117,7 +126,7 @@ const UsersNormal = () => {
       >
         <h3>Users</h3>
         <div
-          onClick={() => handleOpen("addRecord")}
+          onClick={() => handleOpen("addUser")}
           style={{
             display: "flex",
             justifyContent: "end",
@@ -125,13 +134,11 @@ const UsersNormal = () => {
             fontSize: "16px",
             cursor: "pointer",
             alignItems: "center",
-            height: "20px",
             borderRadius: "5px",
           }}
         >
-          <p>
-            {" "}
-            <FaPlus /> Add New Record
+          <p className="text-white m-2">
+            <FaPlus /> Add User
           </p>
         </div>
       </div>
@@ -160,6 +167,7 @@ const UsersNormal = () => {
           activeClassName={"activeP"}
         />
       </div>
+      <AdminModal open={showModal} onclose={handleClose} addUser={addUser} />
     </div>
   );
 };

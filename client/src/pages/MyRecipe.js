@@ -14,6 +14,9 @@ import UserProfile from "../components/UserProfile";
 import viewIcon from "../assets/images/viewWhiteIcon.svg";
 import deleteIcon from "../assets/images/deleteIcon.svg";
 import editIcon from "../assets/images/editIcon.svg";
+import viewIcon from "../assets/images/viewiconwhite.png";
+import deleteIcon from "../assets/images/deleteicon.png";
+import editIcon from "../assets/images/edit.png";
 import { Link } from 'react-router-dom';
 
 const MyRecipe = () => {

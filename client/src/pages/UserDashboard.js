@@ -9,43 +9,55 @@ import { updateUser } from "../appState/actions/AuthAction";
 const UserDashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userProfile = useSelector((state) => state.user).user;
+  const [selectedFile, setSelectedFile] = useState(null);
+  const { name, country, username, email, password, description, gender } =
+    userProfile;
+  const [userGender, setUserGender] = useState(gender);
   const [userData, setUserData] = useState({
-    firstName: "",
-    lastName: "",
-    country: "",
-    userName: "",
-    email: "",
-    password: "",
-    description:""
+    firstName: name.split(" ")[0],
+    lastName: name.split(" ")[1],
+    country,
+    username,
+    email,
+    password,
+    description,
   });
   const handleinput = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
+  const handleGender = (e) => {
+    setUserGender(e.target.value);
+  };
   const handleUpdate = (e) => {
+
     e.preventDefault();
-    console.log(userData, "update log")
-     dispatch(updateUser(userData, navigate));
+    const newUserdata = {
+      ...userData,
+      secret: "recipemania",
+      profilePic: selectedFile,
+      gender: userGender
+    };
+    dispatch(updateUser(newUserdata, navigate));
+
   };
 
+  const target = useRef(null);
 
-
-  const [selectedFile , setSelectedFile] = useState(null)
-  const target = useRef(null)
-
-  const handleFile =(e) => {
-    const uploaded = e.target.files[0]
-    setSelectedFile(URL.createObjectURL(uploaded))
-  }
+  const handleFile = (e) => {
+    const uploaded = e.target.files[0];
+    setSelectedFile(URL.createObjectURL(uploaded));
+  };
 
   return (
     <section className="user-dash-board">
       <div className="sub-nav">
         <div className="flex wrapper">
-          <h1>Dashboard - Bambam</h1>
+          <h1>Dashboard - {username}</h1>
           <ul className="list">
             <li>Home</li>
             <li>Dashboard</li>
-            <li>Bambam</li>
+            <li>{username}</li>
           </ul>
         </div>
       </div>
@@ -70,9 +82,9 @@ const UserDashboard = () => {
                   <h5>Username</h5>
                   <input
                     type="text"
-                    value={userData.userName}
+                    value={userData.username}
                     onChange={handleinput}
-                    name="userName"
+                    name="username"
                     placeholder="Bambam"
                   />
                 </div>
@@ -116,6 +128,7 @@ const UserDashboard = () => {
                     onChange={handleinput}
                     name="password"
                     placeholder="******"
+                    disabled
                   />
                 </div>
               </div>
@@ -132,35 +145,48 @@ const UserDashboard = () => {
             <h5 className="center">Gender</h5>
             <div className="checkbox">
               <div className="check flex">
-                <input type="radio" name="gender" id="Female" />
+                <input
+                  type="radio"
+                  name="gender"
+                  onClick={handleGender}
+                  value="female"
+                  defaultChecked={userGender === "female"}
+                />
                 <label htmlFor="Female">Female</label>
               </div>
               <div className="check flex">
-                <input type="radio" name="gender" id="Male" />
+                <input
+                  type="radio"
+                  onClick={handleGender}
+                  name="gender"
+                  value="male"
+                  defaultChecked={userGender === "male"}
+                />
                 <label htmlFor="Male">Male</label>
               </div>
               <div className="upload-sec">
                 <div className="upload flex">
                   <div className="upload-div">
-                    <input type='file'
-                    ref={target}
-                    onChange={(e) => handleFile(e)}/>
-                    <label 
+                    <input
+                      type="file"
+                      ref={target}
+                      onChange={(e) => handleFile(e)}
+                    />
+                    <label
                       onClick={() => target.current.click()}
-                    htmlFor="file">UPLOAD IMAGE</label>
+                      htmlFor="file"
+                    >
+                      UPLOAD IMAGE
+                    </label>
                   </div>
                   <div className="upload-img">
-                    {
-                      selectedFile !== null && <img src={selectedFile} alt="img" />
-                    }
+                    {selectedFile !== null && (
+                      <img src={selectedFile} alt="img" />
+                    )}
                   </div>
                 </div>
               </div>
             </div>
-
-
-
-
 
             <div className="upload-btn">
               <button type="submit">SAVE</button>

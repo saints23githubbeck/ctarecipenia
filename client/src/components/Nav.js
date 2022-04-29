@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { Dropdown } from "react-bootstrap";
+import {
+  Dropdown,
+  DropdownButton
+} from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 
-import { logOut, logOutAction } from "../appState/actions/AuthAction";
+import { logOutAction } from "../appState/actions/AuthAction";
 import { useNavigate } from "react-router-dom";
 
 import "../assets/styles/nav.scss";
@@ -12,15 +15,17 @@ import logo2 from "../assets/images/logo2.png";
 import menuBar from "../assets/images/menu-bar.png";
 import logoutLogo from "../assets/images/log-out.svg";
 import dashboardLogo from "../assets/images/dashboard-logo.svg";
+import CategoriesNav from "./CategoriesNav";
 
 const Nav = ({ landingPage, setModalShow }) => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [menu, setMenu] = useState(false);
   const [screen, setScreen] = useState(window.innerWidth);
   const [mobile, setMobile] = useState(screen > 768 ? true : false);
   const userProfile = useSelector((state) => state.user);
   const { user, isLoggedIn } = userProfile;
-  
+
   const handleMenu = () => {
     setMenu(!menu);
   };
@@ -33,9 +38,9 @@ const Nav = ({ landingPage, setModalShow }) => {
   };
 
   const handleLogOut = () => {
-    console.log("logout from nav")
-    logOutAction(navigate);
-  }
+    console.log("logout from nav");
+    dispatch(logOutAction(navigate));
+  };
 
   useEffect(() => {
     function handleResize() {
@@ -75,8 +80,10 @@ const Nav = ({ landingPage, setModalShow }) => {
             <li onClick={closeMenu}>
               <NavLink to="/">Home</NavLink>
             </li>
-            <li onClick={closeMenu}>
-              <NavLink to="/categories">Categories</NavLink>
+            <li className={`categories_link ${landingPage?"":"no_landingpage"}`}>
+              <DropdownButton id="dropdown-item-button" title="Categories">
+                <CategoriesNav />
+              </DropdownButton>
             </li>
             <li onClick={closeMenu}>
               <NavLink to="/recipes">Recipes</NavLink>

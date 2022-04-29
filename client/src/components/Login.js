@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import loginIcon from "../assets/images/login-icon.png";
-import { useDispatch, useSelector } from "react-redux";
-import { logIn, signUp } from "../appState/actions/AuthAction";
+import { useDispatch } from "react-redux";
+import { logIn } from "../appState/actions/AuthAction";
 import { useNavigate } from "react-router-dom";
 
 const Login = (props) => {
