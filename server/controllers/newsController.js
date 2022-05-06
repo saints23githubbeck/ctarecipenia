@@ -13,7 +13,6 @@ exports.subscribe = async (req, res) => {
     message: `Thank you for subscribing! ${req.body.email}`,
   })
 }
-
 exports.fetchSubscribers = async (req, res) => {
   NewsLetters.find({}).exec((err, subscribers) => {
     if (err) throw err
