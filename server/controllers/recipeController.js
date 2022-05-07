@@ -1,5 +1,5 @@
 const Recipe = require("../models/RecipeModel")
-const mongoose = require("mongoose")
+const slugify = require("slugify")
 
 /*
     @route  /add-recipe
@@ -8,9 +8,50 @@ const mongoose = require("mongoose")
 */
 
 exports.addRecipe = async (req, res) => {
+  const {
+    title,
+    category,
+    cookTime,
+    calories,
+    description,
+    direction,
+    permLink,
+    difficulty,
+    prepareTime,
+    serves,
+  } = req.body
   try {
-     console.log(req.body, "serve body log")
-    const recipe = await new Recipe(req.body).save()
+    if (
+      !title ||
+      !category ||
+      !cookTime ||
+      !calories ||
+      !description ||
+      !direction ||
+      !permLink ||
+      !difficulty ||
+      !prepareTime ||
+      !serves
+    ) {
+      res.status(400).json({ error: "Please fill all required fields" })
+    }
+
+    const slug = slugify(username).toLowerCase()
+
+    const recipe = await Recipe.create({
+      title,
+      category,
+      cookTime,
+      calories,
+      description,
+      direction,
+      permLink,
+      difficulty,
+      prepareTime,
+      serves,
+      slug,
+    })
+
     res.status(201).json({
       message: "Recipe added",
       recipe,
@@ -47,28 +88,19 @@ exports.getRecipes = async (req, res) => {
 }
 
 /*
-    @route  /recipe/:recipeId
-    @desc   Fetch a recipe from the database by ID
+    @route  /recipe/:slug
+    @desc   Fetch a recipe from the database by slug
     @access Private
 */
-exports.getRecipeById = async (req, res) => {
-  const recipeId = req.params.recipeId
-  const checkedId =
-    mongoose.isValidObjectId(recipeId) /* will return true/false */
-  //console.log(checkedId)
-  if (!checkedId) {
-    res.status(400).json({
-      message: "No recipe with id " + checkedId + " exists",
-    })
-  }
+exports.getRecipeBySlug = async (req, res) => {
+  const slug = req.params.slug.toLowerCase()
 
   try {
-    let recipe = await Recipe.findById(recipeId)
-    //console.log({ "found recipe": recipe })
+    const recipe = await Recipe.findOne(slug)
 
     if (!recipe) {
       return res.status(404).json({
-        message: "No recipe found",
+        error: "No recipe found",
       })
     }
     res.status(200).json({
@@ -81,47 +113,44 @@ exports.getRecipeById = async (req, res) => {
 }
 
 /*
-    @route  /recipe/:recipeId
-    @desc   Delete a recipe from the database by ID
+    @route  /recipe/:slug
+    @desc   Delete a recipe from the database by slug
     @access Private
 */
 
-exports.deleteRecipeById = async (req, res) => {
-  Recipe.findOneAndDelete({ _id: req.params.recipeId })
+exports.deleteRecipeBySlug = async (req, res) => {
+  const slug = req.params.slug.toLowerCase()
+  if (!slug) {
+    return res.status(401).json({ error: "No slug found" })
+  }
+
+  Recipe.findOneAndDelete(slug)
     .then((deletedRecipe) => {
       if (deletedRecipe) {
         res.json({
-          message: `Successfully deleted recipe that had the form: ${deletedRecipe}.`,
+          message: `Successfully deleted  ${deletedRecipe.title} recipe .`,
         })
       } else {
-        res.json({ message: "No recipe matches the provided query." })
+        res.json({ error: "No recipe matches the provided query." })
       }
-      return deletedRecipe
     })
     .catch((err) => console.error(`Failed to find and delete recipe: ${err}`))
 }
 
 /*
-    @route  /recipe/:recipeId
+    @route  /recipe/:slug
     @desc    Update a recipe information
     @access private
 */
 
 exports.updateRecipe = async (req, res) => {
   let updateRecipe = req.body
-  let recipeId = req.params.recipeId
-  const checkedId = mongoose.isValidObjectId(recipeId)
+  let slug = req.params.slug.toLowerCase()
+
   try {
-    if (!checkedId) {
-      res.json({ message: "No recipe with id " + checkedId + " exists" })
-    }
-    const updatedRecipe = await Recipe.findOneAndUpdate(
-      recipeId,
-      updateRecipe,
-      {
-        new: true,
-      }
-    ).exec()
+    const updatedRecipe = await Recipe.findOneAndUpdate(slug, updateRecipe, {
+      new: true,
+    }).exec()
     res.status(200).json({
       updatedRecipe,
     })
