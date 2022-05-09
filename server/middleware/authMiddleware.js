@@ -18,13 +18,13 @@ exports.requireSignIn = asyncHandler(async (req, res, next) => {
       //get user information from verified access token
       // console.log("accessToken", accessToken)
       const accessTokenId = accessToken.userId
-      res.user = await User.findById(accessTokenId)
+      req.user = await User.findById(accessTokenId)
 
       next()
     } catch (error) {
       console.log(
         `Error getting user information. Access denied: ${error.message}`
-      ) 
+      )
       res.status(401)
       throw new Error("Access Denied")
     }
@@ -37,21 +37,21 @@ exports.requireSignIn = asyncHandler(async (req, res, next) => {
 })
 
 exports.authMiddleware = async (req, res, next) => {
-  //console.log("authMiddleware", res.user)
-  const user = await User.findById(res.user._id).exec()
+  //console.log("authMiddleware", req.user)
+  const user = await User.findById(req.user._id).exec()
   if (!user) {
     return res.status(400).json({
       error: "User not found",
     })
   }
 
-  if (user.status !== "subscriber") {
+  if (user.userGroup !== "subscriber") {
     return res.status(400).json({
       error: "Subscribers access only. Access denied",
     })
   }
 
-  res.user = user
+  req.user = user
   next()
 }
 
@@ -64,12 +64,12 @@ exports.adminMiddleware = async (req, res, next) => {
     })
   }
 
-  if (user.status !== "admin") {
+  if (user.userGroup !== "admin") {
     return res.status(400).json({
       error: "Admin access only. Access denied",
     })
   }
 
-  res.user = user
+  req.user = user
   next()
 }

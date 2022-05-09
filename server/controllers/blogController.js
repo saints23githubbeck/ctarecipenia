@@ -1,6 +1,5 @@
-const mongoose = require("mongoose")
 const Blog = require("../models/BlogModel")
-
+const slugify = require("slugify")
 /*
     @route  /blog/create
     @desc   user creates a blog
@@ -9,10 +8,13 @@ const Blog = require("../models/BlogModel")
 
 exports.createBlog = async (req, res) => {
   // console.log(req.body)
-  // res.end("Blog created")
+
   try {
     // console.log(req.body)
-    const blog = await new Blog(req.body).save()
+    const blog = await new Blog(req.body)
+    blog.postedBy = req.user._id
+    blog.slug = slugify(req.body.title).toLowerCase()
+    blog.save()
     res.status(201).json({
       message: "Blog created",
       blog,
@@ -49,23 +51,21 @@ exports.getBlogs = async (req, res) => {
 }
 
 /*
-    @route  /blogs/:blogId
-    @desc   Fetch a blog from by ID
+    @route  /blogs/:slug
+    @desc   Fetch a blog  by slug
     @access Private
 */
-exports.getBlogById = async (req, res) => {
-  const blogId = req.params.blogId
-  const checkedId =
-    mongoose.isValidObjectId(blogId) /* will return true/false */
-  //console.log(checkedId)
-  if (!checkedId) {
+exports.getBlogBySlug = async (req, res) => {
+  const slug = req.params.slug.toLowerCase()
+
+  if (!slug) {
     res.status(400).json({
-      message: `Cannot find blog with blog ID: ${blogId}`,
+      message: `Cannot find blog: ${slug}`,
     })
   }
 
   try {
-    let blog = await Blog.findById(blogId)
+    const blog = await Blog.findOne(slug)
     //console.log({ "found blog": blog })
 
     if (!blog) {
@@ -73,6 +73,7 @@ exports.getBlogById = async (req, res) => {
         message: "No blog found",
       })
     }
+
     res.status(200).json({
       success: true,
       blog,
@@ -83,14 +84,15 @@ exports.getBlogById = async (req, res) => {
 }
 
 /*
-    @route  /blogs/:blogId
+    @route  /blogs/:slug
     @desc   Delete a blog from the database
     @access Private
 */
 
-exports.deleteBlogById = async (req, res) => {
-  const blogId = req.params.blogId
-  Blog.findOneAndDelete({ _id: blogId })
+exports.deleteBlogBySlug = async (req, res) => {
+  const slug = req.params.slug.toLowerCase()
+
+  Blog.findOneAndDelete(slug)
     .then((deletedBlog) => {
       if (deletedBlog) {
         res.json({
@@ -98,7 +100,7 @@ exports.deleteBlogById = async (req, res) => {
         })
       } else {
         res.json({
-          message: `No blog with id ${blogId} matches the provided query.`,
+          message: `No blog  matches the provided query.`,
         })
       }
       return deletedBlog
@@ -107,21 +109,17 @@ exports.deleteBlogById = async (req, res) => {
 }
 
 /*
-    @route  /blogs/:blogId
+    @route  /blogs/:slug
     @desc   Update a blog
     @access private
 */
 
 exports.updateBlog = async (req, res) => {
   let updateBlog = req.body
-  let blogId = req.params.blogId
-  const checkedId = mongoose.isValidObjectId(blogId)
+  let slug = req.params.slug.toLowerCase()
 
   try {
-    if (!checkedId) {
-      res.json({ message: `Cannot find blog with id ${blogId}.` })
-    }
-    const updatedBlog = await Blog.findOneAndUpdate(blogId, updateBlog, {
+    const updatedBlog = await Blog.findOneAndUpdate(slug, updateBlog, {
       new: true,
     }).exec()
     res.status(200).json({

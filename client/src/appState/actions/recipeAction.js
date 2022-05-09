@@ -21,7 +21,7 @@ export const getRecipesByID = () => async (dispatch) => {
   try {
     dispatch(setIsLoading(true));
     const result = await httpRequest({
-      url: `/recipe/:recipeId`,
+      url: `/recipe/:slug`,
       method: "GET",
     });
     if (result.success === true) {
@@ -34,7 +34,7 @@ export const getRecipesByID = () => async (dispatch) => {
 };
 
 export const handleRecipeState = (name, value) => ({
-  type: actiontypes.EDIT_RECIPE_STATE,
+  type: actiontypes.ADD_RECIPE,
   payload: {
     name: name,
     value: value,
@@ -80,7 +80,7 @@ export const updateRecipe = (payload, onClose) => async (dispatch) => {
   try {
     dispatch(setRecipesLoading("loading", true));
     const result = await httpRequest({
-      url: `/recipe/:recipeId`,
+      url: `/recipe/${payload._id}`,
       method: "PUT",
       body: JSON.stringify({ ...payload }),
     });
@@ -88,6 +88,7 @@ export const updateRecipe = (payload, onClose) => async (dispatch) => {
     if (result.status === 200 ) {
       dispatch(setRecipesLoading("loading", false));
       dispatch(getALLRecipes());
+      onClose();
       dispatch({
         type: actiontypes.RESET_RECIPE_STATE
       })

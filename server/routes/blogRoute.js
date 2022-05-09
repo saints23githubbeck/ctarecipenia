@@ -1,17 +1,18 @@
 const express = require("express")
 const {
   getBlogs,
-  getBlogById,
-  deleteBlogById,
   updateBlog,
   createBlog,
+  getBlogBySlug,
+  deleteBlogBySlug,
 } = require("../controllers/blogController")
+const { requireSignIn } = require("../middleware/authMiddleware")
 const router = express.Router()
 
-router.post("/blog/create", createBlog)
+router.post("/blog/create", requireSignIn, createBlog)
 router.get("/blogs", getBlogs)
-router.get("/blogs/:blogId", getBlogById)
-router.delete("/blogs/:blogId", deleteBlogById)
-router.put("/blogs/:blogId", updateBlog)
+router.get("/blogs/:slug", getBlogBySlug)
+router.delete("/blogs/:slug", requireSignIn, deleteBlogBySlug)
+router.put("/blogs/:slug", requireSignIn, updateBlog)
 
 module.exports = router

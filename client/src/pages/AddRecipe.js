@@ -30,18 +30,18 @@ const AddRecipe = () => {
   const handleinput = (e) => {
     setRecipeData({ ...recipeData, [e.target.name]: e.target.value });
   };
-  const handleNewRecipe = (e) => {
-      e.preventDefault();
-    dispatch(addRecipe(recipeData, navigate));
-    console.log(recipeData, "recipeData log");
-      // clear();
-  }
-  //  const clear = () => {
-  //    setRecipeData({
-  //      email: "",
-  //      password: "",
-  //    });
-  //  };
+  // const handleNewRecipe = (e) => {
+  //     e.preventDefault();
+  //   dispatch(addRecipe(recipeData, navigate));
+  //   console.log(recipeData, "recipeData log");
+  //     // clear();
+  // }
+  // //  const clear = () => {
+  // //    setRecipeData({
+  // //      email: "",
+  // //      password: "",
+  // //    });
+  // //  };
 
   return (
     <section class="add-recipe">
@@ -63,7 +63,7 @@ const AddRecipe = () => {
           <div className="heading">
             <h3>My Recipes</h3>
           </div>
-          <form onSubmit={handleNewRecipe}>
+          <div>
             <div className="inputs flex">
               <div className="input">
                 <label htmlFor="">Category</label>
@@ -223,7 +223,7 @@ const AddRecipe = () => {
               </div>
             </div>
             <button type="submit">Add Recipe</button>
-          </form>
+          </div>
         </div>
       </div>
     </section>

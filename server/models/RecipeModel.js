@@ -1,6 +1,7 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose")
+const { ObjectId } = mongoose.Schema
 
-const Schema = mongoose.Schema;
+const Schema = mongoose.Schema
 
 const recipeSchema = new Schema(
   {
@@ -16,29 +17,22 @@ const recipeSchema = new Schema(
         "Please enter a name. Special characters are  not allowed",
       ],
     },
-    category: {
-      type: String,
-      required: [true, "Please enter recipe category"],
-    },
-    image: {
-      type: String,
-    },
+
+    categories: [{ type: ObjectId, ref: "Category", required: true }],
+    cookTime: { type: String, required: true },
+    calories: { type: String, required: true },
     description: {
       type: String,
     },
-    videoLink: {
+    slug: {
       type: String,
+      unique: true,
+      index: true,
     },
     direction: {
       type: String,
     },
-    metaDescription: {
-      type: String,
-    },
-    featuredImage: {
-      type: String,
-    },
-    permlink: {
+    permLink: {
       type: String,
     },
     difficulty: {
@@ -48,23 +42,12 @@ const recipeSchema = new Schema(
       type: String,
     },
     serves: {
-      type: String,
+      type: Number,
     },
-    calories: {
-      type: String,
-    },
-    tags: [],
-    facts: {
-      type: String,
-    },
-    additionalInfo: {
-      type: String,
-    },
-    ingredients: [],
   },
-  { timestamps: new Date().getTime }
-);
+  { timestamps: true }
+)
 
-const Recipe = mongoose.model("Recipe", recipeSchema);
+const Recipe = mongoose.model("Recipe", recipeSchema)
 
-module.exports = Recipe;
+module.exports = Recipe

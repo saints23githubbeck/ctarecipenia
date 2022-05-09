@@ -4,8 +4,13 @@ const fs = require("fs")
 const morgan = require("morgan")
 const recipeDb = require("./config/db")
 const cookieParser = require("cookie-parser")
+const rateLimit = require("express-rate-limit")
+const helmet = require("helmet")
+const mongoSanitize = require("express-mongo-sanitize")
+const xssClean = require("xss-clean")
+const hpp = require("hpp")
 require("dotenv").config()
-const app = express()
+const app = express() 
 
 process.on("uncaughtException", (error) => {
   console.error(`Error: ${error.message}`)
@@ -21,10 +26,23 @@ app.use(cors())
 app.use(morgan("dev"))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
-app.use(cookieParser())
 
-app.get("/", (req, res) => res.send("Hello World!"))
-// app.use("/", require("./routes/recipeRoutes"))
+
+app.use(helmet())
+app.use(cookieParser())
+app.use(mongoSanitize())
+app.use(xssClean())
+app.use(hpp({ whitelist: ["positions"] }))
+
+
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000, //10 Mints
+  max: 100,
+})
+
+app.use(limiter)
+
+app.get("/api-test", (req, res) => res.send("Hello World!"))
 
 fs.readdirSync("./routes").map((route) =>
   app.use("/", require("./routes/" + route))

@@ -7,6 +7,8 @@ import {
   setRecipesError,
   updateRecipe,
 } from "../../appState/actions/recipeAction";
+import { categories } from "./data";
+
 
 const EditRecipe = () => {
   const { state } = useLocation();
@@ -14,6 +16,7 @@ const EditRecipe = () => {
 
   const dispatch = useDispatch();
   const {
+    _id,
     title,
     category,
     image,
@@ -36,8 +39,11 @@ const EditRecipe = () => {
     loading,
   } = useSelector((state) => state.recipe);
 
+  const level = [{name:"Easy"}, {name:"Medium"}, {name:"Hard"}]
+
   const handleSubmit = () => {
     const payload = {
+      _id:_id,
       title: title,
       category: category,
       image: image,
@@ -103,7 +109,11 @@ const EditRecipe = () => {
           autoComplete="email"
           autoFocus
           placeholder={state.category}
-        />
+        /> 
+         {/* {categories.map((item, index) => (
+               <option  key={index} value={item.name}>{item.name}</option>
+            
+            ))}</select> */}
       </div>
       <hr className="m-3" />
 
@@ -146,39 +156,18 @@ const EditRecipe = () => {
       <div className="row m-3">
         <p className="w-25 h-75 text-end ptag">Difficulty</p>
         <div className="d-flex justify-content-between   w-75 h-75 p-1">
-          <div className="">
-            <input
-              onChange={(e) =>
-                dispatch(handleRecipeState("difficulty", e.target.value))
-              }
-              value={difficulty}
+            {level.map((item, index) =>(
+          <div key={index} className="">
+              <input
               type="radio"
+              value={item.name}
             />
-            <label>Easy</label>
+            <label value={item.name}>{item.name}</label>
           </div>
-          <div className="">
-            <input
-              onChange={(e) =>
-                dispatch(handleRecipeState("difficulty", e.target.value))
-              }
-              value={difficulty}
-              type="radio"
-            />
-            <label>Medium</label>
-          </div>
-          <div className="">
-            <input
-              onChange={(e) =>
-                dispatch(handleRecipeState("difficulty", e.target.value))
-              }
-              value={difficulty}
-              type="radio"
-            />
-            <label>Hard</label>
-          </div>
-          <div></div>
-        </div>
-      </div>
+            ))}
+            </div>
+            </div>
+
       <hr className="m-3" />
 
       <div className="d-flex  align-items-center w-80 m-3">

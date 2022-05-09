@@ -1,26 +1,13 @@
 import * as actiontypes from "../actionTypes";
 
 const emptyState = {
-  title: "",
-  category: "",
-  image: "",
-  description: "",
-  videoLink: "",
-  direction: "",
-  metaDescription: "",
-  featuredImage: "",
-  permlink: "",
-  difficulty: "",
-  prepareTime: "",
-  serves: "",
-  calories: "",
-  tags: [],
-  facts: "",
-  additionalInfo: "",
-  ingredients: [],
+        title:"",
+        content: "",
+        image: "",
+        tags: [],
 };
 const initialState = {
-  recipes: [],
+  blogs: [],
   ...emptyState,
   loading: false,
   error: "",
@@ -28,34 +15,34 @@ const initialState = {
 
 export const recipe = (state = initialState, action) => {
   switch (action.type) {
-    case actiontypes.GET_ALL_RECIPES:
+    case actiontypes.GET_ALL_BLOG:
       return {
         ...state,
         recipes: action.payload,
       };
-    case actiontypes.ADD_RECIPE:
+    case actiontypes.ADD_BLOG:
       return {
         ...state,
         [action.payload.name]: action.payload.value,
       };
-    case actiontypes.LOADING_RECIPE:
+    case actiontypes.LOADING_BLOG:
       return {
         ...state,
         [action.payload.name]: action.payload.value,
       };
-    case actiontypes.RECIPE_ERROR:
+    case actiontypes.BLOG_ERROR:
       return {
         ...state,
         error: action.payload,
       };
 
-    case actiontypes.RESET_RECIPE_STATE:
+    case actiontypes.RESET_BLOG_STATE:
 
       return {
         ...state,
         ...emptyState,
       };
-      case actiontypes.UPDATE_RECIPE:
+      case actiontypes.UPDATE_BLOG:
         return {
           ...state,
           [action.payload.name]: action.payload.value
