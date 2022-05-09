@@ -1,38 +1,33 @@
 import React, { useState } from "react";
 import "../assets/styles/userDashBoard.scss";
-
 import profilecircle from "../assets/images/userdashboardprofilecircle.png";
 import { Link, NavLink } from "react-router-dom";
-
 import dashboardIcon from "../assets/images/dashboardIcon.svg";
 import userIcon from "../assets/images/userIconImg.svg";
-
 import recipeIcon from "../assets/images/recipeIcon.svg";
 import logoutIcon from "../assets/images/logoutIcon.svg";
-
 import genderIcon from "../assets/images/genderIcon.svg";
 import emailIcon from "../assets/images/mailIcon.svg";
 import joinedDateIcon from "../assets/images/calenderIcon.svg";
 import profileViewsIcon from "../assets/images/viewIcon.svg";
 import countryIcon from "../assets/images/flagIcon.svg";
 import recipesIcon from "../assets/images/recipeIcon.svg";
-
-const UserProfile = ({ isProfile }) => {
+// const UserProfile = ({ isProfile }) => {
 import { logOutAction } from "../appState/actions/AuthAction";
-import dashboardIcon from "../assets/images/dashboard.png";
-import userIcon from "../assets/images/user.png";
-import recipeIcon from "../assets/images/recipe.png";
-import logoutIcon from "../assets/images/logout.png";
+// // import dashboardIcon from "../assets/images/dashboard.png";
+// import userIcon from "../assets/images/user.png";
+// import recipeIcon from "../assets/images/recipe.png";
+// import logoutIcon from "../assets/images/logout.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import nameIcon from "../assets/images/user.png";
-import genderIcon from "../assets/images/female.png";
-import emailIcon from "../assets/images/mail.png";
-import joinedDateIcon from "../assets/images/calender.png";
-import profileViewsIcon from "../assets/images/view.png";
-import countryIcon from "../assets/images/flag.png";
-import recipesIcon from "../assets/images/recipe.png";
+// import nameIcon from "../assets/images/user.png";
+// import genderIcon from "../assets/images/female.png";
+// import emailIcon from "../assets/images/mail.png";
+// import joinedDateIcon from "../assets/images/calender.png";
+// import profileViewsIcon from "../assets/images/view.png";
+// import countryIcon from "../assets/images/flag.png";
+// import recipesIcon from "../assets/images/recipe.png";
 
 const UserProfile = ({ isProfile, profileInfo }) => {
   const userProfile = useSelector((state) => state.user);
@@ -67,7 +62,7 @@ const UserProfile = ({ isProfile, profileInfo }) => {
           {!isProfile ? (
             <div>
               {user?.profilePic ? (
-                <img className="profile_img" src={profilecircle} alt="" />
+                // <img className="profile_img" src={profilecircle} alt="" />
                 <img
                   className="profile_img"
                   src={user?.profilePic}
@@ -82,8 +77,9 @@ const UserProfile = ({ isProfile, profileInfo }) => {
             </div>
           ) : (
             <div>
-              {user?.profilePic ? (
+              {/* {user?.profilePic ? (
                 <img className="profile_img" src={profilecircle} alt="" />
+         */}
               {/* other person profile */}
               {profilePic ? (
                 <img
@@ -164,6 +160,7 @@ const UserProfile = ({ isProfile, profileInfo }) => {
           </>
         )}
       </div>
+      
     </div>
   );
 };

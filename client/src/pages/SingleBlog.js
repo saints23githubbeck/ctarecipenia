@@ -31,7 +31,7 @@ const SingleBlog = () => {
   const single = [
     {
       id: "1",
-      img: blog1,
+      img: "",
       title: "Make your own chicken",
       view: "500",
       lastUpdate: "Feb 07,2022",
@@ -40,7 +40,7 @@ const SingleBlog = () => {
     },
     {
       id: "2",
-      img: blog2,
+      img: "blog2",
       title: "Make your own Ice Cream",
       view: "500",
       lastUpdate: "Feb 07,2022",
@@ -49,7 +49,7 @@ const SingleBlog = () => {
     },
     {
       id: "3",
-      img: blog3,
+      img: "blog3",
       title: "Make your own chicken",
       view: "500",
       lastUpdate: "Feb 07,2022",
@@ -58,7 +58,7 @@ const SingleBlog = () => {
     },
     {
       id: "4",
-      img: blog4,
+      img: "blog4",
       title: "Make your own Shrimp",
       view: "500",
       lastUpdate: "Feb 07,2022",
@@ -67,7 +67,7 @@ const SingleBlog = () => {
     },
     {
       id: "5",
-      img: blog5,
+      img: "blog5",
       title: "Make your own Soup",
       view: "500",
       lastUpdate: "Feb 07,2022",
@@ -76,7 +76,7 @@ const SingleBlog = () => {
     },
     {
       id: "6",
-      img: blog6,
+      img: "blog6",
       title: "Make your own Shrimp Sauce",
       view: "500",
       lastUpdate: "Feb 07,2022",
