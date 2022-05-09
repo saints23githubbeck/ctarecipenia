@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const mongoose = require("mongoose")
+const Schema = mongoose.Schema
 
 const userSchema = new Schema(
   {
@@ -12,10 +12,15 @@ const userSchema = new Schema(
       min: 4,
       match: [/^[a-zA-Z0-9._]+$/, "username contains invalid characters"],
     },
-    name: {
+    firstName: {
       type: String,
       default: "",
     },
+    lastName: {
+      type: String,
+      default: "",
+    },
+
     country: {
       type: String,
       default: "",
@@ -24,10 +29,7 @@ const userSchema = new Schema(
       type: String,
       default: "",
     },
-    gender: {
-      type: String,
-      default: "",
-    },
+
     password: {
       type: String,
       min: 6,
@@ -45,16 +47,25 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    profilePic: {
+    image: {
       type: String,
       default: "",
     },
+    userGroup: {
+      type: String,
+      default: "subscriber", //or admin
+    },
+    slug: {
+      type: String,
+      unique: true,
+      index: true,
+    },
     status: {
       type: String,
-      default: "subscriber",
+      default: "active", //or inactive
     },
   },
   { timestamps: true }
-);
-const User = mongoose.model("User", userSchema);
-module.exports = User;
+)
+const User = mongoose.model("User", userSchema)
+module.exports = User

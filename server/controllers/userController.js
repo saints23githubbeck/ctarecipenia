@@ -1,279 +1,144 @@
-const asyncHandler = require("express-async-handler");
-const User = require("../models/userModel");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-
-exports.register = asyncHandler(async (req, res) => {
-  const { username, password, email, secret, profilePic } = req.body;
-  if (!username || !password || !email || !secret) {
-    res.status(400);
-    throw new Error("Please fill all required fields");
-  }
-
-  if (password && password.length < 6) {
-    return res.json({
-      error: "Password should be 6 or more characters long",
-    });
-  }
-
-  const userExists = await User.findOne({ email });
-  if (userExists) {
-    res.status(400);
-    throw new Error("User with that email already exists");
-  }
-
-  const salt = await bcrypt.genSalt(12);
-  const hashPassword = await bcrypt.hash(password, salt);
-  const hashedSecret = await bcrypt.hash(secret, salt);
-
-  const user = await User.create({
-    email,
-    username,
-    password: hashPassword,
-    secret: hashedSecret,
-    profilePic,
-  });
-
-  const userToken = createToken(user._id, email);
-
-  if (user) {
-    user.password = undefined;
-    user.secret = undefined;
-    res.status(201).json({
-      message: "Signup success! Please login.",
-      success: true,
-      user,
-      token: userToken,
-    });
-  } else {
-    res.status(400);
-    throw new Error("Registration failed. Please try again later");
-  }
-});
-
-exports.login = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
-  const user = await User.findOne({ email });
-
-  if (!user) {
-    res.status(401);
-    throw new Error("this user does not exist sign up");
-  }
-  const match = await bcrypt.compare(password, user.password);
-
-  if (match) {
-    const userToken = createToken(user._id, email);
-    user.password = undefined;
-    user.secret = undefined;
-    res.status(200).json({
-      message: `Welcome back ${user.username}`,
-      user,
-      token: userToken,
-    });
-  } else {
-    res.status(401);
-    throw new Error("Invalid user credentials");
-  }
-});
-
-exports.forgotPassword = asyncHandler(async (req, res) => {
-  // console.log(req.body);
-  const { email, newPassword, userSecret } = req.body;
-
-  if (!userSecret || !email) {
-    return res.json({
-      message: "Please fill all fields",
-    });
-  }
-  // validation
-  if (!newPassword || newPassword < 6) {
-    return res.json({
-      message: "Password is required and must be at least 6 characters",
-    });
-  }
-
-  const user = await User.findOne({ email });
-  !user && res.json({ message: "Invalid user credentials" });
-
-  const match = await bcrypt.compare(userSecret, user.secret);
-
-  if (match) {
-    try {
-      const salt = await bcrypt.genSalt(12);
-      const hashPassword = await bcrypt.hash(newPassword, salt);
-      await User.findByIdAndUpdate(user._id, { password: hashPassword });
-      return res.json({
-        success: "Password changed, Now you can login with your new password",
-      });
-    } catch (err) {
-      //console.log(err)
-      return res.json({
-        message: "Something wrong. Try again.",
-      });
-    }
-  }
-});
+const asyncHandler = require("express-async-handler")
+const User = require("../models/userModel")
+const bcrypt = require("bcrypt")
 
 exports.profileUpdate = asyncHandler(async (req, res) => {
-  //console.log(res.user._id, "req user")
   try {
     //console.log("profile update req.body", req.body);
     const {
       secret,
       username,
-      profilePic,
+      image,
       country,
-      gender,
       description,
       lastName,
+      password,
       firstName,
-    } = req.body;
-    const updateInfo = {};
+    } = req.body
+    const updateInfo = {}
 
     if (username) {
-      updateInfo.username = username;
+      updateInfo.username = username
+      const slug = slugify(username).toLowerCase()
+
+      updateInfo.slug = slug
     }
 
-    if (firstName && lastName) {
-      updateInfo.name = `${req.body.firstName} ${req.body.lastName}`;
+    if (firstName) {
+      updateInfo.firstName = firstName
     }
+
+    if (lastName) {
+      updateInfo.lastName = lastName
+    }
+
     if (country) {
-      updateInfo.country = country;
+      updateInfo.country = country
     }
     if (description) {
-      updateInfo.description = description;
-    }
-    if (gender) {
-      updateInfo.gender = gender;
+      updateInfo.description = description
     }
 
     if (secret) {
-      const salt = await bcrypt.genSalt(12);
-      const hashedSecret = await bcrypt.hash(secret, salt);
-      updateInfo.secret = hashedSecret;
+      const salt = await bcrypt.genSalt(12)
+      const hashedSecret = await bcrypt.hash(secret, salt)
+      updateInfo.secret = hashedSecret
     }
 
-    if (profilePic) {
-      updateInfo.profilePic = profilePic;
+    if (password) {
+      const salt = await bcrypt.genSalt(12)
+      const hashedPassword = await bcrypt.hash(secret, salt)
+      updateInfo.password = hashedPassword
     }
-    const user = await User.findOneAndUpdate(res.user._id, updateInfo, {
-      new: true,
-    });
-    user.password = undefined;
-    user.secret = undefined;
-    res.status(200).json({ message: "Profile has been updated", user });
+
+    if (image) {
+      updateInfo.image = image
+    }
+
+    const user = await User.findByIdAndUpdate(
+      req.user._id,
+      { $set: updateInfo },
+      {
+        new: true,
+        upsert: true,
+        setDefaultsOnInsert: true,
+      }
+    )
+    user.password = undefined
+    user.secret = undefined
+    res.status(200).json({ message: "Profile has been updated", user })
   } catch (err) {
     if (err.code === 11000) {
-      return res.json({ error: " Username already taken" });
+      return res.json({ error: " Username already taken" })
     }
-    return res.status(500).json(err);
+    return res.status(500).json(err)
   }
-});
+})
 
 exports.deleteUser = asyncHandler(async (req, res) => {
-  const userId = res.user._id;
+  const userId = req.user._id
   try {
-    const user = await User.findByIdAndDelete(userId);
+    const user = await User.findByIdAndDelete(userId)
 
     res.json({
-      message: `Your account has been deleted. Goodbye! ${user.name}`,
-    });
+      message: `Your account has been deleted. Goodbye! ${user.name}. Sorry to see you go. `,
+    })
   } catch (err) {
-    console.log(err);
+    console.log(err)
   }
-});
+})
 
 exports.getMyProfile = asyncHandler(async (req, res) => {
-  const user = res.user;
-  res.status(200).json({ user });
-});
+  const user = req.user
 
-exports.getAdminProfile = asyncHandler(async (req, res) => {
-  res.status(200).json(res.user);
-});
+  res.status(200).json({ user })
+})
+
+exports.getUserBySlug = asyncHandler(async (req, res) => {
+  const slug = req.params.slug.toLowerCase()
+
+  try {
+    const user = await User.findOne({ slug }).select("-password -secret")
+
+    if (!user) {
+      return res.status(401).json({ error: "No user found" })
+    }
+
+    res.status(200).json(user)
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
+})
 
 exports.searchUser = asyncHandler(async (req, res) => {
-  const { query } = req.params;
-  if (!query) return;
+  const { search } = req.query
+  if (!search) return
   try {
     const user = await User.find({
       $or: [
-        { name: { $regex: query, $options: "i" } },
-        { username: { $regex: query, $options: "i" } },
+        { firstName: { $regex: search, $options: "i" } },
+        { lastName: { $regex: search, $options: "i" } },
+        { slug: { $regex: search, $options: "i" } },
+        { username: { $regex: search, $options: "i" } },
       ],
-    }).select("-password -secret");
-    res.json(user);
+    }).select("-password -secret")
+    res.json(user)
   } catch (err) {
-    console.log(err);
+    console.log(err)
   }
-});
-
-exports.getUsersByAdmin = asyncHandler(async (req, res) => {
-  try {
-    const users = await User.find({});
-    users && res.status(201).json({ users });
-  } catch (error) {
-    res.status(404).json({ errors: error.message });
-  }
-});
+})
 
 exports.fetchSubscribers = asyncHandler(async (req, res) => {
   try {
-    const subscribers = await User.find({ status: "subscriber" }).select(
+    const subscribers = await User.find({ userGroup: "subscriber" }).select(
       "-password -secret"
-    );
-    subscribers && res.status(201).json({ subscribers });
+    )
+
+    const totalNumberOfSubscribers = subscribers.length
+
+    subscribers &&
+      res.status(200).json({ subscribers, totalNumberOfSubscribers })
   } catch (error) {
-    res.status(404).json({ errors: error.message });
+    res.status(404).json({ errors: error.message })
   }
-});
-
-exports.getUserByIdByAdmin = asyncHandler(async (req, res) => {
-  try {
-    const userId = res.user._id;
-    const user = await User.findById({ _id: userId }).select(
-      "-password -secret"
-    );
-    user && res.json({ user });
-  } catch (error) {
-    res.status(404);
-    throw new Error("User not found");
-  }
-});
-
-exports.updateUserByAdmin = asyncHandler(async (req, res) => {
-  const { email, username, status } = req.body;
-  try {
-    const userId = res.user._id;
-    const user = await User.findById({ _id: userId }).select(
-      "-password -secret"
-    );
-
-    if (user) {
-      user.username = username || user.username;
-      user.email = email || user.email;
-      user.status = status || user.status;
-
-      const updatedUser = await user.save();
-
-      updatedUser.password = undefined;
-      updatedUser.secret = undefined;
-
-      res.json({
-        updatedUser,
-      });
-    } else {
-      res.status(404);
-      throw new Error("User not found");
-    }
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-//middleware
-const createToken = (userId, email) => {
-  return jwt.sign({ userId, email }, process.env.JWT_SECRET, {
-    expiresIn: "30 days",
-  });
-};
+})
