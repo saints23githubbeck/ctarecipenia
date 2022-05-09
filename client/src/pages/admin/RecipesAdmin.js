@@ -1,26 +1,50 @@
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { FaPlus } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { recipes } from "../../components/admin/data";
 import ReactPaginate from "react-paginate";
 import * as BiIcons from "react-icons/bi";
 import AdminModal from "../../components/modals/AdminModal";
+import {
+  getALLRecipes,
+  setRecipesError,
+} from "../../appState/actions/recipeAction";
+import * as actiontypes from "../../appState/actionTypes";
+import { BASE_URL } from "../../api";
 
 const PER_PAGE = 10;
-const URL = { recipes };
 
 const RecipesAdmin = () => {
   const navigate = useNavigate();
+  const { recipes } = useSelector((state) => state.recipe);
   const [addRecipe, setAddRecipe] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
   const [recipesList, setRecipesList] = useState(recipes);
+  const dispatch = useDispatch();
 
-  const handleDelete = (e) => {
-    const filtered = recipesList.filter((recipes) => recipes !== e);
-    setRecipesList(filtered);
-  };
+  async function handleDelete(_id) {
+    let result = await fetch(`${BASE_URL}/recipe/${_id}`, {
+      method: "DELETE",
+    });
+    result = await result.json();
+    console.log(result);
+    dispatch(getALLRecipes());
+  }
+
+  // const handleDelete = (e) => {
+  //   const filtered = recipesList.filter((recipes) => recipes !== e);
+  //   setRecipesList(filtered);
+  // };
+
+  useEffect(() => {
+    setRecipesList(recipes);
+  }, [recipes]);
+
+  useEffect(() => {
+    dispatch(getALLRecipes());
+  }, []);
 
   const status = (status) => {
     switch (status) {
@@ -33,6 +57,10 @@ const RecipesAdmin = () => {
     }
   };
 
+  const convertDate = (date) => {
+    return new Date(date)?.toDateString();
+  };
+
   const handleOpen = (item) => {
     setShowModal(true);
     setAddRecipe(item);
@@ -40,6 +68,10 @@ const RecipesAdmin = () => {
 
   const handleClose = () => {
     setShowModal(false);
+    dispatch({
+      type: actiontypes.RESET_RECIPE_STATE,
+    });
+    dispatch(setRecipesError(""));
   };
 
   useEffect(() => {
@@ -61,12 +93,15 @@ const RecipesAdmin = () => {
   const offset = currentPage * PER_PAGE;
 
   const currentPageData = recipesList
+    .sort(function (a, b) {
+      return new Date(b.updatedAt) - new Date(a.updatedAt);
+    })
     .slice(offset, offset + PER_PAGE)
     .map((recipes) => (
       <tr key={recipes.id} className="">
         <td className="tdata">{recipes.category}</td>
         <td className="tdata">{recipes.title}</td>
-        <td className="tdata">{recipes.published}</td>
+        <td className="tdata">{convertDate(recipes.updatedAt)}</td>
         <td className="tdata">
           <p
             style={{
@@ -90,7 +125,7 @@ const RecipesAdmin = () => {
           <button
             className="detailsButton"
             style={{ backgroundColor: "red" }}
-            onClick={(e) => handleDelete(recipes)}
+            onClick={() => handleDelete(recipes._id)}
           >
             <BiIcons.BiTrash className="text-white h6" /> Delete
           </button>

@@ -10,7 +10,7 @@ const mongoSanitize = require("express-mongo-sanitize")
 const xssClean = require("xss-clean")
 const hpp = require("hpp")
 require("dotenv").config()
-const app = express()
+const app = express() 
 
 process.on("uncaughtException", (error) => {
   console.error(`Error: ${error.message}`)

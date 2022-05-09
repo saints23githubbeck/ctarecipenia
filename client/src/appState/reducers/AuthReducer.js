@@ -65,7 +65,6 @@ export const user = (state = initialState, action) => {
         user: action.payload.user,
         isLoggedIn: action.payload.isLoggedIn,
       };
-
     case actiontypes.SIGN_UP_FAILED:
       return {
         ...state,

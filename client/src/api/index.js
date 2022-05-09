@@ -20,7 +20,7 @@ export const getProfileApi = (username) => API.get(`/search-user/${username}`);
 export const addNewRecipeApi = (newRecipe) =>
   API.post(`/add-recipe`, newRecipe);
 
-const BASE_URL = "http://localhost:8080";
+export const BASE_URL = "http://localhost:8080";
 
 export const httpRequest = async (params) => {
   try {
