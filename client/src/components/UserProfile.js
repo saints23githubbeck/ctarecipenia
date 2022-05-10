@@ -2,36 +2,20 @@ import React, { useState } from "react";
 import "../assets/styles/userDashBoard.scss";
 import profilecircle from "../assets/images/userdashboardprofilecircle.png";
 import { Link, NavLink } from "react-router-dom";
-import dashboardIcon from "../assets/images/dashboardIcon.svg";
-import userIcon from "../assets/images/userIconImg.svg";
-import recipeIcon from "../assets/images/recipeIcon.svg";
-import logoutIcon from "../assets/images/logoutIcon.svg";
-import genderIcon from "../assets/images/genderIcon.svg";
-import emailIcon from "../assets/images/mailIcon.svg";
-import joinedDateIcon from "../assets/images/calenderIcon.svg";
-import profileViewsIcon from "../assets/images/viewIcon.svg";
-import countryIcon from "../assets/images/flagIcon.svg";
-import recipesIcon from "../assets/images/recipeIcon.svg";
-// const UserProfile = ({ isProfile }) => {
 import { logOutAction } from "../appState/actions/AuthAction";
-// // import dashboardIcon from "../assets/images/dashboard.png";
-// import userIcon from "../assets/images/user.png";
-// import recipeIcon from "../assets/images/recipe.png";
-// import logoutIcon from "../assets/images/logout.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { AiOutlineCalendar, AiOutlineFlag, AiFillDashboard, AiOutlineUser, AiOutlineMail } from "react-icons/ai";
+import * as AiIcons from "react-icons/ai";
+import { MdFoodBank } from "react-icons/md";
+import {BiLogOut} from "react-icons/bi";
+import {FaFemale} from "react-icons/fa";
+import {GrView} from "react-icons/gr";
 
-// import nameIcon from "../assets/images/user.png";
-// import genderIcon from "../assets/images/female.png";
-// import emailIcon from "../assets/images/mail.png";
-// import joinedDateIcon from "../assets/images/calender.png";
-// import profileViewsIcon from "../assets/images/view.png";
-// import countryIcon from "../assets/images/flag.png";
-// import recipesIcon from "../assets/images/recipe.png";
 
 const UserProfile = ({ isProfile, profileInfo }) => {
   const userProfile = useSelector((state) => state.user);
-  const { user, isLoggedIn } = userProfile;
+  const { user, isLoggedIn } = userProfile; 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [profileData, setProfileData] = useState({
@@ -59,27 +43,26 @@ const UserProfile = ({ isProfile, profileInfo }) => {
     <div className="user-menu flex">
       <div className="profile flex">
         <div className="profile_text_img">
+          {/* <img src={profilecircle} alt="" /> */}
           {!isProfile ? (
             <div>
               {user?.profilePic ? (
-                // <img className="profile_img" src={profilecircle} alt="" />
                 <img
                   className="profile_img"
                   src={user?.profilePic}
                   alt="user profile"
                 />
               ) : (
-                /// <img className="profile_img" src={profilecircle} alt="" />
+                <div>
+                <img className="profile_img" src={profilecircle} alt="" />
                 <span className="profile_text">
                   {user?.username?.split("")[0]}
                 </span>
+                </div>
               )}
             </div>
           ) : (
             <div>
-              {/* {user?.profilePic ? (
-                <img className="profile_img" src={profilecircle} alt="" />
-         */}
               {/* other person profile */}
               {profilePic ? (
                 <img
@@ -105,48 +88,48 @@ const UserProfile = ({ isProfile, profileInfo }) => {
         {isProfile ? (
           <>
             <div className="flex">
-              <img src={userIcon} alt="nameIcon" />
+              <AiOutlineUser alt="nameIcon" />
               <h5>{name}</h5>
             </div>
             <div className="flex">
-              <img src={genderIcon} alt="genderIcon" />
+              <FaFemale alt="genderIcon" />
               <h5>{gender}</h5>
             </div>
             <div className="flex">
-              <img src={emailIcon} alt="emailIcon" />
+              <AiOutlineMail alt="emailIcon" />
               <h5>{email}</h5>
             </div>
             <div className="flex">
-              <img src={countryIcon} alt="countryIcon" />
+              <AiOutlineFlag alt="countryIcon" />
               <h5>{country}</h5>
             </div>
             <div className="flex">
-              <img src={recipesIcon} alt="recipesIcon" />
+              <MdFoodBank alt="recipesIcon" />
               <h5>{recipes}</h5>
             </div>
             <div className="flex">
-              <img src={joinedDateIcon} alt="joinedDateIcon" />
+              <AiOutlineCalendar alt="joinedDateIcon" />
               <h5>{joinedDate}</h5>
             </div>
             <div className="flex">
-              <img src={profileViewsIcon} alt="profileViewsIcon" />
+              <GrView alt="profileViewsIcon" />
               <h5>{profileViews}</h5>
             </div>
           </>
         ) : (
           <>
             <NavLink className="flex" to="/user-dashboard">
-              <img src={dashboardIcon} alt="dashboardIcon" />
+              <AiFillDashboard alt="dashboardIcon" />
               <h5>Dashboard</h5>
             </NavLink>
 
             <Link className="flex" to={`/profile/:${user.username}`}>
-              <img src={userIcon} alt="userIcon" />
+              <AiOutlineUser alt="userIcon" />
               <h5>My Profile</h5>
             </Link>
 
             <NavLink className="flex" to="/myrecipe">
-              <img src={recipeIcon} alt="recipeIcon" />
+              <MdFoodBank alt="recipeIcon" />
               <h5>My Recipes</h5>
             </NavLink>
 
@@ -154,15 +137,17 @@ const UserProfile = ({ isProfile, profileInfo }) => {
               className="flex"
               onClick={() => dispatch(logOutAction(navigate))}
             >
-              <img src={logoutIcon} alt="logoutIcon" />
+              <BiLogOut alt="logoutIcon" />
               <h5>Logout</h5>
             </span>
           </>
         )}
       </div>
-      
     </div>
   );
 };
 
 export default UserProfile;
+
+
+

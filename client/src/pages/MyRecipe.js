@@ -7,13 +7,9 @@ import Userphoto2 from "../assets/images/blog2.svg";
 import Userphoto3 from "../assets/images/blog3.svg";
 
 import UserProfile from "../components/UserProfile";
-
-import viewIcon from "../assets/images/viewWhiteIcon.svg";
-import deleteIcon from "../assets/images/deleteIcon.svg";
-import editIcon from "../assets/images/editIcon.svg";
-// import deleteIcon from "../assets/images/deleteicon.png";
-// import editIcon from "../assets/images/edit.png";
 import { Link } from "react-router-dom";
+import { GrView } from "react-icons/gr";
+import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 
 const MyRecipe = () => {
   const [recipesList, setRecipesList] = useState([
@@ -100,19 +96,19 @@ const MyRecipe = () => {
                   <div className="row5 flex actions">
                     <Link to="/viewrecipe">
                       <div className="view">
-                        <img src={viewIcon} alt="" />
+                        <GrView alt="" />
                       </div>
                     </Link>
                     <Link to="/addrecipe">
                       <div className="edit">
-                        <img src={editIcon} alt="" />
+                        <AiFillEdit alt="" />
                       </div>
                     </Link>
                     <div
                       onClick={(e) => handleDelete(recipe)}
                       className="delete"
                     >
-                      <img src={deleteIcon} alt="" />
+                      <AiFillDelete alt="" />
                     </div>
                   </div>
                 </div>

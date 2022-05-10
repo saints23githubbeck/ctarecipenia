@@ -1,18 +1,5 @@
-import blog1 from "../assets/images/blog1.svg";
-import blog2 from "../assets/images/blog2.svg";
-import blog3 from "../assets/images/blog3.svg";
-import blog4 from "../assets/images/blog4.svg";
-import blog5 from "../assets/images/blog5.svg";
-import blog6 from "../assets/images/blog6.svg";
-
-
-import eyeIcon from "../assets/images/eyeIcon.svg";
-import clockIcon from "../assets/images/clockIcon.svg";
-import calenderIcon from "../assets/images/calenderIcon.svg";
-
+import {AiFillEye, AiOutlineClockCircle, AiOutlineCalendar} from "react-icons/ai";
 import Blogs from "../components/landingPage/Blogs";
-
-
 import "../assets/styles/blog.scss";
 import { Link } from "react-router-dom";
 import StayWithUs from "../components/StayWithUs";
@@ -21,7 +8,7 @@ const BlogsPage = () => {
   const blogList = [
     {
       id: 1,
-      img: blog1,
+      img: "https://media.istockphoto.com/photos/brazilian-fish-stew-moqueca-picture-id1320857678?b=1&k=20&m=1320857678&s=170667a&w=0&h=vCOmZnpA2SVhaypcER4WrhfLna_JpmhL0ldC_OTHd58=",
       title: "Make your own chicken",
       view: "500",
       lastUpdate: "Feb 07,2022",
@@ -31,7 +18,7 @@ const BlogsPage = () => {
     },
     {
       id: 2,
-      img: blog2,
+      img: "https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fHJlY2lwZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
       title: "Make your own Ice Cream",
       view: "500",
       lastUpdate: "Feb 07,2022",
@@ -41,7 +28,7 @@ const BlogsPage = () => {
     },
     {
       id: 3,
-      img: blog3,
+      img: "https://images.unsplash.com/photo-1627907228175-2bf846a303b4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fHJlY2lwZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
       title: "Make your own chicken",
       view: "500",
       lastUpdate: "Feb 07,2022",
@@ -51,7 +38,7 @@ const BlogsPage = () => {
     },
     {
       id: 4,
-      img: blog4,
+      img: "https://images.unsplash.com/photo-1540660290370-8aa90e451e8a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fHJlY2lwZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
       title: "Make your own Shrimp",
       view: "500",
       lastUpdate: "Feb 07,2022",
@@ -61,7 +48,7 @@ const BlogsPage = () => {
     },
     {
       id: 5,
-      img: blog5,
+      img: "https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHJlY2lwZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
       title: "Make your own Soup",
       view: "500",
       lastUpdate: "Feb 07,2022",
@@ -71,7 +58,7 @@ const BlogsPage = () => {
     },
     {
       id: 6,
-      img: blog6,
+      img: "https://images.unsplash.com/photo-1623691752472-a6d33855e5de?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fHJlY2lwZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
       title: "Make your own Shrimp Sauce",
       view: "500",
       lastUpdate: "Feb 07,2022",
@@ -103,14 +90,14 @@ const BlogsPage = () => {
                   <h3>{blog.title}</h3>
                   <div className="info flex">
                     <div className="view flex">
-                      <img src={eyeIcon} alt="" /> <span>{blog.view}</span>
+                      <AiFillEye alt="" /> <span>{blog.view}</span>
                     </div>
                     <div className="clock flex">
-                      <img src={clockIcon} alt="" />
+                      <AiOutlineClockCircle alt="" />
                       <span>Last Update : {blog.lastUpdate}</span>
                     </div>
                     <div className="calender flex">
-                      <img src={calenderIcon} alt="" />
+                      <AiOutlineCalendar  alt="" />
                       <span>Created : {blog.created}</span>
                     </div>
                   </div>

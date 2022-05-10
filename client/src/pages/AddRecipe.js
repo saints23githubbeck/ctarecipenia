@@ -1,4 +1,3 @@
-import React , {useState , useRef} from "react";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,13 +9,6 @@ import "../assets/styles/addRecipe.scss";
 import { addRecipe } from "../appState/actions/recipeActions";
 
 const AddRecipe = () => {
-  const [selectedFile , setSelectedFile] = useState(null)
-  const target = useRef(null)
-
-  const handleFile =(e) => {
-    const uploaded = e.target.files[0]
-    setSelectedFile(URL.createObjectURL(uploaded))
-  }
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -221,21 +213,6 @@ const AddRecipe = () => {
               </div>
 
               <div className="file">
-                  <div className="div"></div>
-                  <div className="file-item">
-                    <input type='file'
-                    ref={target}
-                    onChange={(e) => handleFile(e)}/>
-                    
-                    {
-                      selectedFile !== null ? <div className="img-file">
-                        <img src={selectedFile} alt="img" />
-                      </div> : 
-                      <div className="file-display">
-                        <h3>No photos uploaded yet !</h3>
-                      </div>
-                    }
-    
                 <div className="div"></div>
                 <div className="file-item">
                   <input type="file" name="" id="" />
