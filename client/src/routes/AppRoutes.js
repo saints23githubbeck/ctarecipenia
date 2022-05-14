@@ -119,7 +119,8 @@ const AppRoutes = (props) => {
             }
           />
         </Route>
-        {/* admin routes */} <Route path="/admin" element={<LoginAdmin />} />
+        {/* admin routes */} 
+        <Route path="/admin" element={<LoginAdmin />} />
 
         <Route exact path="/myrecipe" element={<AuthRoute />}>
           <Route

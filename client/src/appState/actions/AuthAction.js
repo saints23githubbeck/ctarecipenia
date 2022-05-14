@@ -44,11 +44,11 @@ export const signUp = (FormData, navigate) => async (dispatch) => {
   }
 };
 
-export const logIn = (formData, navigate) => async (dispatch) => {
+export const logIn = (formData, navigate, history) => async (dispatch) => {
   try {
     dispatch(setIsLoading(true));
     const result = await httpRequest({
-      url: `/login`,
+      url: history === "/admin"?"/admin/user" : `/login`,
       method: "POST",
       body: JSON.stringify({ ...formData }),
     });
@@ -64,7 +64,11 @@ export const logIn = (formData, navigate) => async (dispatch) => {
           user: result.user,
         },
       });
-      navigate("/user-dashboard");
+      if(history === "/admin"){
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/user-dashboard");
+      };
       console.log(result);
     } else {
       dispatch(setIsLoading(false));
