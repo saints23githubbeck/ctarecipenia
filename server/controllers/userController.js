@@ -14,6 +14,7 @@ exports.profileUpdate = asyncHandler(async (req, res) => {
       lastName,
       password,
       firstName,
+      status,
     } = req.body
     const updateInfo = {}
 
@@ -26,6 +27,9 @@ exports.profileUpdate = asyncHandler(async (req, res) => {
 
     if (firstName) {
       updateInfo.firstName = firstName
+    }
+    if (status) {
+      updateInfo.status = status
     }
 
     if (lastName) {
