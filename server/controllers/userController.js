@@ -59,7 +59,7 @@ exports.profileUpdate = asyncHandler(async (req, res) => {
       updateInfo.image = image
     }
 
-    const user = await User.findByIdAndUpdate(
+    const user = await User.findOneAndUpdate(
       req.user._id,
       { $set: updateInfo },
       {

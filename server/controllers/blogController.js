@@ -65,7 +65,7 @@ exports.getBlogBySlug = async (req, res) => {
   }
 
   try {
-    const blog = await Blog.findOne(slug)
+    const blog = await Blog.findOne({slug})
     //console.log({ "found blog": blog })
 
     if (!blog) {

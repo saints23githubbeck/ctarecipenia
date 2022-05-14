@@ -115,7 +115,7 @@ exports.forgotPassword = asyncHandler(async (req, res) => {
     try {
       const salt = await bcrypt.genSalt(12)
       const hashPassword = await bcrypt.hash(newPassword, salt)
-      await User.findByIdAndUpdate(user._id, { password: hashPassword })
+      await User.findOneAndUpdate(user._id, { password: hashPassword })
       return res.json({
         success: "Password changed, Now you can login with your new password",
       })
