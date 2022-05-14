@@ -55,13 +55,13 @@ exports.addRecipe = async (req, res) => {
       publishedBy: username,
     })
 
-    res.status(201).json({
+    return res.status(201).json({
       message: "Recipe added",
       recipe,
     })
   } catch (err) {
     console.error(err)
-    res.status(400).json({ error: err.message })
+    return res.status(400).json({ error: err.message })
   }
 }
 
@@ -80,13 +80,13 @@ exports.getRecipes = async (req, res) => {
     if (!recipes) {
       return res.status(400).json({ error: [{ message: "Recipes not found" }] })
     }
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       recipes,
       totalRecipes,
     })
   } catch (error) {
-    res.status(500).send(error)
+    return res.status(500).send(error)
   }
 }
 
@@ -106,12 +106,12 @@ exports.getRecipeBySlug = async (req, res) => {
         error: "No recipe found",
       })
     }
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       recipe,
     })
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    return res.status(400).json({ error: error.message })
   }
 }
 
@@ -130,14 +130,17 @@ exports.deleteRecipeBySlug = async (req, res) => {
   Recipe.findOneAndDelete(slug)
     .then((deletedRecipe) => {
       if (deletedRecipe) {
-        res.json({
+        return res.json({
           message: `Successfully deleted  ${deletedRecipe.title} recipe .`,
         })
       } else {
-        res.json({ error: "No recipe matches the provided query." })
+        return res.json({ error: "No recipe matches the provided query." })
       }
     })
-    .catch((err) => console.error(`Failed to find and delete recipe: ${err}`))
+    .catch((err) => {
+      console.error(`Failed to find and delete recipe: ${err}`)
+      return res.status(404).json({ error: err.message })
+    })
 }
 
 /*
@@ -154,12 +157,12 @@ exports.updateRecipe = async (req, res) => {
     const updatedRecipe = await Recipe.findOneAndUpdate(slug, updateRecipe, {
       new: true,
     }).exec()
-    res.status(200).json({
+    return res.status(200).json({
       updatedRecipe,
     })
   } catch (err) {
     //console.log("Recipe update failed ----> ", err)
-    res.status(400).json({
+    return res.status(400).json({
       err: err.message,
     })
   }

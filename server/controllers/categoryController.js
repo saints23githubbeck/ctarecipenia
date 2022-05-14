@@ -14,7 +14,7 @@ exports.createCategory = (req, res) => {
         error: errorHandler(err),
       })
     }
-    res.json(category)
+   return res.json(category)
   })
 }
 
@@ -25,7 +25,7 @@ exports.getAll = (req, res) => {
         error: err.message,
       })
     }
-    res.json(categories)
+   return res.json(categories)
   })
 }
 
@@ -52,7 +52,7 @@ exports.getBySlug = (req, res) => {
             error: errorHandler(err),
           })
         }
-        res.json({ category: category, recipe: data })
+       return res.json({ category: category, recipe: data })
       })
   })
 }
@@ -66,7 +66,7 @@ exports.removeCategory = (req, res) => {
         error: errorHandler(err),
       })
     }
-    res.json({
+   return res.json({
       message: "Category deleted.",
     })
   })

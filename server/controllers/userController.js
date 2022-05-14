@@ -70,7 +70,7 @@ exports.profileUpdate = asyncHandler(async (req, res) => {
     )
     user.password = undefined
     user.secret = undefined
-    res.status(200).json({ message: "Profile has been updated", user })
+    return res.status(200).json({ message: "Profile has been updated", user })
   } catch (err) {
     if (err.code === 11000) {
       return res.json({ error: " Username already taken" })
@@ -84,18 +84,19 @@ exports.deleteUser = asyncHandler(async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(userId)
 
-    res.json({
+    return res.json({
       message: `Your account has been deleted. Goodbye! ${user.name}. Sorry to see you go. `,
     })
   } catch (err) {
     console.log(err)
+    return res.status(500).json({ error: err.message })
   }
 })
 
 exports.getMyProfile = asyncHandler(async (req, res) => {
   const user = req.user
 
-  res.status(200).json({ user })
+  return res.status(200).json({ user })
 })
 
 exports.getUserBySlug = asyncHandler(async (req, res) => {
@@ -108,9 +109,9 @@ exports.getUserBySlug = asyncHandler(async (req, res) => {
       return res.status(401).json({ error: "No user found" })
     }
 
-    res.status(200).json(user)
+    return res.status(200).json(user)
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    return res.status(400).json({ error: error.message })
   }
 })
 
@@ -126,9 +127,10 @@ exports.searchUser = asyncHandler(async (req, res) => {
         { username: { $regex: search, $options: "i" } },
       ],
     }).select("-password -secret")
-    res.json(user)
+    return res.json(user)
   } catch (err) {
     console.log(err)
+    return res.status(500).json({ error: err.message })
   }
 })
 
@@ -143,6 +145,6 @@ exports.fetchSubscribers = asyncHandler(async (req, res) => {
     subscribers &&
       res.status(200).json({ subscribers, totalNumberOfSubscribers })
   } catch (error) {
-    res.status(404).json({ errors: error.message })
+    return res.status(404).json({ errors: error.message })
   }
 })

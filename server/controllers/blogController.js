@@ -15,13 +15,13 @@ exports.createBlog = async (req, res) => {
     blog.postedBy = req.user._id
     blog.slug = slugify(req.body.title).toLowerCase()
     blog.save()
-    res.status(201).json({
+    return res.status(201).json({
       message: "Blog created",
       blog,
     })
   } catch (err) {
     console.error(err)
-    res.status(400).json({ error: err.message })
+    return res.status(400).json({ error: err.message })
   }
 }
 
@@ -40,13 +40,13 @@ exports.getBlogs = async (req, res) => {
     if (!blogs) {
       return res.status(400).json({ error: [{ message: "Blogs not found" }] })
     }
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       blogs,
       totalBlogs,
     })
   } catch (error) {
-    res.status(500).send(error)
+    return res.status(500).send(error)
   }
 }
 
@@ -59,13 +59,13 @@ exports.getBlogBySlug = async (req, res) => {
   const slug = req.params.slug.toLowerCase()
 
   if (!slug) {
-    res.status(400).json({
+    return res.status(400).json({
       message: `Cannot find blog: ${slug}`,
     })
   }
 
   try {
-    const blog = await Blog.findOne({slug})
+    const blog = await Blog.findOne({ slug })
     //console.log({ "found blog": blog })
 
     if (!blog) {
@@ -74,12 +74,12 @@ exports.getBlogBySlug = async (req, res) => {
       })
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       blog,
     })
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    return res.status(400).json({ error: error.message })
   }
 }
 
@@ -95,17 +95,19 @@ exports.deleteBlogBySlug = async (req, res) => {
   Blog.findOneAndDelete(slug)
     .then((deletedBlog) => {
       if (deletedBlog) {
-        res.json({
+        return res.json({
           message: `Successfully deleted blog`,
         })
       } else {
-        res.json({
+        return res.json({
           message: `No blog  matches the provided query.`,
         })
       }
-      return deletedBlog
     })
-    .catch((err) => console.error(`Failed to find and delete blog: ${err}`))
+    .catch((err) => {
+      console.error(`Failed to find and delete blog: ${err}`)
+      return res.status(500).json({ error: err.message })
+    })
 }
 
 /*
@@ -122,81 +124,82 @@ exports.updateBlog = async (req, res) => {
     const updatedBlog = await Blog.findOneAndUpdate(slug, updateBlog, {
       new: true,
     }).exec()
-    res.status(200).json({
+    return res.status(200).json({
       updatedBlog,
     })
   } catch (err) {
-    res.status(400).json({
+    return res.status(400).json({
       err: err.message,
     })
   }
 }
 
-
 /** Fetch all related blog posts*/
 exports.fetchRelatedBlogs = (req, res) => {
-	// console.log(req.body.blog);
-	let limit = req.body.limit ? parseInt(req.body.limit) : 3
-	const {_id, categories} = req.body.blog
+  // console.log(req.body.blog);
+  let limit = req.body.limit ? parseInt(req.body.limit) : 3
+  const { _id, categories } = req.body.blog
 
-	Blog.find({_id: {$ne: _id}, categories: {$in: categories}})
-		.limit(limit)
-		.populate("postedBy", "_id name username profile")
-		.select("title slug postedBy createdAt updatedAt")
-		.sort({createdAt: "desc"})
-		.exec((error, blogs) => {
-			if (error) {
-				return res.status(400).json({
-					error: "Blogs not found",
-				})
-			}
-			res.json(blogs)
-		})
+  Blog.find({ _id: { $ne: _id }, categories: { $in: categories } })
+    .limit(limit)
+    .populate("postedBy", "_id name username profile")
+    .select("title slug postedBy createdAt updatedAt")
+    .sort({ createdAt: "desc" })
+    .exec((error, blogs) => {
+      if (error) {
+        return res.status(400).json({
+          error: "Blogs not found",
+        })
+      }
+      return res.json(blogs)
+    })
 }
 
 /** Search through blog post */
 exports.searchBlog = (req, res) => {
-	//console.log(req.query)
-	const {search} = req.query
-	if (search) {
-		Blog.find(
-			{
-				$or: [{title: {$regex: search, $options: "i"}}, {body: {$regex: search, $options: "i"}}],
-			},
-			(error, blogs) => {
-				if (error) {
-					return res.status(400).json({
-						error: error,
-					})
-				}
-				res.json(blogs)
-			}
-		).select("-photo -body")
-	}
+  //console.log(req.query)
+  const { search } = req.query
+  if (search) {
+    Blog.find(
+      {
+        $or: [
+          { title: { $regex: search, $options: "i" } },
+          { body: { $regex: search, $options: "i" } },
+        ],
+      },
+      (error, blogs) => {
+        if (error) {
+          return res.status(400).json({
+            error: error,
+          })
+        }
+       return res.json(blogs)
+      }
+    ).select("-photo -body")
+  }
 }
-
 
 /** Find a blog post by user*/
 exports.fetchBlogByUser = (req, res) => {
-	User.findOne({username: req.params.username}).exec((error, user) => {
-		if (error) {
-			return res.status(400).json({
-				error: error,
-			})
-		}
-		let userId = user._id
-		Blog.find({postedBy: userId})
-			.populate("categories", "_id title slug icon permalink")
-			.populate("postedBy", "_id name username")
-			.select("_id title slug postedBy createdAt updatedAt")
-			.sort({createdAt: "desc"})
-			.exec((error, data) => {
-				if (error) {
-					return res.status(400).json({
-						error: error,
-					})
-				}
-				res.json(data)
-			})
-	})
+  User.findOne({ username: req.params.username }).exec((error, user) => {
+    if (error) {
+      return res.status(400).json({
+        error: error,
+      })
+    }
+    let userId = user._id
+    Blog.find({ postedBy: userId })
+      .populate("categories", "_id title slug icon permalink")
+      .populate("postedBy", "_id name username")
+      .select("_id title slug postedBy createdAt updatedAt")
+      .sort({ createdAt: "desc" })
+      .exec((error, data) => {
+        if (error) {
+          return res.status(400).json({
+            error: error,
+          })
+        }
+       return res.json(data)
+      })
+  })
 }
