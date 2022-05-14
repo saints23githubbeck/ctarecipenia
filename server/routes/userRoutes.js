@@ -16,6 +16,6 @@ router.get("/me", requireSignIn, authMiddleware, getMyProfile)
 router.get("/subscribers", fetchSubscribers)
 router.get("/search-user/search", searchUser)
 router.put("/profile-update", requireSignIn, authMiddleware, profileUpdate)
-router.delete("/remove-user", requireSignIn, deleteUser)
+router.delete("/remove-user", requireSignIn, authMiddleware, deleteUser)
 
 module.exports = router

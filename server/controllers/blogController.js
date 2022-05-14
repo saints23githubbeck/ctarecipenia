@@ -131,3 +131,72 @@ exports.updateBlog = async (req, res) => {
     })
   }
 }
+
+
+/** Fetch all related blog posts*/
+exports.fetchRelatedBlogs = (req, res) => {
+	// console.log(req.body.blog);
+	let limit = req.body.limit ? parseInt(req.body.limit) : 3
+	const {_id, categories} = req.body.blog
+
+	Blog.find({_id: {$ne: _id}, categories: {$in: categories}})
+		.limit(limit)
+		.populate("postedBy", "_id name username profile")
+		.select("title slug postedBy createdAt updatedAt")
+		.sort({createdAt: "desc"})
+		.exec((error, blogs) => {
+			if (error) {
+				return res.status(400).json({
+					error: "Blogs not found",
+				})
+			}
+			res.json(blogs)
+		})
+}
+
+/** Search through blog post */
+exports.searchBlog = (req, res) => {
+	//console.log(req.query)
+	const {search} = req.query
+	if (search) {
+		Blog.find(
+			{
+				$or: [{title: {$regex: search, $options: "i"}}, {body: {$regex: search, $options: "i"}}],
+			},
+			(error, blogs) => {
+				if (error) {
+					return res.status(400).json({
+						error: error,
+					})
+				}
+				res.json(blogs)
+			}
+		).select("-photo -body")
+	}
+}
+
+
+/** Find a blog post by user*/
+exports.fetchBlogByUser = (req, res) => {
+	User.findOne({username: req.params.username}).exec((error, user) => {
+		if (error) {
+			return res.status(400).json({
+				error: error,
+			})
+		}
+		let userId = user._id
+		Blog.find({postedBy: userId})
+			.populate("categories", "_id title slug icon permalink")
+			.populate("postedBy", "_id name username")
+			.select("_id title slug postedBy createdAt updatedAt")
+			.sort({createdAt: "desc"})
+			.exec((error, data) => {
+				if (error) {
+					return res.status(400).json({
+						error: error,
+					})
+				}
+				res.json(data)
+			})
+	})
+}

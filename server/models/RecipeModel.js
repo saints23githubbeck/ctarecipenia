@@ -44,6 +44,7 @@ const recipeSchema = new Schema(
     serves: {
       type: Number,
     },
+    publishedBy: { type: String, required: true },
   },
   { timestamps: true }
 )
