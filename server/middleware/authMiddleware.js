@@ -67,7 +67,7 @@ exports.adminMiddleware = async (req, res, next) => {
   if (user.userGroup !== "admin") {
     return res.status(400).json({
       error: "Admin access only. Access denied",
-    })
+    }) 
   }
 
   req.user = user

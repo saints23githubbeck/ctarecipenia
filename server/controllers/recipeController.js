@@ -8,6 +8,8 @@ const slugify = require("slugify")
 */
 
 exports.addRecipe = async (req, res) => {
+  const { username } = req.user
+
   const {
     title,
     category,
@@ -50,6 +52,7 @@ exports.addRecipe = async (req, res) => {
       prepareTime,
       serves,
       slug,
+      publishedBy: username,
     })
 
     res.status(201).json({

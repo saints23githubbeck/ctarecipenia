@@ -1,4 +1,5 @@
 const asyncHandler = require("express-async-handler")
+const slugify = require("slugify")
 const User = require("../models/userModel")
 const bcrypt = require("bcrypt")
 
@@ -62,11 +63,12 @@ exports.registerAdmin = asyncHandler(async (req, res) => {
   user.save()
 
   if (user) {
-    user.password = undefined
-    user.secret = undefined
+    // user.password = undefined
+    // user.secret = undefined
     res.status(201).json({
       message: "Signup success! Please login.",
       success: true,
+      user,
     })
   } else {
     res
