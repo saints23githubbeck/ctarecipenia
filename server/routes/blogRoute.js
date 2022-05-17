@@ -21,21 +21,26 @@ router.get("/blog/:slug", getBlogBySlug)
 router.get("/blogs/search", searchBlog)
 
 /** admin only route */
-router.post("/admin/blog/create", requireSignIn, adminMiddleware, createBlog)
+router.post("/admin/blog", requireSignIn, adminMiddleware, createBlog)
 router.put("/admin/blog/:slug", requireSignIn, adminMiddleware, updateBlog)
-router.delete("admin/blog/:slug", requireSignIn, adminMiddleware, deleteBlogBySlug)
+router.delete(
+  "admin/blog/:slug",
+  requireSignIn,
+  adminMiddleware,
+  deleteBlogBySlug
+)
 
 /** user only routes */
-router.post("/user/blog/create", requireSignIn, authMiddleware, createBlog)
+router.post("/user/blog", requireSignIn, authMiddleware, createBlog)
 router.put(
-  "/user/blogs/:slug",
+  "/user/blog/:slug",
   requireSignIn,
   authMiddleware,
   canUpdateBlog,
   updateBlog
 )
 router.delete(
-  "/user/blogs/:slug",
+  "/user/blog/:slug",
   requireSignIn,
   authMiddleware,
   canDeleteBlog,
