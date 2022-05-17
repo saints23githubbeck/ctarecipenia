@@ -203,3 +203,43 @@ exports.fetchBlogByUser = (req, res) => {
       })
   })
 }
+
+
+
+exports.canDeleteBlog = (req, res, next) => {
+  const slug = req.params.slug.toLowerCase()
+  Blog.findOne({ slug }).exec((err, data) => {
+    if (err) {
+      return res.status(400).json({
+        error: errorHandler(err),
+      })
+    }
+    let authorizedUser =
+      data.postedBy._id.toString() === req.user._id.toString()
+    if (!authorizedUser) {
+      return res.status(400).json({
+        error: "You are not authorized",
+      })
+    }
+    next()
+  })
+}
+
+exports.canUpdateBlog = (req, res, next) => {
+  const slug = req.params.slug.toLowerCase()
+  Blog.findOne({ slug }).exec((err, data) => {
+    if (err) {
+      return res.status(400).json({
+        error: errorHandler(err),
+      })
+    }
+    let authorizedUser =
+      data.postedBy._id.toString() === req.user._id.toString()
+    if (!authorizedUser) {
+      return res.status(400).json({
+        error: "You are not authorized",
+      })
+    }
+    next()
+  })
+}

@@ -17,8 +17,7 @@ const recipeSchema = new Schema(
         "Please enter a name. Special characters are  not allowed",
       ],
     },
-
-    categories: [{ type: ObjectId, ref: "Category", required: true }],
+    category: { type: String, required: true },
     cookTime: { type: String, required: true },
     calories: { type: String, required: true },
     description: {
@@ -35,6 +34,9 @@ const recipeSchema = new Schema(
     permLink: {
       type: String,
     },
+    image: {
+      type: String,
+    },
     difficulty: {
       type: String,
     },
@@ -44,7 +46,11 @@ const recipeSchema = new Schema(
     serves: {
       type: Number,
     },
-    publishedBy: { type: String, required: true },
+    postedBy: {
+      type: ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
   { timestamps: true }
 )
