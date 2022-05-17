@@ -21,7 +21,7 @@ const LoginAdmin = () => {
   const handleLogin = (e) => {
     e.preventDefault();
      dispatch(logIn(formData, navigate, history));
-    console.log('lod,mvc')
+    console.log('logining ')
 
   };
   return (

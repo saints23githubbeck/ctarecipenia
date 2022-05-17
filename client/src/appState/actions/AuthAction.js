@@ -19,9 +19,10 @@ export const signUp = (FormData, navigate) => async (dispatch) => {
       body: JSON.stringify({ ...FormData }),
     });
     console.log(result);
-    if (result.success === true) {
+//success === true
+    if (result.userToken) {  
       dispatch(setIsLoading(false));
-      localStorage.setItem("auth", result.token);
+      localStorage.setItem("auth", result.userToken);
       dispatch({
         type: actiontypes.SIGN_UP,
         payload: {
@@ -64,6 +65,7 @@ export const logIn = (formData, navigate, history) => async (dispatch) => {
           user: result.user,
         },
       });
+      console.log("show me", result)
       if(history === "/admin"){
         navigate("/admin/dashboard");
       } else {
