@@ -160,7 +160,7 @@ var submitRecipe = function submitRecipe(payload, onClose) {
             dispatch(setRecipesLoading("loading", true));
             _context3.next = 6;
             return regeneratorRuntime.awrap((0, _api.httpRequest)({
-              url: "/add-recipe",
+              url: "/admin/recipe",
               method: "POST",
               body: JSON.stringify(_objectSpread({}, payload)),
               headers: {
@@ -220,7 +220,7 @@ var updateRecipe = function updateRecipe(payload, onClose) {
             dispatch(setRecipesLoading("loading", true));
             _context4.next = 6;
             return regeneratorRuntime.awrap((0, _api.httpRequest)({
-              url: "/recipe/".concat(payload._id),
+              url: "/admin/recipe/".concat(payload._id),
               // url: `/recipe/:slug`,
               method: "PUT",
               body: JSON.stringify(_objectSpread({}, payload)),

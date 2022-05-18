@@ -15,7 +15,7 @@ const EditRecipe = () => {
 
   const dispatch = useDispatch();
   const {
-  
+    _id,
     title,
     category,
     cookTime,
@@ -42,6 +42,7 @@ const EditRecipe = () => {
 
   const handleSubmit = () => {
     const payload = {
+      _id: _id,
       title: title,
       category: category,
       image: image,
@@ -83,7 +84,7 @@ const EditRecipe = () => {
   return (
     <div>
       <div className="d-flex m-3 justify-content-between">
-        <h5 className="p-3">Edit Recipe</h5>
+        <h5 className="p-3">Edit Recipe {state._id}</h5>
         <Link to={-1}>
           <h6>
             <IoMdArrowDropleft /> Back
