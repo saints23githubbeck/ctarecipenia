@@ -9,41 +9,39 @@ import {
 } from "../../appState/actions/recipeAction";
 import { categories } from "./data";
 
-
 const EditRecipe = () => {
   const { state } = useLocation();
   console.log(state, "actual state back");
 
   const dispatch = useDispatch();
   const {
-    _id,
+  
     title,
     category,
-    image,
+    cookTime,
+    calories,
     description,
-    videoLink,
     direction,
-    metaDescription,
-    featuredImage,
-    permlink,
+    permLink,
     difficulty,
     prepareTime,
     serves,
-    calories,
+    image,
+    videoLink,
+    metaDescription,
+    featuredImage,
     tags,
     facts,
     additionalInfo,
     ingredients,
-    cookingTime,
     error,
     loading,
   } = useSelector((state) => state.recipe);
 
-  const level = [{name:"Easy"}, {name:"Medium"}, {name:"Hard"}]
+  const level = [{ name: "Easy" }, { name: "Medium" }, { name: "Hard" }];
 
   const handleSubmit = () => {
     const payload = {
-      _id:_id,
       title: title,
       category: category,
       image: image,
@@ -52,7 +50,7 @@ const EditRecipe = () => {
       direction: direction,
       metaDescription: metaDescription,
       featuredImage: featuredImage,
-      permlink: permlink,
+      permLink: permLink,
       difficulty: difficulty,
       prepareTime: prepareTime,
       serves: serves,
@@ -61,7 +59,7 @@ const EditRecipe = () => {
       facts: facts,
       additionalInfo: additionalInfo,
       ingredients: ingredients,
-      cookingTime: cookingTime,
+      cookTime: cookTime,
     };
     dispatch(updateRecipe(payload));
   };
@@ -109,8 +107,8 @@ const EditRecipe = () => {
           autoComplete="email"
           autoFocus
           placeholder={state.category}
-        /> 
-         {/* {categories.map((item, index) => (
+        />
+        {/* {categories.map((item, index) => (
                <option  key={index} value={item.name}>{item.name}</option>
             
             ))}</select> */}
@@ -120,9 +118,7 @@ const EditRecipe = () => {
       <div className="row  m-3">
         <p className="w-25 h-75 text-end ptag">Title</p>
         <input
-          onChange={(e) =>
-            dispatch(handleRecipeState("title", e.target.value))
-          }
+          onChange={(e) => dispatch(handleRecipeState("title", e.target.value))}
           value={title}
           className="w-75 h-75 p-1 border"
           type="tel"
@@ -141,14 +137,14 @@ const EditRecipe = () => {
           onChange={(e) =>
             dispatch(handleRecipeState("permlink", e.target.value))
           }
-          value={permlink}
+          value={permLink}
           className="w-75 h-75 p-1 border"
           type="text"
           required
           id="name"
           autoComplete="name"
           autoFocus
-          placeholder={state.permlink}
+          placeholder={state.permLink}
         />
       </div>
       <hr className="m-3" />
@@ -156,17 +152,14 @@ const EditRecipe = () => {
       <div className="row m-3">
         <p className="w-25 h-75 text-end ptag">Difficulty</p>
         <div className="d-flex justify-content-between   w-75 h-75 p-1">
-            {level.map((item, index) =>(
-          <div key={index} className="">
-              <input
-              type="radio"
-              value={item.name}
-            />
-            <label value={item.name}>{item.name}</label>
-          </div>
-            ))}
+          {level.map((item, index) => (
+            <div key={index} className="">
+              <input type="radio" value={item.name} />
+              <label value={item.name}>{item.name}</label>
             </div>
-            </div>
+          ))}
+        </div>
+      </div>
 
       <hr className="m-3" />
 
@@ -193,14 +186,14 @@ const EditRecipe = () => {
             onChange={(e) =>
               dispatch(handleRecipeState("cookingTime", e.target.value))
             }
-            value={cookingTime}
+            value={cookTime}
             className="w-75 h-75 p-1 border"
             type="text"
             required
             id="name"
             autoComplete="name"
             autoFocus
-            placeholder={state.cookingTime}
+            placeholder={state.cookTime}
           />
         </div>
       </div>
@@ -245,10 +238,10 @@ const EditRecipe = () => {
       <div className="row  m-3">
         <p className="w-25 h-75 text-end ptag">Description</p>
         <textarea
-         onChange={(e) =>
-              dispatch(handleRecipeState("description", e.target.value))
-            }
-            value={description}
+          onChange={(e) =>
+            dispatch(handleRecipeState("description", e.target.value))
+          }
+          value={description}
           className="w-75 h-75 p-1 text-wrap border"
           type="text"
           rows={5}
@@ -261,10 +254,10 @@ const EditRecipe = () => {
       <div className="row  m-3">
         <p className="w-25 h-75 text-end ptag">Direction</p>
         <textarea
-         onChange={(e) =>
-              dispatch(handleRecipeState("direction", e.target.value))
-            }
-            value={direction}
+          onChange={(e) =>
+            dispatch(handleRecipeState("direction", e.target.value))
+          }
+          value={direction}
           className="w-75 h-75 p-1 text-wrap border"
           type="text"
           rows={5}
@@ -276,7 +269,7 @@ const EditRecipe = () => {
       <div className="m-3">
         <Link to={-1}>
           <button
-           onClick={handleSubmit}
+            onClick={handleSubmit}
             style={{
               marginRight: "50px",
               backgroundColor: "green",

@@ -145,6 +145,8 @@ const AppRoutes = (props) => {
 
         {/* admin routes */}
         <Route path="/admin" element={<LoginAdmin />} />
+
+        <Route exact path="/admin/dashboard" element={<AuthRoute />}>
         <Route
           path="/admin/dashboard"
           element={
@@ -153,6 +155,9 @@ const AppRoutes = (props) => {
             </AdminLayout>
           }
         />
+        </Route>
+
+        <Route exact path="/admin/settings" element={<AuthRoute />}>
         <Route
           path="/admin/settings"
           element={
@@ -161,14 +166,20 @@ const AppRoutes = (props) => {
             </AdminLayout>
           }
         />
+        </Route>
+
+        <Route exact path="/admin/slider" element={<AuthRoute />}>
         <Route
-          path="/admin/slider"
+          path=""
           element={
             <AdminLayout title="/ Slider">
               <SliderAdmin />
             </AdminLayout>
           }
         />
+        </Route>
+
+        <Route exact path="/admin/administrator" element={<AuthRoute />}>
         <Route
           path="/admin/administrator"
           element={
@@ -177,6 +188,9 @@ const AppRoutes = (props) => {
             </AdminLayout>
           }
         />
+        </Route>
+
+        <Route exact path="/admin/normalUsers" element={<AuthRoute />}>
         <Route
           path="/admin/normalUsers"
           element={
@@ -185,6 +199,9 @@ const AppRoutes = (props) => {
             </AdminLayout>
           }
         />
+        </Route>
+
+        <Route exact path="/admin/categories" element={<AuthRoute />}>
         <Route
           path="/admin/categories"
           element={
@@ -193,6 +210,9 @@ const AppRoutes = (props) => {
             </AdminLayout>
           }
         />
+        </Route>
+
+        <Route exact path="/admin/recipes" element={<AuthRoute />}>
         <Route
           path="/admin/recipes"
           element={
@@ -201,6 +221,9 @@ const AppRoutes = (props) => {
             </AdminLayout>
           }
         />
+        </Route>
+
+        <Route exact path="/admin/blog" element={<AuthRoute />}>
         <Route
           path="/admin/blog"
           element={
@@ -209,6 +232,9 @@ const AppRoutes = (props) => {
             </AdminLayout>
           }
         />
+        </Route>
+
+        <Route exact path="/admin/advertisement" element={<AuthRoute />}>
         <Route
           path="/admin/advertisement"
           element={
@@ -217,6 +243,9 @@ const AppRoutes = (props) => {
             </AdminLayout>
           }
         />
+        </Route>
+
+        <Route exact path="/admin/newsletter" element={<AuthRoute />}>
         <Route
           path="/admin/newsletter"
           element={
@@ -225,6 +254,9 @@ const AppRoutes = (props) => {
             </AdminLayout>
           }
         />
+        </Route>
+
+        <Route exact path="/admin/pages" element={<AuthRoute />}>
         <Route
           path="/admin/pages"
           element={
@@ -233,6 +265,8 @@ const AppRoutes = (props) => {
             </AdminLayout>
           }
         />
+        </Route>
+
         <Route
           path="/admin/slider/edit"
           element={
