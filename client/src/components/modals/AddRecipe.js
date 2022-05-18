@@ -12,22 +12,22 @@ const AddRecipe = ({ onclose }) => {
   const {
     title,
     category,
-    image,
+    cookTime,
+    calories,
     description,
-    videoLink,
     direction,
-    metaDescription,
-    featuredImage,
-    permlink,
+    permLink,
     difficulty,
     prepareTime,
     serves,
-    calories,
+    image,
+    videoLink,
+    metaDescription,
+    featuredImage,
     tags,
     facts,
     additionalInfo,
     ingredients,
-    cookingTime,
     error,
     loading,
   } = useSelector((state) => state.recipe);
@@ -42,7 +42,7 @@ const AddRecipe = ({ onclose }) => {
       direction: direction,
       metaDescription: metaDescription,
       featuredImage: featuredImage,
-      permlink: permlink,
+      permLink: permLink,
       difficulty: difficulty,
       prepareTime: prepareTime,
       serves: serves,
@@ -51,7 +51,7 @@ const AddRecipe = ({ onclose }) => {
       facts: facts,
       additionalInfo: additionalInfo,
       ingredients: ingredients,
-      cookingTime: cookingTime,
+      cookTime: cookTime,
     };
     dispatch(submitRecipe(payload, onclose));
   };
@@ -109,9 +109,9 @@ const AddRecipe = ({ onclose }) => {
           <p className="w-25 h-75 text-end ptag">Permlink</p>
           <input
             onChange={(e) =>
-              dispatch(handleRecipeState("permlink", e.target.value))
+              dispatch(handleRecipeState("permLink", e.target.value))
             }
-            value={permlink}
+            value={permLink}
             className="w-75 h-75 p-1 border"
             type="text"
             required
@@ -178,9 +178,9 @@ const AddRecipe = ({ onclose }) => {
             <p className="w-25 h-75 text-end ptag px-4">Cooking Time</p>
             <input
               onChange={(e) =>
-                dispatch(handleRecipeState("cookingTime", e.target.value))
+                dispatch(handleRecipeState("cookTime", e.target.value))
               }
-              value={cookingTime}
+              value={cookTime}
               className="w-75 h-75 p-1 border"
               type="text"
               required
@@ -235,7 +235,7 @@ const AddRecipe = ({ onclose }) => {
             className="w-75 h-75 p-1 text-wrap border"
             type="text"
             rows={5}
-            placeholder="lggjhdPassw jhhdjfhfhjhf ordlggjhdPasswPassw jhhdjfhfhjhf ordlggjhdPassw jhhdjfhfhjhf ordlggjhdPassw jhhdjfhfhjhf ordlggjhdPassw jhhdjfhfhjhf ordlggjhdPassw jhhdjfhfhjhf ordlggjhdPassw"
+            placeholder="Enter Description"
           />
         </div>
         <div className="row  m-3">

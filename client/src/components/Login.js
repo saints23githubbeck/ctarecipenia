@@ -7,18 +7,17 @@ import { useNavigate } from "react-router-dom";
 const Login = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {isLoading, message} = useSelector(state => state.user)
+  const { isLoading, message } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-
   });
   const handleinput = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleLogin = (e) => {
     e.preventDefault();
-     dispatch(logIn(formData, navigate));
+    dispatch(logIn(formData, navigate));
   };
 
   const clear = () => {
@@ -68,8 +67,8 @@ const Login = (props) => {
               <span>Remember me</span>
             </div>
           </div>
-{message && <p>{message}</p>}
-          <button type="submit">{isLoading? "Loading ..." : "LOGIN"}</button>
+          {message && <p>{message}</p>}
+          <button type="submit">{isLoading ? "Loading ..." : "LOGIN"}</button>
         </form>
         <p>
           Don’t have an account ?{" "}

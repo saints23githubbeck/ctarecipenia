@@ -16,8 +16,8 @@ const UserDashboard = () => {
   const { name, username, email, password, description, gender, country } = userProfile;
   const [userGender, setUserGender] = useState(gender);
   const [userData, setUserData] = useState({
-    firstName: name.split(" ")[0],
-    lastName: name.split(" ")[1],
+    firstName: name?.split(" ")[0],
+    lastName: name?.split(" ")[1],
     country,
     username,
     email,

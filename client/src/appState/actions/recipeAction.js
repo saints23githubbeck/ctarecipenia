@@ -54,12 +54,17 @@ export const setRecipesError = (value) => ({
 });
 
 export const submitRecipe = (payload, onClose) => async (dispatch) => {
+  let token =  localStorage.getItem("auth");
+  if (token) {
   try {
     dispatch(setRecipesLoading("loading", true));
     const result = await httpRequest({
-      url: `/add-recipe`,
+      url: `/admin/recipe`,
       method: "POST",
       body: JSON.stringify({ ...payload }),
+      headers: {
+        "Authorization": `Bearer ${token}` 
+      },
     });
     console.log(result, "wait you");
     if (result.message === "Recipe added") {
@@ -69,21 +74,31 @@ export const submitRecipe = (payload, onClose) => async (dispatch) => {
       dispatch({
         type: actiontypes.RESET_RECIPE_STATE,
       });
+    
     } else {
       dispatch(setRecipesLoading("loading", false));
       dispatch(setRecipesError(result.error));
     }
   } catch (error) {}
+}
 };
 
+
 export const updateRecipe = (payload, onClose) => async (dispatch) => {
+  let token =  localStorage.getItem("auth");
+  if (token) {
   try {
     dispatch(setRecipesLoading("loading", true));
     const result = await httpRequest({
-      url: `/recipe/${payload._id}`,
+      url: `/admin/recipe/${payload._id}`,
+      // url: `/recipe/:slug`,
       method: "PUT",
       body: JSON.stringify({ ...payload }),
+      headers: {
+        "Authorization": `Bearer ${token}` 
+      },
     });
+    console.log("updated", payload)
     console.log(result, "updated");
     if (result.status === 200 ) {
       dispatch(setRecipesLoading("loading", false));
@@ -98,4 +113,5 @@ export const updateRecipe = (payload, onClose) => async (dispatch) => {
 
     }
   } catch (error) {}
+}
 };

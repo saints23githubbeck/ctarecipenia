@@ -101,7 +101,7 @@ const RecipesAdmin = () => {
       <tr key={recipes.id} className="">
         <td className="tdata">{recipes.category}</td>
         <td className="tdata">{recipes.title}</td>
-        <td className="tdata">{convertDate(recipes.updatedAt)}</td>
+        <td className="tdata">{recipes.publishedBy}</td>
         <td className="tdata">
           <p
             style={{

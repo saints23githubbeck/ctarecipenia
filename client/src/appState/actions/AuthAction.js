@@ -19,9 +19,9 @@ export const signUp = (FormData, navigate) => async (dispatch) => {
       body: JSON.stringify({ ...FormData }),
     });
     console.log(result);
-    if (result.success === true) {
+    if (result.success === true) {  
       dispatch(setIsLoading(false));
-      localStorage.setItem("auth", result.token);
+      localStorage.setItem("auth", result.userToken);
       dispatch({
         type: actiontypes.SIGN_UP,
         payload: {
@@ -31,7 +31,6 @@ export const signUp = (FormData, navigate) => async (dispatch) => {
         },
       });
       navigate("/user-dashboard");
-      console.log(result);
     } else {
       dispatch(setIsLoading(false));
       dispatch({
@@ -44,7 +43,7 @@ export const signUp = (FormData, navigate) => async (dispatch) => {
   }
 };
 
-export const logIn = (formData, navigate) => async (dispatch) => {
+export const logIn = (formData, navigate, history) => async (dispatch) => {
   try {
     dispatch(setIsLoading(true));
     const result = await httpRequest({
@@ -52,7 +51,7 @@ export const logIn = (formData, navigate) => async (dispatch) => {
       method: "POST",
       body: JSON.stringify({ ...formData }),
     });
-    console.log(result);
+    console.log(history.pathname);
     if (result.token) {
       dispatch(setIsLoading(false));
       localStorage.setItem("auth", result.token);
@@ -64,7 +63,12 @@ export const logIn = (formData, navigate) => async (dispatch) => {
           user: result.user,
         },
       });
-      navigate("/user-dashboard");
+      console.log("show me", result)
+      if(history.pathname === "/admin"){
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/user-dashboard");
+      };
       console.log(result);
     } else {
       dispatch(setIsLoading(false));
@@ -93,16 +97,17 @@ export const updateUser = (userData) => async (dispatch) => {
   }
 };
 
-export  const fetchProfile = () => async(dispatch)=> {
+export  const fetchProfile = (history) => async(dispatch)=> {
   let token =  localStorage.getItem("auth");
   if (token) {
     const result = await httpRequest({
-      url: "/me",
+      url: history.pathname === "/admin"?"/admin/user" : "/me",
       method: "GET",
       headers: {
         "Authorization": `Bearer ${token}` 
       },
     });
+    console.log("fetchuser", result)
    if (result.user) {
     dispatch({
       type: actiontypes.GET_CURRENT_USER,
