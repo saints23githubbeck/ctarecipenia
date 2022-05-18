@@ -16,9 +16,12 @@ exports.register = asyncHandler(async (req, res) => {
     })
   }
 
-  const userExists = await User.findOne({ email })
+  const userExists = await User.findOne({
+    $or: [{ email }, { username }],
+  })
+
   if (userExists) {
-    res.status(400).json({ error: "User already exists" })
+    return res.status(400).json({ error: "User already exists" })
   }
 
   const slug = slugify(username).toLowerCase()
@@ -44,14 +47,14 @@ exports.register = asyncHandler(async (req, res) => {
       httpOnly: true,
       maxAge: 30 * 24 * 60 * 60 * 1000,
     })
-    res.status(201).json({
+    return res.status(201).json({
       message: "Signup success! Please login.",
       success: true,
       user,
       userToken,
     })
   } else {
-    res
+    return res
       .status(400)
       .json({ message: "Registration failed. Please try again later" })
   }
@@ -62,7 +65,9 @@ exports.login = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email })
 
   if (!user) {
-    res.status(401).json({ error: "This user does not exist. Please sign up " })
+    return res
+      .status(401)
+      .json({ error: "This user does not exist. Please sign up " })
   }
   const match = await bcrypt.compare(password, user.password)
 
@@ -72,19 +77,19 @@ exports.login = asyncHandler(async (req, res) => {
     res.cookie("token", userToken, { expiresIn: "1d" })
     user.password = undefined
     user.secret = undefined
-    res.status(200).json({
+    return res.status(200).json({
       message: `Welcome back ${user.username}`,
       user,
       token: userToken,
     })
   } else {
-    res.status(401).json({ error: "Invalid user credentials" })
+    return res.status(401).json({ error: "Invalid user credentials" })
   }
 })
 
 exports.logout = asyncHandler(async (req, res, next) => {
   res.clearCookie("token")
-  res.status(200).json({
+  return res.status(200).json({
     success: true,
     message: "Logged out successfully.",
   })
@@ -115,7 +120,7 @@ exports.forgotPassword = asyncHandler(async (req, res) => {
     try {
       const salt = await bcrypt.genSalt(12)
       const hashPassword = await bcrypt.hash(newPassword, salt)
-      await User.findByIdAndUpdate(user._id, { password: hashPassword })
+      await User.findOneAndUpdate(user._id, { password: hashPassword })
       return res.json({
         success: "Password changed, Now you can login with your new password",
       })

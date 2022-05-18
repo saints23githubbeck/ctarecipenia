@@ -29,7 +29,7 @@ exports.registerAdmin = asyncHandler(async (req, res) => {
     !description ||
     !userGroup
   ) {
-    res.status(400).json({ error: "Please fill all required fields" })
+    return res.status(400).json({ error: "Please fill all required fields" })
   }
 
   if (password && password.length < 6) {
@@ -38,9 +38,18 @@ exports.registerAdmin = asyncHandler(async (req, res) => {
     })
   }
 
-  const userExists = await User.findOne({ email })
+  if (userGroup !== "admin") {
+    return res.json({
+      message: "You can only register a user as an Administrator",
+    })
+  }
+
+  const userExists = await User.findOne({
+    $or: [{ email }, { username }],
+  })
+
   if (userExists) {
-    res.status(400).json({ error: "User already exists" })
+    return res.status(400).json({ error: "User already exists" })
   }
 
   const salt = await bcrypt.genSalt(12)
@@ -65,13 +74,13 @@ exports.registerAdmin = asyncHandler(async (req, res) => {
   if (user) {
     // user.password = undefined
     // user.secret = undefined
-    res.status(201).json({
+    return res.status(201).json({
       message: "Signup success! Please login.",
       success: true,
       user,
     })
   } else {
-    res
+    return res
       .status(400)
       .json({ message: "Registration failed. Please try again later" })
   }
@@ -102,7 +111,7 @@ exports.registerUserByAdmin = asyncHandler(async (req, res) => {
     !description ||
     !userGroup
   ) {
-    res.status(400).json({ error: "Please fill all required fields" })
+    return res.status(400).json({ error: "Please fill all required fields" })
   }
 
   if (password && password.length < 6) {
@@ -111,9 +120,15 @@ exports.registerUserByAdmin = asyncHandler(async (req, res) => {
     })
   }
 
-  const userExists = await User.findOne({ email })
+  if (userGroup !== "subscriber") {
+    return res.json({
+      message: "You can only register a user as a subscriber",
+    })
+  }
+
+  const userExists = await User.findOne({ $or: [{ email }, { username }] })
   if (userExists) {
-    res.status(400).json({ error: "User already exists" })
+    return res.status(400).json({ error: "User already exists" })
   }
 
   const salt = await bcrypt.genSalt(12)
@@ -138,13 +153,13 @@ exports.registerUserByAdmin = asyncHandler(async (req, res) => {
   if (user) {
     user.password = undefined
     user.secret = undefined
-    res.status(201).json({
+    return res.status(201).json({
       message: "Signup success! Please login.",
       success: true,
       user,
     })
   } else {
-    res
+    return res
       .status(400)
       .json({ message: "Registration failed. Please try again later" })
   }
@@ -159,7 +174,7 @@ exports.getUsersByAdmin = asyncHandler(async (req, res) => {
       .exec()
     users && res.status(200).json({ users, totalUsers })
   } catch (error) {
-    res.status(404).json({ errors: error.message })
+    return res.status(404).json({ errors: error.message })
   }
 })
 
@@ -169,8 +184,7 @@ exports.getUserBySlugByAdmin = asyncHandler(async (req, res) => {
     const user = await User.findOne(slug).select("-password -secret")
     user && res.json({ user })
   } catch (error) {
-    res.status(404)
-    throw new Error("User not found")
+    return res.status(404).json({ error: "User not found", error })
   }
 })
 
@@ -178,7 +192,7 @@ exports.getAdminProfile = asyncHandler(async (req, res) => {
   const user = req.user
   if (!user) return res.status(404).json({ error: "User not found" })
 
-  res.status(200).json({ user })
+  return res.status(200).json({ user })
 })
 
 exports.updateUserByAdmin = asyncHandler(async (req, res) => {
@@ -216,15 +230,15 @@ exports.updateUserByAdmin = asyncHandler(async (req, res) => {
       updatedUser.password = undefined
       updatedUser.secret = undefined
 
-      res.status(200).json({
+      return res.status(200).json({
         message: "User info updated",
         updatedUser,
       })
     } else {
-      res.status(404).json({ error: "User not found" })
+      return res.status(404).json({ error: "User not found" })
     }
   } catch (error) {
-    res.status(500).json({ error: error.message })
+    return res.status(500).json({ error: error.message })
   }
 })
 
@@ -233,11 +247,11 @@ exports.deleteUserByAdmin = asyncHandler(async (req, res) => {
   try {
     const user = await User.findOneAndDelete(slug)
 
-    res.json({
+    return res.json({
       message: `Your account has been deleted. Goodbye! ${user.name}. Sorry to see you go. `,
     })
   } catch (err) {
-    console.log(err)
+    return console.log(err)
   }
 })
 
@@ -249,6 +263,6 @@ exports.fetchAdmins = asyncHandler(async (req, res) => {
     const totalNumberOfAdmin = admins.length
     admins && res.status(200).json({ admins, totalNumberOfAdmin })
   } catch (error) {
-    res.status(404).json({ errors: error.message })
+    return res.status(404).json({ errors: error.message })
   }
 })

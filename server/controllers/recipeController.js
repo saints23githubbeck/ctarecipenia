@@ -55,13 +55,13 @@ exports.addRecipe = async (req, res) => {
       publishedBy: username,
     })
 
-    res.status(201).json({
+    return res.status(201).json({
       message: "Recipe added",
       recipe,
     })
   } catch (err) {
     console.error(err)
-    res.status(400).json({ error: err.message })
+    return res.status(400).json({ error: err.message })
   }
 }
 
@@ -80,13 +80,13 @@ exports.getRecipes = async (req, res) => {
     if (!recipes) {
       return res.status(400).json({ error: [{ message: "Recipes not found" }] })
     }
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       recipes,
       totalRecipes,
     })
   } catch (error) {
-    res.status(500).send(error)
+    return res.status(500).send(error)
   }
 }
 
@@ -106,12 +106,12 @@ exports.getRecipeBySlug = async (req, res) => {
         error: "No recipe found",
       })
     }
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       recipe,
     })
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    return res.status(400).json({ error: error.message })
   }
 }
 
@@ -121,7 +121,7 @@ exports.getRecipeBySlug = async (req, res) => {
     @access Private
 */
 
-exports.deleteRecipeBySlug = async (req, res) => {
+exports.deleteRecipe = async (req, res) => {
   const slug = req.params.slug.toLowerCase()
   if (!slug) {
     return res.status(401).json({ error: "No slug found" })
@@ -130,14 +130,41 @@ exports.deleteRecipeBySlug = async (req, res) => {
   Recipe.findOneAndDelete(slug)
     .then((deletedRecipe) => {
       if (deletedRecipe) {
-        res.json({
+        return res.json({
           message: `Successfully deleted  ${deletedRecipe.title} recipe .`,
         })
       } else {
-        res.json({ error: "No recipe matches the provided query." })
+        return res.json({ error: "No recipe matches the provided query." })
       }
     })
-    .catch((err) => console.error(`Failed to find and delete recipe: ${err}`))
+    .catch((err) => {
+      console.error(`Failed to find and delete recipe: ${err}`)
+      return res.status(404).json({ error: err.message })
+    })
+}
+
+exports.fetchRecipeByUser = (req, res) => {
+  User.findOne({ username: req.params.username }).exec((error, user) => {
+    if (error) {
+      return res.status(400).json({
+        error: error,
+      })
+    }
+    let userId = user._id
+    Blog.find({ postedBy: userId })
+      .populate("categories", "_id title slug icon permalink")
+      .populate("postedBy", "_id name username")
+      .select("_id title slug postedBy createdAt updatedAt")
+      .sort({ createdAt: "desc" })
+      .exec((error, data) => {
+        if (error) {
+          return res.status(400).json({
+            error: error,
+          })
+        }
+        return res.json(data)
+      })
+  })
 }
 
 /*
@@ -154,13 +181,75 @@ exports.updateRecipe = async (req, res) => {
     const updatedRecipe = await Recipe.findOneAndUpdate(slug, updateRecipe, {
       new: true,
     }).exec()
-    res.status(200).json({
+    return res.status(200).json({
       updatedRecipe,
     })
   } catch (err) {
     //console.log("Recipe update failed ----> ", err)
-    res.status(400).json({
+    return res.status(400).json({
       err: err.message,
     })
   }
+}
+
+/** Search through blog post */
+exports.searchRecipe = (req, res) => {
+  //console.log(req.query)
+  const { search } = req.query
+  if (search) {
+    Recipe.find(
+      {
+        $or: [
+          { title: { $regex: search, $options: "i" } },
+          { body: { $regex: search, $options: "i" } },
+        ],
+      },
+      (error, recipes) => {
+        if (error) {
+          return res.status(400).json({
+            error: error,
+          })
+        }
+        return res.json(recipes)
+      }
+    ).select("-image -description")
+  }
+}
+
+exports.canDeleteRecipe = (req, res, next) => {
+  const slug = req.params.slug.toLowerCase()
+  Recipe.findOne({ slug }).exec((err, data) => {
+    if (err) {
+      return res.status(400).json({
+        error: errorHandler(err),
+      })
+    }
+    let authorizedUser =
+      data.postedBy._id.toString() === req.user._id.toString()
+    if (!authorizedUser) {
+      return res.status(400).json({
+        error: "You are not authorized",
+      })
+    }
+    next()
+  })
+}
+
+exports.canUpdateRecipe = (req, res, next) => {
+  const slug = req.params.slug.toLowerCase()
+  Blog.findOne({ slug }).exec((err, data) => {
+    if (err) {
+      return res.status(400).json({
+        error: errorHandler(err),
+      })
+    }
+    let authorizedUser =
+      data.postedBy._id.toString() === req.user._id.toString()
+    if (!authorizedUser) {
+      return res.status(400).json({
+        error: "You are not authorized",
+      })
+    }
+    next()
+  })
 }
