@@ -13,6 +13,7 @@ const {
 const {
   requireSignIn,
   authMiddleware,
+  adminMiddleware,
 } = require("../middleware/authMiddleware")
 const router = express.Router()
 
@@ -35,7 +36,7 @@ router.delete("/admin/recipe/:slug", requireSignIn, adminMiddleware, deleteRecip
 router.post("/user/recipe", requireSignIn, authMiddleware, addRecipe)
 router.get("/:username/recipes", fetchRecipeByUser)
 router.put("/user/recipe/:slug", requireSignIn, authMiddleware, canUpdateRecipe, updateRecipe)
-router.delete("/user/recipe/:slug", requireSignIn, authMiddleware, canDeleteRecipe, deleteRecipeBySlug)
+router.delete("/user/recipe/:slug", requireSignIn, authMiddleware, canDeleteRecipe, deleteRecipe)
 
 
 

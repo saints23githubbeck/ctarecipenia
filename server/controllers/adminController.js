@@ -38,7 +38,15 @@ exports.registerAdmin = asyncHandler(async (req, res) => {
     })
   }
 
-  const userExists = await User.findOne({ email })
+  if (userGroup !== "admin") {
+    return res.json({
+      message: "You can only register a user as an Administrator",
+    })
+  }
+
+  const userExists = await User.findOne({
+    $or: [{ email }, { username }],
+  })
 
   if (userExists) {
     return res.status(400).json({ error: "User already exists" })
@@ -112,7 +120,13 @@ exports.registerUserByAdmin = asyncHandler(async (req, res) => {
     })
   }
 
-  const userExists = await User.findOne({ email })
+  if (userGroup !== "subscriber") {
+    return res.json({
+      message: "You can only register a user as a subscriber",
+    })
+  }
+
+  const userExists = await User.findOne({ $or: [{ email }, { username }] })
   if (userExists) {
     return res.status(400).json({ error: "User already exists" })
   }
@@ -178,7 +192,7 @@ exports.getAdminProfile = asyncHandler(async (req, res) => {
   const user = req.user
   if (!user) return res.status(404).json({ error: "User not found" })
 
- return res.status(200).json({ user })
+  return res.status(200).json({ user })
 })
 
 exports.updateUserByAdmin = asyncHandler(async (req, res) => {
@@ -216,15 +230,15 @@ exports.updateUserByAdmin = asyncHandler(async (req, res) => {
       updatedUser.password = undefined
       updatedUser.secret = undefined
 
-     return res.status(200).json({
-       message: "User info updated",
-       updatedUser,
-     })
+      return res.status(200).json({
+        message: "User info updated",
+        updatedUser,
+      })
     } else {
-     return res.status(404).json({ error: "User not found" })
+      return res.status(404).json({ error: "User not found" })
     }
   } catch (error) {
-   return res.status(500).json({ error: error.message })
+    return res.status(500).json({ error: error.message })
   }
 })
 
@@ -233,11 +247,11 @@ exports.deleteUserByAdmin = asyncHandler(async (req, res) => {
   try {
     const user = await User.findOneAndDelete(slug)
 
-   return res.json({
-     message: `Your account has been deleted. Goodbye! ${user.name}. Sorry to see you go. `,
-   })
+    return res.json({
+      message: `Your account has been deleted. Goodbye! ${user.name}. Sorry to see you go. `,
+    })
   } catch (err) {
-  return console.log(err)
+    return console.log(err)
   }
 })
 
@@ -247,8 +261,8 @@ exports.fetchAdmins = asyncHandler(async (req, res) => {
       "-password -secret"
     )
     const totalNumberOfAdmin = admins.length
-   admins && res.status(200).json({ admins, totalNumberOfAdmin })
+    admins && res.status(200).json({ admins, totalNumberOfAdmin })
   } catch (error) {
-   return res.status(404).json({ errors: error.message })
+    return res.status(404).json({ errors: error.message })
   }
 })

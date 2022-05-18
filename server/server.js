@@ -10,11 +10,13 @@ const mongoSanitize = require("express-mongo-sanitize")
 const xssClean = require("xss-clean")
 const hpp = require("hpp")
 require("dotenv").config()
-const app = express() 
+const app = express()
 
 process.on("uncaughtException", (error) => {
-  console.error(`Error: ${error.message}`)
-  console.error("shutting down server due to uncaught exceptions")
+  console.error(`Error: ${error.stack}`.brightMagenta)
+  console.error(
+    "shutting down server due to uncaught exceptions".underline.brightMagenta
+  )
   process.exit(1)
 })
 
@@ -27,13 +29,11 @@ app.use(morgan("dev"))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-
 app.use(helmet())
 app.use(cookieParser())
 app.use(mongoSanitize())
 app.use(xssClean())
 app.use(hpp({ whitelist: ["positions"] }))
-
 
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000, //10 Mints
@@ -42,7 +42,7 @@ const limiter = rateLimit({
 
 app.use(limiter)
 
-app.get("/api-test", (req, res) => res.send("Hello World!"))
+app.get("/api-test", (req, res) => res.send("Hello World!".brightMagenta))
 
 fs.readdirSync("./routes").map((route) =>
   app.use("/", require("./routes/" + route))
@@ -51,5 +51,7 @@ fs.readdirSync("./routes").map((route) =>
 const port = process.env.PORT || 8080
 
 app.listen(port, () =>
-  console.log(`app listening on port ${port}! http://localhost:${port}`)
+  console.log(
+    `app listening on port ${port}! http://localhost:${port}`.brightCyan
+  )
 )

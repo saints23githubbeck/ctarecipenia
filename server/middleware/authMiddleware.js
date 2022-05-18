@@ -25,19 +25,20 @@ exports.requireSignIn = asyncHandler(async (req, res, next) => {
       console.log(
         `Error getting user information. Access denied: ${error.message}`
       )
-      res.status(401)
-      throw new Error("Access Denied")
+     return res.status(401).json({ error: "Access Denied" })
     }
   }
 
   if (!token) {
-    res.status(401)
-    throw new Error("Access Denied. Please login to continue")
+   return res.status(401).json({ error: "Access Denied. Please login to continue" })
   }
 })
 
 exports.authMiddleware = async (req, res, next) => {
   //console.log("authMiddleware", req.user)
+  if (!req.user) {
+    return res.status(401).json({ error: "Please Sign in" })
+  }
   const user = await User.findById(req.user._id).exec()
   if (!user) {
     return res.status(400).json({
@@ -67,7 +68,7 @@ exports.adminMiddleware = async (req, res, next) => {
   if (user.userGroup !== "admin") {
     return res.status(400).json({
       error: "Admin access only. Access denied",
-    }) 
+    })
   }
 
   req.user = user

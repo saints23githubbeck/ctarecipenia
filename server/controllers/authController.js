@@ -16,7 +16,10 @@ exports.register = asyncHandler(async (req, res) => {
     })
   }
 
-  const userExists = await User.findOne({ email })
+  const userExists = await User.findOne({
+    $or: [{ email }, { username }],
+  })
+
   if (userExists) {
     return res.status(400).json({ error: "User already exists" })
   }
@@ -80,7 +83,7 @@ exports.login = asyncHandler(async (req, res) => {
       token: userToken,
     })
   } else {
-  return res.status(401).json({ error: "Invalid user credentials" })
+    return res.status(401).json({ error: "Invalid user credentials" })
   }
 })
 
@@ -129,6 +132,3 @@ exports.forgotPassword = asyncHandler(async (req, res) => {
     }
   }
 })
-
-
-
