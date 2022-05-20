@@ -1,25 +1,48 @@
 import { useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { user } from "../../components/admin/data";
+// import { user } from "../../components/admin/data";
 import ReactPaginate from "react-paginate";
 import * as BiIcons from "react-icons/bi";
 import AdminModal from "../../components/modals/AdminModal";
+import {
+  getAllSubscribers,
+  setUserError,
+} from "../../appState/actions/AdminAuthAction";
+import { useDispatch, useSelector } from "react-redux";
+import { BASE_URL } from "../../api";
+import * as actiontypes from "../../appState/actionTypes";
 
 const PER_PAGE = 10;
-const URL = { user };
+// const URL = { user };
+
 const UsersNormal = () => {
   const navigate = useNavigate();
+  const { users } = useSelector((state) => state.user);
+  console.log("viewer", users)
   const [addUser, setAddUser] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
-  const [userList, setUserList] = useState(user);
+  const [userList, setUserList] = useState(users);
+  const dispatch = useDispatch();
 
-  const handleDelete = (e) => {
-    const filtered = userList.filter((user) => user !== e);
-    setUserList(filtered);
-  };
+  async function handleDelete(_id) {
+    let result = await fetch(`${BASE_URL}/remove-user/${_id}`, {
+      method: "DELETE",
+    });
+    result = await result.json();
+    console.log(result);
+    dispatch(getAllSubscribers());
+  }
+
+  useEffect(() => {
+    setUserList(users);
+  }, [users]);
+
+  useEffect(() => {
+    dispatch(getAllSubscribers());
+  }, []);
 
   const status = (status) => {
     switch (status) {
@@ -32,6 +55,10 @@ const UsersNormal = () => {
     }
   };
 
+  const convertDate = (date) => {
+    return new Date(date)?.toDateString();
+  };
+
   const handleOpen = (item) => {
     setShowModal(true);
     setAddUser(item);
@@ -39,6 +66,10 @@ const UsersNormal = () => {
 
   const handleClose = () => {
     setShowModal(false);
+    dispatch({
+      type: actiontypes.RESET_USER_STATE,
+    });
+    dispatch(setUserError(""));
   };
 
   useEffect(() => {
@@ -48,8 +79,8 @@ const UsersNormal = () => {
   function fetchData() {
     fetch(URL)
       .then((res) => res.json())
-      .then((user) => {
-        setData(user);
+      .then((users) => {
+        setData(users);
       });
   }
 
@@ -60,40 +91,40 @@ const UsersNormal = () => {
   const offset = currentPage * PER_PAGE;
 
   const currentPageData = userList
-    .slice(offset, offset + PER_PAGE)
-    .map((user) => (
-      <tr key={user.id} className="">
+    ?.slice(offset, offset + PER_PAGE)
+    .map((users) => (
+      <tr key={users.id} className="">
         <td className="tdata">
           <img
-            src={user.image}
-            alt={user.username}
+            src={users.image}
+            alt={users.username}
             style={{
               width: "30px",
               height: "30px",
               borderRadius: "20px",
             }}
           />{" "}
-          {user.username}
+          {users.username}
         </td>
-        <td className="tdata">{user.usergroup}</td>
+        <td className="tdata">{users.usergroup}</td>
         <td className="tdata">
           <p
             style={{
-              backgroundColor: status(user.status),
+              backgroundColor: status(users.status),
               color: "#fff",
               padding: "8px",
               margin: "5px",
             }}
           >
-            {user.status}
+            {users.status}
           </p>
         </td>
-        <td className="tdata">{user.date}</td>
-        <td className="tdata">{user.view}</td>
+        <td className="tdata">{users.date}</td>
+        <td className="tdata">{users.view}</td>
         <td className="tdata buttonEdit">
           <button
             className="detailsButton"
-            onClick={() => navigate("/admin/normaluser/edit", { state: user })}
+            onClick={() => navigate("/admin/normaluser/edit", { state: users })}
             style={{ backgroundColor: "orange" }}
           >
             <BiIcons.BiEdit className="text-white h6" /> Edit
@@ -101,7 +132,7 @@ const UsersNormal = () => {
           <button
             className="detailsButton"
             style={{ backgroundColor: "red" }}
-            onClick={(e) => handleDelete(user)}
+            onClick={(e) => handleDelete(users)}
           >
             <BiIcons.BiTrash className="text-white h6" /> Delete
           </button>
@@ -109,7 +140,7 @@ const UsersNormal = () => {
       </tr>
     ));
 
-  const pageCount = Math.ceil(userList.length / PER_PAGE);
+  const pageCount = Math.ceil(userList?.length / PER_PAGE);
 
   return (
     <div className="fill">

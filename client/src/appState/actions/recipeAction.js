@@ -54,64 +54,60 @@ export const setRecipesError = (value) => ({
 });
 
 export const submitRecipe = (payload, onClose) => async (dispatch) => {
-  let token =  localStorage.getItem("auth");
+  let token = localStorage.getItem("auth");
   if (token) {
-  try {
-    dispatch(setRecipesLoading("loading", true));
-    const result = await httpRequest({
-      url: `/admin/recipe`,
-      method: "POST",
-      body: JSON.stringify({ ...payload }),
-      headers: {
-        "Authorization": `Bearer ${token}` 
-      },
-    });
-    console.log(result, "wait you");
-    if (result.message === "Recipe added") {
-      dispatch(setRecipesLoading("loading", false));
-      dispatch(getALLRecipes());
-      onClose();
-      dispatch({
-        type: actiontypes.RESET_RECIPE_STATE,
+    try {
+      dispatch(setRecipesLoading("loading", true));
+      const result = await httpRequest({
+        url: `/admin/recipe`,
+        method: "POST",
+        body: JSON.stringify({ ...payload }),
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
-    
-    } else {
-      dispatch(setRecipesLoading("loading", false));
-      dispatch(setRecipesError(result.error));
-    }
-  } catch (error) {}
-}
+      console.log(result, "wait you");
+      if (result.message === "Recipe added") {
+        dispatch(setRecipesLoading("loading", false));
+        dispatch(getALLRecipes());
+        onClose();
+        dispatch({
+          type: actiontypes.RESET_RECIPE_STATE,
+        });
+      } else {
+        dispatch(setRecipesLoading("loading", false));
+        dispatch(setRecipesError(result.error));
+      }
+    } catch (error) {}
+  }
 };
 
-
 export const updateRecipe = (payload, onClose) => async (dispatch) => {
-  let token =  localStorage.getItem("auth");
+  let token = localStorage.getItem("auth");
   if (token) {
-  try {
-    dispatch(setRecipesLoading("loading", true));
-    const result = await httpRequest({
-      url: `/admin/recipe/${payload._id}`,
-      // url: `/recipe/:slug`,
-      method: "PUT",
-      body: JSON.stringify({ ...payload }),
-      headers: {
-        "Authorization": `Bearer ${token}` 
-      },
-    });
-    console.log("updated", payload)
-    console.log(result, "updated");
-    if (result.status === 200 ) {
-      dispatch(setRecipesLoading("loading", false));
-      dispatch(getALLRecipes());
-      onClose();
-      dispatch({
-        type: actiontypes.RESET_RECIPE_STATE
-      })
-    } else {
-      dispatch(setRecipesLoading("loading", false));
-      dispatch(setRecipesError(result.error));
-
-    }
-  } catch (error) {}
-}
+    try {
+      dispatch(setRecipesLoading("loading", true));
+      const result = await httpRequest({
+        url: `/admin/recipe/${payload._id}`,
+        method: "PUT",
+        body: JSON.stringify({ ...payload }),
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("updated", payload);
+      console.log(result, "updated");
+      if (result.status === 200) {
+        dispatch(setRecipesLoading("loading", false));
+        dispatch(getALLRecipes());
+        onClose();
+        dispatch({
+          type: actiontypes.RESET_RECIPE_STATE,
+        });
+      } else {
+        dispatch(setRecipesLoading("loading", false));
+        dispatch(setRecipesError(result.error));
+      }
+    } catch (error) {}
+  }
 };

@@ -5,21 +5,42 @@ import { adminUser } from "../../components/admin/data";
 import ReactPaginate from "react-paginate";
 import * as BiIcons from "react-icons/bi";
 import AdminModal from "../../components/modals/AdminModal";
+import {
+  getAllAdmin,
+  setUserError,
+} from "../../appState/actions/AdminAuthAction";
+import { useDispatch, useSelector } from "react-redux";
+import { BASE_URL } from "../../api";
+import * as actiontypes from "../../appState/actionTypes";
 
 const PER_PAGE = 10;
-const URL = { adminUser };
+// const URL = { adminUser };
 const UsersAdministrator = () => {
   const navigate = useNavigate();
+  const { adminUser } = useSelector((state) => state.user);
   const [addAdmin, setAddAdmin] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
   const [adminUserList, setAdminUserList] = useState(adminUser);
+  const dispatch = useDispatch();
 
-  const handleDelete = (e) => {
-    const filtered = adminUserList.filter((adminUser) => adminUser !== e);
-    setAdminUserList(filtered);
-  };
+  async function handleDelete(_id) {
+    let result = await fetch(`${BASE_URL}/admin/${_id}`, {
+      method: "DELETE",
+    });
+    result = await result.json();
+    console.log(result);
+    dispatch(getAllAdmin());
+  }
+
+  useEffect(() => {
+    setAdminUserList(adminUser);
+  }, [adminUser]);
+
+  useEffect(() => {
+    dispatch(getAllAdmin());
+  }, []);
 
   const status = (status) => {
     switch (status) {
@@ -32,6 +53,10 @@ const UsersAdministrator = () => {
     }
   };
 
+  const convertDate = (date) => {
+    return new Date(date)?.toDateString();
+  };
+
   const handleOpen = (item) => {
     setShowModal(true);
     setAddAdmin(item);
@@ -39,6 +64,10 @@ const UsersAdministrator = () => {
 
   const handleClose = () => {
     setShowModal(false);
+    dispatch({
+      type: actiontypes.RESET_USER_STATE,
+    });
+    dispatch(setUserError(""));
   };
 
   useEffect(() => {
@@ -60,9 +89,12 @@ const UsersAdministrator = () => {
   const offset = currentPage * PER_PAGE;
 
   const currentPageData = adminUserList
+    ?.sort(function (a, b) {
+      return new Date(b.updatedAt) - new Date(a.updatedAt);
+    })
     .slice(offset, offset + PER_PAGE)
     .map((adminUser) => (
-      <tr key={adminUser.id} className="">
+      <tr key={adminUser._id} className="">
         <td className="tdata">
           <img
             src={adminUser.image}
@@ -88,7 +120,7 @@ const UsersAdministrator = () => {
             {adminUser.status}
           </p>
         </td>
-        <td className="tdata">{adminUser.date}</td>
+        <td className="tdata">{convertDate(adminUser.createdAt())}</td>
         <td className="tdata">{adminUser.view}</td>
         <td className="tdata buttonEdit">
           <button
@@ -103,7 +135,7 @@ const UsersAdministrator = () => {
           <button
             className="detailsButton"
             style={{ backgroundColor: "red" }}
-            onClick={(e) => handleDelete(adminUser)}
+            onClick={(e) => handleDelete(adminUser._id)}
           >
             <BiIcons.BiTrash className="text-white h6" /> Delete
           </button>
@@ -111,7 +143,7 @@ const UsersAdministrator = () => {
       </tr>
     ));
 
-  const pageCount = Math.ceil(adminUserList.length / PER_PAGE);
+  const pageCount = Math.ceil(adminUserList?.length / PER_PAGE);
 
   return (
     <div className="fill">
