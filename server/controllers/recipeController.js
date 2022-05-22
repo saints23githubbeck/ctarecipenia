@@ -8,7 +8,13 @@ const slugify = require("slugify")
 */
 
 exports.addRecipe = async (req, res) => {
-  const { username } = req.user
+  if (!req.user) {
+    return res.status(401).json({
+      error: "Please Sign in first",
+    })
+  }
+
+  const username = req.user.username
 
   const {
     title,
@@ -73,13 +79,15 @@ exports.addRecipe = async (req, res) => {
 exports.getRecipes = async (req, res) => {
   //console.log("get recipes")
   try {
-    let totalRecipes = await Recipe.countDocuments()
+    // let totalRecipes = await Recipe.countDocuments()
+    let totalRecipes
     const recipes = await Recipe.find({})
       .sort([["createdAt", "asc"]])
       .exec()
     if (!recipes) {
       return res.status(400).json({ error: [{ message: "Recipes not found" }] })
     }
+    totalRecipes = recipes.length
     return res.status(200).json({
       success: true,
       recipes,
