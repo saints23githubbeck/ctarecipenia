@@ -38,7 +38,7 @@ exports.addRecipe = async (req, res) => {
       res.status(400).json({ error: "Please fill all required fields" })
     }
 
-    const slug = slugify(username).toLowerCase()
+    const slug = slugify(title).toLowerCase()
 
     const recipe = await Recipe.create({
       title,
