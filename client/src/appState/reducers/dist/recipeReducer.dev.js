@@ -52,6 +52,7 @@ var recipe = function recipe() {
 
   switch (action.type) {
     case actiontypes.GET_ALL_RECIPES:
+      console.log("who you", action.type);
       return _objectSpread({}, state, {
         recipes: action.payload
       });

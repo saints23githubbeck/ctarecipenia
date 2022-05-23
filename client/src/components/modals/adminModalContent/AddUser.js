@@ -1,9 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState, useRef } from "react";
 import { RiCloseFill } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
-import { handleState, registerUserByAdmin, setUserError } from '../../../appState/actions/AdminAuthAction';
+import { useNavigate } from "react-router-dom";
+import {
+  handleState,
+  registerUserByAdmin,
+  setUserError,
+} from "../../../appState/actions/AdminAuthAction";
 
 const AddUser = ({ onclose }) => {
+  const navigate = useNavigate();
+ 
   const dispatch = useDispatch();
   const {
     username,
@@ -16,24 +23,30 @@ const AddUser = ({ onclose }) => {
     password,
     email,
     secret,
-    error
+    error,
+  } = useSelector((state) => state.adminProfile);
+  console.log(password)
 
-  } = useSelector((state) => state.user);
+  const target = useRef(null);
+  const [selectImage, setSelectImage] = useState(image);
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     const payload = {
-      username:username,
-    firstName:firstName,
-    lastName:lastName,
-    country:country,
-    userGroup:userGroup,
-    image:image,
-    description:description,
-    password:password,
-    email:email,
-    secret:secret
+      username: username,
+      firstName: firstName,
+      lastName: lastName,
+      country: country,
+      userGroup: "subscriber",
+      image: selectImage,
+      description: description,
+      password: password,
+      email: email,
+      secret: secret,
     };
-    dispatch(registerUserByAdmin(payload, onclose));
+    dispatch(registerUserByAdmin(payload, onclose, navigate));
+    console.log("new input", payload)
+
   };
 
   useEffect(() => {
@@ -42,244 +55,240 @@ const AddUser = ({ onclose }) => {
     }, 8000);
   }, [error]);
 
+  const fileToBase64 = (file, cb) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      cb(null, reader.result);
+    };
+  };
+
+  const handleFile = (e) => {
+    const uploaded = e.target.files[0];
+
+    let base64 = "";
+    fileToBase64(uploaded, (err, result) => {
+      if (result) {
+        const base64String = result.split(",");
+        base64 = base64String[1];
+      }
+      setSelectImage(base64);
+    });
+  };
 
   return (
     <div>
-    <div className="d-flex m-3 justify-content-between align-items-center">
-      <h5 className="p-3">Add User</h5>
-      <h5 onClick={onclose} style={{ cursor: "pointer" }}>
-        {" "}
-        <RiCloseFill className="h3 text-danger" />
-      </h5>
+      <div className="d-flex m-3 justify-content-between align-items-center">
+        <h5 className="p-3">Add User</h5>
+        <h5 onClick={onclose} style={{ cursor: "pointer" }}>
+          {" "}
+          <RiCloseFill className="h3 text-danger" />
+        </h5>
+      </div>
+
+      <div className="row  m-3">
+        <p className="w-25 h-75 text-end ptag">Username</p>
+        <input
+          onChange={(e) => dispatch(handleState("username", e.target.value))}
+          value={username}
+          className="w-75 h-75 p-1 border"
+          type="text"
+          required
+          id="name"
+          autoComplete="name"
+          autoFocus
+          placeholder="enter userName"
+        />
+      </div>
+
+      <div className="row  m-3">
+        <p className="w-25 h-75 text-end ptag">First Name</p>
+        <input
+          onChange={(e) => dispatch(handleState("firstName", e.target.value))}
+          value={firstName}
+          className="w-75 h-75 p-1 border"
+          type="text"
+          required
+          id="name"
+          autoComplete="name"
+          autoFocus
+          placeholder="enter your first name"
+        />
+      </div>
+
+      <div className="row  m-3">
+        <p className="w-25 h-75 text-end ptag">Last Name</p>
+        <input
+          onChange={(e) => dispatch(handleState("lastName", e.target.value))}
+          value={lastName}
+          className="w-75 h-75 p-1 border"
+          type="text"
+          required
+          id="name"
+          autoComplete="name"
+          autoFocus
+          placeholder="enter your last name"
+        />
+      </div>
+
+      <div className="row  m-3">
+        <p className="w-25 h-75 text-end ptag">Email</p>
+        <input
+          onChange={(e) => dispatch(handleState("email", e.target.value))}
+          value={email}
+          className="w-75 h-75 p-1 border"
+          type="email"
+          required
+          id="name"
+          autoComplete="name"
+          autoFocus
+          placeholder="enter email address"
+        />
+      </div>
+
+      <div className="row  m-3">
+        <p className="w-25 h-75 text-end ptag">Country</p>
+        <input
+          onChange={(e) => dispatch(handleState("country", e.target.value))}
+          value={country}
+          className="w-75 h-75 p-1 border"
+          type="text"
+          required
+          id="name"
+          autoComplete="name"
+          autoFocus
+          placeholder="select your country"
+        />
+      </div>
+
+      <div className="row  m-3">
+        <p className="w-25 h-75 text-end ptag">Image</p>
+        <div className="w-75 h-75 p-1 flex">
+          <div className="w-75 h-75 p-1">
+            <input
+              style={{ display: "none" }}
+              type="file"
+              accept="image/*"
+              ref={target}
+              onChange={(e) => handleFile(e)}
+            />
+            <label
+              style={{
+                backgroundColor: "#fda47a",
+                color: "white",
+                height: "45px",
+                padding: "0 30px",
+                fontWeight: "700",
+                lineHeight: "45px",
+                cursor: "pointer",
+              }}
+              onClick={() => target.current.click()}
+              htmlFor="file"
+            >
+              UPLOAD IMAGE
+            </label>
+          </div>
+          <div className="w-50 h-75 p-1">
+            {selectImage !== null && (
+              <img
+                style={{ width: "100%", height: "50%", borderRadius: "10px" }}
+                src={`data:image/*;base64,${selectImage}`}
+                alt="img"
+              />
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div className="row  m-3">
+        <p className="w-25 h-75 text-end ptag">Password</p>
+        <input
+          className="w-75 h-75 p-1 border"
+          type="password"
+          required
+          autoFocus
+          placeholder=" Enter password"
+        />
+      </div>
+
+      <div className="row  m-3">
+        <p className="w-25 h-75 text-end ptag">Comfirm Password</p>
+        <input
+         onChange={(e) => dispatch(handleState("password", e.target.value))}
+         value={password}
+          className="w-75 h-75 p-1 border"
+          type="password"
+          required
+          autoFocus
+          placeholder=" re-enter your password"
+        />
+      </div>
+
+
+      <div className="row  m-3">
+        <p className="w-25 h-75 text-end ptag">Secret</p>
+        <input
+          onChange={(e) => dispatch(handleState("secret", e.target.value))}
+          value={secret}
+          className="w-75 h-75 p-1 border"
+          type="text"
+          required
+          id="name"
+          autoComplete="name"
+          autoFocus
+          placeholder="select your country"
+        />
+      </div>
+
+      <div className="row  m-3">
+        <p className="w-25 h-75 text-end ptag">Description</p>
+        <textarea
+          onChange={(e) => dispatch(handleState("description", e.target.value))}
+          value={description}
+          className="w-75 h-75 p-1 text-wrap border"
+          type="text"
+          rows={4}
+          placeholder="Description"
+        />
+      </div>
+
+      <div className="m-3">
+        <button
+          onClick={handleSubmit}
+          style={{
+            marginRight: "50px",
+            backgroundColor: "blue",
+            border: "none",
+            borderRadius: "5px",
+            padding: 10,
+            color: "#fff",
+            width: "100px",
+            fontSize: 16,
+            marginBottom: "40px",
+          }}
+        >
+          Create
+        </button>
+
+        <button
+          onClick={onclose}
+          style={{
+            marginRight: "50px",
+            backgroundColor: "red",
+            border: "none",
+            borderRadius: "5px",
+            padding: 10,
+            color: "#fff",
+            width: "100px",
+            fontSize: 16,
+            marginBottom: "40px",
+          }}
+        >
+          Cancel
+        </button>
+      </div>
     </div>
+  );
+};
 
-    <div className="row  m-3">
-      <p className="w-25 h-75 text-end ptag">Usergroup</p>
-      <input 
-      onChange={(e) =>
-              dispatch(handleState("userGroup", e.target.value))
-            }
-            value={userGroup}
-        className="w-75 h-75 p-1 border"
-        type="email"
-        required
-        id="email"
-        autoComplete="email"
-        autoFocus
-        placeholder="select user group"
-      />
-    </div>
-
-    <div className="row  m-3">
-      <p className="w-25 h-75 text-end ptag">Username</p>
-      <input 
-      onChange={(e) =>
-              dispatch(handleState("username", e.target.value))
-            }
-            value={username}
-        className="w-75 h-75 p-1 border"
-        type="text"
-        required
-        id="name"
-        autoComplete="name"
-        autoFocus
-        placeholder="enter userName"
-      />
-    </div>
-
-    <div className="row  m-3">
-      <p className="w-25 h-75 text-end ptag">First Name</p>
-      <input 
-      onChange={(e) =>
-              dispatch(handleState("firstName", e.target.value))
-            }
-            value={firstName}
-        className="w-75 h-75 p-1 border"
-        type="text"
-        required
-        id="name"
-        autoComplete="name"
-        autoFocus
-        placeholder="enter your first name"
-      />
-    </div>
-
-    <div className="row  m-3">
-      <p className="w-25 h-75 text-end ptag">Last Name</p>
-      <input 
-      onChange={(e) =>
-              dispatch(handleState("lastName", e.target.value))
-            }
-            value={lastName}
-        className="w-75 h-75 p-1 border"
-        type="text"
-        required
-        id="name"
-        autoComplete="name"
-        autoFocus
-        placeholder="enter your last name"
-      />
-    </div>
-
-    <div className="row  m-3">
-      <p className="w-25 h-75 text-end ptag">Email</p>
-      <input 
-      onChange={(e) =>
-              dispatch(handleState("email", e.target.value))
-            }
-            value={email}
-        className="w-75 h-75 p-1 border"
-        type="email"
-        required
-        id="name"
-        autoComplete="name"
-        autoFocus
-        placeholder="enter email address"
-      />
-    </div>
-
-    <div className="row  m-3">
-      <p className="w-25 h-75 text-end ptag">Country</p>
-      <input 
-      onChange={(e) =>
-              dispatch(handleState("country", e.target.value))
-            }
-            value={country}
-        className="w-75 h-75 p-1 border"
-        type="text"
-        required
-        id="name"
-        autoComplete="name"
-        autoFocus
-        placeholder="select your country"
-      />
-    </div>
-
-    <div className="row  m-3">
-      <p className="w-25 h-75 text-end ptag">Image</p>
-      <input 
-      onChange={(e) =>
-              dispatch(handleState("image", e.target.value))
-             }
-          value={image}
-        className="w-50 h-75 p-1 border"
-        type="file"
-        required
-        id="phone"
-        autoComplete="number"
-        autoFocus
-        placeholder="Choose image "
-      />
-      <img
-        className="w-25 h-75 p-1"
-        src=""
-        alt=""
-        style={{ width: "30px", height: "30px", borderRadius: "10px" }}
-      />
-    </div>
-
-    <div className="row  m-3">
-      <p className="w-25 h-75 text-end ptag">Password</p>
-      <input 
-      onChange={(e) =>
-              dispatch(handleState("password", e.target.value))
-            }
-            value={password}
-        className="w-75 h-75 p-1 border"
-        type="password"
-        required
-        id=""
-        autoComplete="password"
-        autoFocus
-        placeholder="password"
-      />
-    </div>
-
-    <div className="row  m-3">
-      <p className="w-25 h-75 text-end ptag">Comfirm Password</p>
-      <input 
-      // onChange={(e) =>
-      //         dispatch(handleState("category", e.target.value))
-      //       }
-      //       value={category}
-        className="w-75 h-75 p-1 border"
-        type="password"
-        required
-        id=""
-        autoComplete="password"
-        autoFocus
-        placeholder=" re-enter your password"
-      />
-    </div>
-
-    <div className="row  m-3">
-      <p className="w-25 h-75 text-end ptag">Secret</p>
-      <input 
-      onChange={(e) =>
-              dispatch(handleState("secret", e.target.value))
-            }
-            value={secret}
-        className="w-75 h-75 p-1 border"
-        type="text"
-        required
-        id="name"
-        autoComplete="name"
-        autoFocus
-        placeholder="select your country"
-      />
-    </div>
-
-    <div className="row  m-3">
-      <p className="w-25 h-75 text-end ptag">Description</p>
-      <textarea
-      onChange={(e) =>
-        dispatch(handleState("description", e.target.value))
-      }
-      value={description}
-        className="w-75 h-75 p-1 text-wrap border"
-        type="text"
-        rows={4}
-        placeholder="Description"
-      />
-    </div>
-
-    <div className="m-3">
-      <button
-      onClick={handleSubmit}
-        style={{
-          marginRight: "50px",
-          backgroundColor: "blue",
-          border: "none",
-          borderRadius: "5px",
-          padding: 10,
-          color: "#fff",
-          width: "100px",
-          fontSize: 16,
-          marginBottom: "40px",
-        }}
-      >
-        Create
-      </button>
-
-      <button
-        onClick={onclose}
-        style={{
-          marginRight: "50px",
-          backgroundColor: "red",
-          border: "none",
-          borderRadius: "5px",
-          padding: 10,
-          color: "#fff",
-          width: "100px",
-          fontSize: 16,
-          marginBottom: "40px",
-        }}
-      >
-        Cancel
-      </button>
-    </div>
-  </div>
-  )
-}
-
-export default AddUser
+export default AddUser;

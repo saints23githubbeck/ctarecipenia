@@ -4,19 +4,26 @@ import { setIsLoading } from "./AuthAction";
 
 
 export const getAllAdmin= () => async (dispatch) => {
+  let token =  localStorage.getItem("auth");
+  if (token) {
     try {
       dispatch(setIsLoading(true));
       const result = await httpRequest({
         url: `/all-admins`,
         method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}` 
+        },
       });
-      if (result.success === true) {
+      console.log("getAllAdmin", result)
+      if (!result?.error) {
         dispatch({
           type: actiontypes.GET_ALL_ADMIN,
-          payload: result.admin,
+          payload: result.admins,
         });
       }
     } catch (error) {}
+    }
 };
   
 export const registerAdmin = (payload, onClose) => async (dispatch) => {
@@ -58,10 +65,10 @@ export const getAllSubscribers= () => async (dispatch) => {
       });
       console.log("getAlluser", result)
 
-      if (result.success === true) {
+      if (!result?.error) {
         dispatch({
           type: actiontypes.GET_ALL_USER,
-          payload: result.users,
+          payload: result.subscribers,
         });
       }
     } catch (error) {}
@@ -81,10 +88,10 @@ export const registerUserByAdmin = (payload, onClose) => async (dispatch) => {
         },
       });
      
-      console.log("registerAdmin", result);
-      if (result.message) {
+      console.log("registerUserByAdmin", result);
+      if (result.success) {
         dispatch(setUserLoading("loading", false));
-        dispatch(getAllAdmin());
+        dispatch(getAllSubscribers());
         onClose();
         dispatch({
           type: actiontypes.RESET_USER_STATE,
@@ -140,7 +147,7 @@ export  const getAdminProfile = () => async(dispatch)=> {
           "Authorization": `Bearer ${token}` 
         },
       });
-      console.log("adminUser", result)
+      console.log("getAdminProfile", result)
      if (result.user) {
       dispatch({
         type: actiontypes.GET_CURRENT_ADMIN,
@@ -166,8 +173,8 @@ export const updateUserByAdmin = (payload, onClose) => async (dispatch) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("updated user", result);
-    if (result.status === 200 ) {
+      console.log("updateUserByAdmin", result);
+    if (result.status ) {
       dispatch(setUserLoading("loading", false));
       dispatch(getAllSubscribers());
       dispatch(getAllAdmin());

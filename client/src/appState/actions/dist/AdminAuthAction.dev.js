@@ -25,21 +25,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var getAllAdmin = function getAllAdmin() {
   return function _callee(dispatch) {
-    var result;
+    var token, result;
     return regeneratorRuntime.async(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.prev = 0;
+            token = localStorage.getItem("auth");
+
+            if (!token) {
+              _context.next = 13;
+              break;
+            }
+
+            _context.prev = 2;
             dispatch((0, _AuthAction.setIsLoading)(true));
-            _context.next = 4;
+            _context.next = 6;
             return regeneratorRuntime.awrap((0, _api.httpRequest)({
               url: "/all-admins",
-              method: "GET"
+              method: "GET",
+              headers: {
+                "Authorization": "Bearer ".concat(token)
+              }
             }));
 
-          case 4:
+          case 6:
             result = _context.sent;
+            console.log("getAllAdmin", result);
 
             if (result.success === true) {
               dispatch({
@@ -48,19 +59,19 @@ var getAllAdmin = function getAllAdmin() {
               });
             }
 
-            _context.next = 10;
+            _context.next = 13;
             break;
 
-          case 8:
-            _context.prev = 8;
-            _context.t0 = _context["catch"](0);
+          case 11:
+            _context.prev = 11;
+            _context.t0 = _context["catch"](2);
 
-          case 10:
+          case 13:
           case "end":
             return _context.stop();
         }
       }
-    }, null, null, [[0, 8]]);
+    }, null, null, [[2, 11]]);
   };
 };
 
@@ -198,7 +209,7 @@ var registerUserByAdmin = function registerUserByAdmin(payload, onClose) {
 
           case 6:
             result = _context4.sent;
-            console.log("registerAdmin", result);
+            console.log("registerUserByAdmin", result);
 
             if (result.message) {
               dispatch(setUserLoading("loading", false));
@@ -313,7 +324,7 @@ var getAdminProfile = function getAdminProfile() {
 
           case 4:
             result = _context6.sent;
-            console.log("adminUser", result);
+            console.log("getAdminProfile", result);
 
             if (result.user) {
               dispatch({
@@ -364,7 +375,7 @@ var updateUserByAdmin = function updateUserByAdmin(payload, onClose) {
 
           case 6:
             result = _context7.sent;
-            console.log("updated user", result);
+            console.log("updateUserByAdmin", result);
 
             if (result.status === 200) {
               dispatch(setUserLoading("loading", false));

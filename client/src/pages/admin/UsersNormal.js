@@ -18,27 +18,26 @@ const PER_PAGE = 10;
 
 const UsersNormal = () => {
   const navigate = useNavigate();
-  const { users } = useSelector((state) => state.user);
-  console.log("viewer", users)
+  const { subscribers } = useSelector(state => state.adminProfile);
   const [addUser, setAddUser] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
-  const [userList, setUserList] = useState(users);
+  const [userList, setUserList] = useState(subscribers);
   const dispatch = useDispatch();
 
   async function handleDelete(_id) {
-    let result = await fetch(`${BASE_URL}/remove-user/${_id}`, {
+    let result = await fetch(`${BASE_URL}/admin/user/${_id}`, {
       method: "DELETE",
     });
+    console.log("deleting normalUser", result);
     result = await result.json();
-    console.log(result);
     dispatch(getAllSubscribers());
   }
 
   useEffect(() => {
-    setUserList(users);
-  }, [users]);
+    setUserList(subscribers);
+  }, [subscribers]);
 
   useEffect(() => {
     dispatch(getAllSubscribers());
@@ -46,9 +45,9 @@ const UsersNormal = () => {
 
   const status = (status) => {
     switch (status) {
-      case "Active":
+      case "active":
         return "green";
-      case "Inactive":
+      case "inactive":
         return "red";
       default:
         return "grey";
@@ -79,8 +78,8 @@ const UsersNormal = () => {
   function fetchData() {
     fetch(URL)
       .then((res) => res.json())
-      .then((users) => {
-        setData(users);
+      .then((subscribers) => {
+        setData(subscribers);
       });
   }
 
@@ -91,40 +90,43 @@ const UsersNormal = () => {
   const offset = currentPage * PER_PAGE;
 
   const currentPageData = userList
+  ?.sort(function (a, b) {
+    return new Date(b.updatedAt) - new Date(a.updatedAt);
+  })
     ?.slice(offset, offset + PER_PAGE)
-    .map((users) => (
-      <tr key={users.id} className="">
+    .map((subscribers) => (
+      <tr key={subscribers._id} className="">
         <td className="tdata">
           <img
-            src={users.image}
-            alt={users.username}
+            src={`data:image/*;base64,${subscribers.image}`}
+            alt={subscribers.username}
             style={{
               width: "30px",
               height: "30px",
               borderRadius: "20px",
             }}
           />{" "}
-          {users.username}
+          {subscribers.username}
         </td>
-        <td className="tdata">{users.usergroup}</td>
+        <td className="tdata">{subscribers.userGroup}</td>
         <td className="tdata">
           <p
             style={{
-              backgroundColor: status(users.status),
+              backgroundColor: status(subscribers.status),
               color: "#fff",
               padding: "8px",
               margin: "5px",
             }}
           >
-            {users.status}
+            {subscribers.status}
           </p>
         </td>
-        <td className="tdata">{users.date}</td>
-        <td className="tdata">{users.view}</td>
+        <td className="tdata">{convertDate(subscribers.createdAt)}</td>
+        <td className="tdata">{subscribers.view}</td>
         <td className="tdata buttonEdit">
           <button
             className="detailsButton"
-            onClick={() => navigate("/admin/normaluser/edit", { state: users })}
+            onClick={() => navigate("/admin/normaluser/edit", { state: subscribers })}
             style={{ backgroundColor: "orange" }}
           >
             <BiIcons.BiEdit className="text-white h6" /> Edit
@@ -132,7 +134,7 @@ const UsersNormal = () => {
           <button
             className="detailsButton"
             style={{ backgroundColor: "red" }}
-            onClick={(e) => handleDelete(users)}
+            onClick={(e) => handleDelete(subscribers._id)}
           >
             <BiIcons.BiTrash className="text-white h6" /> Delete
           </button>
