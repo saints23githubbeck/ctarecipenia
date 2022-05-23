@@ -29,7 +29,6 @@ const RecipesAdmin = () => {
       method: "DELETE",
     });
     result = await result.json();
-    console.log(result);
     dispatch(getALLRecipes());
   }
 

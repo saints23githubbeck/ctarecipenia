@@ -15,6 +15,7 @@ const emptyState = {
 
 const initialState = {
   subscribers: [],
+  admins: [],
   ...emptyState,
     isLoggedIn: false,
     isLoading: false,
@@ -22,7 +23,7 @@ const initialState = {
     message: "",
   };
 
-  export const view = (state = initialState, action) => {
+  export const adminProfile = (state = initialState, action) => {
     switch (action.type) {
         case actiontypes.SIGN_IN:
             return {
@@ -33,14 +34,19 @@ const initialState = {
         };
 
         case actiontypes.GET_ALL_ADMIN:
+      console.log("who you admin", action.type)
+          console.log("All Admin from reducer", action.payload)
             return {
               ...state,
-              admin: action.payload,
+              isLoggedIn: action.payload.isLoggedIn,
+              admins: action.payload,
         };
         case actiontypes.GET_ALL_USER:
+      console.log("who you user", action.type)
           console.log("from reducer", action.payload)
             return {
               ...state,
+              isLoggedIn: action.payload.isLoggedIn,
               subscribers: action.payload,
         };
         case actiontypes.ADD_INPUT:

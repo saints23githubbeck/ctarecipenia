@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { RiCloseFill } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -31,6 +31,12 @@ const AddRecipe = ({ onclose }) => {
     error,
     loading,
   } = useSelector((state) => state.recipe);
+  const [level, setLevel] = useState(difficulty);
+
+
+  const handleLevel = (e) => {
+    setLevel(e.target.value);
+  };
 
   const handleSubmit = () => {
     const payload = {
@@ -43,7 +49,7 @@ const AddRecipe = ({ onclose }) => {
       metaDescription: metaDescription,
       featuredImage: featuredImage,
       permLink: permLink,
-      difficulty: difficulty,
+      difficulty: level,
       prepareTime: prepareTime,
       serves: serves,
       calories: calories,
@@ -121,42 +127,43 @@ const AddRecipe = ({ onclose }) => {
             placeholder="permlink"
           />
         </div>
+
         <div className="row m-3">
-          <p className="w-25 h-75 text-end ptag">Difficulty</p>
-          <div className="d-flex justify-content-between   w-75 h-75 p-1">
-            <div className="">
+        <p className="w-25 h-75 text-end ptag">Difficulty</p>
+          <div className="checkbox d-flex justify-content-between w-75 h-75 p-1">
+            <div className="check flex p-1">
               <input
-                onChange={(e) =>
-                  dispatch(handleRecipeState("difficulty", e.target.value))
-                }
-                value={difficulty}
                 type="radio"
+                name="difficulty"
+                onClick={handleLevel}
+                value="easy"
+                defaultChecked={level === "easy"}
               />
-              <label>Easy</label>
+              <label htmlFor="Easy">Easy</label>
             </div>
-            <div className="">
+            <div className="check flex p-2">
               <input
-                onChange={(e) =>
-                  dispatch(handleRecipeState("difficulty", e.target.value))
-                }
-                value={difficulty}
                 type="radio"
+                onClick={handleLevel}
+                name="difficulty"
+                value="medium"
+                defaultChecked={level === "medium"}
               />
-              <label>Medium</label>
+              <label htmlFor="Medium">Medium</label>
             </div>
-            <div className="">
+            <div className="check flex p-3">
               <input
-                onChange={(e) =>
-                  dispatch(handleRecipeState("difficulty", e.target.value))
-                }
-                value={category}
                 type="radio"
+                onClick={handleLevel}
+                name="difficulty"
+                value="hard"
+                defaultChecked={level === "hard"}
               />
-              <label>Hard</label>
+              <label htmlFor="Hard">Hard</label>
             </div>
-            <div></div>
           </div>
         </div>
+
         <div className="d-flex  align-items-center w-80 m-3">
           <div className="w-50 row m-1">
             <p className="w-25 h-75 text-end ptag px-4">Prepare Time</p>

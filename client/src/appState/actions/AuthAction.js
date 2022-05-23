@@ -64,12 +64,11 @@ export const logIn = (formData, navigate, history) => async (dispatch) => {
         },
       });
       console.log("show me", result)
-      if(history.pathname === "/admin"){
+      if(history?.pathname === "/admin"){
         navigate("/admin/dashboard");
       } else {
         navigate("/user-dashboard");
       };
-      console.log(result);
     } else {
       dispatch(setIsLoading(false));
       dispatch({
@@ -101,7 +100,7 @@ export  const fetchProfile = (history) => async(dispatch)=> {
   let token =  localStorage.getItem("auth");
   if (token) {
     const result = await httpRequest({
-      url: history?.pathname === "/admin"?"/admin/user" : "/me",
+      url: "/me",
       method: "GET",
       headers: {
         "Authorization": `Bearer ${token}` 

@@ -29,6 +29,7 @@ const initialState = {
 export const recipe = (state = initialState, action) => {
   switch (action.type) {
     case actiontypes.GET_ALL_RECIPES:
+      console.log("who you", action.type)
       return {
         ...state,
         recipes: action.payload,

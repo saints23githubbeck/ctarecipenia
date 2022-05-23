@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { adminUser } from "../../components/admin/data";
+// import { adminUser } from "../../components/admin/data";
 import ReactPaginate from "react-paginate";
 import * as BiIcons from "react-icons/bi";
 import AdminModal from "../../components/modals/AdminModal";
@@ -17,12 +17,13 @@ const PER_PAGE = 10;
 // const URL = { adminUser };
 const UsersAdministrator = () => {
   const navigate = useNavigate();
-  const { adminUser } = useSelector((state) => state.user);
+  const { admins } = useSelector((state) => state?.adminProfile);
+  console.log(admins)
   const [addAdmin, setAddAdmin] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
-  const [adminUserList, setAdminUserList] = useState(adminUser);
+  const [adminUserList, setAdminUserList] = useState(admins);
   const dispatch = useDispatch();
 
   async function handleDelete(_id) {
@@ -30,13 +31,13 @@ const UsersAdministrator = () => {
       method: "DELETE",
     });
     result = await result.json();
-    console.log(result);
+    console.log("deleting adminuser", result);
     dispatch(getAllAdmin());
   }
 
   useEffect(() => {
-    setAdminUserList(adminUser);
-  }, [adminUser]);
+    setAdminUserList(admins);
+  }, [admins]);
 
   useEffect(() => {
     dispatch(getAllAdmin());
@@ -44,9 +45,9 @@ const UsersAdministrator = () => {
 
   const status = (status) => {
     switch (status) {
-      case "Active":
+      case "active":
         return "green";
-      case "Inactive":
+      case "inactive":
         return "red";
       default:
         return "grey";
@@ -77,8 +78,8 @@ const UsersAdministrator = () => {
   function fetchData() {
     fetch(URL)
       .then((res) => res.json())
-      .then((adminUser) => {
-        setData(adminUser);
+      .then((admins) => {
+        setData(admins);
       });
   }
 
@@ -93,40 +94,40 @@ const UsersAdministrator = () => {
       return new Date(b.updatedAt) - new Date(a.updatedAt);
     })
     .slice(offset, offset + PER_PAGE)
-    .map((adminUser) => (
-      <tr key={adminUser._id} className="">
+    .map((admins) => (
+      <tr key={admins} className="">
         <td className="tdata">
           <img
-            src={adminUser.image}
-            alt={adminUser.username}
+            src={`data:image/*;base64,${admins.image}`}
+            alt={admins.username}
             style={{
               width: "30px",
               height: "30px",
               borderRadius: "20px",
             }}
           />{" "}
-          {adminUser.username}
+          {admins.username}
         </td>
-        <td className="tdata">{adminUser.usergroup}</td>
+        <td className="tdata">{admins.userGroup}</td>
         <td className="tdata">
           <p
             style={{
-              backgroundColor: status(adminUser.status),
+              backgroundColor: status(admins.status),
               color: "#fff",
               padding: "8px",
               margin: "5px",
             }}
           >
-            {adminUser.status}
+            {admins.status}
           </p>
         </td>
-        <td className="tdata">{convertDate(adminUser.createdAt())}</td>
-        <td className="tdata">{adminUser.view}</td>
+        <td className="tdata">{convertDate(admins.createdAt)}</td>
+        <td className="tdata">{admins.view}</td>
         <td className="tdata buttonEdit">
           <button
             className="detailsButton"
             onClick={() =>
-              navigate("/admin/administrator/edit", { state: adminUser })
+              navigate("/admin/administrator/edit", { state: admins })
             }
             style={{ backgroundColor: "orange" }}
           >
@@ -135,7 +136,7 @@ const UsersAdministrator = () => {
           <button
             className="detailsButton"
             style={{ backgroundColor: "red" }}
-            onClick={(e) => handleDelete(adminUser._id)}
+            onClick={(e) => handleDelete(admins._id)}
           >
             <BiIcons.BiTrash className="text-white h6" /> Delete
           </button>

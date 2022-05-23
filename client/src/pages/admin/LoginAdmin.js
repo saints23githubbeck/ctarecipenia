@@ -48,14 +48,13 @@ const LoginAdmin = () => {
 
   const handleinput = (e) => { 
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    console.log('lod,mvc')
   };
   const handleLogin = (e) => {
     e.preventDefault();
     let test = validate();
     if (test) {
      dispatch(logIn(formData, navigate, history));
-    console.log('logining ')
+    console.log('loged in', formData)
     }
   };
   return (
