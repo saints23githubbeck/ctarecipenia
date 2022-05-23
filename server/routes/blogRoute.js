@@ -30,4 +30,5 @@ router.post("/user/blog", requireSignIn, authMiddleware, createBlog)
 router.put( "/user/blog/:slug",requireSignIn,authMiddleware,canUpdateBlog, updateBlog)
 router.delete("/user/blog/:slug",requireSignIn,authMiddleware,canDeleteBlog,deleteBlogBySlug)
 router.get("/:username/blogs", fetchBlogByUser)
+
 module.exports = router
