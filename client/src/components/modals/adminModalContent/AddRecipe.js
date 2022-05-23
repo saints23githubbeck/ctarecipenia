@@ -5,7 +5,7 @@ import {
   handleRecipeState,
   setRecipesError,
   submitRecipe,
-} from "../../appState/actions/recipeAction";
+} from "../../../appState/actions/recipeAction";
 
 const AddRecipe = ({ onclose }) => {
   const dispatch = useDispatch();

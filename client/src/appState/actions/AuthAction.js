@@ -51,7 +51,7 @@ export const logIn = (formData, navigate, history) => async (dispatch) => {
       method: "POST",
       body: JSON.stringify({ ...formData }),
     });
-    console.log(history.pathname);
+    console.log(history?.pathname);
     if (result.token) {
       dispatch(setIsLoading(false));
       localStorage.setItem("auth", result.token);
@@ -101,7 +101,7 @@ export  const fetchProfile = (history) => async(dispatch)=> {
   let token =  localStorage.getItem("auth");
   if (token) {
     const result = await httpRequest({
-      url: history.pathname === "/admin"?"/admin/user" : "/me",
+      url: history?.pathname === "/admin"?"/admin/user" : "/me",
       method: "GET",
       headers: {
         "Authorization": `Bearer ${token}` 
@@ -119,6 +119,14 @@ export  const fetchProfile = (history) => async(dispatch)=> {
   }
 }
 }
+
+export const logOutAction = (navigate) => async (dispatch) => {
+  dispatch({
+    type: actiontypes.LOG_OUT,
+  });
+  navigate("/");
+};
+
 // export const updateUser = (userData, navigate) => async (dispatch) => {
 //   try {
 //     const { data } = await updateUserApi(userData);
@@ -133,10 +141,3 @@ export  const fetchProfile = (history) => async(dispatch)=> {
 //     console.log("errorno update action redux");
 //   }
 // };
-
-export const logOutAction = (navigate) => async (dispatch) => {
-  dispatch({
-    type: actiontypes.LOG_OUT,
-  });
-  navigate("/");
-};

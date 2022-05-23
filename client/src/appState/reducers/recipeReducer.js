@@ -50,7 +50,6 @@ export const recipe = (state = initialState, action) => {
       };
 
     case actiontypes.RESET_RECIPE_STATE:
-
       return {
         ...state,
         ...emptyState,

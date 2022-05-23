@@ -5,13 +5,11 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateRecipe = exports.submitRecipe = exports.setRecipesError = exports.setRecipesLoading = exports.handleRecipeState = exports.getRecipesByID = exports.getALLRecipes = void 0;
-
-var _api = require("../../api");
+exports.logOutAction = exports.fetchProfile = exports.updateUser = exports.logIn = exports.signUp = exports.setIsLoggedIn = exports.setIsLoading = void 0;
 
 var actiontypes = _interopRequireWildcard(require("../actionTypes"));
 
-var _AuthAction = require("./AuthAction");
+var _api = require("../../api");
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
@@ -23,7 +21,25 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var getALLRecipes = function getALLRecipes() {
+var setIsLoading = function setIsLoading(value) {
+  return {
+    type: actiontypes.LOADING,
+    payload: value
+  };
+};
+
+exports.setIsLoading = setIsLoading;
+
+var setIsLoggedIn = function setIsLoggedIn(value) {
+  return {
+    type: actiontypes.SET_IS_LOGIN,
+    payload: value
+  };
+};
+
+exports.setIsLoggedIn = setIsLoggedIn;
+
+var signUp = function signUp(FormData, navigate) {
   return function _callee(dispatch) {
     var result;
     return regeneratorRuntime.async(function _callee$(_context) {
@@ -31,42 +47,58 @@ var getALLRecipes = function getALLRecipes() {
         switch (_context.prev = _context.next) {
           case 0:
             _context.prev = 0;
-            dispatch((0, _AuthAction.setIsLoading)(true));
+            dispatch(setIsLoading(true));
             _context.next = 4;
             return regeneratorRuntime.awrap((0, _api.httpRequest)({
-              url: "/recipes",
-              method: "GET"
+              url: "/register",
+              method: "POST",
+              body: JSON.stringify(_objectSpread({}, FormData))
             }));
 
           case 4:
             result = _context.sent;
+            console.log(result);
 
             if (result.success === true) {
+              dispatch(setIsLoading(false));
+              localStorage.setItem("auth", result.userToken);
               dispatch({
-                type: actiontypes.GET_ALL_RECIPES,
-                payload: result.recipes
+                type: actiontypes.SIGN_UP,
+                payload: {
+                  isLoggedIn: true,
+                  message: result.message,
+                  user: result.user
+                }
+              });
+              navigate("/user-dashboard");
+            } else {
+              dispatch(setIsLoading(false));
+              dispatch({
+                type: actiontypes.SIGN_UP_FAILED,
+                payload: result.message || "check details"
               });
             }
 
-            _context.next = 10;
+            _context.next = 12;
             break;
 
-          case 8:
-            _context.prev = 8;
+          case 9:
+            _context.prev = 9;
             _context.t0 = _context["catch"](0);
+            console.log(_context.t0);
 
-          case 10:
+          case 12:
           case "end":
             return _context.stop();
         }
       }
-    }, null, null, [[0, 8]]);
+    }, null, null, [[0, 9]]);
   };
 };
 
-exports.getALLRecipes = getALLRecipes;
+exports.signUp = signUp;
 
-var getRecipesByID = function getRecipesByID() {
+var logIn = function logIn(formData, navigate, history) {
   return function _callee2(dispatch) {
     var result;
     return regeneratorRuntime.async(function _callee2$(_context2) {
@@ -74,75 +106,67 @@ var getRecipesByID = function getRecipesByID() {
         switch (_context2.prev = _context2.next) {
           case 0:
             _context2.prev = 0;
-            dispatch((0, _AuthAction.setIsLoading)(true));
+            dispatch(setIsLoading(true));
             _context2.next = 4;
             return regeneratorRuntime.awrap((0, _api.httpRequest)({
-              url: "/recipe/:slug",
-              method: "GET"
+              url: "/login",
+              method: "POST",
+              body: JSON.stringify(_objectSpread({}, formData))
             }));
 
           case 4:
             result = _context2.sent;
+            console.log(history.pathname);
 
-            if (result.success === true) {
+            if (result.token) {
+              dispatch(setIsLoading(false));
+              localStorage.setItem("auth", result.token);
               dispatch({
-                type: actiontypes.UPDATE_RECIPE,
-                payload: result.recipes
+                type: actiontypes.SIGN_IN,
+                payload: {
+                  isLoggedIn: true,
+                  message: result.message,
+                  user: result.user
+                }
+              });
+              console.log("show me", result);
+
+              if (history.pathname === "/admin") {
+                navigate("/admin/dashboard");
+              } else {
+                navigate("/user-dashboard");
+              }
+
+              ;
+              console.log(result);
+            } else {
+              dispatch(setIsLoading(false));
+              dispatch({
+                type: actiontypes.SIGN_IN_FAILED,
+                payload: result.message || "check details"
               });
             }
 
-            _context2.next = 10;
+            _context2.next = 12;
             break;
 
-          case 8:
-            _context2.prev = 8;
+          case 9:
+            _context2.prev = 9;
             _context2.t0 = _context2["catch"](0);
+            console.log(_context2.t0);
 
-          case 10:
+          case 12:
           case "end":
             return _context2.stop();
         }
       }
-    }, null, null, [[0, 8]]);
+    }, null, null, [[0, 9]]);
   };
 };
 
-exports.getRecipesByID = getRecipesByID;
+exports.logIn = logIn;
 
-var handleRecipeState = function handleRecipeState(name, value) {
-  return {
-    type: actiontypes.ADD_RECIPE,
-    payload: {
-      name: name,
-      value: value
-    }
-  };
-};
-
-exports.handleRecipeState = handleRecipeState;
-
-var setRecipesLoading = function setRecipesLoading(name, value) {
-  return {
-    type: actiontypes.LOADING_RECIPE,
-    payload: {
-      name: name,
-      value: value
-    }
-  };
-};
-
-exports.setRecipesLoading = setRecipesLoading;
-
-var setRecipesError = function setRecipesError(value) {
-  return {
-    type: actiontypes.RECIPE_ERROR,
-    payload: value
-  };
-};
-
-exports.setRecipesError = setRecipesError;
-
-var submitRecipe = function submitRecipe(payload, onClose) {
+var updateUser = function updateUser(userData) {
   return function _callee3(dispatch) {
     var token, result;
     return regeneratorRuntime.async(function _callee3$(_context3) {
@@ -152,57 +176,36 @@ var submitRecipe = function submitRecipe(payload, onClose) {
             token = localStorage.getItem("auth");
 
             if (!token) {
-              _context3.next = 13;
+              _context3.next = 6;
               break;
             }
 
-            _context3.prev = 2;
-            dispatch(setRecipesLoading("loading", true));
-            _context3.next = 6;
+            _context3.next = 4;
             return regeneratorRuntime.awrap((0, _api.httpRequest)({
-              url: "/admin/recipe",
-              method: "POST",
-              body: JSON.stringify(_objectSpread({}, payload)),
+              url: "/profile-update",
+              method: "PUT",
               headers: {
                 Authorization: "Bearer ".concat(token)
-              }
+              },
+              body: JSON.stringify(_objectSpread({}, userData))
             }));
 
-          case 6:
+          case 4:
             result = _context3.sent;
-            console.log(result, "wait you");
+            console.log(result);
 
-            if (result.message === "Recipe added") {
-              dispatch(setRecipesLoading("loading", false));
-              dispatch(getALLRecipes());
-              onClose();
-              dispatch({
-                type: actiontypes.RESET_RECIPE_STATE
-              });
-            } else {
-              dispatch(setRecipesLoading("loading", false));
-              dispatch(setRecipesError(result.error));
-            }
-
-            _context3.next = 13;
-            break;
-
-          case 11:
-            _context3.prev = 11;
-            _context3.t0 = _context3["catch"](2);
-
-          case 13:
+          case 6:
           case "end":
             return _context3.stop();
         }
       }
-    }, null, null, [[2, 11]]);
+    });
   };
 };
 
-exports.submitRecipe = submitRecipe;
+exports.updateUser = updateUser;
 
-var updateRecipe = function updateRecipe(payload, onClose) {
+var fetchProfile = function fetchProfile(history) {
   return function _callee4(dispatch) {
     var token, result;
     return regeneratorRuntime.async(function _callee4$(_context4) {
@@ -212,53 +215,76 @@ var updateRecipe = function updateRecipe(payload, onClose) {
             token = localStorage.getItem("auth");
 
             if (!token) {
-              _context4.next = 14;
+              _context4.next = 7;
               break;
             }
 
-            _context4.prev = 2;
-            dispatch(setRecipesLoading("loading", true));
-            _context4.next = 6;
+            _context4.next = 4;
             return regeneratorRuntime.awrap((0, _api.httpRequest)({
-              url: "/admin/recipe/".concat(payload._id),
-              method: "PUT",
-              body: JSON.stringify(_objectSpread({}, payload)),
+              url: history.pathname === "/admin" ? "/admin/user" : "/me",
+              method: "GET",
               headers: {
-                Authorization: "Bearer ".concat(token)
+                "Authorization": "Bearer ".concat(token)
               }
             }));
 
-          case 6:
+          case 4:
             result = _context4.sent;
-            console.log("updated", payload);
-            console.log(result, "updated");
+            console.log("fetchuser", result);
 
-            if (result.status === 200) {
-              dispatch(setRecipesLoading("loading", false));
-              dispatch(getALLRecipes());
-              onClose();
+            if (result.user) {
               dispatch({
-                type: actiontypes.RESET_RECIPE_STATE
+                type: actiontypes.GET_CURRENT_USER,
+                payload: {
+                  isLoggedIn: true,
+                  user: result.user
+                }
               });
-            } else {
-              dispatch(setRecipesLoading("loading", false));
-              dispatch(setRecipesError(result.error));
             }
 
-            _context4.next = 14;
-            break;
-
-          case 12:
-            _context4.prev = 12;
-            _context4.t0 = _context4["catch"](2);
-
-          case 14:
+          case 7:
           case "end":
             return _context4.stop();
         }
       }
-    }, null, null, [[2, 12]]);
+    });
   };
 };
 
-exports.updateRecipe = updateRecipe;
+exports.fetchProfile = fetchProfile;
+
+var logOutAction = function logOutAction(navigate) {
+  return function _callee5(dispatch) {
+    return regeneratorRuntime.async(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            dispatch({
+              type: actiontypes.LOG_OUT
+            });
+            navigate("/");
+
+          case 2:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    });
+  };
+}; // export const updateUser = (userData, navigate) => async (dispatch) => {
+//   try {
+//     const { data } = await updateUserApi(userData);
+//     console.log(data, "data log action redux");
+//     dispatch({
+//       type: actiontypes.UPDATE_USER,
+//       payload: data,
+//     });
+//     navigate("/user-dashboard");
+//     console.log("successful", data);
+//   } catch (error) {
+//     console.log("errorno update action redux");
+//   }
+// };
+
+
+exports.logOutAction = logOutAction;
