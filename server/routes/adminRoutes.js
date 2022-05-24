@@ -21,7 +21,9 @@ router.get("/admin/users", requireSignIn, adminMiddleware, getUsersByAdmin)
 router.get("/admin/user", requireSignIn, adminMiddleware, getAdminProfile)
 router.get("/admin/user/:slug",requireSignIn,adminMiddleware,getUserBySlugByAdmin)
 router.get("/admins", requireSignIn, adminMiddleware, fetchAdmins)
-router.put("/admin/update-user",requireSignIn,adminMiddleware,updateUserByAdmin)
+router.put("/admin/update/:slug",requireSignIn,adminMiddleware,updateUserByAdmin)
 router.delete("/admin/:slug", requireSignIn, adminMiddleware, deleteUserByAdmin)
 
 module.exports = router
+
+//requireSignIn, adminMiddleware,

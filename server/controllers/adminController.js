@@ -89,12 +89,7 @@ exports.registerAdmin = asyncHandler(async (req, res) => {
 exports.registerUserByAdmin = asyncHandler(async (req, res) => {
   const {
     username,
-    firstName,
-    lastName,
-    country,
     userGroup,
-    image,
-    description,
     password,
     email,
     secret,
@@ -104,11 +99,6 @@ exports.registerUserByAdmin = asyncHandler(async (req, res) => {
     !password ||
     !email ||
     !secret ||
-    !firstName ||
-    !lastName ||
-    !country ||
-    !image ||
-    !description ||
     !userGroup
   ) {
     return res.status(400).json({ error: "Please fill all required fields" })
@@ -130,25 +120,21 @@ exports.registerUserByAdmin = asyncHandler(async (req, res) => {
   if (userExists) {
     return res.status(400).json({ error: "User already exists" })
   }
-
+  const slug = slugify(username).toLowerCase()
   const salt = await bcrypt.genSalt(12)
   const hashPassword = await bcrypt.hash(password, salt)
   const hashedSecret = await bcrypt.hash(secret, salt)
 
-  const user = new User()
-  user.userGroup = userGroup || user.userGroup
-  user.username = username
-  user.firstName = firstName || user.firstName
-  user.lastName = lastName || user.lastName
-  user.email = email
-  user.country = country || user.country
-  user.description = description || user.description
-  user.password = hashPassword
-  user.secret = hashedSecret
-  user.image = image || user.image
-  user.slug = slugify(username).toLowerCase()
 
-  user.save()
+   const user = await User.create({
+     email,
+     username,
+     slug,
+     userGroup,
+     password: hashPassword,
+     secret: hashedSecret,
+   })
+
 
   if (user) {
     user.password = undefined
@@ -244,11 +230,14 @@ exports.updateUserByAdmin = asyncHandler(async (req, res) => {
 
 exports.deleteUserByAdmin = asyncHandler(async (req, res) => {
   const slug = req.params.slug.toLowerCase()
+  // console.log(slug);
+  // const  user =await User.find({slug})
+  // res.send(user)
   try {
     const user = await User.findOneAndDelete(slug)
 
     return res.json({
-      message: `Your account has been deleted. Goodbye! ${user.name}. Sorry to see you go. `,
+      message: `Your account has been deleted. Goodbye! ${user.username}. Sorry to see you go. `,
     })
   } catch (err) {
     return console.log(err)

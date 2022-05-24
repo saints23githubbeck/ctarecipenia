@@ -5,6 +5,8 @@ const {
   deleteUser,
   getMyProfile,
   fetchSubscribers,
+  canUpdateUser,
+  canDeleteUser,
 } = require("../controllers/userController")
 const {
   requireSignIn,
@@ -15,7 +17,7 @@ const router = express.Router()
 router.get("/me", requireSignIn, authMiddleware, getMyProfile)
 router.get("/subscribers", fetchSubscribers)
 router.get("/search-user/search", searchUser)
-router.put("/profile-update", requireSignIn, authMiddleware, profileUpdate)
-router.delete("/remove-user", requireSignIn, authMiddleware, deleteUser)
+router.put("/profile-update", requireSignIn, authMiddleware,canUpdateUser, profileUpdate)
+router.delete("/user/:slug", requireSignIn, authMiddleware,canDeleteUser, deleteUser)
 
 module.exports = router
