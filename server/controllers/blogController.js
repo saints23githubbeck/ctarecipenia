@@ -1,5 +1,6 @@
 const Blog = require("../models/BlogModel")
 const slugify = require("slugify")
+const User = require("../models/userModel")
 /*
     @route  /blog/create
     @desc   user creates a blog
@@ -134,27 +135,6 @@ exports.updateBlog = async (req, res) => {
   }
 }
 
-/** Fetch all related blog posts*/
-exports.fetchRelatedBlogs = (req, res) => {
-  // console.log(req.body.blog);
-  let limit = req.body.limit ? parseInt(req.body.limit) : 3
-  const { _id, categories } = req.body.blog
-
-  Blog.find({ _id: { $ne: _id }, categories: { $in: categories } })
-    .limit(limit)
-    .populate("postedBy", "_id name username profile")
-    .select("title slug postedBy createdAt updatedAt")
-    .sort({ createdAt: "desc" })
-    .exec((error, blogs) => {
-      if (error) {
-        return res.status(400).json({
-          error: "Blogs not found",
-        })
-      }
-      return res.json(blogs)
-    })
-}
-
 /** Search through blog post */
 exports.searchBlog = (req, res) => {
   //console.log(req.query)
@@ -173,7 +153,7 @@ exports.searchBlog = (req, res) => {
             error: error,
           })
         }
-       return res.json(blogs)
+        return res.json(blogs)
       }
     ).select("-photo -body")
   }
@@ -187,24 +167,27 @@ exports.fetchBlogByUser = (req, res) => {
         error: error,
       })
     }
-    let userId = user._id
-    Blog.find({ postedBy: userId })
-      .populate("categories", "_id title slug icon permalink")
-      .populate("postedBy", "_id name username")
-      .select("_id title slug postedBy createdAt updatedAt")
-      .sort({ createdAt: "desc" })
-      .exec((error, data) => {
-        if (error) {
-          return res.status(400).json({
-            error: error,
-          })
-        }
-       return res.json(data)
-      })
+
+    if (user) {
+      let userId = user._id
+      Blog.find({ postedBy: userId })
+        .populate("categories", "_id title slug icon permalink")
+        .populate("postedBy", "_id name username")
+        .select("_id title slug postedBy createdAt updatedAt")
+        .sort({ createdAt: "desc" })
+        .exec((error, data) => {
+          if (error) {
+            return res.status(400).json({
+              error: error,
+            }) 
+          }
+          return res.json(data)
+        })
+    } else {
+      return res.status(404).json({ error: "No user Found" })
+    }
   })
 }
-
-
 
 exports.canDeleteBlog = (req, res, next) => {
   const slug = req.params.slug.toLowerCase()
