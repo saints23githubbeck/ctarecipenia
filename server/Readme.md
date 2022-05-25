@@ -18,3 +18,8 @@
  8. open the routes folder to know the specific url path for each request
  9. Lastly, check the models to know the type of data and the required info needed for each route and request.
  10. I am available to assist if any.
+
+**API Routes Documentation**
+
+**Admin routes**
+register

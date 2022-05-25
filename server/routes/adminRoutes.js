@@ -23,7 +23,7 @@ router.post(
   registerUserByAdmin
 )
 router.get("/admin/users", requireSignIn, adminMiddleware, getUsersByAdmin)
-router.get("/admin/user", requireSignIn, adminMiddleware, getAdminProfile)
+router.get("/admin/me", requireSignIn, adminMiddleware, getAdminProfile)
 router.get(
   "/admin/user/:slug",
   requireSignIn,
