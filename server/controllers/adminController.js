@@ -4,31 +4,9 @@ const User = require("../models/userModel")
 const bcrypt = require("bcrypt")
 
 exports.registerAdmin = asyncHandler(async (req, res) => {
-  const {
-    username,
-    firstName,
-    lastName,
-    country,
-    userGroup,
-    image,
-    description,
-    password,
-    email,
-    secret,
-  } = req.body
+  const { username, userGroup, password, email, secret } = req.body
 
-  if (
-    !username ||
-    !password ||
-    !email ||
-    !secret ||
-    !firstName ||
-    !lastName ||
-    !country ||
-    !image ||
-    !description ||
-    !userGroup
-  ) {
+  if (!username || !password || !email || !secret || !userGroup) {
     return res.status(400).json({ error: "Please fill all required fields" })
   }
 
@@ -52,32 +30,23 @@ exports.registerAdmin = asyncHandler(async (req, res) => {
     return res.status(400).json({ error: "User already exists" })
   }
 
+  const slug = slugify(username).toLowerCase()
   const salt = await bcrypt.genSalt(12)
   const hashPassword = await bcrypt.hash(password, salt)
   const hashedSecret = await bcrypt.hash(secret, salt)
 
-  const user = new User()
-  user.userGroup = userGroup
-  user.username = username
-  user.firstName = firstName
-  user.lastName = lastName
-  user.email = email
-  user.country = country
-  user.description = description
-  user.password = hashPassword
-  user.secret = hashedSecret
-  user.image = image
-  user.slug = slugify(username).toLowerCase()
-
-  user.save()
-
+  const user = await User.create({
+    email,
+    username,
+    slug,
+    userGroup,
+    password: hashPassword,
+    secret: hashedSecret,
+  })
   if (user) {
-    // user.password = undefined
-    // user.secret = undefined
     return res.status(201).json({
       message: "Signup success! Please login.",
       success: true,
-      user,
     })
   } else {
     return res
@@ -87,20 +56,8 @@ exports.registerAdmin = asyncHandler(async (req, res) => {
 })
 
 exports.registerUserByAdmin = asyncHandler(async (req, res) => {
-  const {
-    username,
-    userGroup,
-    password,
-    email,
-    secret,
-  } = req.body
-  if (
-    !username ||
-    !password ||
-    !email ||
-    !secret ||
-    !userGroup
-  ) {
+  const { username, userGroup, password, email, secret } = req.body
+  if (!username || !password || !email || !secret || !userGroup) {
     return res.status(400).json({ error: "Please fill all required fields" })
   }
 
@@ -125,24 +82,19 @@ exports.registerUserByAdmin = asyncHandler(async (req, res) => {
   const hashPassword = await bcrypt.hash(password, salt)
   const hashedSecret = await bcrypt.hash(secret, salt)
 
-
-   const user = await User.create({
-     email,
-     username,
-     slug,
-     userGroup,
-     password: hashPassword,
-     secret: hashedSecret,
-   })
-
+  const user = await User.create({
+    email,
+    username,
+    slug,
+    userGroup,
+    password: hashPassword,
+    secret: hashedSecret,
+  })
 
   if (user) {
-    user.password = undefined
-    user.secret = undefined
     return res.status(201).json({
       message: "Signup success! Please login.",
       success: true,
-      user,
     })
   } else {
     return res
@@ -167,7 +119,7 @@ exports.getUsersByAdmin = asyncHandler(async (req, res) => {
 exports.getUserBySlugByAdmin = asyncHandler(async (req, res) => {
   try {
     const slug = req.params.slug.toLowerCase()
-    const user = await User.findOne(slug).select("-password -secret")
+    const user = await User.findOne({ slug }).select("-password -secret")
     user && res.json({ user })
   } catch (error) {
     return res.status(404).json({ error: "User not found", error })
@@ -181,7 +133,7 @@ exports.getAdminProfile = asyncHandler(async (req, res) => {
   return res.status(200).json({ user })
 })
 
-exports.updateUserByAdmin = asyncHandler(async (req, res) => {
+exports.updateAdmin = asyncHandler(async (req, res) => {
   const {
     username,
     firstName,

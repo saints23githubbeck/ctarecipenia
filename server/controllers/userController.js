@@ -149,6 +149,16 @@ exports.fetchSubscribers = asyncHandler(async (req, res) => {
   }
 })
 
+exports.getUserBySlug = asyncHandler(async (req, res) => {
+  try {
+    const slug = req.params.slug.toLowerCase()
+    const user = await User.findOne({ slug }).select("-password -secret")
+    user && res.json({ user })
+  } catch (error) {
+    return res.status(404).json({ error: "User not found", error })
+  }
+})
+
 exports.canDeleteUser = (req, res, next) => {
   const slug = req.params.slug.toLowerCase()
   User.findOne({ slug }).exec((err, data) => {
