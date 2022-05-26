@@ -2,12 +2,17 @@ import React, { useEffect, useRef, useState } from "react";
 import { IoMdArrowDropleft } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { handleState, setUserError, updateUserByAdmin } from "../../appState/actions/AdminAuthAction";
+import {
+  handleState,
+  setUserError,
+  updateUserByAdmin,
+} from "../../appState/actions/AdminAuthAction";
 
 const EditUser = () => {
   const { state } = useLocation();
   const dispatch = useDispatch();
   const {
+    _id,
     username,
     firstName,
     lastName,
@@ -15,32 +20,36 @@ const EditUser = () => {
     userGroup,
     image,
     description,
-    password,
     email,
-    secret,
+    status,
     error,
   } = useSelector((state) => state.adminProfile);
 
   const target = useRef(null);
   const [selectImage, setSelectImage] = useState(image);
+  const [selectUser, setSelectUser] = useState(userGroup);
+  const [userStatus, setUserStatus] = useState(status);
+
+  const handleUserType = (e) => {
+    setSelectUser(e.target.value);
+    setUserStatus(e.target.value);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const payload = {
+      _id:_id,
       username: username,
       firstName: firstName,
       lastName: lastName,
       country: country,
-      userGroup: userGroup,
+      userGroup: selectUser,
       image: selectImage,
       description: description,
-      password: password,
       email: email,
-      secret: secret,
+      status: userStatus,
     };
     dispatch(updateUserByAdmin(payload));
-    console.log("new input", payload)
-
   };
 
   useEffect(() => {
@@ -48,7 +57,6 @@ const EditUser = () => {
       dispatch(setUserError(""));
     }, 8000);
   }, [error]);
-
 
   useEffect(() => {
     if (state !== null) {
@@ -79,7 +87,6 @@ const EditUser = () => {
     });
   };
 
- 
   function reset() {
     window.location.reload();
   }
@@ -87,7 +94,7 @@ const EditUser = () => {
   return (
     <div>
       <div className="d-flex m-3 justify-content-between">
-        <h5 className="p-3">Edit Admin</h5>
+        <h5 className="p-3">Edit User</h5>
         <Link to={-1}>
           <h6>
             <IoMdArrowDropleft /> Back
@@ -96,28 +103,24 @@ const EditUser = () => {
       </div>
 
       <hr className="m-3" />
-
       <div className="row  m-3">
         <p className="w-25 h-75 text-end ptag">Usergroup</p>
-        <input
-         onChange={(e) => dispatch(handleState("userGroup", e.target.value))}
-         value={userGroup}
+        <select
           className="w-75 h-75 p-1 border"
-          type="email"
-          required
-          id="email"
-          autoComplete="email"
-          autoFocus
-          placeholder={state.userGroup}
-        />
+          onChange={(e) => dispatch(handleState("userGroup", e.target.value))}
+          value={userGroup}
+        >
+          <option value="admin">Admin</option>
+          <option value="subscriber">Subscriber</option>
+        </select>
       </div>
       <hr className="m-3" />
 
       <div className="row  m-3">
         <p className="w-25 h-75 text-end ptag">Username</p>
         <input
-             onChange={(e) => dispatch(handleState("username", e.target.value))}
-         value={username}
+          onChange={(e) => dispatch(handleState("username", e.target.value))}
+          value={username}
           className="w-75 h-75 p-1 border"
           type="text"
           required
@@ -132,8 +135,8 @@ const EditUser = () => {
       <div className="row  m-3">
         <p className="w-25 h-75 text-end ptag">First Name</p>
         <input
-             onChange={(e) => dispatch(handleState("firstName", e.target.value))}
-         value={firstName}
+          onChange={(e) => dispatch(handleState("firstName", e.target.value))}
+          value={firstName}
           className="w-75 h-75 p-1 border"
           type="text"
           required
@@ -148,8 +151,8 @@ const EditUser = () => {
       <div className="row  m-3">
         <p className="w-25 h-75 text-end ptag">Last Name</p>
         <input
-             onChange={(e) => dispatch(handleState("lastName", e.target.value))}
-         value={lastName}
+          onChange={(e) => dispatch(handleState("lastName", e.target.value))}
+          value={lastName}
           className="w-75 h-75 p-1 border"
           type="text"
           required
@@ -164,8 +167,8 @@ const EditUser = () => {
       <div className="row  m-3">
         <p className="w-25 h-75 text-end ptag">Email</p>
         <input
-             onChange={(e) => dispatch(handleState("email", e.target.value))}
-         value={email}
+          onChange={(e) => dispatch(handleState("email", e.target.value))}
+          value={email}
           className="w-75 h-75 p-1 border"
           type="email"
           required
@@ -179,8 +182,8 @@ const EditUser = () => {
       <div className="row  m-3">
         <p className="w-25 h-75 text-end ptag">Country</p>
         <input
-             onChange={(e) => dispatch(handleState("country", e.target.value))}
-         value={country}
+          onChange={(e) => dispatch(handleState("country", e.target.value))}
+          value={country}
           className="w-75 h-75 p-1 border"
           type="text"
           required
@@ -204,14 +207,14 @@ const EditUser = () => {
               onChange={(e) => handleFile(e)}
             />
             <label
-          className="w-50 h-75 p-1 border"
+              className="w-50 h-75 p-1 border"
               style={{
                 backgroundColor: "#fda47a",
                 color: "white",
-                height: "45px",
+                height: "30px",
                 padding: "0 30px",
                 fontWeight: "700",
-                lineHeight: "30px",
+                lineHeight: "45px",
                 cursor: "pointer",
               }}
               onClick={() => target.current.click()}
@@ -223,9 +226,9 @@ const EditUser = () => {
           <div className="w-25 h-75 p-1">
             {selectImage !== null && (
               <img
-              src={`data:image/*;base64,${state.image}`}
-              alt={state.username}
-              style={{ width: "100%", height: "100%", borderRadius: "10px" }}
+                src={`data:image/*;base64,${state.image}`}
+                alt={state.username}
+                style={{ width: "100%", height: "100%", borderRadius: "10px" }}
               />
             )}
           </div>
@@ -235,26 +238,23 @@ const EditUser = () => {
       <hr className="m-3" />
 
       <div className="row  m-3">
-        <p className="w-25 h-75 text-end ptag">Password</p>
-        <input
-             onChange={(e) => dispatch(handleState("password", e.target.value))}
-         value={password}
+        <p className="w-25 h-75 text-end ptag"> User Status</p>
+        <select
           className="w-75 h-75 p-1 border"
-          type="password"
-          required
-          id=""
-          autoComplete="password"
-          autoFocus
-          placeholder="password"
-        />
+          onChange={(e) => dispatch(handleState("status", e.target.value))}
+          value={status}
+        >
+          <option value="active">active</option>
+          <option value="inactive">Inactive</option>
+        </select>
       </div>
       <hr className="m-3" />
 
       <div className="row  m-3">
         <p className="w-25 h-75 text-end ptag">Description</p>
         <textarea
-             onChange={(e) => dispatch(handleState("description", e.target.value))}
-             value={description}
+          onChange={(e) => dispatch(handleState("description", e.target.value))}
+          value={description}
           className="w-75 h-75 p-1 text-wrap border"
           type="text"
           rows={10}
@@ -266,7 +266,7 @@ const EditUser = () => {
       <div className="m-3">
         <Link to={-1}>
           <button
-          onClick={handleSubmit}
+            onClick={handleSubmit}
             style={{
               marginRight: "50px",
               backgroundColor: "green",
@@ -281,7 +281,7 @@ const EditUser = () => {
           >
             Save
           </button>
-          </Link>
+        </Link>
         <button
           style={{
             marginRight: "50px",

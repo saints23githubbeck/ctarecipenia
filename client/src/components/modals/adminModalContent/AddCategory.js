@@ -1,8 +1,15 @@
-import React from 'react'
-import { categories } from "../../admin/data";
+import React, { useState } from 'react'
+import { categories, iconData } from "../../admin/data";
 import { RiCloseFill } from "react-icons/ri";
 
 const AddCategory = ({ onclose }) => {
+  const [iconType, setIconType] = useState("");
+  console.log("show me icon", iconType)
+
+  const handleIconType = (e) => {
+    setIconType(e.target.value);
+  };
+
   return (
     <div>
           {" "}
@@ -13,7 +20,28 @@ const AddCategory = ({ onclose }) => {
               <RiCloseFill className="h3 text-danger" />
             </h5>
           </div>
-          <div className="row  m-3">
+          <div className="row m-3">
+            <p className="w-25 h-75 text-end ptag">Icon</p>
+            <div className="checkbox grid w-75 h-75 p-1 ">
+              {iconData.map((item, index) => (
+                <div
+                  key={index}
+                  className="text-center d-flex align-items-center p-2"
+                >
+                  <input
+                    type="radio"
+                    name="icon"
+                    onClick={handleIconType}
+                    value={item.name}
+                    defaultChecked={`iconType === ${item.name}`}
+                  />
+                  <label htmlFor={item.name}>{item.icon}</label>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* <div className="row  m-3">
             <p className="w-25 h-75 text-end ptag">Icon</p>
             <div className="grid w-75 h-75 p-1">
               {categories.map((item, index) => (
@@ -26,7 +54,7 @@ const AddCategory = ({ onclose }) => {
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
           <div className="row  m-3">
             <p className="w-25 h-75 text-end ptag">Title</p>
             <input

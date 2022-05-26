@@ -19,19 +19,19 @@ const EditAdmin = () => {
     userGroup,
     image,
     description,
-    password,
     email,
-    secret,
+    status,
     error,
   } = useSelector((state) => state.adminProfile);
 
   const target = useRef(null);
   const [selectImage, setSelectImage] = useState(image);
   const [selectUser, setSelectUser] = useState(userGroup);
-  console.log("first level", selectUser);
+  const [userStatus, setUserStatus] = useState(status);
 
   const handleUserType = (e) => {
     setSelectUser(e.target.value);
+    setUserStatus(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -44,12 +44,10 @@ const EditAdmin = () => {
       userGroup: selectUser,
       image: selectImage,
       description: description,
-      password: password,
       email: email,
-      secret: secret,
+      status: userStatus,
     };
     dispatch(updateUserByAdmin(payload));
-    console.log("new input", payload);
   };
 
   useEffect(() => {
@@ -109,26 +107,9 @@ const EditAdmin = () => {
           className="w-75 h-75 p-1 border"
           onChange={(e) => dispatch(handleState("userGroup", e.target.value))}
           value={userGroup}
-
         >
-          <option
-            // onClick={handleUserType}
-            // name="userGroup"
-            value="admin"
-            // defaultChecked=
-          >
-            Admin
-            {/* <span htmlFor="admin">Admin</span> */}
-          </option>
-          <option
-            // onClick={handleUserType}
-            // name="userGroup"
-            value="subscriber"
-            // defaultChecked=
-          >
-            Subscriber
-            {/* <span htmlFor="subscriber">Subscriber</span> */}
-          </option>
+          <option value="admin">Admin</option>
+          <option value="subscriber">Subscriber</option>
         </select>
       </div>
       <hr className="m-3" />
@@ -255,18 +236,15 @@ const EditAdmin = () => {
       <hr className="m-3" />
 
       <div className="row  m-3">
-        <p className="w-25 h-75 text-end ptag">Password</p>
-        <input
-          onChange={(e) => dispatch(handleState("password", e.target.value))}
-          value={password}
+        <p className="w-25 h-75 text-end ptag"> User Status</p>
+        <select
           className="w-75 h-75 p-1 border"
-          type="password"
-          required
-          id=""
-          autoComplete="password"
-          autoFocus
-          placeholder="password"
-        />
+          onChange={(e) => dispatch(handleState("status", e.target.value))}
+          value={status}
+        >
+          <option value="active">active</option>
+          <option value="inactive">Inactive</option>
+        </select>
       </div>
       <hr className="m-3" />
 

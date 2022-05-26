@@ -1,26 +1,55 @@
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { FaPlus } from "react-icons/fa";
 import { BiEdit } from "react-icons/bi";
 import { useEffect, useState } from "react";
-import { blog } from "../../components/admin/data";
+// import { blog } from "../../components/admin/data";
 import ReactPaginate from "react-paginate";
 import * as BiIcons from "react-icons/bi";
 import AdminModal from "../../components/modals/AdminModal";
+import {
+  getAllBlogs,
+  setBlogError,
+} from "../../appState/actions/blogAction";
+import * as actiontypes from "../../appState/actionTypes";
+import { BASE_URL } from "../../api";
 
 const PER_PAGE = 10;
-const URL = { blog };
+// const URL = { blog };
 
 const BlogsAdmin = () => {
   const navigate = useNavigate();
+  const { blogs } = useSelector((state) => state.blog);
   const [addBlog, setAddBlog] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
-  const [blogList, setBlogList] = useState(blog);
+  const [blogList, setBlogList] = useState(blogs);
+  const dispatch = useDispatch();
 
-  const handleDelete = (e) => {
-    const filtered = blogList.filter((blog) => blog !== e);
-    setBlogList(filtered);
+  async function handleDelete(_id) {
+    let result = await fetch(`${BASE_URL}/blog/${_id}`, {
+      method: "DELETE",
+    });
+    result = await result.json();
+    dispatch(getAllBlogs());
+  }
+
+  // const handleDelete = (e) => {
+  //   const filtered = blogList.filter((blog) => blog !== e);
+  //   setBlogList(filtered);
+  // };
+
+  useEffect(() => {
+    setBlogList(blogs);
+  }, [blogs]);
+
+  useEffect(() => {
+    dispatch(getAllBlogs());
+  }, []);
+
+  const convertDate = (date) => {
+    return new Date(date)?.toDateString();
   };
 
   const handleOpen = (item) => {
@@ -30,7 +59,12 @@ const BlogsAdmin = () => {
 
   const handleClose = () => {
     setShowModal(false);
+    dispatch({
+      type: actiontypes.RESET_BLOG_STATE,
+    });
+    dispatch(setBlogError(""));
   };
+
 
   useEffect(() => {
     fetchData();
@@ -39,8 +73,8 @@ const BlogsAdmin = () => {
   function fetchData() {
     fetch(URL)
       .then((res) => res.json())
-      .then((blog) => {
-        setData(blog);
+      .then((blogs) => {
+        setData(blogs);
       });
   }
 
@@ -51,15 +85,19 @@ const BlogsAdmin = () => {
   const offset = currentPage * PER_PAGE;
 
   const currentPageData = blogList
+  .sort(function (a, b) {
+    return new Date(b.updatedAt) - new Date(a.updatedAt);
+  })
     .slice(offset, offset + PER_PAGE)
-    .map((blog) => (
-      <tr key={blog.id} className="">
-        <td className="tdata">{blog.topic}</td>
-        <td className="tdata">{blog.visit}</td>
+    .map((blogs) => (
+      <tr key={blogs.id} className="">
+        <td className="tdata">{blogs.title}</td>
+        <td className="tdata">{blogs.visit}</td>
+        <td className="tdata">{convertDate(blogs.createdAt)}</td>
         <td className="tdata buttonEdit">
           <button
             className="detailsButton"
-            onClick={() => navigate("/admin/blog/edit", { state: blog })}
+            onClick={() => navigate("/admin/blog/edit", { state: blogs })}
             style={{ backgroundColor: "orange" }}
           >
             <BiEdit className="text-white h6" /> Edit
@@ -67,7 +105,7 @@ const BlogsAdmin = () => {
           <button
             className="detailsButton"
             style={{ backgroundColor: "red" }}
-            onClick={(e) => handleDelete(blog)}
+            onClick={(e) => handleDelete(blogs._id)}
           >
             <BiIcons.BiTrash className="text-white h6" /> Delete
           </button>
@@ -115,6 +153,7 @@ const BlogsAdmin = () => {
           <tr>
             <th className="thead ">Topic</th>
             <th className="thead">Visit</th>
+            <th className="thead">Published Date</th>
             <th className="thead">Operations</th>
           </tr>
           {currentPageData}

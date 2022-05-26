@@ -1,9 +1,81 @@
 import { Link, useLocation } from "react-router-dom";
 import { IoMdArrowDropleft } from 'react-icons/io';
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { handleBlogState, setBlogError, updateBlog } from "../../appState/actions/blogAction";
+import { useDispatch, useSelector } from "react-redux";
 
 const EditBlog = () => {
   const { state } = useLocation();
+  console.log("first", state)
+  const dispatch = useDispatch();
+  const {
+    _id,
+    postedBy,
+    title,
+    permLink,
+    prepareTime,
+    cookTime,
+    shortDesc, 
+    description,
+    metaDescription,
+    image ,
+    error,
+    loading,
+  } = useSelector((state) => state.recipe);
+  const target = useRef(null);
+
+  const [selectImage, setSelectImage] = useState(image);
+
+
+  const handleSubmit = () => {
+    const payload = {
+      _id: _id,
+      postedBy:postedBy,
+      title: title,
+      image: selectImage,
+      description: description,
+      shortDesc: shortDesc,
+      permLink: permLink,
+      metaDescription: metaDescription,
+      prepareTime: prepareTime,
+      cookTime: cookTime,
+    };
+    dispatch(updateBlog(payload));
+  };
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(setBlogError(""));
+    }, 4000);
+  }, [error]);
+
+  useEffect(() => {
+    if (state !== null) {
+      Object.keys(state).forEach((field) => {
+        dispatch(handleBlogState(`${field}`, state[field]));
+      });
+    }
+  }, [state]);
+
+  const handleFile = (e) => {
+    const uploaded = e.target.files[0];
+
+    const fileToBase64 = (file, cb) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function () {
+        cb(null, reader.result);
+      };
+    };
+
+    let base64 = "";
+    fileToBase64(uploaded, (err, result) => {
+      if (result) {
+        const base64String = result.split(",");
+        base64 = base64String[1];
+      }
+      setSelectImage(base64);
+    });
+  };
 
   function reset() {
     window.location.reload();
@@ -23,6 +95,10 @@ const EditBlog = () => {
         <div className="w-50 row m-1">
       <p className="w-25 h-75 text-end ptag px-4">Prepare Time</p>
           <input
+          onChange={(e) =>
+            dispatch(handleBlogState("prepareTime", e.target.value))
+          }
+          value={prepareTime}
             className="w-75 h-75 p-1 border"
             type="text"
             required
@@ -35,13 +111,18 @@ const EditBlog = () => {
         <div className="w-50 row m-1">
           <p className="w-25 h-75 text-end ptag px-4">Cooking Time</p>
           <input
+                    onChange={(e) =>
+                      dispatch(handleBlogState("cookTime", e.target.value))
+                    }
+                    value={cookTime}
+          
             className="w-75 h-75 p-1 border"
             type="text"
             required
             id="name"
             autoComplete="name"
             autoFocus
-            placeholder={state.cookingTime}
+            placeholder={state.cookTime}
           />
         </div>
       </div>
@@ -49,7 +130,12 @@ const EditBlog = () => {
 
 <div className="row  m-3">
  <p className="w-25 h-75 text-end ptag">Title</p>
- <input className="w-75 h-75 p-1 border"
+ <input
+ onChange={(e) =>
+  dispatch(handleBlogState("title", e.target.value))
+}
+value={title} 
+className="w-75 h-75 p-1 border"
    type="text"
    required
    id="name"
@@ -62,20 +148,30 @@ const EditBlog = () => {
 
 <div className="row  m-3">
  <p className="w-25 h-75 text-end ptag">Permlink</p>
- <input className="w-75 h-75 p-1 border"
+ <input 
+ onChange={(e) =>
+  dispatch(handleBlogState("permLink", e.target.value))
+}
+value={permLink} 
+ className="w-75 h-75 p-1 border"
    type="text"
    required
    id="name"
    autoComplete="name"
    autoFocus
-   placeholder={state.permlink}
+   placeholder={state.permLink}
  />
 </div>
 <hr className="m-3" />
 
 <div className="row  m-3">
  <p className="w-25 h-75 text-end ptag">Short Description</p>
- <textarea className="w-75 h-75 p-1 border"
+ <textarea
+ onChange={(e) =>
+  dispatch(handleBlogState("shortDesc", e.target.value))
+}
+value={shortDesc} 
+ className="w-75 h-75 p-1 border"
    type="text"
 rows={5}
    id="name"
@@ -87,41 +183,77 @@ rows={5}
 
 <div className="row  m-3">
  <p className="w-25 h-75 text-end ptag">Description</p>
- <textarea className="w-75 h-75 p-1 border"
+ <textarea 
+ onChange={(e) =>
+  dispatch(handleBlogState("description", e.target.value))
+}
+value={description} 
+ className="w-75 h-75 p-1 border"
    type="text"
 rows={10}
    id="name"
    autoComplete="name"
-   placeholder={state.desc}
+   placeholder={state.description}
  />
 </div>
 <hr className="m-3" />
 
 <div className="row  m-3">
         <p className="w-25 h-75 text-end ptag">Image</p>
-        <input
-          className="w-50 h-75 p-1 border"
-          type="file"
-          required
-          id="phone"
-          autoComplete="number"
-          autoFocus
-          placeholder={state.image}
-        />
-         <img className="w-25 h-75 p-1" src={state.image} alt={state.image} style={{width: "30px", height:"30px", borderRadius:"10px"}} />
+        <div className="w-75 h-75 p-1 flex">
+          <div className="w-75 h-75 p-1">
+            <input
+              style={{ display: "none" }}
+              type="file"
+              accept="image/*"
+              ref={target}
+              onChange={(e) => handleFile(e)}
+            />
+            <label
+              className="w-50 h-75 p-1 border"
+              style={{
+                backgroundColor: "#fda47a",
+                color: "white",
+                height: "30px",
+                padding: "0 30px",
+                fontWeight: "700",
+                lineHeight: "45px",
+                cursor: "pointer",
+              }}
+              onClick={() => target.current.click()}
+              htmlFor="file"
+            >
+              UPLOAD IMAGE
+            </label>
+          </div>
+          <div className="w-25 h-75 p-1">
+            {selectImage !== null && (
+              <img
+                src={`data:image/*;base64,${state.image}`}
+                alt={state.postedBy}
+                style={{ width: "100%", height: "100%", borderRadius: "10px" }}
+              />
+            )}
+          </div>
+        </div>
       </div>
       <hr className="m-3" />
 
 
       <div className="row  m-3">
  <p className="w-25 h-75 text-end ptag">Meta Description</p>
- <input className="w-75 h-75 p-1 border"
+ <input
+ onChange={(e) =>
+  dispatch(handleBlogState("metaDescription", e.target.value))
+}
+value={metaDescription} 
+ className="w-75 h-75 p-1 border"
    type="text"
    required
    id="name"
    autoComplete="name"
    autoFocus
-   placeholder={state.metaDesc}
+   placeholder={state.metaDescription}
  />
 </div>
 <hr className="m-3" /> 
@@ -130,6 +262,7 @@ rows={10}
 <div className="m-3">
           <Link to={-1}>
             <button
+            onClick={handleSubmit}
               style={{
                 marginRight: "50px",
                 backgroundColor: "green",
@@ -143,7 +276,7 @@ rows={10}
 
               }}
             >
-              Save
+             {loading ? "Editing Recipe ..." : "Save"}
             </button>
           </Link>
           <button

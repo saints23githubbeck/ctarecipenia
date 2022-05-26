@@ -31,7 +31,7 @@ export const registerAdmin = (payload, onClose) => async (dispatch) => {
     if (token) {
     try {
       dispatch(setUserLoading("loading", true));
-      const result = await httpRequest({
+      const result = await httpRequest({ 
         url: `/admin/add-admin`,
         method: "POST",
         body: JSON.stringify({ ...payload }),
@@ -39,7 +39,7 @@ export const registerAdmin = (payload, onClose) => async (dispatch) => {
           "Authorization": `Bearer ${token}` 
         },
       });
-      console.log("registerAdmin", result);
+      // console.log("registerAdmin", result);
       if (result.message) {
         dispatch(setUserLoading("loading", false));
         dispatch(getAllAdmin());
@@ -63,7 +63,7 @@ export const getAllSubscribers= () => async (dispatch) => {
         url: `/subscribers`,
         method: "GET",
       });
-      console.log("getAlluser", result)
+      // console.log("getAlluser", result)
 
       if (!result?.error) {
         dispatch({
@@ -147,7 +147,7 @@ export  const getAdminProfile = () => async(dispatch)=> {
           "Authorization": `Bearer ${token}` 
         },
       });
-      console.log("getAdminProfile", result)
+      // console.log("getAdminProfile", result)
      if (result.user) {
       dispatch({
         type: actiontypes.GET_CURRENT_ADMIN,
@@ -173,7 +173,7 @@ export const updateUserByAdmin = (payload, onClose) => async (dispatch) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("updateUserByAdmin", result);
+      // console.log("updateUserByAdmin", result);
     if (result.status ) {
       dispatch(setUserLoading("loading", false));
       dispatch(getAllSubscribers());
