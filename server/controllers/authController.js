@@ -50,8 +50,6 @@ exports.register = asyncHandler(async (req, res) => {
     return res.status(201).json({
       message: "Signup success! Please login.",
       success: true,
-      user,
-      userToken,
     })
   } else {
     return res

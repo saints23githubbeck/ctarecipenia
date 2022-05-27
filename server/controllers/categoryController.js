@@ -14,7 +14,7 @@ exports.createCategory = (req, res) => {
         error: errorHandler(err),
       })
     }
-   return res.json(category)
+    return res.json(category)
   })
 }
 
@@ -25,12 +25,19 @@ exports.getAll = (req, res) => {
         error: err.message,
       })
     }
-   return res.json(categories)
+    return res.json(categories)
   })
 }
 
 exports.getBySlug = (req, res) => {
   const slug = req.params.slug.toLowerCase()
+  if (!slug) {
+    return res.status(404).json({ message: "Slug is required" })
+  }
+
+  console.log("====================================")
+  console.log(slug)
+  console.log("====================================")
 
   Category.findOne({ slug }).exec((err, category) => {
     if (err) {
@@ -52,7 +59,12 @@ exports.getBySlug = (req, res) => {
             error: errorHandler(err),
           })
         }
-       return res.json({ category: category, recipe: data })
+        if (category == null || category.length == 0) {
+          return res.status(404).json({message: "No category found"})
+        }
+
+
+        return res.json({ category: category, recipe: data })
       })
   })
 }
@@ -66,7 +78,7 @@ exports.removeCategory = (req, res) => {
         error: errorHandler(err),
       })
     }
-   return res.json({
+    return res.json({
       message: "Category deleted.",
     })
   })
