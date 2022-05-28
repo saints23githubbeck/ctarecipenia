@@ -159,7 +159,7 @@ exports.fetchRecipeByUser = (req, res) => {
       })
     }
     let userId = user._id
-    Blog.find({ postedBy: userId })
+    Recipe.find({ postedBy: userId })
       .populate("categories", "_id title slug icon permalink")
       .populate("postedBy", "_id name username")
       .select("_id title slug postedBy createdAt updatedAt")
@@ -200,7 +200,7 @@ exports.updateRecipe = async (req, res) => {
   }
 }
 
-/** Search through blog post */
+/** Search through recipe post */
 exports.searchRecipe = (req, res) => {
   //console.log(req.query)
   const { search } = req.query
@@ -245,7 +245,7 @@ exports.canDeleteRecipe = (req, res, next) => {
 
 exports.canUpdateRecipe = (req, res, next) => {
   const slug = req.params.slug.toLowerCase()
-  Blog.findOne({ slug }).exec((err, data) => {
+  Recipe.findOne({ slug }).exec((err, data) => {
     if (err) {
       return res.status(400).json({
         error: errorHandler(err),
