@@ -59,7 +59,7 @@ export const submitRecipe = (payload, onClose) => async (dispatch) => {
     try {
       dispatch(setRecipesLoading("loading", true));
       const result = await httpRequest({
-        url: `/admin/recipe`,
+        url: `/recipe`,
         method: "POST",
         body: JSON.stringify({ ...payload }),
         headers: {
@@ -88,7 +88,7 @@ export const updateRecipe = (payload, onClose) => async (dispatch) => {
     try {
       dispatch(setRecipesLoading("loading", true));
       const result = await httpRequest({
-        url: `/admin/recipe/${payload._id}`,
+        url: `recipe/${payload.slug}`,
         method: "PUT",
         body: JSON.stringify({ ...payload }),
         headers: {

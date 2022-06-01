@@ -46,7 +46,6 @@ const AddUser = ({ onclose }) => {
     };
     dispatch(registerUserByAdmin(payload, onclose, navigate));
     console.log("new input", payload)
-
   };
 
   useEffect(() => {

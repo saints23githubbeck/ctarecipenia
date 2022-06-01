@@ -2,21 +2,51 @@ import { useNavigate } from "react-router-dom";
 import { BiEdit } from "react-icons/bi";
 import { FaPlus } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { categories } from "../../components/admin/data";
+// import { categories } from "../../components/admin/data";
 import ReactPaginate from "react-paginate";
 import * as BiIcons from "react-icons/bi";
 import AdminModal from "../../components/modals/AdminModal";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getAllCategories,
+  setCategoryError,
+} from "../../appState/actions/categoryAction";
+import * as actiontypes from "../../appState/actionTypes";
+import { BASE_URL } from "../../api";
 
 const PER_PAGE = 15;
-const URL = { categories };
+// const URL = { categories };
 
 const CategoriesAdmin = () => {
   const navigate = useNavigate();
+  const { categories } = useSelector((state) => state?.category);
+  console.log("etywuwq", categories);
   const [addCategory, setAddCategory] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
   const [categoriesList, setCategoriesList] = useState(categories);
+  const dispatch = useDispatch();
+
+
+  async function handleDelete(slug) {
+    let token = localStorage.getItem("auth");
+    if (token) {
+      let result = await fetch(`${BASE_URL}/category/${slug}`, {
+        method: "DELETE",
+      });
+      result = await result.json();
+      dispatch(getAllCategories());
+    }
+  }
+
+  useEffect(() => {
+    setCategoriesList(categories);
+  }, [categories]);
+
+  useEffect(() => {
+    dispatch(getAllCategories());
+  }, []);
 
   const handleOpen = (item) => {
     setShowModal(true);
@@ -25,12 +55,16 @@ const CategoriesAdmin = () => {
 
   const handleClose = () => {
     setShowModal(false);
+    dispatch({
+      type: actiontypes.RESET_CATEGORY_STATE,
+    });
+    dispatch(setCategoryError(""));
   };
 
-  const handleDelete = (e) => {
-    const filtered = categoriesList.filter((categories) => categories !== e);
-    setCategoriesList(filtered);
-  };
+  // const handleDelete = (e) => {
+  //   const filtered = categoriesList.filter((categories) => categories !== e);
+  //    setCategoriesList(filtered);
+  // };
 
   useEffect(() => {
     fetchData();
@@ -51,12 +85,16 @@ const CategoriesAdmin = () => {
   const offset = currentPage * PER_PAGE;
 
   const currentPageData = categoriesList
+    ?.sort(function (a, b) {
+      return new Date(b.updatedAt) - new Date(a.updatedAt);
+    })
     .slice(offset, offset + PER_PAGE)
     .map((categories) => (
       <tr key={categories.id} className="">
         <td className="tdata">
           {categories.icon} {categories.name}
         </td>
+        <td className="tdata">{categories.title}</td>
         <td className="tdata buttonEdit">
           <button
             className="detailsButton"
@@ -70,7 +108,7 @@ const CategoriesAdmin = () => {
           <button
             className="detailsButton"
             style={{ backgroundColor: "red" }}
-            onClick={(e) => handleDelete(categories)}
+            onClick={(e) => handleDelete(categories.slug)}
           >
             <BiIcons.BiTrash className="text-white h6" /> Delete
           </button>
@@ -117,6 +155,7 @@ const CategoriesAdmin = () => {
         <table className="">
           <tr>
             <th className="thead ">Category</th>
+            <th className="thead ">Title</th>
             <th className="thead">Operations</th>
           </tr>
           {currentPageData}

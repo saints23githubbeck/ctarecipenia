@@ -8,6 +8,7 @@ import { ImSpoonKnife } from "react-icons/im";
 import { FaBloggerB } from "react-icons/fa";
 import { BsNewspaper } from "react-icons/bs";
 import ProgressBar from "../../components/admin/ProgressBar";
+import { useSelector } from "react-redux";
 
 const DashboardCard = (props) => {
   const { icon, title, count, total, bgColor, number } = props;
@@ -26,7 +27,7 @@ const DashboardCard = (props) => {
         }}>{icon}</h1>
         <div className="w-75">
           <h3 className="text-start ">{title}</h3>
-          <h3>{count}</h3>
+          <h3 className="px-3">{count}</h3>
         </div>
       </div>
       <ProgressBar number={number} />
@@ -37,6 +38,13 @@ const DashboardCard = (props) => {
 };
 
 const DashboardAdmin = () => {
+  const { recipes } = useSelector((state) => state.recipe);
+  const { categories} = useSelector((state) => state?.category);
+  const { blogs } = useSelector((state) => state.blog);
+  const { admins } = useSelector((state) => state?.adminProfile);
+  const { subscribers } = useSelector(state => state.adminProfile);
+  console.log("le n", subscribers.length)
+
   return (
     <div className="container">
       <div className="fill">
@@ -44,64 +52,64 @@ const DashboardAdmin = () => {
           <DashboardCard
             icon={<RiUser2Line />}
             title={"ADMINISTRATORS"}
-            count={2}
-            number={50}
+            count={admins?.length}
+            number={admins?.length*2}
             total={"TOTAL ADMINS"}
             bgColor={"#9F7417"}
           />
           <DashboardCard
             icon={<HiUserGroup />}
             title={"NOMAL USERS"}
-            number={20}
-            count={3}
+            number={subscribers?.length}
+            count={subscribers?.length*2}
             total={"TOTAL NORMAL USERS"}
             bgColor={"#FFC42B"}
           />
           <DashboardCard
             icon={<GrView />}
             title={"VISITS"}
-            number={30}
-            count={3}
+            number={0}
+            count={0}
             total={"TOTAL VISITS"}
             bgColor={"#BA1EAA"}
           />
           <DashboardCard
             icon={<MdOutlineCategory />}
             title={"CATEGORIES"}
-            count={3}
-            number={82}
+            count={categories?.length}
+            number={categories?.length*2}
             total={"TOTAL CATEGORIES"}
             bgColor={"#282B30"}
           />
           <DashboardCard
             icon={<ImSpoonKnife />}
             title={"RECIPES"}
-            number={57.80}
-            count={3}
+            number={recipes?.length*2}
+            count={recipes?.length}
             total={"TOTAL RECIPES"}
             bgColor={"#F378A3"}
           />
           <DashboardCard
             icon={<FaBloggerB />}
             title={"BLOGS"}
-            number={70}
-            count={3}
+            number={blogs?.length*2}
+            count={blogs?.length}
             total={"TOTAL BLOGS"}
             bgColor={"#235B40"}
           />
           <DashboardCard
             icon={<BsNewspaper />}
             title={"NEWSLETTER"}
-            number={90}
-            count={3}
+            number={0}
+            count={0}
             total={"TOTAL GLOBAL NEWSLETTER"}
             bgColor={"#3BE9BF"}
           />
           <DashboardCard
             icon={<GrCopy />}
             title={"PAGES"}
-            number={37}
-            count={3}
+            number={0}
+            count={0}
             total={"TOTAL PAGES"}
             bgColor={"#F02020"}
           />

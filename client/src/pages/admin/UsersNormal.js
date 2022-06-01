@@ -27,7 +27,7 @@ const UsersNormal = () => {
   const dispatch = useDispatch();
 
   async function handleDelete(_id) {
-    let result = await fetch(`${BASE_URL}/admin/user/${_id}`, {
+    let result = await fetch(`${BASE_URL}/admin/${_id}`, {
       method: "DELETE",
     });
     console.log("deleting normalUser", result);

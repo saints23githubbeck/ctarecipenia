@@ -43,7 +43,7 @@ export const signUp = (FormData, navigate) => async (dispatch) => {
   }
 };
 
-export const logIn = (formData, navigate, history) => async (dispatch) => {
+export const logIn = (formData, navigate) => async (dispatch) => {
   try {
     dispatch(setIsLoading(true));
     const result = await httpRequest({
@@ -51,7 +51,6 @@ export const logIn = (formData, navigate, history) => async (dispatch) => {
       method: "POST",
       body: JSON.stringify({ ...formData }),
     });
-    console.log(history?.pathname);
     if (result.token) {
       dispatch(setIsLoading(false));
       localStorage.setItem("auth", result.token);
@@ -64,11 +63,7 @@ export const logIn = (formData, navigate, history) => async (dispatch) => {
         },
       });
       console.log("show me", result)
-      if(history?.pathname === "/admin"){
-        navigate("/admin/dashboard");
-      } else {
         navigate("/user-dashboard");
-      };
     } else {
       dispatch(setIsLoading(false));
       dispatch({

@@ -1,8 +1,46 @@
-import React from 'react'
-import { categories } from "../../admin/data";
+import React, { useEffect, useState } from 'react'
+import { categories, iconData } from "../../admin/data";
 import { RiCloseFill } from "react-icons/ri";
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import { createCategory, handleCategoryState, setCategoryError } from '../../../appState/actions/categoryAction';
 
 const AddCategory = ({ onclose }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const {
+    title,
+    slug,
+    icon,
+    permalink, 
+    error 
+  } = useSelector((state) => state.category);
+  console.log("icotyp", title)
+  const [iconType, setIconType] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const payload = {
+      title:title,
+      slug:slug,
+      icon:iconType,
+      permalink:permalink,  
+    };
+    dispatch(createCategory(payload, onclose, navigate));
+    console.log("new cat", payload)
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(setCategoryError(""));
+    }, 8000);
+  }, [error]);
+
+
+  const handleIconType = (e) => {
+    setIconType(e.target.value);
+  };
+
   return (
     <div>
           {" "}
@@ -13,7 +51,28 @@ const AddCategory = ({ onclose }) => {
               <RiCloseFill className="h3 text-danger" />
             </h5>
           </div>
-          <div className="row  m-3">
+          <div className="row m-3">
+            <p className="w-25 h-75 text-end ptag">Icon</p>
+            <div className="checkbox grid w-75 h-75 p-1 ">
+              {iconData.map((item, index) => (
+                <div
+                  key={index}
+                  className="text-center d-flex align-items-center p-2"
+                >
+                  <input
+                    type="radio"
+                    name="icon"
+                    onClick={handleIconType}
+                    value={item.name}
+                    defaultChecked={`iconType === ${item.name}`}
+                  />
+                  <label htmlFor={item.name}>{item.icon}</label>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* <div className="row  m-3">
             <p className="w-25 h-75 text-end ptag">Icon</p>
             <div className="grid w-75 h-75 p-1">
               {categories.map((item, index) => (
@@ -26,10 +85,12 @@ const AddCategory = ({ onclose }) => {
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
           <div className="row  m-3">
             <p className="w-25 h-75 text-end ptag">Title</p>
             <input
+            onChange={(e) => dispatch(handleCategoryState("title", e.target.value))}
+            value={title}
               className="w-75 h-75 p-1 border"
               type="email"
               required
@@ -42,6 +103,8 @@ const AddCategory = ({ onclose }) => {
           <div className="row  m-3">
             <p className="w-25 h-75 text-end ptag">Permlink</p>
             <input
+            onChange={(e) => dispatch(handleCategoryState("permalink", e.target.value))}
+            value={permalink}
               className="w-75 h-75 p-1 border"
               type="email"
               required
@@ -53,6 +116,7 @@ const AddCategory = ({ onclose }) => {
           </div>
           <div className="m-3">
             <button
+                onClick={handleSubmit}
               style={{
                 marginRight: "50px",
                 backgroundColor: "blue",

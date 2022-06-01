@@ -18,7 +18,7 @@ const PER_PAGE = 10;
 const UsersAdministrator = () => {
   const navigate = useNavigate();
   const { admins } = useSelector((state) => state?.adminProfile);
-  console.log(admins)
+  console.log({admins})
   const [addAdmin, setAddAdmin] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
@@ -26,13 +26,17 @@ const UsersAdministrator = () => {
   const [adminUserList, setAdminUserList] = useState(admins);
   const dispatch = useDispatch();
 
-  async function handleDelete(_id) {
-    let result = await fetch(`${BASE_URL}/admin/${_id}`, {
+  async function handleDelete(slug) {
+    let token =  localStorage.getItem("auth");
+  if (token) {
+    let result = await fetch(`${BASE_URL}/admin/${slug}`, {
       method: "DELETE",
     });
-    result = await result.json();
+    console.log("slug", result)
     console.log("deleting adminuser", result);
+    result = await result.json();
     dispatch(getAllAdmin());
+  }
   }
 
   useEffect(() => {
@@ -95,7 +99,7 @@ const UsersAdministrator = () => {
     })
     .slice(offset, offset + PER_PAGE)
     .map((admins) => (
-      <tr key={admins} className="">
+      <tr key={admins.slug} className="">
         <td className="tdata">
           <img
             src={`data:image/*;base64,${admins.image}`}
@@ -136,7 +140,7 @@ const UsersAdministrator = () => {
           <button
             className="detailsButton"
             style={{ backgroundColor: "red" }}
-            onClick={(e) => handleDelete(admins._id)}
+            onClick={(e) => handleDelete(admins.slug)}
           >
             <BiIcons.BiTrash className="text-white h6" /> Delete
           </button>
