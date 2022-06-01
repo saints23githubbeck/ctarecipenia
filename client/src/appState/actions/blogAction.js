@@ -25,7 +25,7 @@ export const createBlog = (payload, onClose) => async (dispatch) => {
       try {
         dispatch(setBlogLoading("loading", true));
         const result = await httpRequest({
-          url: `/admin/blog`,
+          url: `blog`,
           method: "POST",
           body: JSON.stringify({ ...payload }),
           headers: {
@@ -54,7 +54,7 @@ export const createBlog = (payload, onClose) => async (dispatch) => {
       try {
         dispatch(setBlogLoading("loading", true));
         const result = await httpRequest({
-          url: `/admin/blog/${payload._id}`,
+          url: `/blog/${payload._id}`,
           method: "PUT",
           body: JSON.stringify({ ...payload }),
           headers: {

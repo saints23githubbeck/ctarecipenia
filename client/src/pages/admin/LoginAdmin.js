@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { logIn } from "../../appState/actions/AuthAction.js";
+import { adminLogin } from "../../appState/actions/AdminAuthAction.js";
 import '../../assets/styles/adminStyles/login.scss'
 
 const LoginAdmin = () => {
@@ -53,7 +53,7 @@ const LoginAdmin = () => {
     e.preventDefault();
     let test = validate();
     if (test) {
-     dispatch(logIn(formData, navigate, history));
+     dispatch(adminLogin(formData, navigate, history));
     console.log('loged in', formData)
     }
   };

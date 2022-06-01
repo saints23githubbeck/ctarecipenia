@@ -1,6 +1,9 @@
 import { httpRequest } from "../../api";
 import * as actiontypes from "../actionTypes";
 import { setIsLoading } from "./AuthAction";
+import { getAllBlogs } from "./blogAction";
+import { getAllCategories } from "./categoryAction";
+import { getALLRecipes } from "./recipeAction";
 
 
 export const getAllAdmin= () => async (dispatch) => {
@@ -9,7 +12,7 @@ export const getAllAdmin= () => async (dispatch) => {
     try {
       dispatch(setIsLoading(true));
       const result = await httpRequest({
-        url: `/all-admins`,
+        url: `/admins`,
         method: "GET",
         headers: {
           "Authorization": `Bearer ${token}` 
@@ -116,6 +119,11 @@ export const adminLogin = (formData, navigate) => async (dispatch) => {
       if (result.token) {
         dispatch(setIsLoading(false));
         localStorage.setItem("auth", result.token);
+          dispatch(getALLRecipes());
+          dispatch(getAllSubscribers());
+          dispatch(getAllAdmin());
+          dispatch(getAllBlogs());
+          dispatch(getAllCategories());
         dispatch({
           type: actiontypes.ADMIN_LOGIN,
           payload: {
@@ -166,14 +174,14 @@ export const updateUserByAdmin = (payload, onClose) => async (dispatch) => {
   try {
     dispatch(setUserLoading("loading", true));
       const result = await httpRequest({
-        url: "/admin/update-user",
+        url: "/update",
         method: "PUT",
         body: JSON.stringify({ ...payload }),
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      // console.log("updateUserByAdmin", result);
+      console.log("updateUserByAdmin", result);
     if (result.status ) {
       dispatch(setUserLoading("loading", false));
       dispatch(getAllSubscribers());

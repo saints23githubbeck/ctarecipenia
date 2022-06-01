@@ -21,7 +21,7 @@ const EditBlog = () => {
     image ,
     error,
     loading,
-  } = useSelector((state) => state.recipe);
+  } = useSelector((state) => state.blog);
   const target = useRef(null);
 
   const [selectImage, setSelectImage] = useState(image);

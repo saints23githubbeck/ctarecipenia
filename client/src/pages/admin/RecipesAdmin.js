@@ -24,8 +24,8 @@ const RecipesAdmin = () => {
   const [recipesList, setRecipesList] = useState(recipes);
   const dispatch = useDispatch();
 
-  async function handleDelete(_id) {
-    let result = await fetch(`${BASE_URL}/recipe/${_id}`, {
+  async function handleDelete(slug) {
+    let result = await fetch(`${BASE_URL}/admin/recipe/${slug}`, {
       method: "DELETE",
     });
     result = await result.json();
@@ -124,7 +124,7 @@ const RecipesAdmin = () => {
           <button
             className="detailsButton"
             style={{ backgroundColor: "red" }}
-            onClick={() => handleDelete(recipes._id)}
+            onClick={() => handleDelete(recipes.slug)}
           >
             <BiIcons.BiTrash className="text-white h6" /> Delete
           </button>

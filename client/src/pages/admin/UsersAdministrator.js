@@ -18,7 +18,7 @@ const PER_PAGE = 10;
 const UsersAdministrator = () => {
   const navigate = useNavigate();
   const { admins } = useSelector((state) => state?.adminProfile);
-  console.log(admins)
+  console.log({admins})
   const [addAdmin, setAddAdmin] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);

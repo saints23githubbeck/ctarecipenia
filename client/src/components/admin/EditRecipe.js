@@ -15,6 +15,7 @@ const EditRecipe = () => {
 
   const dispatch = useDispatch();
   const {
+    slug,
     _id,
     title,
     category,
@@ -42,6 +43,7 @@ const EditRecipe = () => {
 
   const handleSubmit = () => {
     const payload = {
+      slug: slug,
       _id: _id,
       title: title,
       category: category,
