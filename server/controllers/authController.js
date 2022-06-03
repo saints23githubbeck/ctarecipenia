@@ -73,7 +73,7 @@ exports.login = asyncHandler(async (req, res) => {
     const userToken = createToken(user._id, email)
 
     res.cookie("token", userToken, { expiresIn: "1d" })
-    user.password = undefined
+    user.password = undefined 
     user.secret = undefined
     return res.status(200).json({
       message: `Welcome back ${user.username}`,

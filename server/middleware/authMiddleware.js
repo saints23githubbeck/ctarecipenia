@@ -17,18 +17,16 @@ exports.requireSignIn = asyncHandler(async (req, res, next) => {
 
   if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
     try {
-      //get the token from the headers
       token = req.headers.authorization.split(" ")[1]
 
       //verify the token
-      jwt.verify(token, process.env.JWT_SECRET, (err, verifiedToken) => {
+      jwt.verify(token, process.env.JWT_SECRET, async (err, verifiedToken) => {
         if (err) {
           return catchError(err, res)
         }
-      //get user information from verified access token
-      // console.log("verifiedToken", verifiedToken)
-      const userId = verifiedToken.userId
-      req.user = await User.findById(userId)
+
+        const userId = verifiedToken.userId
+        req.user = await User.findById(userId)
 
         next()
       })
