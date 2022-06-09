@@ -16,31 +16,9 @@ exports.addRecipe = async (req, res) => {
 
   const username = req.user.username
 
-  const {
-    title,
-    category,
-    cookTime,
-    calories,
-    description,
-    direction,
-    permLink,
-    difficulty,
-    prepareTime,
-    serves,
-  } = req.body
+  const { title, category, cookTime, calories, description, direction, permLink, difficulty, prepareTime, serves } = req.body
   try {
-    if (
-      !title ||
-      !category ||
-      !cookTime ||
-      !calories ||
-      !description ||
-      !direction ||
-      !permLink ||
-      !difficulty ||
-      !prepareTime ||
-      !serves
-    ) {
+    if (!title || !category || !cookTime || !calories || !description || !direction || !permLink || !difficulty || !prepareTime || !serves) {
       res.status(400).json({ error: "Please fill all required fields" })
     }
 
@@ -58,7 +36,7 @@ exports.addRecipe = async (req, res) => {
       prepareTime,
       serves,
       slug,
-      publishedBy: username,
+      postedBy: req.user._id,
     })
 
     return res.status(201).json({
@@ -207,10 +185,7 @@ exports.searchRecipe = (req, res) => {
   if (search) {
     Recipe.find(
       {
-        $or: [
-          { title: { $regex: search, $options: "i" } },
-          { body: { $regex: search, $options: "i" } },
-        ],
+        $or: [{ title: { $regex: search, $options: "i" } }, { body: { $regex: search, $options: "i" } }],
       },
       (error, recipes) => {
         if (error) {
@@ -232,8 +207,7 @@ exports.canDeleteRecipe = (req, res, next) => {
         error: errorHandler(err),
       })
     }
-    let authorizedUser =
-      data.postedBy._id.toString() === req.user._id.toString()
+    let authorizedUser = data.postedBy._id.toString() === req.user._id.toString()
     if (!authorizedUser) {
       return res.status(400).json({
         error: "You are not authorized",
@@ -251,8 +225,7 @@ exports.canUpdateRecipe = (req, res, next) => {
         error: errorHandler(err),
       })
     }
-    let authorizedUser =
-      data.postedBy._id.toString() === req.user._id.toString()
+    let authorizedUser = data.postedBy._id.toString() === req.user._id.toString()
     if (!authorizedUser) {
       return res.status(400).json({
         error: "You are not authorized",
