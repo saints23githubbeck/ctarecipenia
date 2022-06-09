@@ -5,17 +5,7 @@ const bcrypt = require("bcrypt")
 exports.profileUpdate = asyncHandler(async (req, res) => {
   try {
     //console.log("profile update req.body", req.body);
-    const {
-      secret,
-      username,
-      image,
-      country,
-      description,
-      lastName,
-      password,
-      firstName,
-      status,
-    } = req.body
+    const { secret, username, image, country, description, lastName, password, firstName, status } = req.body
     const updateInfo = {}
 
     if (username) {
@@ -120,12 +110,7 @@ exports.searchUser = asyncHandler(async (req, res) => {
   if (!search) return
   try {
     const user = await User.find({
-      $or: [
-        { firstName: { $regex: search, $options: "i" } },
-        { lastName: { $regex: search, $options: "i" } },
-        { slug: { $regex: search, $options: "i" } },
-        { username: { $regex: search, $options: "i" } },
-      ],
+      $or: [{ firstName: { $regex: search, $options: "i" } }, { lastName: { $regex: search, $options: "i" } }, { slug: { $regex: search, $options: "i" } }, { username: { $regex: search, $options: "i" } }],
     }).select("-password -secret")
     return res.json(user)
   } catch (err) {
@@ -136,26 +121,13 @@ exports.searchUser = asyncHandler(async (req, res) => {
 
 exports.fetchSubscribers = asyncHandler(async (req, res) => {
   try {
-    const subscribers = await User.find({ userGroup: "subscriber" }).select(
-      "-password -secret"
-    )
+    const subscribers = await User.find({ userGroup: "subscriber" }).select("-password -secret")
 
     const totalNumberOfSubscribers = subscribers.length
 
-    subscribers &&
-      res.status(200).json({ subscribers, totalNumberOfSubscribers })
+    subscribers && res.status(200).json({ subscribers, totalNumberOfSubscribers })
   } catch (error) {
     return res.status(404).json({ errors: error.message })
-  }
-})
-
-exports.getUserBySlug = asyncHandler(async (req, res) => {
-  try {
-    const slug = req.params.slug.toLowerCase()
-    const user = await User.findOne({ slug }).select("-password -secret")
-    user && res.json({ user })
-  } catch (error) {
-    return res.status(404).json({ error: "User not found", error })
   }
 })
 
@@ -167,8 +139,7 @@ exports.canDeleteUser = (req, res, next) => {
         error: errorHandler(err),
       })
     }
-    let authorizedUser =
-      data.postedBy._id.toString() === req.user._id.toString()
+    let authorizedUser = data.postedBy._id.toString() === req.user._id.toString()
     if (!authorizedUser) {
       return res.status(400).json({
         error: "You are not authorized",
@@ -186,8 +157,7 @@ exports.canUpdateUser = (req, res, next) => {
         error: errorHandler(err),
       })
     }
-    let authorizedUser =
-      data.postedBy._id.toString() === req.user._id.toString()
+    let authorizedUser = data.postedBy._id.toString() === req.user._id.toString()
     if (!authorizedUser) {
       return res.status(400).json({
         error: "You are not authorized",
