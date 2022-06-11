@@ -55,7 +55,7 @@ exports.authMiddleware = async (req, res, next) => {
 
   if (user.userGroup !== "subscriber") {
     return res.status(400).json({
-      error: "Subscribers access only. Access denied",
+      error: "Admin access denied",
     })
   }
 

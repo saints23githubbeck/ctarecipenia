@@ -133,13 +133,13 @@ exports.fetchSubscribers = asyncHandler(async (req, res) => {
 
 exports.canDeleteUser = (req, res, next) => {
   const slug = req.params.slug.toLowerCase()
-  User.findOne({ slug }).exec((err, data) => {
+  User.findOne({ slug }).exec((err, user) => {
     if (err) {
       return res.status(400).json({
-        error: errorHandler(err),
+        error: err
       })
     }
-    let authorizedUser = data.postedBy._id.toString() === req.user._id.toString()
+    let authorizedUser = user._id.toString() === req.user._id.toString()
     if (!authorizedUser) {
       return res.status(400).json({
         error: "You are not authorized",
@@ -151,13 +151,13 @@ exports.canDeleteUser = (req, res, next) => {
 
 exports.canUpdateUser = (req, res, next) => {
   const slug = req.params.slug.toLowerCase()
-  User.findOne({ slug }).exec((err, data) => {
+  User.findOne({ slug }).exec((err, user) => {
     if (err) {
       return res.status(400).json({
-        error: errorHandler(err),
+        error: err
       })
     }
-    let authorizedUser = data.postedBy._id.toString() === req.user._id.toString()
+    let authorizedUser = user._id.toString() === req.user._id.toString()
     if (!authorizedUser) {
       return res.status(400).json({
         error: "You are not authorized",

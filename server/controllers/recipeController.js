@@ -197,7 +197,7 @@ exports.canDeleteRecipe = (req, res, next) => {
   Recipe.findOne({ slug }).exec((err, data) => {
     if (err) {
       return res.status(400).json({
-        error: errorHandler(err),
+        error: err,
       })
     }
     let authorizedUser = data.postedBy._id.toString() === req.user._id.toString()
@@ -215,7 +215,7 @@ exports.canUpdateRecipe = (req, res, next) => {
   Recipe.findOne({ slug }).exec((err, data) => {
     if (err) {
       return res.status(400).json({
-        error: errorHandler(err),
+        error: err,
       })
     }
     let authorizedUser = data.postedBy._id.toString() === req.user._id.toString()

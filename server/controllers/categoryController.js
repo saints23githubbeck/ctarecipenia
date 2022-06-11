@@ -35,10 +35,6 @@ exports.getBySlug = (req, res) => {
     return res.status(404).json({ message: "Slug is required" })
   }
 
-  console.log("====================================")
-  console.log(slug)
-  console.log("====================================")
-
   Category.findOne({ slug }).exec((err, category) => {
     if (err) {
       return res.status(400).json({
@@ -46,25 +42,19 @@ exports.getBySlug = (req, res) => {
       })
     }
 
-    Recipe.find({ categories: category })
-      .populate("categories", "_id title permalink slug")
+    Recipe.find({ category: category })
+      .populate("category", "_id title permalink slug")
       .populate("postedBy", "_id username")
-      .select(
-        "_id title slug description categories postedBy  createdAt updatedAt"
-      )
+      .select("_id title slug description category postedBy  createdAt updatedAt")
+      .sort({ createdAt: "desc" })
       .exec((err, data) => {
         //console.log(data)
         if (err) {
           return res.status(400).json({
-            error: errorHandler(err),
+            error: err,
           })
         }
-        if (category == null || category.length == 0) {
-          return res.status(404).json({message: "No category found"})
-        }
-
-
-        return res.json({ category: category, recipe: data })
+        return res.json({ recipe: data })
       })
   })
 }
