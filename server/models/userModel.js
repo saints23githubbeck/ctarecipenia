@@ -52,8 +52,9 @@ const userSchema = new Schema(
       default: "",
     },
     userGroup: {
-      type: String,
-      default: "subscriber", //or admin
+      type: [String],
+      enum: ["admin", "subscriber"],
+      default: ["subscriber"],
     },
     slug: {
       type: String,

@@ -54,26 +54,19 @@ exports.addRecipe = async (req, res) => {
     @desc   Fetches all recipes from the database
     @access Public
 */
-exports.getRecipes = async (req, res) => {
-  //console.log("get recipes")
-  try {
-    // let totalRecipes = await Recipe.countDocuments()
-    let totalRecipes
-    const recipes = await Recipe.find({})
-      .sort([["createdAt", "asc"]])
-      .exec()
-    if (!recipes) {
-      return res.status(400).json({ error: [{ message: "Recipes not found" }] })
-    }
-    totalRecipes = recipes.length
-    return res.status(200).json({
-      success: true,
-      recipes,
-      totalRecipes,
+exports.fetchAllRecipes = (req, res) => {
+  Recipe.find({})
+    .populate("postedBy", "_id image status username")
+    .select("_id category cookTime calories description slug direction permLink image difficulty prepareTime serves postedBy createdAt updatedAt")
+    .sort({ createdAt: "desc" })
+    .exec((error, data) => {
+      if (error) {
+        return res.json({
+          error: error,
+        })
+      }
+      res.json({ success: true, data, recipe_length: data.length })
     })
-  } catch (error) {
-    return res.status(500).send(error)
-  }
 }
 
 /*
