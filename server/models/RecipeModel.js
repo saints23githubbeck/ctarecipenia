@@ -11,10 +11,7 @@ const recipeSchema = new Schema(
       unique: true,
       minLength: 5,
       maxLength: [50, "Recipe name cannot exceed 100 characters"],
-      match: [
-        /^[a-zA-Z ]*$/,
-        "Please enter a name. Special characters are  not allowed",
-      ],
+      match: [/^[a-zA-Z ]*$/, "Please enter a name. Special characters are  not allowed"],
     },
     category: { type: String, required: true },
     cookTime: { type: String, required: true },

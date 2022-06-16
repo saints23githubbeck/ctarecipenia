@@ -22,22 +22,10 @@ exports.addRecipe = async (req, res) => {
       res.status(400).json({ error: "Please fill all required fields" })
     }
 
-    const slug = slugify(title).toLowerCase()
-
-    const recipe = await Recipe.create({
-      title,
-      category,
-      cookTime,
-      calories,
-      description,
-      direction,
-      permLink,
-      difficulty,
-      prepareTime,
-      serves,
-      slug,
-      postedBy: req.user._id,
-    })
+    const recipe = await new Recipe(req.body)
+    recipe.slug = slugify(title).toLowerCase()
+    recipe.postedBy = req.user._id
+    recipe.save()
 
     return res.status(201).json({
       message: "Recipe added",
@@ -54,7 +42,7 @@ exports.addRecipe = async (req, res) => {
     @desc   Fetches all recipes from the database
     @access Public
 */
-exports.fetchAllRecipes = (req, res) => {
+exports.fetchAllRecipes = async (req, res) => {
   Recipe.find({})
     .populate("postedBy", "_id image status username")
     .select("_id category cookTime calories description slug direction permLink image difficulty prepareTime serves postedBy createdAt updatedAt")

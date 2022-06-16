@@ -18,4 +18,3 @@ router.put("/recipe/:slug", requireSignIn, authMiddleware, canUpdateRecipe, upda
 router.delete("/recipe/:slug", requireSignIn, authMiddleware, canDeleteRecipe, deleteRecipe)
 
 module.exports = router
- 

@@ -47,20 +47,23 @@ exports.authMiddleware = async (req, res, next) => {
     return res.status(401).json({ error: "Please Sign in" })
   }
   const user = await User.findById(req.user._id).exec()
+  console.log(user.userGroup.toString())
   if (!user) {
     return res.status(400).json({
       error: "User not found",
     })
   }
-
-  if (user.userGroup !== "subscriber") {
+  if (user.userGroup.toString() === "admin") {
+    req.user = user
+    next()
+  } else if (user.userGroup.toString() === "subscriber") {
+    req.user = user
+    next()
+  } else {
     return res.status(400).json({
-      error: "Admin access denied",
+      error: "Access denied. Contact your administrator",
     })
   }
-
-  req.user = user
-  next()
 }
 
 exports.adminMiddleware = async (req, res, next) => {

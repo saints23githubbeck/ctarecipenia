@@ -107,6 +107,7 @@ exports.getUserBySlug = asyncHandler(async (req, res) => {
 
 exports.searchUser = asyncHandler(async (req, res) => {
   const { search } = req.query
+
   if (!search) return
   try {
     const user = await User.find({

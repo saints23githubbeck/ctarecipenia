@@ -14,7 +14,7 @@ exports.register = asyncHandler(async (req, res) => {
     return res.json({
       error: "Password should be 6 or more characters long",
     })
-  }
+  } 
 
   const userExists = await User.findOne({
     $or: [{ email }, { username }],
@@ -52,9 +52,7 @@ exports.register = asyncHandler(async (req, res) => {
       success: true,
     })
   } else {
-    return res
-      .status(400)
-      .json({ message: "Registration failed. Please try again later" })
+    return res.status(400).json({ message: "Registration failed. Please try again later" })
   }
 })
 
@@ -63,9 +61,7 @@ exports.login = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email })
 
   if (!user) {
-    return res
-      .status(401)
-      .json({ error: "This user does not exist. Please sign up " })
+    return res.status(401).json({ error: "This user does not exist. Please sign up " })
   }
   const match = await bcrypt.compare(password, user.password)
 
@@ -73,7 +69,7 @@ exports.login = asyncHandler(async (req, res) => {
     const userToken = createToken(user._id, email)
 
     res.cookie("token", userToken, { expiresIn: "1d" })
-    user.password = undefined 
+    user.password = undefined
     user.secret = undefined
     return res.status(200).json({
       message: `Welcome back ${user.username}`,
