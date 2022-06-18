@@ -6,15 +6,20 @@ const sliderSchema = new Schema(
     recipe: {
       type: String,
       required: true,
-      required: true,
     },
     title: {
       type: String,
       required: true,
+      unique: true,
     },
     image: {
       type: String,
       required: true,
+    },
+    slug: {
+      type: String,
+      unique: true,
+      index: true,
     },
   },
   { timestamps: true }

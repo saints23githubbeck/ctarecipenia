@@ -2,23 +2,29 @@ const slugify = require("slugify")
 const Category = require("../models/CategoryModel")
 const Recipe = require("../models/RecipeModel")
 
-exports.createCategory = (req, res) => {
+exports.createCategory = async (req, res) => {
   const { title, icon, permalink } = req.body
   let slug = slugify(title).toLowerCase()
 
+  const duplicate = await Category.findOne({ slug })
+
+  if (duplicate) {
+    return res.status(404).json({ message: "Duplicate category title" })
+  }
+
   let category = new Category({ title, slug, icon, permalink })
 
-  category.save((err, category) => {
+  category.save((err, data) => {
     if (err) {
       return res.status(400).json({
-        error: errorHandler(err),
+        error: err,
       })
     }
-    return res.json(category)
+    return res.json(data)
   })
 }
 
-exports.getAll = (req, res) => {
+exports.getAll = async (req, res) => {
   Category.find({}).exec((err, categories) => {
     if (err) {
       return res.status(400).json({
@@ -29,8 +35,9 @@ exports.getAll = (req, res) => {
   })
 }
 
-exports.getBySlug = (req, res) => {
+exports.getBySlug = async (req, res) => {
   const slug = req.params.slug.toLowerCase()
+
   if (!slug) {
     return res.status(404).json({ message: "Slug is required" })
   }
@@ -44,7 +51,7 @@ exports.getBySlug = (req, res) => {
 
     Recipe.find({ category: category })
       .populate("category", "_id title permalink slug")
-      .populate("postedBy", "_id username")
+      .populate("postedBy", "_id username image")
       .select("_id title slug description category postedBy  createdAt updatedAt")
       .sort({ createdAt: "desc" })
       .exec((err, data) => {
@@ -54,18 +61,18 @@ exports.getBySlug = (req, res) => {
             error: err,
           })
         }
-        return res.json({ recipe: data })
+        return res.json({ recipe: data, category })
       })
   })
 }
 
-exports.removeCategory = (req, res) => {
+exports.removeCategory = async (req, res) => {
   const slug = req.params.slug.toLowerCase()
 
-  Category.findOneAndDelete({ slug }).exec((err, data) => {
+  Category.findOneAndDelete({ slug }).exec((err, category) => {
     if (err) {
       return res.status(400).json({
-        error: errorHandler(err),
+        error: err,
       })
     }
     return res.json({

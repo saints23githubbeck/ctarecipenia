@@ -9,7 +9,7 @@ const catchError = (err, res) => {
     return res.status(401).send({ message: "Unauthorized! Access Token was expired!" })
   }
 
-  return res.sendStatus(401).send({ message: "Unauthorized!" })
+  return res.status(401).json({ message: "Unauthorized! Sign in to continue" })
 }
 
 exports.requireSignIn = asyncHandler(async (req, res, next) => {
@@ -47,21 +47,18 @@ exports.authMiddleware = async (req, res, next) => {
     return res.status(401).json({ error: "Please Sign in" })
   }
   const user = await User.findById(req.user._id).exec()
-  console.log(user.userGroup.toString())
+
   if (!user) {
     return res.status(400).json({
       error: "User not found",
     })
   }
-  if (user.userGroup.toString() === "admin") {
-    req.user = user
-    next()
-  } else if (user.userGroup.toString() === "subscriber") {
+  if (user.userGroup.toString() === "subscriber") {
     req.user = user
     next()
   } else {
     return res.status(400).json({
-      error: "Access denied. Contact your administrator",
+      error: "Access denied. Subscribers Only. Contact your administrator",
     })
   }
 }
@@ -75,7 +72,7 @@ exports.adminMiddleware = async (req, res, next) => {
     })
   }
 
-  if (user.userGroup !== "admin") {
+  if (user.userGroup.toString() !== "admin") {
     return res.status(400).json({
       error: "Admin access only. Access denied",
     })

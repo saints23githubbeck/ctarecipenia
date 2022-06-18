@@ -186,3 +186,43 @@ exports.fetchAdmins = asyncHandler(async (req, res) => {
     return res.status(404).json({ errors: error.message })
   }
 })
+
+exports.canDeleteAdmin = (req, res, next) => {
+  const slug = req.params.slug.toLowerCase()
+  User.findOne({ slug }).exec((err, user) => {
+    if (err) {
+      return res.status(400).json({
+        error: errorHandler(err),
+      })
+    }
+
+    if (user.userGroup.toString() === req.user.userGroup.toString()) {
+      return res.status(401).json({message: "Admin cannot delete him or herself."})
+    }
+    let authorizedUser = user._id.toString() === req.user._id.toString()
+    if (!authorizedUser) {
+      return res.status(400).json({
+        error: "You are not authorized",
+      })
+    }
+    next()
+  })
+}
+
+exports.canUpdateAdmin = (req, res, next) => {
+  const slug = req.params.slug.toLowerCase()
+  User.findOne({ slug }).exec((err, user) => {
+    if (err) {
+      return res.status(400).json({
+        error: errorHandler(err),
+      })
+    }
+    let authorizedUser = user._id.toString() === req.user._id.toString()
+    if (!authorizedUser) {
+      return res.status(400).json({
+        error: "You are not authorized",
+      })
+    }
+    next()
+  })
+}

@@ -6,11 +6,11 @@ const router = express.Router()
 /** Public routes   */
 router.get("/recipes", fetchAllRecipes)
 router.get("/recipe/:slug", getRecipeBySlug)
-router.get("/recipes/search", searchRecipe)
 router.get("/:username/recipes", fetchRecipeByUser)
 
 /** admin only route */
 router.delete("/admin/recipe/:slug", requireSignIn, adminMiddleware, deleteRecipe)
+router.post("/admin/recipe", requireSignIn, adminMiddleware, addRecipe)
 
 // user routes
 router.post("/recipe", requireSignIn, authMiddleware, addRecipe)

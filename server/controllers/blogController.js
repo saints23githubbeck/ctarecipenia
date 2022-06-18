@@ -31,24 +31,21 @@ exports.createBlog = async (req, res) => {
     @desc   Fetches all blogs
     @access Public
 */
-exports.getBlogs = async (req, res) => {
-  //console.log("fetch all blogs");
-  try {
-    let totalBlogs = await Blog.countDocuments()
-    const blogs = await Blog.find({})
-      .sort([["createdAt", "asc"]])
-      .exec()
-    if (!blogs) {
-      return res.status(400).json({ error: [{ message: "Blogs not found" }] })
-    }
-    return res.status(200).json({
-      success: true,
-      blogs,
-      totalBlogs,
+
+exports.fetchAllBlogs = (req, res) => {
+  Blog.find({})
+    .populate("postedBy", "_id image username")
+    .select("_id title body slug excerpt categories tags postedBy createdAt updatedAt")
+    .sort({ createdAt: "desc" })
+    .exec((error, data) => {
+      if (error) {
+        return res.json({
+          error: error,
+        })
+      }
+
+      res.json(data)
     })
-  } catch (error) {
-    return res.status(500).send(error)
-  }
 }
 
 /*
@@ -135,30 +132,6 @@ exports.updateBlog = async (req, res) => {
   }
 }
 
-/** Search through blog post */
-exports.searchBlog = (req, res) => {
-  //console.log(req.query)
-  const { search } = req.query
-  if (search) {
-    Blog.find(
-      {
-        $or: [
-          { title: { $regex: search, $options: "i" } },
-          { body: { $regex: search, $options: "i" } },
-        ],
-      },
-      (error, blogs) => {
-        if (error) {
-          return res.status(400).json({
-            error: error,
-          })
-        }
-        return res.json(blogs)
-      }
-    ).select("-photo -body")
-  }
-}
-
 /** Find a blog post by user*/
 exports.fetchBlogByUser = (req, res) => {
   User.findOne({ username: req.params.username }).exec((error, user) => {
@@ -179,7 +152,7 @@ exports.fetchBlogByUser = (req, res) => {
           if (error) {
             return res.status(400).json({
               error: error,
-            }) 
+            })
           }
           return res.json(data)
         })
@@ -197,8 +170,7 @@ exports.canDeleteBlog = (req, res, next) => {
         error: errorHandler(err),
       })
     }
-    let authorizedUser =
-      data.postedBy._id.toString() === req.user._id.toString()
+    let authorizedUser = data.postedBy._id.toString() === req.user._id.toString()
     if (!authorizedUser) {
       return res.status(400).json({
         error: "You are not authorized",
@@ -216,8 +188,7 @@ exports.canUpdateBlog = (req, res, next) => {
         error: errorHandler(err),
       })
     }
-    let authorizedUser =
-      data.postedBy._id.toString() === req.user._id.toString()
+    let authorizedUser = data.postedBy._id.toString() === req.user._id.toString()
     if (!authorizedUser) {
       return res.status(400).json({
         error: "You are not authorized",
