@@ -33,15 +33,16 @@ const userSchema = new Schema(
     password: {
       type: String,
       min: 6,
-      required: [true, "Please enter a password"],
+      required: [true, "Please enter your password"],
     },
+
     email: {
       type: String,
       required: true,
       unique: true,
       trim: true,
       lowercase: true,
-      match: [/\S+@\S+\.\S+/, "Invalid email address"],
+      match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Please enter a valid email address"],
     },
     secret: {
       type: String,

@@ -3,6 +3,7 @@ const User = require("../models/userModel")
 const slugify = require("slugify")
 const bcrypt = require("bcrypt")
 const createToken = require("../utils/generateToken")
+const Newsletter = require("../models/NewsLetter")
 
 exports.register = asyncHandler(async (req, res) => {
   const { username, password, email, secret } = req.body
@@ -14,7 +15,7 @@ exports.register = asyncHandler(async (req, res) => {
     return res.json({
       error: "Password should be 6 or more characters long",
     })
-  } 
+  }
 
   const userExists = await User.findOne({
     $or: [{ email }, { username }],
@@ -39,6 +40,7 @@ exports.register = asyncHandler(async (req, res) => {
 
   if (user) {
     const userToken = createToken(user._id, email)
+    const subscribed = await Newsletter.create({ email: user.email, userId: user.id })
     user.password = undefined
     user.secret = undefined
 
@@ -50,6 +52,7 @@ exports.register = asyncHandler(async (req, res) => {
     return res.status(201).json({
       message: "Signup success! Please login.",
       success: true,
+      subscribed: "Thank you for subscribing to our newsletter",
     })
   } else {
     return res.status(400).json({ message: "Registration failed. Please try again later" })
