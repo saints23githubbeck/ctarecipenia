@@ -64,7 +64,7 @@ const AddRecipe = () => {
             <h3>My Recipes</h3>
           </div>
           <div>
-            <div className="inputs flex">
+            <div className="inputs  ">
               <div className="input">
                 <label htmlFor="">Category</label>
                 <select name="select" id="">

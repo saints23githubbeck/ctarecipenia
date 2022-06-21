@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../assets/styles/userDashBoard.scss";
-import profilecircle from "../assets/images/userdashboardprofilecircle.png";
+// import profilecircle from "../assets/images/userdashboardprofilecircle.png";
 import { Link, NavLink } from "react-router-dom";
 import { logOutAction } from "../appState/actions/AuthAction";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,12 +9,14 @@ import { AiOutlineCalendar, AiOutlineFlag, AiFillDashboard, AiOutlineUser, AiOut
 import * as AiIcons from "react-icons/ai";
 import { MdFoodBank } from "react-icons/md";
 import {BiLogOut} from "react-icons/bi";
-import {FaFemale} from "react-icons/fa";
+import {FaFemale, FaUser} from "react-icons/fa";
 import {GrView} from "react-icons/gr";
+import { Avatar } from "@mui/material";
 
 
 const UserProfile = ({ isProfile, profileInfo }) => {
   const userProfile = useSelector((state) => state.user);
+  const { recipes } = useSelector((state) => state.recipe);
   const { user, isLoggedIn } = userProfile; 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -26,7 +28,7 @@ const UserProfile = ({ isProfile, profileInfo }) => {
     email: profileInfo?.email,
     profilePic: profileInfo?.profilePic,
     recipes: "7 Recipes",
-    joinedDate: "Member Since Febuary 14,2022",
+    joinedDate: user?.createsAt,
   });
   const {
     name,
@@ -34,7 +36,7 @@ const UserProfile = ({ isProfile, profileInfo }) => {
     gender,
     country,
     email,
-    recipes,
+    // recipes,
     joinedDate,
     profilePic,
   } = profileData;
@@ -43,18 +45,18 @@ const UserProfile = ({ isProfile, profileInfo }) => {
     <div className="user-menu flex">
       <div className="profile flex">
         <div className="profile_text_img">
-          {/* <img src={profilecircle} alt="" /> */}
+          {/* <img src={<FaUser />} alt="" /> */}
           {!isProfile ? (
             <div>
               {user?.profilePic ? (
-                <img
+                <Avatar
                   className="profile_img"
                   src={user?.profilePic}
-                  alt="user profile"
+                  alt={profileInfo.username}
                 />
               ) : (
                 <div>
-                <img className="profile_img" src={profilecircle} alt="" />
+                <Avatar className="profile_img" src={<FaUser />} alt="" />
                 <span className="profile_text">
                   {user?.username?.split("")[0]}
                 </span>
@@ -71,7 +73,7 @@ const UserProfile = ({ isProfile, profileInfo }) => {
                   alt="user profile"
                 />
               ) : (
-                // <img className="profile_img" src={profilecircle} alt="" />
+                // <img className="profile_img" src={<FaUser />} alt="" />
                 <span className="profile_text">
                   {user?.username?.split("")[0]}
                 </span>
@@ -105,7 +107,7 @@ const UserProfile = ({ isProfile, profileInfo }) => {
             </div>
             <div className="flex">
               <MdFoodBank alt="recipesIcon" />
-              <h5>{recipes}</h5>
+              <h5>{recipes.length}</h5>
             </div>
             <div className="flex">
               <AiOutlineCalendar alt="joinedDateIcon" />

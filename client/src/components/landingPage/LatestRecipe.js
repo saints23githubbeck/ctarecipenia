@@ -1,53 +1,63 @@
 
-import latestRecipe1 from "../../assets/images/latest-recipe1.png"
-import latestRecipe2 from "../../assets/images/latest-recipe2.png"
-import latestRecipe3 from "../../assets/images/latest-recipe3.png"
-import latestRecipe4 from "../../assets/images/latest-recipe4.png"
-import latestRecipe5 from "../../assets/images/latest-recipe5.png"
-import latestRecipe6 from "../../assets/images/latest-recipe6.png"
-import ownerImage from "../../assets/images/latest-recipe-owner-image.png"
+// import latestRecipe1 from "../../assets/images/latest-recipe1.png"
+// import latestRecipe2 from "../../assets/images/latest-recipe2.png"
+// import latestRecipe3 from "../../assets/images/latest-recipe3.png"
+// import latestRecipe4 from "../../assets/images/latest-recipe4.png"
+// import latestRecipe5 from "../../assets/images/latest-recipe5.png"
+// import latestRecipe6 from "../../assets/images/latest-recipe6.png"
+// import ownerImage from "../../assets/images/latest-recipe-owner-image.png"
+
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getALLRecipes } from "../../appState/actions/recipeAction";
 
 
 const LatestRecipe = () => {
+  const { recipes } = useSelector((state) => state.recipe);
+  const dispatch = useDispatch();
 
-  const latestData = [
-    {
-      title: "Chicken",
-      recipeImage: latestRecipe1,
-      ownerImage: ownerImage,
-      ownerName:"Bambam"
-    },
-    {
-      title: "Chicken",
-      recipeImage: latestRecipe2,
-      ownerImage: ownerImage,
-      ownerName:"Bambam"
-    },
-    {
-      title: "Chicken",
-      recipeImage: latestRecipe3,
-      ownerImage: ownerImage,
-      ownerName:"Bambam"
-    },
-    {
-      title: "Chicken",
-      recipeImage: latestRecipe4,
-      ownerImage: ownerImage,
-      ownerName:"Bambam"
-    },
-    {
-      title: "Chicken",
-      recipeImage: latestRecipe5,
-      ownerImage: ownerImage,
-      ownerName:"Bambam"
-    },
-    {
-      title: "Chicken",
-      recipeImage: latestRecipe6,
-      ownerImage: ownerImage,
-      ownerName:"Bambam"
-    }
-  ]
+  useEffect(() => {
+    dispatch(getALLRecipes());
+  }, []);
+
+  // const latestData = [
+  //   {
+  //     title: "Chicken",
+  //     recipeImage: latestRecipe1,
+  //     ownerImage: ownerImage,
+  //     ownerName:"Bambam"
+  //   },
+  //   {
+  //     title: "Chicken",
+  //     recipeImage: latestRecipe2,
+  //     ownerImage: ownerImage,
+  //     ownerName:"Bambam"
+  //   },
+  //   {
+  //     title: "Chicken",
+  //     recipeImage: latestRecipe3,
+  //     ownerImage: ownerImage,
+  //     ownerName:"Bambam"
+  //   },
+  //   {
+  //     title: "Chicken",
+  //     recipeImage: latestRecipe4,
+  //     ownerImage: ownerImage,
+  //     ownerName:"Bambam"
+  //   },
+  //   {
+  //     title: "Chicken",
+  //     recipeImage: latestRecipe5,
+  //     ownerImage: ownerImage,
+  //     ownerName:"Bambam"
+  //   },
+  //   {
+  //     title: "Chicken",
+  //     recipeImage: latestRecipe6,
+  //     ownerImage: ownerImage,
+  //     ownerName:"Bambam"
+  //   }
+  // ]
 
 
   return (
@@ -66,15 +76,17 @@ const LatestRecipe = () => {
         <div className='mobile_none lessThan'> &lt; </div>
         <div className='card_wrapper'>
           {
-            latestData.map((recipe, index) => (
+            recipes?.sort(function (a, b) {
+              return new Date(b.updatedAt) - new Date(a.updatedAt);
+            }).map((recipe, index) => (
               <div key={index} className='card'>
                 <div>
-                  <img src={recipe.recipeImage} alt="recipeImage" />
+                  <img src={recipe.image} alt="recipeImage" />
                 </div>
                 <h3>{recipe.title}</h3>
                 <div>
-                  <img src={recipe.ownerImage} alt={recipe.ownerName} />
-                  <span><strong>{recipe.ownerName}</strong></span>
+                  <img src={recipe.username} alt={recipe.slug} />
+                  <span><strong>{recipe.publishedBy}</strong></span>
                 </div>
                 <div className='rating' style={{ textAlign: "center" }}>
                   <span className='rated'>&#9733;</span>

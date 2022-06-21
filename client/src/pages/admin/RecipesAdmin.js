@@ -92,9 +92,9 @@ const RecipesAdmin = () => {
   const offset = currentPage * PER_PAGE;
 
   const currentPageData = recipesList
-    .sort(function (a, b) {
-      return new Date(b.updatedAt) - new Date(a.updatedAt);
-    })
+  .sort(function (a, b) {
+    return new Date(b.updatedAt) - new Date(a.updatedAt);
+  })
     .slice(offset, offset + PER_PAGE)
     .map((recipes) => (
       <tr key={recipes.id} className="">

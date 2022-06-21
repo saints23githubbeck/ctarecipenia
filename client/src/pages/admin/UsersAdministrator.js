@@ -12,6 +12,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../../api";
 import * as actiontypes from "../../appState/actionTypes";
+import { Avatar } from "@mui/material";
 
 const PER_PAGE = 10;
 // const URL = { adminUser };
@@ -100,11 +101,11 @@ const UsersAdministrator = () => {
     .slice(offset, offset + PER_PAGE)
     .map((admins) => (
       <tr key={admins.slug} className="">
-        <td className="tdata">
-          <img
+        <td className="tdata d-flex">
+          <Avatar
             src={`data:image/*;base64,${admins.image}`}
             alt={admins.username}
-            style={{
+            sx={{
               width: "30px",
               height: "30px",
               borderRadius: "20px",
