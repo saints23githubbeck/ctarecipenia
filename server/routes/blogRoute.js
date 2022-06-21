@@ -1,12 +1,11 @@
 const express = require("express")
-const { getBlogs, updateBlog, createBlog, getBlogBySlug, deleteBlogBySlug, searchBlog, fetchBlogByUser, canDeleteBlog, canUpdateBlog } = require("../controllers/blogController")
+const { updateBlog, createBlog, getBlogBySlug, deleteBlogBySlug, searchBlog, fetchBlogByUser, canDeleteBlog, canUpdateBlog, fetchAllBlogs } = require("../controllers/blogController")
 const { requireSignIn, adminMiddleware, authMiddleware } = require("../middleware/authMiddleware")
 const router = express.Router()
 
 /** Public routes   */
-router.get("/blogs", getBlogs)
+router.get("/blogs", fetchAllBlogs)
 router.get("/blog/:slug", getBlogBySlug)
-router.get("/blogs/search", searchBlog)
 router.get("/:username/blogs", fetchBlogByUser)
 
 /** admin only route */

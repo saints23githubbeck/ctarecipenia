@@ -33,15 +33,16 @@ const userSchema = new Schema(
     password: {
       type: String,
       min: 6,
-      required: [true, "Please enter a password"],
+      required: [true, "Please enter your password"],
     },
+
     email: {
       type: String,
       required: true,
       unique: true,
       trim: true,
       lowercase: true,
-      match: [/\S+@\S+\.\S+/, "Invalid email address"],
+      match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Please enter a valid email address"],
     },
     secret: {
       type: String,
@@ -52,8 +53,8 @@ const userSchema = new Schema(
       default: "",
     },
     userGroup: {
-      type: String,
-      default: "subscriber", //or admin
+      type: [String],
+      default: "subscriber", // or admin
     },
     slug: {
       type: String,
@@ -67,5 +68,6 @@ const userSchema = new Schema(
   },
   { timestamps: true }
 )
+
 const User = mongoose.model("User", userSchema)
 module.exports = User
