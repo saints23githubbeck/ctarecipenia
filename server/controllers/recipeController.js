@@ -1,5 +1,6 @@
 const Recipe = require("../models/RecipeModel")
 const slugify = require("slugify")
+const User = require("../models/userModel")
 
 /*
     @route  /add-recipe
@@ -14,51 +15,27 @@ exports.addRecipe = async (req, res) => {
     })
   }
 
-  const username = req.user.username
+  const { title, category, cookTime, calories, description, direction, permLink, difficulty, prepareTime, serves } = req.body
 
-  const {
-    title,
-    category,
-    cookTime,
-    calories,
-    description,
-    direction,
-    permLink,
-    difficulty,
-    prepareTime,
-    serves,
-  } = req.body
+  const slug = slugify(title).toLowerCase()
   try {
-    if (
-      !title ||
-      !category ||
-      !cookTime ||
-      !calories ||
-      !description ||
-      !direction ||
-      !permLink ||
-      !difficulty ||
-      !prepareTime ||
-      !serves
-    ) {
+    if (!title || !category || !cookTime || !calories || !description || !direction || !permLink || !difficulty || !prepareTime || !serves) {
       res.status(400).json({ error: "Please fill all required fields" })
     }
 
-    const slug = slugify(title).toLowerCase()
+    const duplicate = await Recipe.findOne({
+      $or: [{ slug }, { title }],
+    })
 
-    const recipe = await Recipe.create({
-      title,
-      category,
-      cookTime,
-      calories,
-      description,
-      direction,
-      permLink,
-      difficulty,
-      prepareTime,
-      serves,
-      slug,
-      publishedBy: username,
+    if (duplicate) {
+      return res.status(400).json({ error: "Recipe with same 'Title' exists" })
+    }
+
+    const recipe = await new Recipe(req.body)
+    recipe.slug = slug
+    recipe.postedBy = req.user._id
+    recipe.save(function (err) {
+      console.log(err)
     })
 
     return res.status(201).json({
@@ -76,26 +53,19 @@ exports.addRecipe = async (req, res) => {
     @desc   Fetches all recipes from the database
     @access Public
 */
-exports.getRecipes = async (req, res) => {
-  //console.log("get recipes")
-  try {
-    // let totalRecipes = await Recipe.countDocuments()
-    let totalRecipes
-    const recipes = await Recipe.find({})
-      .sort([["createdAt", "asc"]])
-      .exec()
-    if (!recipes) {
-      return res.status(400).json({ error: [{ message: "Recipes not found" }] })
-    }
-    totalRecipes = recipes.length
-    return res.status(200).json({
-      success: true,
-      recipes,
-      totalRecipes,
+exports.fetchAllRecipes = async (req, res) => {
+  Recipe.find({})
+    .populate("postedBy", "_id image status username")
+    .select("_id category cookTime calories description slug direction permLink image difficulty prepareTime serves postedBy createdAt updatedAt")
+    .sort({ createdAt: "desc" })
+    .exec((error, data) => {
+      if (error) {
+        return res.json({
+          error: error,
+        })
+      }
+      res.json({ success: true, data, recipe_length: data.length })
     })
-  } catch (error) {
-    return res.status(500).send(error)
-  }
 }
 
 /*
@@ -151,18 +121,16 @@ exports.deleteRecipe = async (req, res) => {
     })
 }
 
-exports.fetchRecipeByUser = (req, res) => {
-  User.findOne({ username: req.params.username }).exec((error, user) => {
+exports.fetchRecipeByUser = async (req, res) => {
+  User.findOne({ username: req.params.username }).exec(async (error, user) => {
     if (error) {
       return res.status(400).json({
         error: error,
       })
     }
-    let userId = user._id
-    Recipe.find({ postedBy: userId })
-      .populate("categories", "_id title slug icon permalink")
-      .populate("postedBy", "_id name username")
-      .select("_id title slug postedBy createdAt updatedAt")
+
+    Recipe.find({ postedBy: user._id })
+      .populate("postedBy", "_id name username image")
       .sort({ createdAt: "desc" })
       .exec((error, data) => {
         if (error) {
@@ -182,13 +150,60 @@ exports.fetchRecipeByUser = (req, res) => {
 */
 
 exports.updateRecipe = async (req, res) => {
-  let updateRecipe = req.body
+  const { title, category, image, cookTime, calories, description, direction, permLink, difficulty, prepareTime, serves } = req.body
+  const recipeUpdate = {}
+
+  if (title) {
+    recipeUpdate.title = title
+    const slug = slugify(title).toLowerCase()
+    recipeUpdate.slug = slug
+  }
+  if (category) {
+    recipeUpdate.category = category
+  }
+  if (cookTime) {
+    recipeUpdate.cookTime = cookTime
+  }
+  if (image) {
+    recipeUpdate.image = image
+  }
+
+  if (calories) {
+    recipeUpdate.calories = calories
+  }
+  if (description) {
+    recipeUpdate.description = description
+  }
+  if (direction) {
+    recipeUpdate.direction = direction
+  }
+  if (permLink) {
+    recipeUpdate.permLink = permLink
+  }
+  if (difficulty) {
+    recipeUpdate.difficulty = difficulty
+  }
+
+  if (prepareTime) {
+    recipeUpdate.prepareTime = prepareTime
+  }
+
+  if (serves) {
+    recipeUpdate.serves = serves
+  }
+
   let slug = req.params.slug.toLowerCase()
 
   try {
-    const updatedRecipe = await Recipe.findOneAndUpdate(slug, updateRecipe, {
-      new: true,
-    }).exec()
+    const updatedRecipe = await Recipe.findOneAndUpdate(
+      slug,
+      { $set: recipeUpdate },
+      {
+        new: true,
+        upsert: true,
+        setDefaultsOnInsert: true,
+      }
+    ).exec()
     return res.status(200).json({
       updatedRecipe,
     })
@@ -200,40 +215,15 @@ exports.updateRecipe = async (req, res) => {
   }
 }
 
-/** Search through recipe post */
-exports.searchRecipe = (req, res) => {
-  //console.log(req.query)
-  const { search } = req.query
-  if (search) {
-    Recipe.find(
-      {
-        $or: [
-          { title: { $regex: search, $options: "i" } },
-          { body: { $regex: search, $options: "i" } },
-        ],
-      },
-      (error, recipes) => {
-        if (error) {
-          return res.status(400).json({
-            error: error,
-          })
-        }
-        return res.json(recipes)
-      }
-    ).select("-image -description")
-  }
-}
-
 exports.canDeleteRecipe = (req, res, next) => {
   const slug = req.params.slug.toLowerCase()
   Recipe.findOne({ slug }).exec((err, data) => {
     if (err) {
       return res.status(400).json({
-        error: errorHandler(err),
+        error: err,
       })
     }
-    let authorizedUser =
-      data.postedBy._id.toString() === req.user._id.toString()
+    let authorizedUser = data.postedBy._id.toString() === req.user._id.toString()
     if (!authorizedUser) {
       return res.status(400).json({
         error: "You are not authorized",
@@ -248,11 +238,10 @@ exports.canUpdateRecipe = (req, res, next) => {
   Recipe.findOne({ slug }).exec((err, data) => {
     if (err) {
       return res.status(400).json({
-        error: errorHandler(err),
+        error: err,
       })
     }
-    let authorizedUser =
-      data.postedBy._id.toString() === req.user._id.toString()
+    let authorizedUser = data.postedBy._id.toString() === req.user._id.toString()
     if (!authorizedUser) {
       return res.status(400).json({
         error: "You are not authorized",

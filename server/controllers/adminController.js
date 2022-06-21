@@ -49,9 +49,7 @@ exports.registerAdmin = asyncHandler(async (req, res) => {
       success: true,
     })
   } else {
-    return res
-      .status(400)
-      .json({ message: "Registration failed. Please try again later" })
+    return res.status(400).json({ message: "Registration failed. Please try again later" })
   }
 })
 
@@ -97,9 +95,7 @@ exports.registerUserByAdmin = asyncHandler(async (req, res) => {
       success: true,
     })
   } else {
-    return res
-      .status(400)
-      .json({ message: "Registration failed. Please try again later" })
+    return res.status(400).json({ message: "Registration failed. Please try again later" })
   }
 })
 
@@ -134,22 +130,10 @@ exports.getAdminProfile = asyncHandler(async (req, res) => {
 })
 
 exports.updateAdmin = asyncHandler(async (req, res) => {
-  const {
-    username,
-    firstName,
-    lastName,
-    country,
-    userGroup,
-    image,
-    description,
-    email,
-    status,
-  } = req.body
+  const { username, firstName, lastName, country, userGroup, image, description, email, status } = req.body
   try {
     const userId = req.user._id
-    const user = await User.findById({ _id: userId }).select(
-      "-password -secret"
-    )
+    const user = await User.findById({ _id: userId }).select("-password -secret")
 
     if (user) {
       user.userGroup = userGroup || user.userGroup
@@ -182,14 +166,11 @@ exports.updateAdmin = asyncHandler(async (req, res) => {
 
 exports.deleteUserByAdmin = asyncHandler(async (req, res) => {
   const slug = req.params.slug.toLowerCase()
-  // console.log(slug);
-  // const  user =await User.find({slug})
-  // res.send(user)
   try {
     const user = await User.findOneAndDelete(slug)
 
     return res.json({
-      message: `Your account has been deleted. Goodbye! ${user.username}. Sorry to see you go. `,
+      message: `${user.username}'s account has been deleted. `,
     })
   } catch (err) {
     return console.log(err)
@@ -198,12 +179,50 @@ exports.deleteUserByAdmin = asyncHandler(async (req, res) => {
 
 exports.fetchAdmins = asyncHandler(async (req, res) => {
   try {
-    const admins = await User.find({ userGroup: "admin" }).select(
-      "-password -secret"
-    )
+    const admins = await User.find({ userGroup: "admin" }).select("-password -secret")
     const totalNumberOfAdmin = admins.length
     admins && res.status(200).json({ admins, totalNumberOfAdmin })
   } catch (error) {
     return res.status(404).json({ errors: error.message })
   }
 })
+
+exports.canDeleteAdmin = (req, res, next) => {
+  const slug = req.params.slug.toLowerCase()
+  User.findOne({ slug }).exec((err, user) => {
+    if (err) {
+      return res.status(400).json({
+        error: errorHandler(err),
+      })
+    }
+
+    if (user.userGroup.toString() === req.user.userGroup.toString()) {
+      return res.status(401).json({message: "Admin cannot delete him or herself."})
+    }
+    let authorizedUser = user._id.toString() === req.user._id.toString()
+    if (!authorizedUser) {
+      return res.status(400).json({
+        error: "You are not authorized",
+      })
+    }
+    next()
+  })
+}
+
+exports.canUpdateAdmin = (req, res, next) => {
+  const slug = req.params.slug.toLowerCase()
+  User.findOne({ slug }).exec((err, user) => {
+    if (err) {
+      return res.status(400).json({
+        error: errorHandler(err),
+      })
+    }
+    let authorizedUser = user._id.toString() === req.user._id.toString()
+    if (!authorizedUser) {
+      return res.status(400).json({
+        error: "You are not authorized",
+      })
+    }
+    next()
+  })
+}

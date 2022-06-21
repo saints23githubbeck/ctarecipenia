@@ -3,6 +3,7 @@ const User = require("../models/userModel")
 const slugify = require("slugify")
 const bcrypt = require("bcrypt")
 const createToken = require("../utils/generateToken")
+const Newsletter = require("../models/NewsLetter")
 
 exports.register = asyncHandler(async (req, res) => {
   const { username, password, email, secret } = req.body
@@ -39,6 +40,7 @@ exports.register = asyncHandler(async (req, res) => {
 
   if (user) {
     const userToken = createToken(user._id, email)
+    const subscribed = await Newsletter.create({ email: user.email, userId: user.id })
     user.password = undefined
     user.secret = undefined
 
@@ -50,11 +52,10 @@ exports.register = asyncHandler(async (req, res) => {
     return res.status(201).json({
       message: "Signup success! Please login.",
       success: true,
+      subscribed: "Thank you for subscribing to our newsletter",
     })
   } else {
-    return res
-      .status(400)
-      .json({ message: "Registration failed. Please try again later" })
+    return res.status(400).json({ message: "Registration failed. Please try again later" })
   }
 })
 
@@ -63,9 +64,7 @@ exports.login = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email })
 
   if (!user) {
-    return res
-      .status(401)
-      .json({ error: "This user does not exist. Please sign up " })
+    return res.status(401).json({ error: "This user does not exist. Please sign up " })
   }
   const match = await bcrypt.compare(password, user.password)
 
