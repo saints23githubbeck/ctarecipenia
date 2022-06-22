@@ -11,7 +11,7 @@ router.get("/admin/me", requireSignIn, adminMiddleware, getAdminProfile)
 router.get("/admin/user/:slug", requireSignIn, adminMiddleware, getUserBySlugByAdmin)
 router.get("/admins", requireSignIn, adminMiddleware, fetchAdmins)
 router.put("/admin/update", requireSignIn, adminMiddleware, canUpdateAdmin, updateAdmin)
-router.put("/profile/update", requireSignIn, adminMiddleware, profileUpdate) //admin update user
+router.put("/admin/profile/update", requireSignIn, adminMiddleware, profileUpdate) //admin update user
 router.delete("/admin/:slug", requireSignIn, adminMiddleware, canDeleteAdmin, deleteUserByAdmin)
 router.delete("/user/:username", requireSignIn, adminMiddleware, deleteUser) //admin delete user from database
 

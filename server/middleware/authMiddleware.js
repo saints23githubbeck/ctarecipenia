@@ -53,7 +53,9 @@ exports.authMiddleware = async (req, res, next) => {
       error: "User not found",
     })
   }
+
   if (user.userGroup.toString() === "subscriber") {
+
     req.user = user
     next()
   } else {

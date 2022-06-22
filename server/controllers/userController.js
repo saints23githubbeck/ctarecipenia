@@ -1,53 +1,48 @@
 const asyncHandler = require("express-async-handler")
 const User = require("../models/userModel")
 const bcrypt = require("bcrypt")
+const slugify = require("slugify")
 const Blog = require("../models/BlogModel")
 
 exports.profileUpdate = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id)
+  const user = await User.findOne(req.user._id)
 
   try {
-    //console.log("profile update req.body", req.body);
+    //console.log("profile update req.body", req.body)
     const { password, secret, username, image, country, description, lastName, firstName, status } = req.body
     const updateInfo = {}
 
     if (username) {
       updateInfo.username = username
       const slug = slugify(username).toLowerCase()
-
       updateInfo.slug = slug
     }
-
+    console.log("updateInfo", updateInfo)
     if (firstName) {
       updateInfo.firstName = firstName
     }
     if (status) {
       updateInfo.status = status
     }
-
     if (lastName) {
       updateInfo.lastName = lastName
     }
-
     if (country) {
       updateInfo.country = country
     }
     if (description) {
       updateInfo.description = description
     }
-
     if (secret) {
       const salt = await bcrypt.genSalt(12)
       const hashedSecret = await bcrypt.hash(secret, salt)
       updateInfo.secret = hashedSecret
     }
-
     if (password) {
       const salt = await bcrypt.genSalt(12)
       const hashedPassword = await bcrypt.hash(password, salt)
       updateInfo.password = hashedPassword
     }
-
     if (image) {
       updateInfo.image = image
     }
@@ -61,7 +56,6 @@ exports.profileUpdate = asyncHandler(async (req, res) => {
         setDefaultsOnInsert: true,
       }
     )
-
     return res.status(200).json({ message: "Profile has been updated", updatedUser })
   } catch (err) {
     if (err.code === 11000) {
@@ -75,15 +69,30 @@ exports.deleteUser = asyncHandler(async (req, res) => {
   const userId = req.user._id
 
   try {
-    const user = await User.findByIdAndDelete(userId)
+    // Remove user posts
+    // Remove profile
+    // Remove user
+    await Promise.all([Blog.deleteMany({ user: req.user.id }), Recipe.deleteMany({ user: req.user.id }), User.findOneAndRemove({ _id: req.user.id })])
 
-    return res.json({
-      message: `Your account has been deleted. Goodbye! ${user.name}. Sorry to see you go. `,
-    })
-  } catch (err) {
-    console.log(err)
-    return res.status(500).json({ error: err.message })
+    res.json({ msg: "User deleted successfully" })
+  } catch (error) {
+    console.error(error.message)
+    if (error.kind == "ObjectId") {
+      return res.status(400).json({ error: [{ msg: "User profile not found" }] })
+    }
+    res.status(500).send("Server error")
   }
+
+  // try {
+  //   //const user = await User.findByIdAndDelete(userId)
+
+  //   return res.json({
+  //     message: `Your account has been deleted. Goodbye! ${user.name}. Sorry to see you go. `,
+  //   })
+  // } catch (err) {
+  //   console.log(err)
+  //   return res.status(500).json({ error: err.message })
+  // }
 })
 
 exports.getMyProfile = asyncHandler(async (req, res) => {
