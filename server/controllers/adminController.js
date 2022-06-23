@@ -113,10 +113,14 @@ exports.getUsersByAdmin = asyncHandler(async (req, res) => {
 })
 
 exports.getUserBySlugByAdmin = asyncHandler(async (req, res) => {
+  const slug = req.params.slug.toLowerCase()
+
   try {
-    const slug = req.params.slug.toLowerCase()
     const user = await User.findOne({ slug }).select("-password -secret")
-    user && res.json({ user })
+    if (!user) {
+      return res.status(404).json({ error: "User not found" })
+    }
+    return res.json({ user })
   } catch (error) {
     return res.status(404).json({ error: "User not found", error })
   }
@@ -130,45 +134,86 @@ exports.getAdminProfile = asyncHandler(async (req, res) => {
 })
 
 exports.updateAdmin = asyncHandler(async (req, res) => {
-  const { username, firstName, lastName, country, userGroup, image, description, email, status } = req.body
+  const user = await User.findOne({ slug: req.params.slug.toLowerCase() })
+
   try {
-    const userId = req.user._id
-    const user = await User.findById({ _id: userId }).select("-password -secret")
+    //console.log("profile update req.body", req.body)
+    const { password, email, userGroup, secret, username, image, country, description, lastName, firstName, status } = req.body
+    const updateInfo = {}
 
-    if (user) {
-      user.userGroup = userGroup || user.userGroup
-      user.username = username || user.username
-      user.firstName = firstName || user.firstName
-      user.lastName = lastName || user.lastName
-      user.email = email || user.email
-      user.country = country || user.country
-      user.description = description || user.description
-      user.image = image || user.image
-      user.slug = slugify(username).toLowerCase() || user.slug
-      user.status = status || user.status
-
-      const updatedUser = await user.save()
-
-      updatedUser.password = undefined
-      updatedUser.secret = undefined
-
-      return res.status(200).json({
-        message: "User info updated",
-        updatedUser,
-      })
-    } else {
-      return res.status(404).json({ error: "User not found" })
+    if (username) {
+      updateInfo.username = username
+      const slug = slugify(username).toLowerCase()
+      updateInfo.slug = slug
     }
-  } catch (error) {
-    return res.status(500).json({ error: error.message })
+
+    if (email) {
+      updateInfo.email = email
+    }
+
+    if (userGroup) {
+      updateInfo.userGroup = userGroup
+    }
+
+    if (firstName) {
+      updateInfo.firstName = firstName
+    }
+
+    if (status) {
+      updateInfo.status = status
+    }
+    if (lastName) {
+      updateInfo.lastName = lastName
+    }
+    if (country) {
+      updateInfo.country = country
+    }
+    if (description) {
+      updateInfo.description = description
+    }
+    if (secret) {
+      const salt = await bcrypt.genSalt(12)
+      const hashedSecret = await bcrypt.hash(secret, salt)
+      updateInfo.secret = hashedSecret
+    }
+    if (password) {
+      const salt = await bcrypt.genSalt(12)
+      const hashedPassword = await bcrypt.hash(password, salt)
+      updateInfo.password = hashedPassword
+    }
+    if (image) {
+      updateInfo.image = image
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      user._id,
+      { $set: updateInfo },
+      {
+        new: true,
+        upsert: true,
+        setDefaultsOnInsert: true,
+      }
+    )
+    return res.status(200).json({ message: "Profile has been updated", updatedUser })
+  } catch (err) {
+    if (err.code === 11000) {
+      return res.json({ error: " Username already taken" })
+    }
+    return res.status(500).json({ err })
   }
 })
 
 exports.deleteUserByAdmin = asyncHandler(async (req, res) => {
   const slug = req.params.slug.toLowerCase()
-  try {
-    const user = await User.findOneAndDelete(slug)
 
+  try {
+    const user = await User.findOne({ slug })
+    //console.log(user)
+
+    if (user._id === req.user._id) {
+      return res.status(401).json({ message: "Admin cannot delete him or herself." })
+    }
+    user.remove()
     return res.json({
       message: `${user.username}'s account has been deleted. `,
     })
@@ -186,43 +231,3 @@ exports.fetchAdmins = asyncHandler(async (req, res) => {
     return res.status(404).json({ errors: error.message })
   }
 })
-
-exports.canDeleteAdmin = (req, res, next) => {
-  const slug = req.params.slug.toLowerCase()
-  User.findOne({ slug }).exec((err, user) => {
-    if (err) {
-      return res.status(400).json({
-        error: errorHandler(err),
-      })
-    }
-
-    if (user.userGroup.toString() === req.user.userGroup.toString()) {
-      return res.status(401).json({message: "Admin cannot delete him or herself."})
-    }
-    let authorizedUser = user._id.toString() === req.user._id.toString()
-    if (!authorizedUser) {
-      return res.status(400).json({
-        error: "You are not authorized",
-      })
-    }
-    next()
-  })
-}
-
-exports.canUpdateAdmin = (req, res, next) => {
-  const slug = req.params.slug.toLowerCase()
-  User.findOne({ slug }).exec((err, user) => {
-    if (err) {
-      return res.status(400).json({
-        error: errorHandler(err),
-      })
-    }
-    let authorizedUser = user._id.toString() === req.user._id.toString()
-    if (!authorizedUser) {
-      return res.status(400).json({
-        error: "You are not authorized",
-      })
-    }
-    next()
-  })
-}

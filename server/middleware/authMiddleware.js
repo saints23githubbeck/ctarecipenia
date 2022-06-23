@@ -26,7 +26,11 @@ exports.requireSignIn = asyncHandler(async (req, res, next) => {
         }
 
         const userId = verifiedToken.userId
-        req.user = await User.findById(userId)
+        const user = await User.findById(userId)
+        if (!user) {
+          return res.status(401).json({ error: "Unauthorized. Sign in to continue" })
+        }
+        req.user = user
 
         next()
       })
@@ -54,8 +58,7 @@ exports.authMiddleware = async (req, res, next) => {
     })
   }
 
-  if (user.userGroup.toString() === "subscriber") {
-
+  if (user.userGroup === "subscriber") {
     req.user = user
     next()
   } else {
@@ -74,7 +77,7 @@ exports.adminMiddleware = async (req, res, next) => {
     })
   }
 
-  if (user.userGroup.toString() !== "admin") {
+  if (user.userGroup !== "admin") {
     return res.status(400).json({
       error: "Admin access only. Access denied",
     })

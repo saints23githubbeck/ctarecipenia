@@ -5,6 +5,6 @@ const { requireSignIn, adminMiddleware } = require("../middleware/authMiddleware
 const router = express.Router()
 
 router.get("/subs", fetchAllSubscribers)
-router.delete("/subs/:id", requireSignIn, adminMiddleware, deleteNewsLetter)
+router.delete("/admin/subs/:id", requireSignIn, adminMiddleware, deleteNewsLetter)
 
 module.exports = router

@@ -6,14 +6,16 @@ const router = express.Router()
 /** Public routes   */
 router.get("/blogs", fetchAllBlogs)
 router.get("/blog/:slug", getBlogBySlug)
-router.get("/:username/blogs", fetchBlogByUser)
+router.get("/:slug/blogs", fetchBlogByUser)
 
 /** admin only route */
-router.delete("admin/blog/:slug", requireSignIn, adminMiddleware, deleteBlogBySlug)
+router.delete("/admin/blog/:slug", requireSignIn, adminMiddleware, deleteBlogBySlug)
+router.post("/admin/blog", requireSignIn, adminMiddleware, createBlog)
+router.put("/admin/blog/:slug", requireSignIn, adminMiddleware, canUpdateBlog, updateBlog)
 
 /** user only routes */
-router.post("/blog", requireSignIn, authMiddleware, createBlog)
-router.put("/blog/:slug", requireSignIn, authMiddleware, canUpdateBlog, updateBlog)
-router.delete("/blog/:slug", requireSignIn, authMiddleware, canDeleteBlog, deleteBlogBySlug)
+router.post("/user/blog", requireSignIn, authMiddleware, createBlog)
+router.put("/user/blog/:slug", requireSignIn, authMiddleware, canUpdateBlog, updateBlog)
+router.delete("/user/blog/:slug", requireSignIn, authMiddleware, canDeleteBlog, deleteBlogBySlug)
 
 module.exports = router

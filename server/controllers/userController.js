@@ -3,9 +3,14 @@ const User = require("../models/userModel")
 const bcrypt = require("bcrypt")
 const slugify = require("slugify")
 const Blog = require("../models/BlogModel")
+const Recipe = require("../models/RecipeModel")
+const Newsletter = require("../models/NewsLetter")
 
 exports.profileUpdate = asyncHandler(async (req, res) => {
-  const user = await User.findOne(req.user._id)
+  if (req.user.slug !== req.params.slug.toLowerCase()) {
+    res.status(400).json({ error: "Please Sign in to continue" })
+  }
+  const user = await User.findById(req.user._id)
 
   try {
     //console.log("profile update req.body", req.body)
@@ -17,7 +22,7 @@ exports.profileUpdate = asyncHandler(async (req, res) => {
       const slug = slugify(username).toLowerCase()
       updateInfo.slug = slug
     }
-    console.log("updateInfo", updateInfo)
+
     if (firstName) {
       updateInfo.firstName = firstName
     }
@@ -47,7 +52,7 @@ exports.profileUpdate = asyncHandler(async (req, res) => {
       updateInfo.image = image
     }
 
-    const updatedUser = await User.findOneAndUpdate(
+    const updatedUser = await User.findByIdAndUpdate(
       user._id,
       { $set: updateInfo },
       {
@@ -66,13 +71,16 @@ exports.profileUpdate = asyncHandler(async (req, res) => {
 })
 
 exports.deleteUser = asyncHandler(async (req, res) => {
-  const userId = req.user._id
+  if (req.user.slug !== req.params.slug.toLowerCase()) {
+    res.status(400).json({ error: "Please Sign in to continue" })
+  }
 
   try {
     // Remove user posts
     // Remove profile
     // Remove user
-    await Promise.all([Blog.deleteMany({ user: req.user.id }), Recipe.deleteMany({ user: req.user.id }), User.findOneAndRemove({ _id: req.user.id })])
+    // Remove Newsletter
+    await Promise.all([Blog.deleteMany({ user: req.user.id }), Recipe.deleteMany({ user: req.user.id }), Newsletter.findOneAndRemove({ userId: req.user.id }), User.findOneAndRemove({ _id: req.user.id })])
 
     res.json({ msg: "User deleted successfully" })
   } catch (error) {
@@ -101,7 +109,7 @@ exports.getMyProfile = asyncHandler(async (req, res) => {
   return res.status(200).json({ user })
 })
 
-exports.getUserProfile = (req, res) => {
+exports.getUserProfile = async (req, res) => {
   let username = req.params.username
 
   User.findOne({ username }).exec((err, user) => {
@@ -140,39 +148,3 @@ exports.fetchSubscribers = asyncHandler(async (req, res) => {
     return res.status(404).json({ errors: error.message })
   }
 })
-
-exports.canDeleteUser = (req, res, next) => {
-  const slug = req.params.slug.toLowerCase()
-  User.findOne({ slug }).exec((err, user) => {
-    if (err) {
-      return res.status(400).json({
-        error: errorHandler(err),
-      })
-    }
-    let authorizedUser = user._id.toString() === req.user._id.toString()
-    if (!authorizedUser) {
-      return res.status(400).json({
-        error: "You are not authorized",
-      })
-    }
-    next()
-  })
-}
-
-exports.canUpdateUser = (req, res, next) => {
-  const slug = req.params.slug.toLowerCase()
-  User.findOne({ slug }).exec((err, user) => {
-    if (err) {
-      return res.status(400).json({
-        error: errorHandler(err),
-      })
-    }
-    let authorizedUser = user._id.toString() === req.user._id.toString()
-    if (!authorizedUser) {
-      return res.status(400).json({
-        error: "You are not authorized",
-      })
-    }
-    next()
-  })
-}

@@ -53,7 +53,7 @@ const userSchema = new Schema(
       default: "",
     },
     userGroup: {
-      type: [String],
+      type: String,
       default: "subscriber", // or admin
     },
     slug: {
