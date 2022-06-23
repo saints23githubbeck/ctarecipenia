@@ -1,25 +1,55 @@
 import { useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { record } from "../../components/admin/data";
+// import { slider } from "../../components/admin/data";
 import ReactPaginate from "react-paginate";
 import * as BiIcons from "react-icons/bi";
 import AdminModal from "../../components/modals/AdminModal";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getAllSlider,
+  setSliderError,
+} from "../../appState/actions/sliderAction";
+import * as actiontypes from "../../appState/actionTypes";
+import { BASE_URL } from "../../api";
+
 
 const PER_PAGE = 10;
-const URL = { record };
+// const URL = { slider };
 
 const SliderAdmin = () => {
   const navigate = useNavigate();
+  const { sliders } = useSelector((state) => state.slider);
   const [addSlider, setAddSlider] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
-  const [recordList, setRecordList] = useState(record);
+  const [sliderList, setSliderList] = useState(record);
+  const dispatch = useDispatch();
 
-  const handleDelete = (e) => {
-    const filtered = recordList.filter((record) => record !== e);
-    setRecordList(filtered);
+  async function handleDelete(slug) {
+    let result = await fetch(`${BASE_URL}/slider/${slug}`, {
+      method: "DELETE",
+    });
+    result = await result.json();
+    dispatch(getAllSlider());
+  }
+
+  // const handleDelete = (e) => {
+  //   const filtered = sliderList.filter((record) => record !== e);
+  //   setsliderList(filtered);
+  // };
+
+  useEffect(() => {
+    setSliderList(sliders);
+  }, [sliders]);
+
+  useEffect(() => {
+    dispatch(getAllSlider());
+  }, []);
+
+  const convertDate = (date) => {
+    return new Date(date)?.toDateString();
   };
 
   const handleOpen = (item) => {
@@ -29,6 +59,10 @@ const SliderAdmin = () => {
 
   const handleClose = () => {
     setShowModal(false);
+    dispatch({
+      type: actiontypes.RESET_SLIDER_STATE,
+    });
+    dispatch(setSliderError(""));
   };
 
   useEffect(() => {
@@ -38,8 +72,8 @@ const SliderAdmin = () => {
   function fetchData() {
     fetch(URL)
       .then((res) => res.json())
-      .then((record) => {
-        setData(record);
+      .then((sliders) => {
+        setData(sliders);
       });
   }
 
@@ -49,15 +83,18 @@ const SliderAdmin = () => {
 
   const offset = currentPage * PER_PAGE;
 
-  const currentPageData = recordList
+  const currentPageData = sliderList
+    .sort(function (a, b) {
+      return new Date(b.updatedAt) - new Date(a.updatedAt);
+    })
     .slice(offset, offset + PER_PAGE)
-    .map((record) => (
-      <tr key={record.id} className="">
-        <td className="tdata">{record.title}</td>
+    .map((sliders) => (
+      <tr key={sliders.slug} className="">
+        <td className="tdata">{sliders.title}</td>
         <td className="tdata">
           <img
-            src={record.image}
-            alt={record.image}
+            src={sliders.image}
+            alt={sliders.image}
             style={{
               width: "50px",
               height: "20px",
@@ -68,7 +105,7 @@ const SliderAdmin = () => {
         <td className="tdata buttonEdit">
           <button
             className="detailsButton"
-            onClick={() => navigate("/admin/slider/edit", { state: record })}
+            onClick={() => navigate("/admin/slider/edit", { state: sliders })}
             style={{ backgroundColor: "orange" }}
           >
             <BiIcons.BiEdit className="text-white h6" /> Edit
@@ -76,7 +113,7 @@ const SliderAdmin = () => {
           <button
             className="detailsButton"
             style={{ backgroundColor: "red" }}
-            onClick={(e) => handleDelete(record)}
+            onClick={(e) => handleDelete(sliders)}
           >
             <BiIcons.BiTrash className="text-white h6" /> Delete
           </button>
@@ -84,7 +121,7 @@ const SliderAdmin = () => {
       </tr>
     ));
 
-  const pageCount = Math.ceil(recordList.length / PER_PAGE);
+  const pageCount = Math.ceil(sliderList.length / PER_PAGE);
 
   return (
     <div className="fill">

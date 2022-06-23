@@ -2,26 +2,46 @@ import { useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import { BiEdit } from "react-icons/bi";
 import { useEffect, useState } from "react";
-import { advertisement } from "../../components/admin/data";
+// import { advertisement } from "../../components/admin/data";
 import ReactPaginate from "react-paginate";
 import * as BiIcons from "react-icons/bi";
 import AdminModal from "../../components/modals/AdminModal";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllAds, setAdsError } from "../../appState/actions/advertAction";
+import { BASE_URL } from "../../api";
+
 
 const PER_PAGE = 10;
-const URL = { advertisement };
+// const URL = { advertisement };
 const AdvertisementAdmin = () => {
   const navigate = useNavigate();
+  const { ads } = useSelector((state) => state.advert);
   const [addAdvert, setAddAdvert] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
-  const [advertisementList, setAdvertisementList] = useState(advertisement);
+  const [advertisementList, setAdvertisementList] = useState(ads);
+  const dispatch = useDispatch();
 
-  const handleDelete = (e) => {
-    const filtered = advertisementList.filter(
-      (advertisement) => advertisement !== e
-    );
-    setAdvertisementList(filtered);
+
+  async function handleDelete(slug) {
+    let result = await fetch(`${BASE_URL}/ads/${slug}`, {
+      method: "DELETE",
+    });
+    result = await result.json();
+    dispatch(getAllAds());
+  }
+
+  useEffect(() => {
+    setAdvertisementList(ads);
+  }, [ads]);
+
+  useEffect(() => {
+    dispatch(getAllAds());
+  }, []);
+
+  const convertDate = (date) => {
+    return new Date(date)?.toDateString();
   };
 
   const handleOpen = (item) => {
@@ -31,7 +51,12 @@ const AdvertisementAdmin = () => {
 
   const handleClose = () => {
     setShowModal(false);
+    dispatch({
+      type: actiontypes.RESET_ADVERT_STATE,
+    });
+    dispatch(setAdsError(""));
   };
+
 
   useEffect(() => {
     fetchData();
@@ -40,8 +65,8 @@ const AdvertisementAdmin = () => {
   function fetchData() {
     fetch(URL)
       .then((res) => res.json())
-      .then((advertisement) => {
-        setData(advertisement);
+      .then((ads) => {
+        setData(ads);
       });
   }
 
@@ -53,17 +78,17 @@ const AdvertisementAdmin = () => {
 
   const currentPageData = advertisementList
     .slice(offset, offset + PER_PAGE)
-    .map((advertisement) => (
-      <tr key={advertisement.id} className="">
-        <td className="tdata"> {advertisement.title}</td>
-        <td className="tdata">{advertisement.type}</td>
-        <td className="tdata">{advertisement.location}</td>
-        <td className="tdata">{advertisement.created}</td>
+    .map((ads) => (
+      <tr key={ads.slug} className="">
+        <td className="tdata"> {ads.title}</td>
+        <td className="tdata">{ads.type}</td>
+        <td className="tdata">{ads.location}</td>
+        <td className="tdata">{ads.created}</td>
         <td className="tdata buttonEdit">
           <button
             className="detailsButton"
             onClick={() =>
-              navigate("/admin/advert/edit", { state: advertisement })
+              navigate("/admin/advert/edit", { state: ads })
             }
             style={{ backgroundColor: "orange" }}
           >
@@ -72,7 +97,7 @@ const AdvertisementAdmin = () => {
           <button
             className="detailsButton"
             style={{ backgroundColor: "red" }}
-            onClick={(e) => handleDelete(advertisement)}
+            onClick={(e) => handleDelete(ads.slug)}
           >
             <BiIcons.BiTrash className="text-white h6" /> Delete
           </button>

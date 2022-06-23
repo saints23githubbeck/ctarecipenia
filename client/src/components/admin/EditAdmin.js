@@ -5,7 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import {
   handleState,
   setUserError,
-  updateUserByAdmin,
+  updateAdminByAdmin,
 } from "../../appState/actions/AdminAuthAction";
 
 const EditAdmin = () => {
@@ -47,7 +47,7 @@ const EditAdmin = () => {
       email: email,
       status: userStatus,
     };
-    dispatch(updateUserByAdmin(payload));
+    dispatch(updateAdminByAdmin(payload));
   };
 
   useEffect(() => {

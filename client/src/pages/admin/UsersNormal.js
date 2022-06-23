@@ -12,6 +12,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../../api";
 import * as actiontypes from "../../appState/actionTypes";
+import { Avatar } from "@mui/material";
 
 const PER_PAGE = 10;
 // const URL = { user };
@@ -26,8 +27,8 @@ const UsersNormal = () => {
   const [userList, setUserList] = useState(subscribers);
   const dispatch = useDispatch();
 
-  async function handleDelete(_id) {
-    let result = await fetch(`${BASE_URL}/admin/${_id}`, {
+  async function handleDelete(username) {
+    let result = await fetch(`${BASE_URL}/user/:${username}`, {
       method: "DELETE",
     });
     console.log("deleting normalUser", result);
@@ -96,11 +97,11 @@ const UsersNormal = () => {
     ?.slice(offset, offset + PER_PAGE)
     .map((subscribers) => (
       <tr key={subscribers._id} className="">
-        <td className="tdata">
-          <img
+        <td className="tdata d-flex">
+          <Avatar
             src={`data:image/*;base64,${subscribers.image}`}
             alt={subscribers.username}
-            style={{
+            sx={{
               width: "30px",
               height: "30px",
               borderRadius: "20px",
@@ -134,7 +135,7 @@ const UsersNormal = () => {
           <button
             className="detailsButton"
             style={{ backgroundColor: "red" }}
-            onClick={(e) => handleDelete(subscribers._id)}
+            onClick={(e) => handleDelete(subscribers.username)}
           >
             <BiIcons.BiTrash className="text-white h6" /> Delete
           </button>
