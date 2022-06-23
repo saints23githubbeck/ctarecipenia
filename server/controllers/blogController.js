@@ -35,7 +35,7 @@ exports.createBlog = async (req, res) => {
 exports.fetchAllBlogs = (req, res) => {
   Blog.find({})
     .populate("postedBy", "_id image username")
-    .select("_id title body slug excerpt categories tags postedBy createdAt updatedAt")
+    .select("_id permLink prepareTime cookTime shortDesc image title  slug description createdAt updatedAt")
     .sort({ createdAt: "desc" })
     .exec((error, data) => {
       if (error) {
@@ -113,19 +113,52 @@ exports.deleteBlogBySlug = async (req, res) => {
     @desc   Update a blog
     @access private
 */
-
 exports.updateBlog = async (req, res) => {
-  let updateBlog = req.body
-  let slug = req.params.slug.toLowerCase()
+  const { title, image, shortDesc, cookTime, description, permLink, prepareTime } = req.body
+  const blogUpdate = {}
+
+  if (title) {
+    blogUpdate.title = title
+    const slug = slugify(title).toLowerCase()
+    blogUpdate.slug = slug
+  }
+  if (shortDesc) {
+    blogUpdate.shortDesc = shortDesc
+  }
+  if (cookTime) {
+    blogUpdate.cookTime = cookTime
+  }
+  if (image) {
+    blogUpdate.image = image
+  }
+
+  if (description) {
+    blogUpdate.description = description
+  }
+
+  if (permLink) {
+    blogUpdate.permLink = permLink
+  }
+
+  if (prepareTime) {
+    blogUpdate.prepareTime = prepareTime
+  }
 
   try {
-    const updatedBlog = await Blog.findOneAndUpdate(slug, updateBlog, {
-      new: true,
-    }).exec()
+    const updatedBlog = await Blog.findOneAndUpdate(
+      { slug: req.params.slug },
+      { $set: blogUpdate },
+      {
+        new: true,
+        upsert: true,
+        setDefaultsOnInsert: true,
+      }
+    ).exec()
     return res.status(200).json({
       updatedBlog,
     })
   } catch (err) {
+    //console.log("Recipe update failed ----> ", err)
     return res.status(400).json({
       err: err.message,
     })
@@ -133,32 +166,27 @@ exports.updateBlog = async (req, res) => {
 }
 
 /** Find a blog post by user*/
-exports.fetchBlogByUser = (req, res) => {
-  User.findOne({ username: req.params.username }).exec((error, user) => {
+exports.fetchBlogByUser = async (req, res) => {
+  console.log(req.params.slug)
+  User.findOne({ slug: req.params.slug }).exec(async (error, user) => {
     if (error) {
       return res.status(400).json({
         error: error,
       })
     }
 
-    if (user) {
-      let userId = user._id
-      Blog.find({ postedBy: userId })
-        .populate("categories", "_id title slug icon permalink")
-        .populate("postedBy", "_id name username")
-        .select("_id title slug postedBy createdAt updatedAt")
-        .sort({ createdAt: "desc" })
-        .exec((error, data) => {
-          if (error) {
-            return res.status(400).json({
-              error: error,
-            })
-          }
-          return res.json(data)
-        })
-    } else {
-      return res.status(404).json({ error: "No user Found" })
-    }
+    Blog.find({ postedBy: user.id })
+      .populate("postedBy", "_id image username")
+      .select("_id permLink prepareTime cookTime shortDesc image title  slug description createdAt updatedAt")
+      .sort({ createdAt: "desc" })
+      .exec((error, data) => {
+        if (error) {
+          return res.status(400).json({
+            error: error,
+          })
+        }
+        return res.json(data)
+      })
   })
 }
 
@@ -182,13 +210,15 @@ exports.canDeleteBlog = (req, res, next) => {
 
 exports.canUpdateBlog = (req, res, next) => {
   const slug = req.params.slug.toLowerCase()
+  //console.log(req.user)
   Blog.findOne({ slug }).exec((err, data) => {
     if (err) {
       return res.status(400).json({
-        error: errorHandler(err),
+        error: err,
       })
     }
-    let authorizedUser = data.postedBy._id.toString() === req.user._id.toString()
+
+    let authorizedUser = data.postedBy._id.toString() === req.user.id.toString()
     if (!authorizedUser) {
       return res.status(400).json({
         error: "You are not authorized",

@@ -1,20 +1,25 @@
 const asyncHandler = require("express-async-handler")
 const User = require("../models/userModel")
 const bcrypt = require("bcrypt")
+const slugify = require("slugify")
 const Blog = require("../models/BlogModel")
+const Recipe = require("../models/RecipeModel")
+const Newsletter = require("../models/NewsLetter")
 
 exports.profileUpdate = asyncHandler(async (req, res) => {
+  if (req.user.slug !== req.params.slug.toLowerCase()) {
+    res.status(400).json({ error: "Please Sign in to continue" })
+  }
   const user = await User.findById(req.user._id)
 
   try {
-    //console.log("profile update req.body", req.body);
+    //console.log("profile update req.body", req.body)
     const { password, secret, username, image, country, description, lastName, firstName, status } = req.body
     const updateInfo = {}
 
     if (username) {
       updateInfo.username = username
       const slug = slugify(username).toLowerCase()
-
       updateInfo.slug = slug
     }
 
@@ -24,35 +29,30 @@ exports.profileUpdate = asyncHandler(async (req, res) => {
     if (status) {
       updateInfo.status = status
     }
-
     if (lastName) {
       updateInfo.lastName = lastName
     }
-
     if (country) {
       updateInfo.country = country
     }
     if (description) {
       updateInfo.description = description
     }
-
     if (secret) {
       const salt = await bcrypt.genSalt(12)
       const hashedSecret = await bcrypt.hash(secret, salt)
       updateInfo.secret = hashedSecret
     }
-
     if (password) {
       const salt = await bcrypt.genSalt(12)
       const hashedPassword = await bcrypt.hash(password, salt)
       updateInfo.password = hashedPassword
     }
-
     if (image) {
       updateInfo.image = image
     }
 
-    const updatedUser = await User.findOneAndUpdate(
+    const updatedUser = await User.findByIdAndUpdate(
       user._id,
       { $set: updateInfo },
       {
@@ -61,7 +61,6 @@ exports.profileUpdate = asyncHandler(async (req, res) => {
         setDefaultsOnInsert: true,
       }
     )
-
     return res.status(200).json({ message: "Profile has been updated", updatedUser })
   } catch (err) {
     if (err.code === 11000) {
@@ -72,18 +71,36 @@ exports.profileUpdate = asyncHandler(async (req, res) => {
 })
 
 exports.deleteUser = asyncHandler(async (req, res) => {
-  const userId = req.user._id
+  if (req.user.slug !== req.params.slug.toLowerCase()) {
+    res.status(400).json({ error: "Please Sign in to continue" })
+  }
 
   try {
-    const user = await User.findByIdAndDelete(userId)
+    // Remove user posts
+    // Remove profile
+    // Remove user
+    // Remove Newsletter
+    await Promise.all([Blog.deleteMany({ user: req.user.id }), Recipe.deleteMany({ user: req.user.id }), Newsletter.findOneAndRemove({ userId: req.user.id }), User.findOneAndRemove({ _id: req.user.id })])
 
-    return res.json({
-      message: `Your account has been deleted. Goodbye! ${user.name}. Sorry to see you go. `,
-    })
-  } catch (err) {
-    console.log(err)
-    return res.status(500).json({ error: err.message })
+    res.json({ msg: "User deleted successfully" })
+  } catch (error) {
+    console.error(error.message)
+    if (error.kind == "ObjectId") {
+      return res.status(400).json({ error: [{ msg: "User profile not found" }] })
+    }
+    res.status(500).send("Server error")
   }
+
+  // try {
+  //   //const user = await User.findByIdAndDelete(userId)
+
+  //   return res.json({
+  //     message: `Your account has been deleted. Goodbye! ${user.name}. Sorry to see you go. `,
+  //   })
+  // } catch (err) {
+  //   console.log(err)
+  //   return res.status(500).json({ error: err.message })
+  // }
 })
 
 exports.getMyProfile = asyncHandler(async (req, res) => {
@@ -92,7 +109,7 @@ exports.getMyProfile = asyncHandler(async (req, res) => {
   return res.status(200).json({ user })
 })
 
-exports.getUserProfile = (req, res) => {
+exports.getUserProfile = async (req, res) => {
   let username = req.params.username
 
   User.findOne({ username }).exec((err, user) => {
@@ -131,39 +148,3 @@ exports.fetchSubscribers = asyncHandler(async (req, res) => {
     return res.status(404).json({ errors: error.message })
   }
 })
-
-exports.canDeleteUser = (req, res, next) => {
-  const slug = req.params.slug.toLowerCase()
-  User.findOne({ slug }).exec((err, user) => {
-    if (err) {
-      return res.status(400).json({
-        error: errorHandler(err),
-      })
-    }
-    let authorizedUser = user._id.toString() === req.user._id.toString()
-    if (!authorizedUser) {
-      return res.status(400).json({
-        error: "You are not authorized",
-      })
-    }
-    next()
-  })
-}
-
-exports.canUpdateUser = (req, res, next) => {
-  const slug = req.params.slug.toLowerCase()
-  User.findOne({ slug }).exec((err, user) => {
-    if (err) {
-      return res.status(400).json({
-        error: errorHandler(err),
-      })
-    }
-    let authorizedUser = user._id.toString() === req.user._id.toString()
-    if (!authorizedUser) {
-      return res.status(400).json({
-        error: "You are not authorized",
-      })
-    }
-    next()
-  })
-}
