@@ -80,7 +80,7 @@ export const updateUser = (userData) => async (dispatch) => {
   let token = localStorage.getItem("auth");
   if (token) {
     const result = await httpRequest({
-      url: "/profile",
+      url: "/profile/update",
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -90,6 +90,7 @@ export const updateUser = (userData) => async (dispatch) => {
     console.log(result);
   }
 };
+
 
 export  const fetchProfile = (history) => async(dispatch)=> {
   let token =  localStorage.getItem("auth");

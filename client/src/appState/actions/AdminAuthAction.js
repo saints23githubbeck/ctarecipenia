@@ -63,7 +63,7 @@ export const getAllSubscribers= () => async (dispatch) => {
     try {
       dispatch(setIsLoading(true));
       const result = await httpRequest({
-        url: `/subscribers`,
+        url: `/admin/users`,
         method: "GET",
       });
       // console.log("getAlluser", result)
@@ -149,7 +149,7 @@ export  const getAdminProfile = () => async(dispatch)=> {
     let token =  localStorage.getItem("auth");
     if (token) {
       const result = await httpRequest({
-        url: `/admin/user`,
+        url: `/admin/me`,
         method: "GET",
         headers: {
           "Authorization": `Bearer ${token}` 
@@ -174,7 +174,7 @@ export const updateUserByAdmin = (payload, onClose) => async (dispatch) => {
   try {
     dispatch(setUserLoading("loading", true));
       const result = await httpRequest({
-        url: "/update",
+        url: "/profile/update",
         method: "PUT",
         body: JSON.stringify({ ...payload }),
         headers: {
@@ -185,6 +185,33 @@ export const updateUserByAdmin = (payload, onClose) => async (dispatch) => {
     if (result.status ) {
       dispatch(setUserLoading("loading", false));
       dispatch(getAllSubscribers());
+      onClose();
+      dispatch({
+        type: actiontypes.RESET_USER_STATE
+      })
+    } else {
+      dispatch(setUserLoading("loading", false));
+      dispatch(setUserError(result.error));
+    }
+    } catch (error) {}
+  }
+};
+export const updateAdminByAdmin = (payload, onClose) => async (dispatch) => {
+    let token = localStorage.getItem("auth");
+    if (token) {
+  try {
+    dispatch(setUserLoading("loading", true));
+      const result = await httpRequest({
+        url: "/admin/update",
+        method: "PUT",
+        body: JSON.stringify({ ...payload }),
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("updateAdminByAdmin", result);
+    if (result.status ) {
+      dispatch(setUserLoading("loading", false));
       dispatch(getAllAdmin());
       onClose();
       dispatch({

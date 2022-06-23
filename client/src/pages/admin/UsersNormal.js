@@ -27,8 +27,8 @@ const UsersNormal = () => {
   const [userList, setUserList] = useState(subscribers);
   const dispatch = useDispatch();
 
-  async function handleDelete(_id) {
-    let result = await fetch(`${BASE_URL}/admin/${_id}`, {
+  async function handleDelete(username) {
+    let result = await fetch(`${BASE_URL}/user/:${username}`, {
       method: "DELETE",
     });
     console.log("deleting normalUser", result);
@@ -135,7 +135,7 @@ const UsersNormal = () => {
           <button
             className="detailsButton"
             style={{ backgroundColor: "red" }}
-            onClick={(e) => handleDelete(subscribers._id)}
+            onClick={(e) => handleDelete(subscribers.username)}
           >
             <BiIcons.BiTrash className="text-white h6" /> Delete
           </button>

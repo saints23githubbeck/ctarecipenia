@@ -1,21 +1,42 @@
 import { FaShare } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { newsletter } from "../../components/admin/data";
+// import { newsletter } from "../../components/admin/data";
 import ReactPaginate from "react-paginate";
 import * as BiIcons from "react-icons/bi";
+import { useDispatch, useSelector } from "react-redux";
+import { BASE_URL } from "../../api";
+import { getAllNewsletter } from "../../appState/actions/newsletterAction";
 
 const PER_PAGE = 10;
-const URL = { newsletter };
+// const URL = { newsletter };
 
 const NewsletterAdmin = () => {
+  const navigate = useNavigate();
+  const { newsletters } = useSelector((state) => state.newsletter);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
-  const [newsletterList, setNewsletterList] = useState(newsletter);
+  const [newsletterList, setNewsletterList] = useState(newsletters);
+  const dispatch = useDispatch();
 
-  const handleDelete = (e) => {
-    const filtered = newsletterList.filter((newsletter) => newsletter !== e);
-    setNewsletterList(filtered);
-  };
+  async function handleDelete(_id) {
+    let result = await fetch(`${BASE_URL}/subs/${_id}`, {
+      method: "DELETE",
+    });
+    result = await result.json();
+    dispatch(getAllNewsletter());
+  }
+  // const handleDelete = (e) => {
+  //   const filtered = newsletterList.filter((newsletter) => newsletter !== e);
+  //   setNewsletterList(filtered);
+  // };
+
+  useEffect(() => {
+    setNewsletterList(newsletters);
+  }, [newsletters]);
+
+  useEffect(() => {
+    dispatch(getAllNewsletter());
+  }, []);
 
   useEffect(() => {
     fetchData();
@@ -24,8 +45,8 @@ const NewsletterAdmin = () => {
   function fetchData() {
     fetch(URL)
       .then((res) => res.json())
-      .then((newsletter) => {
-        setData(newsletter);
+      .then((newsletters) => {
+        setData(newsletters);
       });
   }
 
@@ -36,16 +57,19 @@ const NewsletterAdmin = () => {
   const offset = currentPage * PER_PAGE;
 
   const currentPageData = newsletterList
+  .sort(function (a, b) {
+    return new Date(b.createdAt) - new Date(a.createdAt);
+  })
     .slice(offset, offset + PER_PAGE)
-    .map((newsletter) => (
-      <tr key={newsletter.id} className="">
-        <td className="tdata">{newsletter.email}</td>
-        <td className="tdata">{newsletter.created}</td>
+    .map((newsletters) => (
+      <tr key={newsletters._id} className="">
+        <td className="tdata">{newsletters.email}</td>
+        <td className="tdata">{newsletters.createdAt}</td>
         <td className="tdata buttonEdit">
           <button
             className="detailsButton"
             style={{ backgroundColor: "red" }}
-            onClick={(e) => handleDelete(newsletter)}
+            onClick={(e) => handleDelete(newsletters._id)}
           >
             Delete
           </button>
