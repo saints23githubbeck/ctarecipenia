@@ -194,7 +194,8 @@ exports.updateAdmin = asyncHandler(async (req, res) => {
         setDefaultsOnInsert: true,
       }
     )
-    return res.status(200).json({ message: "Profile has been updated", updatedUser })
+
+    return res.status(200).json({ message: "Profile has been updated" })
   } catch (err) {
     if (err.code === 11000) {
       return res.json({ error: " Username already taken" })
@@ -203,8 +204,8 @@ exports.updateAdmin = asyncHandler(async (req, res) => {
   }
 })
 
-exports.deleteUserByAdmin = asyncHandler(async (req, res) => {
-  const slug = req.params.slug.toLowerCase()
+exports.deleteAdminByAdmin = asyncHandler(async (req, res) => {
+  const slug = req.params.slug
 
   try {
     const user = await User.findOne({ slug })

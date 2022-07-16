@@ -77,10 +77,12 @@ exports.deleteUser = asyncHandler(async (req, res) => {
 
   try {
     // Remove user posts
-    // Remove profile
+    await Blog.deleteMany({ postedBy: req.user._id })
+
+    await Recipe.deleteMany({ postedBy: req.user._id })
+
     // Remove user
-    // Remove Newsletter
-    await Promise.all([Blog.deleteMany({ postedBy: req.user._id }), Recipe.deleteMany({ postedBy: req.user._id }), Newsletter.findByIdAndDelete({ userId: req.user._id }), User.findByIdAndDelete({ _id: req.user._id })])
+    await User.findByIdAndDelete({ _id: req.user._id })
 
     res.json({ msg: "User deleted successfully" })
   } catch (error) {
