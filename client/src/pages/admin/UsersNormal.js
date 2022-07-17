@@ -27,8 +27,8 @@ const UsersNormal = () => {
   const [userList, setUserList] = useState(subscribers);
   const dispatch = useDispatch();
 
-  async function handleDelete(username) {
-    let result = await fetch(`${BASE_URL}/user/:${username}`, {
+  async function handleDelete(slug) {
+    let result = await fetch(`${BASE_URL}/admin/user/:${slug}`, {
       method: "DELETE",
     });
     console.log("deleting normalUser", result);
@@ -96,7 +96,7 @@ const UsersNormal = () => {
   })
     ?.slice(offset, offset + PER_PAGE)
     .map((subscribers) => (
-      <tr key={subscribers._id} className="">
+      <tr key={subscribers.slug} className="">
         <td className="tdata d-flex">
           <Avatar
             src={`data:image/*;base64,${subscribers.image}`}
@@ -135,7 +135,7 @@ const UsersNormal = () => {
           <button
             className="detailsButton"
             style={{ backgroundColor: "red" }}
-            onClick={(e) => handleDelete(subscribers.username)}
+            onClick={(e) => handleDelete(subscribers.slug)}
           >
             <BiIcons.BiTrash className="text-white h6" /> Delete
           </button>

@@ -20,7 +20,6 @@ const PER_PAGE = 15;
 const CategoriesAdmin = () => {
   const navigate = useNavigate();
   const { categories } = useSelector((state) => state?.category);
-  console.log("etywuwq", categories);
   const [addCategory, setAddCategory] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
@@ -32,7 +31,7 @@ const CategoriesAdmin = () => {
   async function handleDelete(slug) {
     let token = localStorage.getItem("auth");
     if (token) {
-      let result = await fetch(`${BASE_URL}/category/${slug}`, {
+      let result = await fetch(`${BASE_URL}/admin/category/${slug}`, {
         method: "DELETE",
       });
       result = await result.json();
@@ -61,10 +60,7 @@ const CategoriesAdmin = () => {
     dispatch(setCategoryError(""));
   };
 
-  // const handleDelete = (e) => {
-  //   const filtered = categoriesList.filter((categories) => categories !== e);
-  //    setCategoriesList(filtered);
-  // };
+  
 
   useEffect(() => {
     fetchData();
@@ -96,7 +92,7 @@ const CategoriesAdmin = () => {
         </td>
         <td className="tdata">{categories.title}</td>
         <td className="tdata buttonEdit">
-          <button
+          {/* <button
             className="detailsButton"
             onClick={() =>
               navigate("/admin/categories/edit", { state: categories })
@@ -104,7 +100,7 @@ const CategoriesAdmin = () => {
             style={{ backgroundColor: "orange" }}
           >
             <BiEdit className="text-white h6" /> Edit
-          </button>{" "}
+          </button>{" "} */}
           <button
             className="detailsButton"
             style={{ backgroundColor: "red" }}

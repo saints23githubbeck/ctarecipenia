@@ -12,6 +12,8 @@ const EditAdmin = () => {
   const { state } = useLocation();
   const dispatch = useDispatch();
   const {
+    slug,
+    _id,
     username,
     firstName,
     lastName,
@@ -37,6 +39,8 @@ const EditAdmin = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const payload = {
+      slug:slug,
+    _id:_id,
       username: username,
       firstName: firstName,
       lastName: lastName,

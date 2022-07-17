@@ -1,24 +1,29 @@
 import { Link, useLocation } from "react-router-dom";
-import { IoMdArrowDropleft } from 'react-icons/io';
+import { IoMdArrowDropleft } from "react-icons/io";
 import React, { useEffect, useRef, useState } from "react";
-import { handleBlogState, setBlogError, updateBlog } from "../../appState/actions/blogAction";
+import {
+  handleBlogState,
+  setBlogError,
+  updateBlogAdmin,
+} from "../../appState/actions/blogAction";
 import { useDispatch, useSelector } from "react-redux";
 
 const EditBlog = () => {
   const { state } = useLocation();
-  console.log("first", state)
+  console.log("first", state);
   const dispatch = useDispatch();
   const {
     _id,
+    slug,
     postedBy,
     title,
     permLink,
     prepareTime,
     cookTime,
-    shortDesc, 
+    shortDesc,
     description,
     metaDescription,
-    image ,
+    image,
     error,
     loading,
   } = useSelector((state) => state.blog);
@@ -26,11 +31,11 @@ const EditBlog = () => {
 
   const [selectImage, setSelectImage] = useState(image);
 
-
   const handleSubmit = () => {
     const payload = {
       _id: _id,
-      postedBy:postedBy,
+      slug: slug,
+      postedBy: postedBy,
       title: title,
       image: selectImage,
       description: description,
@@ -40,7 +45,7 @@ const EditBlog = () => {
       prepareTime: prepareTime,
       cookTime: cookTime,
     };
-    dispatch(updateBlog(payload));
+    dispatch(updateBlogAdmin(payload));
   };
   useEffect(() => {
     setTimeout(() => {
@@ -82,10 +87,12 @@ const EditBlog = () => {
   }
   return (
     <div>
-            <div className="d-flex m-3 justify-content-between">
-      <h5 className="p-3" >Edit Blog</h5>
+      <div className="d-flex m-3 justify-content-between">
+        <h5 className="p-3">Edit Blog</h5>
         <Link to={-1}>
-          <h6><IoMdArrowDropleft  /> Back</h6>
+          <h6>
+            <IoMdArrowDropleft /> Back
+          </h6>
         </Link>
       </div>
 
@@ -93,12 +100,12 @@ const EditBlog = () => {
 
       <div className="d-flex  align-items-center w-80 m-3">
         <div className="w-50 row m-1">
-      <p className="w-25 h-75 text-end ptag px-4">Prepare Time</p>
+          <p className="w-25 h-75 text-end ptag px-4">Prepare Time</p>
           <input
-          onChange={(e) =>
-            dispatch(handleBlogState("prepareTime", e.target.value))
-          }
-          value={prepareTime}
+            onChange={(e) =>
+              dispatch(handleBlogState("prepareTime", e.target.value))
+            }
+            value={prepareTime}
             className="w-75 h-75 p-1 border"
             type="text"
             required
@@ -111,11 +118,10 @@ const EditBlog = () => {
         <div className="w-50 row m-1">
           <p className="w-25 h-75 text-end ptag px-4">Cooking Time</p>
           <input
-                    onChange={(e) =>
-                      dispatch(handleBlogState("cookTime", e.target.value))
-                    }
-                    value={cookTime}
-          
+            onChange={(e) =>
+              dispatch(handleBlogState("cookTime", e.target.value))
+            }
+            value={cookTime}
             className="w-75 h-75 p-1 border"
             type="text"
             required
@@ -128,77 +134,75 @@ const EditBlog = () => {
       </div>
       <hr className="m-3" />
 
-<div className="row  m-3">
- <p className="w-25 h-75 text-end ptag">Title</p>
- <input
- onChange={(e) =>
-  dispatch(handleBlogState("title", e.target.value))
-}
-value={title} 
-className="w-75 h-75 p-1 border"
-   type="text"
-   required
-   id="name"
-   autoComplete="name"
-   autoFocus
-   placeholder={state.title}
- />
-</div>
-<hr className="m-3" />
+      <div className="row  m-3">
+        <p className="w-25 h-75 text-end ptag">Title</p>
+        <input
+          onChange={(e) => dispatch(handleBlogState("title", e.target.value))}
+          value={title}
+          className="w-75 h-75 p-1 border"
+          type="text"
+          required
+          id="name"
+          autoComplete="name"
+          autoFocus
+          placeholder={state.title}
+        />
+      </div>
+      <hr className="m-3" />
 
-<div className="row  m-3">
- <p className="w-25 h-75 text-end ptag">Permlink</p>
- <input 
- onChange={(e) =>
-  dispatch(handleBlogState("permLink", e.target.value))
-}
-value={permLink} 
- className="w-75 h-75 p-1 border"
-   type="text"
-   required
-   id="name"
-   autoComplete="name"
-   autoFocus
-   placeholder={state.permLink}
- />
-</div>
-<hr className="m-3" />
+      <div className="row  m-3">
+        <p className="w-25 h-75 text-end ptag">Permlink</p>
+        <input
+          onChange={(e) =>
+            dispatch(handleBlogState("permLink", e.target.value))
+          }
+          value={permLink}
+          className="w-75 h-75 p-1 border"
+          type="text"
+          required
+          id="name"
+          autoComplete="name"
+          autoFocus
+          placeholder={state.permLink}
+        />
+      </div>
+      <hr className="m-3" />
 
-<div className="row  m-3">
- <p className="w-25 h-75 text-end ptag">Short Description</p>
- <textarea
- onChange={(e) =>
-  dispatch(handleBlogState("shortDesc", e.target.value))
-}
-value={shortDesc} 
- className="w-75 h-75 p-1 border"
-   type="text"
-rows={5}
-   id="name"
-   autoComplete="name"
-   placeholder={state.shortDesc}
- />
-</div>
-<hr className="m-3" />
+      <div className="row  m-3">
+        <p className="w-25 h-75 text-end ptag">Short Description</p>
+        <textarea
+          onChange={(e) =>
+            dispatch(handleBlogState("shortDesc", e.target.value))
+          }
+          value={shortDesc}
+          className="w-75 h-75 p-1 border"
+          type="text"
+          rows={5}
+          id="name"
+          autoComplete="name"
+          placeholder={state.shortDesc}
+        />
+      </div>
+      <hr className="m-3" />
 
-<div className="row  m-3">
- <p className="w-25 h-75 text-end ptag">Description</p>
- <textarea 
- onChange={(e) =>
-  dispatch(handleBlogState("description", e.target.value))
-}
-value={description} 
- className="w-75 h-75 p-1 border"
-   type="text"
-rows={10}
-   id="name"
-   autoComplete="name"
-   placeholder={state.description}
- />
-</div>
-<hr className="m-3" />
+      <div className="row  m-3">
+        <p className="w-25 h-75 text-end ptag">Description</p>
+        <textarea
+          onChange={(e) =>
+            dispatch(handleBlogState("description", e.target.value))
+          }
+          value={description}
+          className="w-75 h-75 p-1 border"
+          type="text"
+          rows={10}
+          id="name"
+          autoComplete="name"
+          placeholder={state.description}
+        />
+      </div>
+      <hr className="m-3" />
 
-<div className="row  m-3">
+      <div className="row  m-3">
         <p className="w-25 h-75 text-end ptag">Image</p>
         <div className="w-75 h-75 p-1 flex">
           <div className="w-75 h-75 p-1">
@@ -239,64 +243,60 @@ rows={10}
       </div>
       <hr className="m-3" />
 
-
       <div className="row  m-3">
- <p className="w-25 h-75 text-end ptag">Meta Description</p>
- <input
- onChange={(e) =>
-  dispatch(handleBlogState("metaDescription", e.target.value))
-}
-value={metaDescription} 
- className="w-75 h-75 p-1 border"
-   type="text"
-   required
-   id="name"
-   autoComplete="name"
-   autoFocus
-   placeholder={state.metaDescription}
- />
-</div>
-<hr className="m-3" /> 
+        <p className="w-25 h-75 text-end ptag">Meta Description</p>
+        <input
+          onChange={(e) =>
+            dispatch(handleBlogState("metaDescription", e.target.value))
+          }
+          value={metaDescription}
+          className="w-75 h-75 p-1 border"
+          type="text"
+          required
+          id="name"
+          autoComplete="name"
+          autoFocus
+          placeholder={state.metaDescription}
+        />
+      </div>
+      <hr className="m-3" />
 
-
-<div className="m-3">
-          <Link to={-1}>
-            <button
-            onClick={handleSubmit}
-              style={{
-                marginRight: "50px",
-                backgroundColor: "green",
-                border: "none",
-                borderRadius: "5px",
-                padding: 10,
-                color: "#fff",
-                width: "100px",
-                fontSize: 16,
-              marginBottom:"40px",
-
-              }}
-            >
-             {loading ? "Editing Recipe ..." : "Save"}
-            </button>
-          </Link>
+      <div className="m-3">
+        <Link to={-1}>
           <button
+            onClick={handleSubmit}
             style={{
               marginRight: "50px",
-              backgroundColor: "orange",
+              backgroundColor: "green",
               border: "none",
               borderRadius: "5px",
               padding: 10,
               color: "#fff",
               width: "100px",
               fontSize: 16,
-              marginBottom:"40px",
-
+              marginBottom: "40px",
             }}
-            onClick={reset}
           >
-            Reset
+            {loading ? "Editing Recipe ..." : "Save"}
           </button>
-        </div>
+        </Link>
+        <button
+          style={{
+            marginRight: "50px",
+            backgroundColor: "orange",
+            border: "none",
+            borderRadius: "5px",
+            padding: 10,
+            color: "#fff",
+            width: "100px",
+            fontSize: 16,
+            marginBottom: "40px",
+          }}
+          onClick={reset}
+        >
+          Reset
+        </button>
+      </div>
     </div>
   );
 };

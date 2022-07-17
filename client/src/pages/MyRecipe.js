@@ -11,7 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { GrView } from "react-icons/gr";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { getRecipesByID, setRecipesError } from "../appState/actions/recipeAction";
+import { getRecipesBySlug, setRecipesError } from "../appState/actions/recipeAction";
 import { BASE_URL } from "../api";
 
 const PER_PAGE = 10;
@@ -27,11 +27,11 @@ const MyRecipe = () => {
   const dispatch = useDispatch();
 
   async function handleDelete(slug) {
-    let result = await fetch(`${BASE_URL}/admin/recipe/${slug}`, {
+    let result = await fetch(`${BASE_URL}/recipe/${slug}`, {
       method: "DELETE",
     });
     result = await result.json();
-    dispatch(getRecipesByID());
+    dispatch(getRecipesBySlug());
   }
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const MyRecipe = () => {
   }, [recipes]);
 
   useEffect(() => {
-    dispatch(getRecipesByID());
+    dispatch(getRecipesBySlug());
   }, []);
 
   const status = (status) => {

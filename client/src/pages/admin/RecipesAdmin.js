@@ -6,7 +6,7 @@ import ReactPaginate from "react-paginate";
 import * as BiIcons from "react-icons/bi";
 import AdminModal from "../../components/modals/AdminModal";
 import {
-  getALLRecipes,
+  getAllRecipes,
   setRecipesError,
 } from "../../appState/actions/recipeAction";
 import * as actiontypes from "../../appState/actionTypes";
@@ -29,7 +29,7 @@ const RecipesAdmin = () => {
       method: "DELETE",
     });
     result = await result.json();
-    dispatch(getALLRecipes());
+    dispatch(getAllRecipes());
   }
 
   // const handleDelete = (e) => {
@@ -42,7 +42,7 @@ const RecipesAdmin = () => {
   }, [recipes]);
 
   useEffect(() => {
-    dispatch(getALLRecipes());
+    dispatch(getAllRecipes());
   }, []);
 
   const status = (status) => {

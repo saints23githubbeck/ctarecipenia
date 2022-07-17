@@ -6,6 +6,7 @@ import * as BiIcons from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../../api";
 import { getAllNewsletter } from "../../appState/actions/newsletterAction";
+import { useNavigate } from "react-router-dom";
 
 const PER_PAGE = 10;
 // const URL = { newsletter };
@@ -19,7 +20,7 @@ const NewsletterAdmin = () => {
   const dispatch = useDispatch();
 
   async function handleDelete(_id) {
-    let result = await fetch(`${BASE_URL}/subs/${_id}`, {
+    let result = await fetch(`${BASE_URL}/admin/subs/${_id}`, {
       method: "DELETE",
     });
     result = await result.json();

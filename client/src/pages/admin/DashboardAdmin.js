@@ -43,6 +43,9 @@ const DashboardAdmin = () => {
   const { blogs } = useSelector((state) => state.blog);
   const { admins } = useSelector((state) => state?.adminProfile);
   const { subscribers } = useSelector(state => state.adminProfile);
+  const { newsletters } = useSelector((state) => state.newsletter);
+  const { pages } = useSelector(state => state.page);
+  
   console.log("le n", subscribers.length)
 
   return (
@@ -100,16 +103,16 @@ const DashboardAdmin = () => {
           <DashboardCard
             icon={<BsNewspaper />}
             title={"NEWSLETTER"}
-            number={0}
-            count={0}
+            number={newsletters?.length*2}
+            count={newsletters?.length}
             total={"TOTAL GLOBAL NEWSLETTER"}
             bgColor={"#3BE9BF"}
           />
           <DashboardCard
             icon={<GrCopy />}
             title={"PAGES"}
-            number={0}
-            count={0}
+            number={pages?.length*2}
+            count={pages?.length}
             total={"TOTAL PAGES"}
             bgColor={"#F02020"}
           />

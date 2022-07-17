@@ -24,7 +24,7 @@ const SliderAdmin = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
-  const [sliderList, setSliderList] = useState(record);
+  const [sliderList, setSliderList] = useState(sliders);
   const dispatch = useDispatch();
 
   async function handleDelete(slug) {

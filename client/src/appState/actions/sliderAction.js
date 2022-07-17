@@ -25,7 +25,7 @@ export const addSlider = (payload, onClose) => async (dispatch) => {
       try {
         dispatch(setSliderLoading("loading", true));
         const result = await httpRequest({
-          url: `/slider/add`,
+          url: `/admin/slider/add`,
           method: "POST",
           body: JSON.stringify({ ...payload }),
           headers: {

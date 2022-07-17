@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   handleRecipeState,
   setRecipesError,
-  submitRecipe,
+  addRecipeByAdmin,
 } from "../../../appState/actions/recipeAction";
 
 const AddRecipe = ({ onclose }) => {
@@ -59,7 +59,7 @@ const AddRecipe = ({ onclose }) => {
       ingredients: ingredients,
       cookTime: cookTime,
     };
-    dispatch(submitRecipe(payload, onclose));
+    dispatch(addRecipeByAdmin(payload, onclose));
   };
 
   useEffect(() => {

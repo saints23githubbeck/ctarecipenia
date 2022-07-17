@@ -1,21 +1,5 @@
 import * as actiontypes from "../actionTypes";
 
-// const initialState = {
-//   isLoggedIn: localStorage.getItem("user") ? true : false,
-//   user: localStorage.getItem("user")
-//     ? JSON.parse(localStorage.getItem("user")).user
-//     : null,
-//   message: "",
-// };
-
-// const initialState = {
-//   isLoggedIn: true,
-//   user: localStorage.getItem("user")
-//     ? JSON.parse(localStorage.getItem("user")).user
-//     : null,
-//   message: "",
-// };
-
 const initialState = {
   isLoggedIn: false,
   isLoading: false,
@@ -25,14 +9,7 @@ const initialState = {
 
 export const user = (state = initialState, action) => {
   switch (action.type) {
-    // case actiontypes.SIGN_IN:
-    //   localStorage.setItem("user", JSON.stringify(action?.payload));
-    //   return {
-    //     ...state,
-    //     isLoggedIn: true,
-    //     message: action?.payload.message,
-    //     user: action?.payload.user,
-    //   };
+ 
     case actiontypes.SIGN_IN:
       return {
         ...state,
@@ -64,6 +41,12 @@ export const user = (state = initialState, action) => {
         ...state,
         user: action.payload.user,
         isLoggedIn: action.payload.isLoggedIn,
+      };
+
+    case actiontypes.GET_SELECTED_USER:
+      return {
+        ...state,
+        user: action.payload.user,
       };
     case actiontypes.SIGN_UP_FAILED:
       return {

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { RiCloseFill } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import { createBlog, handleBlogState, setBlogError } from '../../../appState/actions/blogAction';
+import { addBlogByAdmin, handleBlogState, setBlogError } from '../../../appState/actions/blogAction';
 
 const AddBlog = ({ onclose }) => {
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ const AddBlog = ({ onclose }) => {
       prepareTime: prepareTime,
       cookTime: cookTime,
     };
-    dispatch(createBlog(payload, onclose, navigate));
+    dispatch(addBlogByAdmin(payload, onclose, navigate));
     console.log("new input", payload)
   };
   
