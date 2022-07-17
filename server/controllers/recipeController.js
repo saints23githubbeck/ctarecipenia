@@ -77,7 +77,7 @@ exports.getRecipeBySlug = async (req, res) => {
   const slug = req.params.slug.toLowerCase()
 
   try {
-    const recipe = await Recipe.findOne(slug)
+    const recipe = await Recipe.findOne({ slug })
 
     if (!recipe) {
       return res.status(404).json({
