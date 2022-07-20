@@ -58,21 +58,26 @@ export const registerAdmin = (payload, onClose) => async (dispatch) => {
 };
 
 export const getAllSubscribers = () => async (dispatch) => {
+  let token = localStorage.getItem("auth");
+  if (token) {
   try {
     dispatch(setIsLoading(true));
     const result = await httpRequest({
       url: `/admin/users`,
       method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
-    // console.log("getAlluser", result)
-
+    console.log("getAlluser", result)
     if (!result?.error) {
       dispatch({
         type: actiontypes.GET_ALL_USER,
-        payload: result.subscribers,
+        payload: result.users,
       });
     }
   } catch (error) {}
+  }
 };
 
 export const registerUserByAdmin = (payload, onClose) => async (dispatch) => {

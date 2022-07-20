@@ -41,9 +41,10 @@ const initialState = {
               isLoggedIn: action.payload.isLoggedIn,
               admins: action.payload,
         };
+
         case actiontypes.GET_ALL_USER:
       console.log("who you user", action.type)
-          console.log("from reducer", action.payload)
+          console.log("all user from reducer", action.payload)
             return {
               ...state,
               isLoggedIn: action.payload.isLoggedIn,

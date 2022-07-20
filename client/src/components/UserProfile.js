@@ -15,7 +15,7 @@ import { Avatar } from "@mui/material";
 
 
 const UserProfile = ({ isProfile, profileInfo }) => {
-  const userProfile = useSelector((state) => state.user);
+  const userProfile = useSelector((state) => state?.user);
   const { recipes } = useSelector((state) => state.recipe);
   const { user, isLoggedIn } = userProfile; 
   const navigate = useNavigate();
@@ -29,8 +29,10 @@ const UserProfile = ({ isProfile, profileInfo }) => {
     profilePic: profileInfo?.profilePic,
     recipes: "7 Recipes",
     joinedDate: user?.createsAt,
+    username:user?.username, 
   });
   const {
+    username,
     name,
     profileViews,
     gender,

@@ -9,10 +9,15 @@ export const getAllNewsletter = () => async (dispatch) => {
       url: `/subs`,
       method: "GET",
     });
-    if (result.success === true) {
+    if (result.length) {
       dispatch({
         type: actiontypes.GET_ALL_NEWSLETTER,
         payload: result.newsletters,
+      });
+    }else {
+      dispatch({
+        type: actiontypes.GET_ALL_NEWSLETTER,
+        payload: [],
       });
     }
   } catch (error) {}

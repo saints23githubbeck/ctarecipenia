@@ -10,7 +10,7 @@ export const getAllSlider = () => async (dispatch) => {
       method: "GET",
     });
       console.log("getAllSlider", result)
-    if (result.success === true) {
+    if (result.sliders) {
       dispatch({
         type: actiontypes.GET_ALL_SLIDER,
         payload: result.sliders,

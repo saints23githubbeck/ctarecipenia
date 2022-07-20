@@ -9,7 +9,7 @@ import latestRecipe2 from "../assets/images/latest-recipe2.png";
 import ownerImage from "../assets/images/latest-recipe-owner-image.png";
 import { Link, useParams } from "react-router-dom";
 import Loading from "../components/Loading";
-import { fetchProfile } from "../appState/actions/AuthAction";
+import { getUserProfile } from "../appState/actions/AuthAction";
 // import { fetchProfile } from "../appState/actions/AuthAction";
 
 const Profile = () => {
@@ -19,7 +19,7 @@ const Profile = () => {
   const param = useParams().username;
   useEffect(() => {
     const username = param.substring(1);
-    dispatch(fetchProfile(username));
+    dispatch(getUserProfile(username));
     setLoading(false);
   }, []);
   const latestData = [

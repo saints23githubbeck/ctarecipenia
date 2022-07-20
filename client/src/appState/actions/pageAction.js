@@ -10,10 +10,10 @@ export const getAllPage = () => async (dispatch) => {
       method: "GET",
     });
       console.log("getAllPage", result)
-    if (result.success === true) {
+    if (result.length) {
       dispatch({
         type: actiontypes.GET_ALL_PAGE,
-        payload: result.pages,
+        payload: result,
       });
     }
   } catch (error) {}

@@ -13,10 +13,11 @@ const PER_PAGE = 10;
 
 const NewsletterAdmin = () => {
   const navigate = useNavigate();
-  const { newsletters } = useSelector((state) => state.newsletter);
+  const { newsletters } = useSelector((state) => state?.newsletter);
+  console.log(newsletters)
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
-  const [newsletterList, setNewsletterList] = useState(newsletters);
+  const [newsletterList, setNewsletterList] = useState(newsletters || []);
   const dispatch = useDispatch();
 
   async function handleDelete(_id) {
@@ -58,7 +59,7 @@ const NewsletterAdmin = () => {
   const offset = currentPage * PER_PAGE;
 
   const currentPageData = newsletterList
-  .sort(function (a, b) {
+  ?.sort(function (a, b) { 
     return new Date(b.createdAt) - new Date(a.createdAt);
   })
     .slice(offset, offset + PER_PAGE)

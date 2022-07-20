@@ -13,7 +13,7 @@ const UserDashboard = () => {
   // const country = Country.getAllCountries();
   const userProfile = useSelector((state) => state.user).user;
   const [selectedFile, setSelectedFile] = useState(null);
-  const { name, username, email, password, description, gender, country } = userProfile;
+  const { name, username, email, password, description, gender, country, slug } = userProfile;
   const [userGender, setUserGender] = useState(gender);
   const [userData, setUserData] = useState({
     firstName: name?.split(" ")[0],
@@ -23,6 +23,7 @@ const UserDashboard = () => {
     email,
     password,
     description,
+    slug
   });
   const handleinput = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -74,7 +75,7 @@ const UserDashboard = () => {
                     value={userData.firstName}
                     onChange={handleinput}
                     name="firstName"
-                    placeholder="Ayo"
+                    placeholder={userData.firstName}
                   />
                 </div>
                 <div className="input">
@@ -84,7 +85,7 @@ const UserDashboard = () => {
                     value={userData.username}
                     onChange={handleinput}
                     name="username"
-                    placeholder="Bambam"
+                    placeholder={userData.username}
                   />
                 </div>
                 {/* <div className="input">
@@ -109,7 +110,7 @@ const UserDashboard = () => {
                     value={userData.country}
                     onChange={handleinput}
                     name="country"
-                    placeholder="Choose your country"
+                    placeholder={userData.country}
                    />
 
                 </div>
@@ -122,7 +123,7 @@ const UserDashboard = () => {
                     value={userData.lastName}
                     onChange={handleinput}
                     name="lastName"
-                    placeholder="Ayo"
+                    placeholder={userData.lastName}
                   />
                 </div>
                 <div className="input">
@@ -132,7 +133,7 @@ const UserDashboard = () => {
                     value={userData.email}
                     onChange={handleinput}
                     name="email"
-                    placeholder="Ayo@gmail.com"
+                    placeholder={userData.email}
                   />
                 </div>
                 <div className="input">
@@ -154,7 +155,7 @@ const UserDashboard = () => {
                 placeholder=""
                 value={userData.description}
                 onChange={handleinput}
-                name="description"
+                name={userData.description}
               ></textarea>
             </div>
             <h5 className="center">Gender</h5>
@@ -214,3 +215,4 @@ const UserDashboard = () => {
 };
 
 export default UserDashboard;
+

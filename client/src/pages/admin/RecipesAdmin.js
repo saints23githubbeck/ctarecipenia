@@ -16,7 +16,7 @@ const PER_PAGE = 10;
 
 const RecipesAdmin = () => {
   const navigate = useNavigate();
-  const { recipes } = useSelector((state) => state.recipe);
+  const { recipes } = useSelector((state) => state?.recipe);
   const [addRecipe, setAddRecipe] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
@@ -92,7 +92,7 @@ const RecipesAdmin = () => {
   const offset = currentPage * PER_PAGE;
 
   const currentPageData = recipesList
-  .sort(function (a, b) {
+  ?.sort(function (a, b) {
     return new Date(b.updatedAt) - new Date(a.updatedAt);
   })
     .slice(offset, offset + PER_PAGE)

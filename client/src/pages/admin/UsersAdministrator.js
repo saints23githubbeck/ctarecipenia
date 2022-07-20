@@ -16,6 +16,7 @@ import { Avatar } from "@mui/material";
 
 const PER_PAGE = 10;
 // const URL = { adminUser };
+
 const UsersAdministrator = () => {
   const navigate = useNavigate();
   const { admins } = useSelector((state) => state?.adminProfile);

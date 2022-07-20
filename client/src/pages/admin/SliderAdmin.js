@@ -94,7 +94,7 @@ const SliderAdmin = () => {
         <td className="tdata">
           <img
             src={sliders.image}
-            alt={sliders.image}
+            alt={sliders.title}
             style={{
               width: "50px",
               height: "20px",
