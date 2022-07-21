@@ -60,6 +60,11 @@ export const recipe = (state = initialState, action) => {
           ...state,
           [action.payload.name]: action.payload.value
         }
+      case actiontypes.USER_RECIPE:
+        return {
+          ...state,
+          [action.payload.name]: action.payload.value
+        }
         
     default:
       return state;

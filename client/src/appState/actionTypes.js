@@ -13,6 +13,7 @@ export const GET_CURRENT_USER = "GET_CURRENT_USER";
 export const SET_IS_LOGIN = "SET_IS_LOGIN";
 
 export const GET_ALL_RECIPES = "GET_ALL_RECIPES"
+export const USER_RECIPES = "USER_RECIPES"
 export const UPDATE_RECIPE = "UPDATE_RECIPE"
 export const ADD_RECIPE = "ADD_RECIPE"
 export const LOADING_RECIPE = "LOADING_RECIPE"
