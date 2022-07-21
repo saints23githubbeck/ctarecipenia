@@ -32,6 +32,21 @@ export const getRecipesBySlug = (payload) => async (dispatch) => {
     }
   } catch (error) {}
 };
+export const getRecipesByUser = (payload) => async (dispatch) => {
+  try {
+    dispatch(setIsLoading(true));
+    const result = await httpRequest({
+      url: `/${payload.username}/recipes`,
+      method: "GET",
+    });
+    if (result.success === true) {
+      dispatch({
+        type: actiontypes.USER_RECIPE,
+        payload: result.recipes,
+      });
+    }
+  } catch (error) {}
+};
 
 export const addRecipeByAdmin = (payload, onClose) => async (dispatch) => {
   let token = localStorage.getItem("auth");

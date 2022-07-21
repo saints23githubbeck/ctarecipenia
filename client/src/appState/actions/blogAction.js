@@ -38,7 +38,7 @@ export const getBlogByUser = (payload) => async (dispatch) => {
   try {
     dispatch(setIsLoading(true));
     const result = await httpRequest({
-      url: `/${payload.slug}/blog`,
+      url: `/${payload.slug}/blogs`,
       method: "GET",
     });
     console.log("getBlogByUser", result);
@@ -57,7 +57,7 @@ export const addBlogByAdmin = (payload, onClose) => async (dispatch) => {
     try {
       dispatch(setBlogLoading("loading", true));
       const result = await httpRequest({
-        url: `/admin/blog/${payload.slug}`,
+        url: `/admin/blog`,
         method: "POST",
         body: JSON.stringify({ ...payload }),
         headers: {
@@ -86,7 +86,7 @@ export const updateBlogAdmin = (payload, onClose) => async (dispatch) => {
     try {
       dispatch(setBlogLoading("loading", true));
       const result = await httpRequest({
-        url: `/admin/blog/${payload._id}`,
+        url: `/admin/blog/${payload.slug}`,
         method: "PUT",
         body: JSON.stringify({ ...payload }),
         headers: {
@@ -116,7 +116,7 @@ export const addBlogByUser = (payload, onClose) => async (dispatch) => {
     try {
       dispatch(setBlogLoading("loading", true));
       const result = await httpRequest({
-        url: `/user/blog/${payload.slug}`,
+        url: `/user/blog`,
         method: "POST",
         body: JSON.stringify({ ...payload }),
         headers: {
@@ -145,7 +145,7 @@ export const updateBlogUser = (payload, onClose) => async (dispatch) => {
     try {
       dispatch(setBlogLoading("loading", true));
       const result = await httpRequest({
-        url: `/user/blog/${payload._id}`,
+        url: `/user/blog/${payload.slug}`,
         method: "PUT",
         body: JSON.stringify({ ...payload }),
         headers: {
