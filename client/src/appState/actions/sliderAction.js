@@ -51,6 +51,8 @@ export const addSlider = (payload, onClose) => async (dispatch) => {
   export const updateSlider = (payload, onClose) => async (dispatch) => {
     let token = localStorage.getItem("auth");
     if (token) {
+      // const rawBody ={...payload}
+      // delete rawBody?.slug
       try {
         dispatch(setSliderLoading("loading", true));
         const result = await httpRequest({

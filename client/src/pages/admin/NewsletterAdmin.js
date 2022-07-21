@@ -20,13 +20,19 @@ const NewsletterAdmin = () => {
   const [newsletterList, setNewsletterList] = useState(newsletters || []);
   const dispatch = useDispatch();
 
-  async function handleDelete(_id) {
-    let result = await fetch(`${BASE_URL}/admin/subs/${_id}`, {
+  async function handleDelete(slug) {
+    let token =  localStorage.getItem("auth");
+  if (token) {
+    let result = await fetch(`${BASE_URL}/admin/subs/${slug}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     result = await result.json();
     dispatch(getAllNewsletter());
   }
+}
   // const handleDelete = (e) => {
   //   const filtered = newsletterList.filter((newsletter) => newsletter !== e);
   //   setNewsletterList(filtered);

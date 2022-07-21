@@ -28,12 +28,18 @@ const BlogsAdmin = () => {
   const dispatch = useDispatch();
 
   async function handleDelete(slug) {
+    let token = localStorage.getItem("auth");
+    if (token) {
     let result = await fetch(`${BASE_URL}/admin/blog/${slug}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     result = await result.json();
     dispatch(getAllBlogs());
   }
+}
 
   // const handleDelete = (e) => {
   //   const filtered = blogList.filter((blog) => blog !== e);

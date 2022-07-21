@@ -31,8 +31,11 @@ const UsersNormal = () => {
   async function handleDelete(slug) {
     let token =  localStorage.getItem("auth");
     if (token) {
-    let result = await fetch(`${BASE_URL}/admin/user/:${slug}`, {
+    let result = await fetch(`${BASE_URL}/admin/user/${slug}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     console.log("slug", result)
     console.log("deleting normalUser", result);

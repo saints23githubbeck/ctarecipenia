@@ -22,7 +22,6 @@ const EditSlider = () => {
 
   const handleSubmit = () => {
     const payload = {
-    "_id":_id,
     "slug":slug,
     "recipe":recipe,
     "title":title,

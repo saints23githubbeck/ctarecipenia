@@ -25,12 +25,18 @@ const RecipesAdmin = () => {
   const dispatch = useDispatch();
 
   async function handleDelete(slug) {
+    let token =  localStorage.getItem("auth");
+  if (token) {
     let result = await fetch(`${BASE_URL}/admin/recipe/${slug}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     result = await result.json();
     dispatch(getAllRecipes());
   }
+}
 
   // const handleDelete = (e) => {
   //   const filtered = recipesList.filter((recipes) => recipes !== e);
