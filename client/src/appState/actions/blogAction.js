@@ -9,7 +9,39 @@ export const getAllBlogs = () => async (dispatch) => {
       url: `/blogs`,
       method: "GET",
     });
-      console.log("getAllBlog", result)
+    console.log("getAllBlog", result);
+    if (result.success === true) {
+      dispatch({
+        type: actiontypes.GET_ALL_BLOG,
+        payload: result.blogs,
+      });
+    }
+  } catch (error) {}
+};
+export const getBlogBySlug = (payload) => async (dispatch) => {
+  try {
+    dispatch(setIsLoading(true));
+    const result = await httpRequest({
+      url: `/blog/${payload.slug}`,
+      method: "GET",
+    });
+    console.log("getBlogBySlug", result);
+    if (result.success === true) {
+      dispatch({
+        type: actiontypes.GET_ALL_BLOG,
+        payload: result.blogs,
+      });
+    }
+  } catch (error) {}
+};
+export const getBlogByUser = (payload) => async (dispatch) => {
+  try {
+    dispatch(setIsLoading(true));
+    const result = await httpRequest({
+      url: `/${payload.slug}/blog`,
+      method: "GET",
+    });
+    console.log("getBlogByUser", result);
     if (result.success === true) {
       dispatch({
         type: actiontypes.GET_ALL_BLOG,
@@ -19,64 +51,123 @@ export const getAllBlogs = () => async (dispatch) => {
   } catch (error) {}
 };
 
-export const createBlog = (payload, onClose) => async (dispatch) => {
-    let token = localStorage.getItem("auth");
-    if (token) {
-      try {
-        dispatch(setBlogLoading("loading", true));
-        const result = await httpRequest({
-          url: `blog`,
-          method: "POST",
-          body: JSON.stringify({ ...payload }),
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+export const addBlogByAdmin = (payload, onClose) => async (dispatch) => {
+  let token = localStorage.getItem("auth");
+  if (token) {
+    try {
+      dispatch(setBlogLoading("loading", true));
+      const result = await httpRequest({
+        url: `/admin/blog/${payload.slug}`,
+        method: "POST",
+        body: JSON.stringify({ ...payload }),
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(result, "wait you");
+      if (result.message === "Blog created") {
+        dispatch(setBlogLoading("loading", false));
+        dispatch(getAllBlogs());
+        onClose();
+        dispatch({
+          type: actiontypes.RESET_BLOG_STATE,
         });
-        console.log(result, "wait you");
-        if (result.message === "Blog created") {
-          dispatch(setBlogLoading("loading", false));
-          dispatch(getAllBlogs());
-          onClose();
-          dispatch({
-            type: actiontypes.RESET_BLOG_STATE,
-          });
-        } else {
-          dispatch(setBlogLoading("loading", false));
-          dispatch(setBlogError(result.error));
-        }
-      } catch (error) {}
-    }
-  };
+      } else {
+        dispatch(setBlogLoading("loading", false));
+        dispatch(setBlogError(result.error));
+      }
+    } catch (error) {}
+  }
+};
 
-  export const updateBlog = (payload, onClose) => async (dispatch) => {
-    let token = localStorage.getItem("auth");
-    if (token) {
-      try {
-        dispatch(setBlogLoading("loading", true));
-        const result = await httpRequest({
-          url: `/blog/${payload._id}`,
-          method: "PUT",
-          body: JSON.stringify({ ...payload }),
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+export const updateBlogAdmin = (payload, onClose) => async (dispatch) => {
+  let token = localStorage.getItem("auth");
+  if (token) {
+    try {
+      dispatch(setBlogLoading("loading", true));
+      const result = await httpRequest({
+        url: `/admin/blog/${payload._id}`,
+        method: "PUT",
+        body: JSON.stringify({ ...payload }),
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("updated", payload);
+      console.log(result, "updated");
+      if (result.status === 200) {
+        dispatch(setBlogLoading("loading", false));
+        dispatch(getAllBlogs());
+        onClose();
+        dispatch({
+          type: actiontypes.RESET_BLOG_STATE,
         });
-        console.log("updated", payload);
-        console.log(result, "updated");
-        if (result.status === 200) {
-          dispatch(setBlogLoading("loading", false));
-          dispatch(getAllBlogs());
-          onClose();
-          dispatch({
-            type: actiontypes.RESET_BLOG_STATE,
-          });
-        } else {
-          dispatch(setBlogLoading("loading", false));
-          dispatch(setBlogError(result.error));
-        }
-      } catch (error) {}
-    }
-  };
+      } else {
+        dispatch(setBlogLoading("loading", false));
+        dispatch(setBlogError(result.error));
+      }
+    } catch (error) {}
+  }
+};
+
+export const addBlogByUser = (payload, onClose) => async (dispatch) => {
+  let token = localStorage.getItem("auth");
+  if (token) {
+    try {
+      dispatch(setBlogLoading("loading", true));
+      const result = await httpRequest({
+        url: `/user/blog/${payload.slug}`,
+        method: "POST",
+        body: JSON.stringify({ ...payload }),
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(result, "addBlogByUser");
+      if (result.message === "Blog created") {
+        dispatch(setBlogLoading("loading", false));
+        dispatch(getAllBlogs());
+        onClose();
+        dispatch({
+          type: actiontypes.RESET_BLOG_STATE,
+        });
+      } else {
+        dispatch(setBlogLoading("loading", false));
+        dispatch(setBlogError(result.error));
+      }
+    } catch (error) {}
+  }
+};
+
+export const updateBlogUser = (payload, onClose) => async (dispatch) => {
+  let token = localStorage.getItem("auth");
+  if (token) {
+    try {
+      dispatch(setBlogLoading("loading", true));
+      const result = await httpRequest({
+        url: `/user/blog/${payload._id}`,
+        method: "PUT",
+        body: JSON.stringify({ ...payload }),
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(" updateBlogUser updated", payload);
+      console.log(result, "updateBlogUser updated");
+      if (result.status === 200) {
+        dispatch(setBlogLoading("loading", false));
+        dispatch(getAllBlogs());
+        onClose();
+        dispatch({
+          type: actiontypes.RESET_BLOG_STATE,
+        });
+      } else {
+        dispatch(setBlogLoading("loading", false));
+        dispatch(setBlogError(result.error));
+      }
+    } catch (error) {}
+  }
+};
 
 export const handleBlogState = (name, value) => ({
   type: actiontypes.ADD_BLOG,
@@ -97,4 +188,3 @@ export const setBlogError = (value) => ({
   type: actiontypes.BLOG_ERROR,
   payload: value,
 });
-

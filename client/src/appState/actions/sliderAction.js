@@ -10,7 +10,7 @@ export const getAllSlider = () => async (dispatch) => {
       method: "GET",
     });
       console.log("getAllSlider", result)
-    if (result.success === true) {
+    if (result.sliders) {
       dispatch({
         type: actiontypes.GET_ALL_SLIDER,
         payload: result.sliders,
@@ -25,7 +25,7 @@ export const addSlider = (payload, onClose) => async (dispatch) => {
       try {
         dispatch(setSliderLoading("loading", true));
         const result = await httpRequest({
-          url: `/slider/add`,
+          url: `/admin/slider/add`,
           method: "POST",
           body: JSON.stringify({ ...payload }),
           headers: {

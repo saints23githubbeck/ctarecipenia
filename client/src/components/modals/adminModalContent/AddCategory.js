@@ -3,7 +3,7 @@ import { categories, iconData } from "../../admin/data";
 import { RiCloseFill } from "react-icons/ri";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { createCategory, handleCategoryState, setCategoryError } from '../../../appState/actions/categoryAction';
+import { addCategory, createCategory, handleCategoryState, setCategoryError } from '../../../appState/actions/categoryAction';
 
 const AddCategory = ({ onclose }) => {
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ const AddCategory = ({ onclose }) => {
       icon:iconType,
       permalink:permalink,  
     };
-    dispatch(createCategory(payload, onclose, navigate));
+    dispatch(addCategory(payload, onclose, navigate));
     console.log("new cat", payload)
   };
 

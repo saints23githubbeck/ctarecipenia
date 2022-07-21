@@ -20,6 +20,7 @@ const PER_PAGE = 10;
 const UsersNormal = () => {
   const navigate = useNavigate();
   const { subscribers } = useSelector(state => state.adminProfile);
+  console.log({subscribers})
   const [addUser, setAddUser] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
@@ -27,14 +28,18 @@ const UsersNormal = () => {
   const [userList, setUserList] = useState(subscribers);
   const dispatch = useDispatch();
 
-  async function handleDelete(username) {
-    let result = await fetch(`${BASE_URL}/user/:${username}`, {
+  async function handleDelete(slug) {
+    let token =  localStorage.getItem("auth");
+    if (token) {
+    let result = await fetch(`${BASE_URL}/admin/user/:${slug}`, {
       method: "DELETE",
     });
+    console.log("slug", result)
     console.log("deleting normalUser", result);
     result = await result.json();
     dispatch(getAllSubscribers());
-  }
+    }
+  } 
 
   useEffect(() => {
     setUserList(subscribers);
@@ -96,7 +101,7 @@ const UsersNormal = () => {
   })
     ?.slice(offset, offset + PER_PAGE)
     .map((subscribers) => (
-      <tr key={subscribers._id} className="">
+      <tr key={subscribers.slug} className="">
         <td className="tdata d-flex">
           <Avatar
             src={`data:image/*;base64,${subscribers.image}`}
@@ -135,7 +140,7 @@ const UsersNormal = () => {
           <button
             className="detailsButton"
             style={{ backgroundColor: "red" }}
-            onClick={(e) => handleDelete(subscribers.username)}
+            onClick={(e) => handleDelete(subscribers.slug)}
           >
             <BiIcons.BiTrash className="text-white h6" /> Delete
           </button>

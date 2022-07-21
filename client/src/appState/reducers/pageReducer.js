@@ -1,50 +1,45 @@
 import * as actiontypes from "../actionTypes";
 const emptyState = {
-  recipe: "",
   title: "",
-  image: "",
+  permalink: "",
+  content: "",
 };
 const initialState = {
-  sliders: [],
+  pages: [],
   ...emptyState,
   loading: false,
   error: "",
 };
 
-export const slider = (state = initialState, action) => {
+export const page = (state = initialState, action) => {
   switch (action.type) {
-    case actiontypes.GET_ALL_SLIDER:
-      console.log("who you Slider", action.type)
-          console.log("All slider from reducer", action.payload)
+    case actiontypes.GET_ALL_PAGE:
       return {
         ...state,
-        sliders: action.payload,
-    };
-
-    case actiontypes.ADD_SLIDER:
+        pages: action.payload,
+      };
+    case actiontypes.ADD_PAGE:
       return {
         ...state,
         [action.payload.name]: action.payload.value,
-    };
-
-    case actiontypes.LOADING_SLIDER:
+      };
+    case actiontypes.LOADING_PAGE:
       return {
         ...state,
         [action.payload.name]: action.payload.value,
-    };
-
-    case actiontypes.SLIDER_ERROR:
+      };
+    case actiontypes.PAGE_ERROR:
       return {
         ...state,
         error: action.payload,
-    };
+      };
 
-    case actiontypes.RESET_SLIDER_STATE:
+    case actiontypes.RESET_PAGE_STATE:
       return {
         ...state,
         ...emptyState,
       };
-    case actiontypes.UPDATE_SLIDER:
+    case actiontypes.UPDATE_PAGE:
       return {
         ...state,
         [action.payload.name]: action.payload.value,

@@ -8,17 +8,18 @@ import latestRecipe1 from "../assets/images/latest-recipe1.png";
 import latestRecipe2 from "../assets/images/latest-recipe2.png";
 import ownerImage from "../assets/images/latest-recipe-owner-image.png";
 import { Link, useParams } from "react-router-dom";
-import { getProfile } from "../appState/actions/profileActions";
 import Loading from "../components/Loading";
+import { getUserProfile } from "../appState/actions/AuthAction";
+// import { fetchProfile } from "../appState/actions/AuthAction";
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const userProfile = useSelector((state) => state.user).user;
+  const userProfile = useSelector((state) => state.user);
   const [loading, setLoading] = useState(true);
   const param = useParams().username;
   useEffect(() => {
     const username = param.substring(1);
-    dispatch(getProfile(username));
+    dispatch(getUserProfile(username));
     setLoading(false);
   }, []);
   const latestData = [

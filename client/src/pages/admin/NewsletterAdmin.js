@@ -6,20 +6,22 @@ import * as BiIcons from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../../api";
 import { getAllNewsletter } from "../../appState/actions/newsletterAction";
+import { useNavigate } from "react-router-dom";
 
 const PER_PAGE = 10;
 // const URL = { newsletter };
 
 const NewsletterAdmin = () => {
   const navigate = useNavigate();
-  const { newsletters } = useSelector((state) => state.newsletter);
+  const { newsletters } = useSelector((state) => state?.newsletter);
+  console.log(newsletters)
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
-  const [newsletterList, setNewsletterList] = useState(newsletters);
+  const [newsletterList, setNewsletterList] = useState(newsletters || []);
   const dispatch = useDispatch();
 
   async function handleDelete(_id) {
-    let result = await fetch(`${BASE_URL}/subs/${_id}`, {
+    let result = await fetch(`${BASE_URL}/admin/subs/${_id}`, {
       method: "DELETE",
     });
     result = await result.json();
@@ -57,7 +59,7 @@ const NewsletterAdmin = () => {
   const offset = currentPage * PER_PAGE;
 
   const currentPageData = newsletterList
-  .sort(function (a, b) {
+  ?.sort(function (a, b) { 
     return new Date(b.createdAt) - new Date(a.createdAt);
   })
     .slice(offset, offset + PER_PAGE)

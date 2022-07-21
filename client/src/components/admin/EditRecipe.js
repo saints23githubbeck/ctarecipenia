@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   handleRecipeState,
   setRecipesError,
-  updateRecipe,
+  updateRecipeByAdmin,
 } from "../../appState/actions/recipeAction";
 import { categories } from "./data";
 
@@ -64,7 +64,7 @@ const EditRecipe = () => {
       ingredients: ingredients,
       cookTime: cookTime,
     };
-    dispatch(updateRecipe(payload));
+    dispatch(updateRecipeByAdmin(payload));
   };
   useEffect(() => {
     setTimeout(() => {

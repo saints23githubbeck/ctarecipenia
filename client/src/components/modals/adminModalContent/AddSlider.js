@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { RiCloseFill } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
@@ -83,7 +83,7 @@ const AddSlider = ({ onclose }) => {
           id="text"
           autoComplete="text"
           autoFocus
-          placeholder={state.recipe}
+          placeholder={recipe}
         />
       </div>
 
@@ -100,7 +100,7 @@ const AddSlider = ({ onclose }) => {
           id="text"
           autoComplete="name"
           autoFocus
-          placeholder={state.title}
+          placeholder={title}
         />
       </div>
       <hr className="m-3" />
@@ -135,8 +135,8 @@ const AddSlider = ({ onclose }) => {
           <div className="w-25 h-75 p-1">
             {selectImage !== null && (
               <img
-                src={`data:image/*;base64,${state.image}`}
-                alt={state.postedBy}
+                src={`data:image/*;base64,${image}`}
+                alt=""
                 style={{ width: "100%", height: "100%", borderRadius: "10px" }}
               />
             )}

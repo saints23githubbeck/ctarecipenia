@@ -6,7 +6,7 @@ import ReactPaginate from "react-paginate";
 import * as BiIcons from "react-icons/bi";
 import AdminModal from "../../components/modals/AdminModal";
 import {
-  getALLRecipes,
+  getAllRecipes,
   setRecipesError,
 } from "../../appState/actions/recipeAction";
 import * as actiontypes from "../../appState/actionTypes";
@@ -16,7 +16,7 @@ const PER_PAGE = 10;
 
 const RecipesAdmin = () => {
   const navigate = useNavigate();
-  const { recipes } = useSelector((state) => state.recipe);
+  const { recipes } = useSelector((state) => state?.recipe);
   const [addRecipe, setAddRecipe] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
@@ -29,7 +29,7 @@ const RecipesAdmin = () => {
       method: "DELETE",
     });
     result = await result.json();
-    dispatch(getALLRecipes());
+    dispatch(getAllRecipes());
   }
 
   // const handleDelete = (e) => {
@@ -42,7 +42,7 @@ const RecipesAdmin = () => {
   }, [recipes]);
 
   useEffect(() => {
-    dispatch(getALLRecipes());
+    dispatch(getAllRecipes());
   }, []);
 
   const status = (status) => {
@@ -92,7 +92,7 @@ const RecipesAdmin = () => {
   const offset = currentPage * PER_PAGE;
 
   const currentPageData = recipesList
-  .sort(function (a, b) {
+  ?.sort(function (a, b) {
     return new Date(b.updatedAt) - new Date(a.updatedAt);
   })
     .slice(offset, offset + PER_PAGE)

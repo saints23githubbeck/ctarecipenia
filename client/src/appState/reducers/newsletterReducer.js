@@ -1,6 +1,7 @@
 import * as actiontypes from "../actionTypes";
 
 const initialState = {
+  newsletters: [],
   loading: false,
   error: "",
 };

@@ -9,10 +9,13 @@ import AdminModal from "../../components/modals/AdminModal";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllAds, setAdsError } from "../../appState/actions/advertAction";
 import { BASE_URL } from "../../api";
+import * as actiontypes from "../../appState/actionTypes";
+
 
 
 const PER_PAGE = 10;
 // const URL = { advertisement };
+
 const AdvertisementAdmin = () => {
   const navigate = useNavigate();
   const { ads } = useSelector((state) => state.advert);
@@ -77,6 +80,9 @@ const AdvertisementAdmin = () => {
   const offset = currentPage * PER_PAGE;
 
   const currentPageData = advertisementList
+  ?.sort(function (a, b) {
+    return new Date(b.updatedAt) - new Date(a.updatedAt);
+  })
     .slice(offset, offset + PER_PAGE)
     .map((ads) => (
       <tr key={ads.slug} className="">

@@ -16,6 +16,7 @@ import { Avatar } from "@mui/material";
 
 const PER_PAGE = 10;
 // const URL = { adminUser };
+
 const UsersAdministrator = () => {
   const navigate = useNavigate();
   const { admins } = useSelector((state) => state?.adminProfile);
@@ -30,7 +31,7 @@ const UsersAdministrator = () => {
   async function handleDelete(slug) {
     let token =  localStorage.getItem("auth");
   if (token) {
-    let result = await fetch(`${BASE_URL}/admin/${slug}`, {
+    let result = await fetch(`${BASE_URL}/admin/user/${slug}`, {
       method: "DELETE",
     });
     console.log("slug", result)

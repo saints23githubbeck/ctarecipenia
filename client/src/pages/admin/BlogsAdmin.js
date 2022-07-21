@@ -28,7 +28,7 @@ const BlogsAdmin = () => {
   const dispatch = useDispatch();
 
   async function handleDelete(slug) {
-    let result = await fetch(`${BASE_URL}/blog/${slug}`, {
+    let result = await fetch(`${BASE_URL}/admin/blog/${slug}`, {
       method: "DELETE",
     });
     result = await result.json();

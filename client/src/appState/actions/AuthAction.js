@@ -19,7 +19,7 @@ export const signUp = (FormData, navigate) => async (dispatch) => {
       body: JSON.stringify({ ...FormData }),
     });
     console.log(result);
-    if (result.success === true) {  
+    if (result.success === true) {
       dispatch(setIsLoading(false));
       localStorage.setItem("auth", result.userToken);
       dispatch({
@@ -62,8 +62,8 @@ export const logIn = (formData, navigate) => async (dispatch) => {
           user: result.user,
         },
       });
-      console.log("show me", result)
-        navigate("/user-dashboard");
+      console.log("show me", result);
+      navigate("/user-dashboard");
     } else {
       dispatch(setIsLoading(false));
       dispatch({
@@ -80,7 +80,7 @@ export const updateUser = (userData) => async (dispatch) => {
   let token = localStorage.getItem("auth");
   if (token) {
     const result = await httpRequest({
-      url: "/profile/update",
+      url: `/user/update/${userData.slug}`,
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -91,29 +91,64 @@ export const updateUser = (userData) => async (dispatch) => {
   }
 };
 
-
-export  const fetchProfile = (history) => async(dispatch)=> {
-  let token =  localStorage.getItem("auth");
+export const fetchProfile = (history) => async (dispatch) => {
+  let token = localStorage.getItem("auth");
   if (token) {
     const result = await httpRequest({
       url: "/me",
       method: "GET",
       headers: {
-        "Authorization": `Bearer ${token}` 
+        Authorization: `Bearer ${token}`,
       },
     });
-    console.log("fetchuser", result)
-   if (result.user) {
-    dispatch({
-      type: actiontypes.GET_CURRENT_USER,
-      payload: {
-        isLoggedIn: true,
-        user: result.user,
-      }
-   });
+    console.log("fetchuser", result);
+    if (result.user) {
+      dispatch({
+        type: actiontypes.GET_CURRENT_USER,
+        payload: {
+          isLoggedIn: true,
+          user: result.user,
+        },
+      });
+    }
   }
-}
-}
+};
+
+export const getSubscribers = () => async (dispatch) => {
+  try {
+    dispatch(setIsLoading(true));
+    const result = await httpRequest({
+      url: `/subscribers`,
+      method: "GET",
+    });
+    // console.log("getAlluser", result)
+
+    if (!result?.error) {
+      dispatch({
+        type: actiontypes.GET_ALL_USER,
+        payload: result.user,
+      });
+    }
+  } catch (error) {}
+};
+
+export const getUserProfile = (username) => async (dispatch) => {
+  try {
+    dispatch(setIsLoading(true));
+    const result = await httpRequest({
+      url: `/user/${username}`,
+      method: "GET",
+    });
+    // console.log("getAlluser", result)
+
+    if (!result?.error) {
+      dispatch({
+        type: actiontypes.GET_SELECTED_USER,
+        payload: result.user,
+      });
+    }
+  } catch (error) {}
+};
 
 export const logOutAction = (navigate) => async (dispatch) => {
   dispatch({

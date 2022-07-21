@@ -8,6 +8,7 @@ import { category } from "./categoryReducer";
 import { slider } from "./sliderReducer";
 import { newsletter } from "./newsletterReducer";
 import { advert } from "./advertReducer";
+import { page } from "./pageReducer";
 
 export const rootReducers = combineReducers({
   user,
@@ -19,4 +20,5 @@ export const rootReducers = combineReducers({
   slider,
   newsletter,
   advert,
+  page,
 });

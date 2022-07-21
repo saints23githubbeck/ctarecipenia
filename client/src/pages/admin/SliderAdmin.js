@@ -24,7 +24,7 @@ const SliderAdmin = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
-  const [sliderList, setSliderList] = useState(record);
+  const [sliderList, setSliderList] = useState(sliders);
   const dispatch = useDispatch();
 
   async function handleDelete(slug) {
@@ -94,7 +94,7 @@ const SliderAdmin = () => {
         <td className="tdata">
           <img
             src={sliders.image}
-            alt={sliders.image}
+            alt={sliders.title}
             style={{
               width: "50px",
               height: "20px",
