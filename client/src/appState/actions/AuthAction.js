@@ -157,17 +157,3 @@ export const logOutAction = (navigate) => async (dispatch) => {
   navigate("/");
 };
 
-// export const updateUser = (userData, navigate) => async (dispatch) => {
-//   try {
-//     const { data } = await updateUserApi(userData);
-//     console.log(data, "data log action redux");
-//     dispatch({
-//       type: actiontypes.UPDATE_USER,
-//       payload: data,
-//     });
-//     navigate("/user-dashboard");
-//     console.log("successful", data);
-//   } catch (error) {
-//     console.log("errorno update action redux");
-//   }
-// };
