@@ -3,20 +3,21 @@ import * as actiontypes from "../actionTypes";
 const emptyState = {
   title: "",
   category: "",
-  image: "",
+  cookTime: "",
+  calories: "",
   description: "",
-  videoLink: "",
   direction: "",
-  metaDescription: "",
-  featuredImage: "",
-  permlink: "",
+  permLink: "",
   difficulty: "",
   prepareTime: "",
   serves: "",
-  calories: "",
-  tags: [],
+  image: "",
+  videoLink: "",
+  metaDescription: "",
+  featuredImage: "",
   facts: "",
   additionalInfo: "",
+  tags: [],
   ingredients: [],
 };
 const initialState = {
@@ -29,7 +30,8 @@ const initialState = {
 export const recipe = (state = initialState, action) => {
   switch (action.type) {
     case actiontypes.GET_ALL_RECIPES:
-      console.log("who you", action.type)
+      console.log("who you Slider", action.type);
+      console.log("All slider from reducer", action.payload);
       return {
         ...state,
         recipes: action.payload,
@@ -55,17 +57,17 @@ export const recipe = (state = initialState, action) => {
         ...state,
         ...emptyState,
       };
-      case actiontypes.UPDATE_RECIPE:
-        return {
-          ...state,
-          [action.payload.name]: action.payload.value
-        }
-      case actiontypes.USER_RECIPE:
-        return {
-          ...state,
-          [action.payload.name]: action.payload.value
-        }
-        
+    case actiontypes.UPDATE_RECIPE:
+      return {
+        ...state,
+        [action.payload.name]: action.payload.value,
+      };
+    case actiontypes.USER_RECIPE:
+      return {
+        ...state,
+        [action.payload.name]: action.payload.value,
+      };
+
     default:
       return state;
   }

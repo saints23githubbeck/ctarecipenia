@@ -25,18 +25,18 @@ const RecipesAdmin = () => {
   const dispatch = useDispatch();
 
   async function handleDelete(slug) {
-    let token =  localStorage.getItem("auth");
-  if (token) {
-    let result = await fetch(`${BASE_URL}/admin/recipe/${slug}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    result = await result.json();
-    dispatch(getAllRecipes());
+    let token = localStorage.getItem("auth");
+    if (token) {
+      let result = await fetch(`${BASE_URL}/admin/recipe/${slug}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      result = await result.json();
+      dispatch(getAllRecipes());
+    }
   }
-}
 
   // const handleDelete = (e) => {
   //   const filtered = recipesList.filter((recipes) => recipes !== e);
@@ -98,12 +98,12 @@ const RecipesAdmin = () => {
   const offset = currentPage * PER_PAGE;
 
   const currentPageData = recipesList
-  ?.sort(function (a, b) {
-    return new Date(b.updatedAt) - new Date(a.updatedAt);
-  })
+    ?.sort(function (a, b) {
+      return new Date(b.updatedAt) - new Date(a.updatedAt);
+    })
     .slice(offset, offset + PER_PAGE)
     .map((recipes) => (
-      <tr key={recipes.id} className="">
+      <tr key={recipes.slug} className="">
         <td className="tdata">{recipes.category}</td>
         <td className="tdata">{recipes.title}</td>
         <td className="tdata">{recipes.publishedBy}</td>

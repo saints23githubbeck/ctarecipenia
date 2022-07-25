@@ -40,7 +40,7 @@ const EditAdmin = () => {
     e.preventDefault();
     const payload = {
       slug:slug,
-    _id:_id,
+      _id:_id,
       username: username,
       firstName: firstName,
       lastName: lastName,
