@@ -50,7 +50,7 @@ export const addCategory = (payload, onClose) => async (dispatch) => {
         },
       });
       console.log("AddCatResult", result);
-      if (result.success === true) {
+      if (result.title) {
         dispatch(setCategoryLoading("loading", false));
         dispatch(getAllCategories());
         onClose();

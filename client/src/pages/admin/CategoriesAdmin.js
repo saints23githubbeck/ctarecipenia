@@ -33,7 +33,11 @@ const CategoriesAdmin = () => {
     if (token) {
       let result = await fetch(`${BASE_URL}/admin/category/${slug}`, {
         method: "DELETE",
+        headers: {
+        Authorization: `Bearer ${token}`,
+      },
       });
+    console.log("DELETE", slug , result)
       result = await result.json();
       dispatch(getAllCategories());
     }

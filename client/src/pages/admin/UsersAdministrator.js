@@ -33,6 +33,9 @@ const UsersAdministrator = () => {
   if (token) {
     let result = await fetch(`${BASE_URL}/admin/user/${slug}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     console.log("slug", result)
     console.log("deleting adminuser", result);

@@ -28,12 +28,18 @@ const AdvertisementAdmin = () => {
 
 
   async function handleDelete(slug) {
+    let token = localStorage.getItem("auth");
+    if (token) {
     let result = await fetch(`${BASE_URL}/ads/${slug}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     result = await result.json();
     dispatch(getAllAds());
   }
+}
 
   useEffect(() => {
     setAdvertisementList(ads);

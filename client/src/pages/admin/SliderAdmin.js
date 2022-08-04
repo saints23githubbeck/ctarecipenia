@@ -13,7 +13,6 @@ import {
 import * as actiontypes from "../../appState/actionTypes";
 import { BASE_URL } from "../../api";
 
-
 const PER_PAGE = 10;
 // const URL = { slider };
 
@@ -28,11 +27,18 @@ const SliderAdmin = () => {
   const dispatch = useDispatch();
 
   async function handleDelete(slug) {
-    let result = await fetch(`${BASE_URL}/slider/${slug}`, {
-      method: "DELETE",
-    });
-    result = await result.json();
-    dispatch(getAllSlider());
+    let token = localStorage.getItem("auth");
+    if (token) {
+      let result = await fetch(`${BASE_URL}/admin/slider/${slug}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("DELETE", slug, result);
+      result = await result.json();
+      dispatch(getAllSlider());
+    }
   }
 
   // const handleDelete = (e) => {
@@ -107,13 +113,14 @@ const SliderAdmin = () => {
             className="detailsButton"
             onClick={() => navigate("/admin/slider/edit", { state: sliders })}
             style={{ backgroundColor: "orange" }}
+            
           >
             <BiIcons.BiEdit className="text-white h6" /> Edit
           </button>
           <button
             className="detailsButton"
             style={{ backgroundColor: "red" }}
-            onClick={(e) => handleDelete(sliders)}
+            onClick={(e) => handleDelete(sliders.slug)}
           >
             <BiIcons.BiTrash className="text-white h6" /> Delete
           </button>

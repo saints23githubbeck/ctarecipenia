@@ -33,7 +33,6 @@ const AddRecipe = ({ onclose }) => {
   } = useSelector((state) => state.recipe);
   const [level, setLevel] = useState(difficulty);
 
-
   const handleLevel = (e) => {
     setLevel(e.target.value);
   };
@@ -129,7 +128,7 @@ const AddRecipe = ({ onclose }) => {
         </div>
 
         <div className="row m-3">
-        <p className="w-25 h-75 text-end ptag">Difficulty</p>
+          <p className="w-25 h-75 text-end ptag">Difficulty</p>
           <div className="checkbox d-flex justify-content-between w-75 h-75 p-1">
             <div className="check flex p-1">
               <input

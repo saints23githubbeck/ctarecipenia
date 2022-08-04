@@ -9,10 +9,11 @@ export const getAllRecipes = () => async (dispatch) => {
       url: `/recipes`,
       method: "GET",
     });
+    console.log("all recipe", result);
     if (result.length) {
       dispatch({
         type: actiontypes.GET_ALL_RECIPES,
-        payload: result,
+        payload: result.recipes,
       });
     }
   } catch (error) {}
