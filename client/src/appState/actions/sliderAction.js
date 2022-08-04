@@ -53,6 +53,8 @@ export const updateSlider = (payload, onClose) => async (dispatch) => {
   if (token) {
     // const rawBody ={...payload}
     // delete rawBody?.slug
+    // delete rawBody?._id
+
     try {
       dispatch(setSliderLoading("loading", true));
       const result = await httpRequest({

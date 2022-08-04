@@ -113,6 +113,7 @@ const SliderAdmin = () => {
             className="detailsButton"
             onClick={() => navigate("/admin/slider/edit", { state: sliders })}
             style={{ backgroundColor: "orange" }}
+            
           >
             <BiIcons.BiEdit className="text-white h6" /> Edit
           </button>
