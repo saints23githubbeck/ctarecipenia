@@ -29,19 +29,34 @@ exports.getAll = async (req, res) => {
 }
 
 exports.updatePage = async (req, res) => {
-  let slug = req.params.slug.toLowerCase()
+  let paramSlug = req.params.slug.toLowerCase()
+  const { title, content, permalink } = req.body
 
+  const pageUpdate={}
+
+  if (title){
+pageUpdate.title = title
+  const slug = slugify(title).toLowerCase()
+  pageUpdate.slug = slug
+  }
+  if (content) {
+pageUpdate.content = content
+  }
+  if (permalink){
+pageUpdate.permalink = permalink
+  }
+  
   try {
     const updatedPage = await Page.findOneAndUpdate(
-      slug,
-      { $set: req.body },
+      {slug: paramSlug},
+      { $set: pageUpdate },
       {
         new: true,
         upsert: true,
         setDefaultsOnInsert: true,
       }
     ).exec()
-    return res.status(200).json({
+    return res.status(200).json({message: "Page has been updated",
       updatedPage,
     })
   } catch (err) {

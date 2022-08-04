@@ -59,12 +59,32 @@ exports.deleteSlide = async (req, res) => {
 }
 
 exports.updateSlider = async (req, res) => {
-  let slug = req.params.slug.toLowerCase()
+  let paramSlug = req.params.slug.toLowerCase()
+  const {
+    title,
+    recipe,
+    image,
+  } = req.body
+  const slideUpdate = {}
+
+  if (title) {
+    slideUpdate.title = title
+    const slug = slugify(title).toLowerCase()
+    slideUpdate.slug = slug
+  }
+  if (recipe) {
+    slideUpdate.recipe = recipe
+  }
+  
+  if (image) {
+    slideUpdate.image = image
+  }
+
 
   try {
     const updateSlider = await Slider.findOneAndUpdate(
-      slug,
-      { $set: req.body },
+      { slug: paramSlug },
+      { $set: slideUpdate },
       {
         new: true,
         upsert: true,
@@ -72,6 +92,7 @@ exports.updateSlider = async (req, res) => {
       }
     ).exec()
     return res.status(200).json({
+      message: "Slider updated successfully",
       updateSlider,
     })
   } catch (err) {

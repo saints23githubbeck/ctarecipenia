@@ -192,11 +192,11 @@ exports.updateRecipe = async (req, res) => {
     recipeUpdate.serves = serves
   }
 
-  let slug = req.params.slug.toLowerCase()
+  let paramSlug = req.params.slug.toLowerCase()
 
   try {
     const updatedRecipe = await Recipe.findOneAndUpdate(
-      slug,
+      { slug: paramSlug },
       { $set: recipeUpdate },
       {
         new: true,

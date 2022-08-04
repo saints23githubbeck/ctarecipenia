@@ -146,7 +146,7 @@ exports.updateBlog = async (req, res) => {
 
   try {
     const updatedBlog = await Blog.findOneAndUpdate(
-      { slug: req.params.slug },
+      { slug: req.params.slug.toLowerCase() },
       { $set: blogUpdate },
       {
         new: true,
