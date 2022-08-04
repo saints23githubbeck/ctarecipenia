@@ -35,7 +35,9 @@ exports.createBlog = async (req, res) => {
 exports.fetchAllBlogs = (req, res) => {
   Blog.find({})
     .populate("postedBy", "_id image username")
-    .select("_id permLink prepareTime cookTime shortDesc image title  slug description createdAt updatedAt")
+    .select(
+      "_id permLink prepareTime cookTime shortDesc image title  slug description createdAt updatedAt"
+    )
     .sort({ createdAt: "desc" })
     .exec((error, data) => {
       if (error) {
@@ -72,6 +74,11 @@ exports.getBlogBySlug = async (req, res) => {
       })
     }
 
+    await Blog.findByIdAndUpdate(
+      blog.id,
+      { $inc: { numViews: 1 } },
+      { new: true }
+    )
     return res.status(200).json({
       success: true,
       blog,
@@ -114,7 +121,15 @@ exports.deleteBlogBySlug = async (req, res) => {
     @access private
 */
 exports.updateBlog = async (req, res) => {
-  const { title, image, shortDesc, cookTime, description, permLink, prepareTime } = req.body
+  const {
+    title,
+    image,
+    shortDesc,
+    cookTime,
+    description,
+    permLink,
+    prepareTime,
+  } = req.body
   const blogUpdate = {}
 
   if (title) {
@@ -177,7 +192,9 @@ exports.fetchBlogByUser = async (req, res) => {
 
     Blog.find({ postedBy: user.id })
       .populate("postedBy", "_id image username")
-      .select("_id permLink prepareTime cookTime shortDesc image title  slug description createdAt updatedAt")
+      .select(
+        "_id permLink prepareTime cookTime shortDesc image title  slug description createdAt updatedAt"
+      )
       .sort({ createdAt: "desc" })
       .exec((error, data) => {
         if (error) {
@@ -198,7 +215,8 @@ exports.canDeleteBlog = (req, res, next) => {
         error: errorHandler(err),
       })
     }
-    let authorizedUser = data.postedBy._id.toString() === req.user._id.toString()
+    let authorizedUser =
+      data.postedBy._id.toString() === req.user._id.toString()
     if (!authorizedUser) {
       return res.status(400).json({
         error: "You are not authorized",

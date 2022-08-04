@@ -24,6 +24,10 @@ const recipeSchema = new Schema(
       unique: true,
       index: true,
     },
+    numViews:{
+      type: Number,
+      default: 0,
+    },
     direction: {
       type: String,
     },

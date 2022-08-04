@@ -15,11 +15,33 @@ exports.addRecipe = async (req, res) => {
     })
   }
 
-  const { title, category, cookTime, calories, description, direction, permLink, difficulty, prepareTime, serves } = req.body
+  const {
+    title,
+    category,
+    cookTime,
+    calories,
+    description,
+    direction,
+    permLink,
+    difficulty,
+    prepareTime,
+    serves,
+  } = req.body
 
   const slug = slugify(title).toLowerCase()
   try {
-    if (!title || !category || !cookTime || !calories || !description || !direction || !permLink || !difficulty || !prepareTime || !serves) {
+    if (
+      !title ||
+      !category ||
+      !cookTime ||
+      !calories ||
+      !description ||
+      !direction ||
+      !permLink ||
+      !difficulty ||
+      !prepareTime ||
+      !serves
+    ) {
       res.status(400).json({ error: "Please fill all required fields" })
     }
 
@@ -56,7 +78,9 @@ exports.addRecipe = async (req, res) => {
 exports.fetchAllRecipes = async (req, res) => {
   Recipe.find({})
     .populate("postedBy", "_id image status username")
-    .select("_id category cookTime calories description slug direction permLink image difficulty prepareTime serves postedBy createdAt updatedAt")
+    .select(
+      "_id category cookTime calories description slug direction permLink image difficulty prepareTime serves postedBy createdAt updatedAt"
+    )
     .sort({ createdAt: "desc" })
     .exec((error, data) => {
       if (error) {
@@ -84,6 +108,12 @@ exports.getRecipeBySlug = async (req, res) => {
         error: "No recipe found",
       })
     }
+
+    await Recipe.findByIdAndUpdate(
+      recipe.id,
+      { $inc: { numViews: 1 } },
+      { new: true }
+    )
     return res.status(200).json({
       success: true,
       recipe,
@@ -150,7 +180,19 @@ exports.fetchRecipeByUser = async (req, res) => {
 */
 
 exports.updateRecipe = async (req, res) => {
-  const { title, category, image, cookTime, calories, description, direction, permLink, difficulty, prepareTime, serves } = req.body
+  const {
+    title,
+    category,
+    image,
+    cookTime,
+    calories,
+    description,
+    direction,
+    permLink,
+    difficulty,
+    prepareTime,
+    serves,
+  } = req.body
   const recipeUpdate = {}
 
   if (title) {
@@ -223,7 +265,8 @@ exports.canDeleteRecipe = (req, res, next) => {
         error: err,
       })
     }
-    let authorizedUser = data.postedBy._id.toString() === req.user._id.toString()
+    let authorizedUser =
+      data.postedBy._id.toString() === req.user._id.toString()
     if (!authorizedUser) {
       return res.status(400).json({
         error: "You are not authorized",
@@ -241,7 +284,8 @@ exports.canUpdateRecipe = (req, res, next) => {
         error: err,
       })
     }
-    let authorizedUser = data.postedBy._id.toString() === req.user._id.toString()
+    let authorizedUser =
+      data.postedBy._id.toString() === req.user._id.toString()
     if (!authorizedUser) {
       return res.status(400).json({
         error: "You are not authorized",
