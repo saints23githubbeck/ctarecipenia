@@ -29,12 +29,31 @@ exports.fetchAllAds = async (req, res) => {
 }
 
 exports.updateAds = async (req, res) => {
-  let slug = req.params.slug.toLowerCase()
+  let paramSlug = req.params.slug.toLowerCase()
+    const { location, title, image, code } = req.body
+const adsUpdate ={}
+
+if(title) {
+  adsUpdate.title = title
+  const slug = slugify(title).toLowerCase()
+  adsUpdate.slug = slug
+}
+
+if(image){
+  adsUpdate.image = image
+}
+
+if(code){
+  adsUpdate.code = code
+}
+if (location) {
+  adsUpdate.location = location
+}
 
   try {
     const updatedAds = await Ads.findOneAndUpdate(
-      slug,
-      { $set: req.body },
+      { slug: paramSlug },
+      { $set: adsUpdate },
       {
         new: true,
         upsert: true,

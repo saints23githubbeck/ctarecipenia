@@ -25,6 +25,10 @@ const blogSchema = new Schema(
       required: true,
       minLength: 40,
     },
+    numViews: {
+      type: Number,
+      default: 0,
+    },
     slug: {
       type: String,
       unique: true,
