@@ -142,8 +142,15 @@ exports.updateAdmin = asyncHandler(async (req, res) => {
     const updateInfo = {}
 
     if (username) {
+      // Check for duplicate
+      const duplicate = await User.findOne({ username }).lean().exec()
+
+      // Allow updates to the original user
+      if (duplicate && duplicate?._id.toString() !== user.id) {
+        return res.status(409).json({ message: "Duplicate username" })
+      }
       updateInfo.username = username
-      const slug = slugify(username).toLowerCase()
+      const slug = slugify(username).toLowerCase() 
       updateInfo.slug = slug
     }
 
