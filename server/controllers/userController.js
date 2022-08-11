@@ -14,10 +14,27 @@ exports.profileUpdate = asyncHandler(async (req, res) => {
 
   try {
     //console.log("profile update req.body", req.body)
-    const { password, secret, username, image, country, description, lastName, firstName, status } = req.body
+     const {
+       password,
+       secret,
+       username,
+       image,
+       country,
+       description,
+       lastName,
+       firstName,
+       status,
+     } = req.body
     const updateInfo = {}
 
     if (username) {
+      // Check for duplicate
+      const duplicate = await User.findOne({ username }).lean().exec()
+
+      // Allow updates to the original user
+      if (duplicate && duplicate?._id.toString() !== user.id) {
+        return res.status(409).json({ message: "Duplicate username" })
+      }
       updateInfo.username = username
       const slug = slugify(username).toLowerCase()
       updateInfo.slug = slug
